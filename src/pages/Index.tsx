@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FileUpload } from "@/components/FileUpload";
 import { ConversionCard } from "@/components/ConversionCard";
 import { convertFile } from "@/utils/pdfConverter";
-import { FileText } from "lucide-react";
+import logo from "@/assets/bh-konver-logo.png";
 
 const Index = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -23,9 +23,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <FileText className="w-10 h-10 text-primary" />
-            <h1 className="text-4xl font-bold text-foreground">BH Konver</h1>
+          <div className="flex items-center justify-center mb-4">
+            <img src={logo} alt="BH Konver Logo" className="max-w-md w-full h-auto" />
           </div>
           <p className="text-lg text-muted-foreground">
             Brza i sigurna konverzija dokumenata
