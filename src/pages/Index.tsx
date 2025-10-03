@@ -11,8 +11,31 @@ const Index = () => {
     setFiles((prev) => [...prev, ...selectedFiles]);
   };
 
-  const handleConvert = async (file: File, targetFormat: string) => {
-    return await convertFile(file, targetFormat);
+  const handleConvert = async (file: File, targetFormat: string, requiresBackend: boolean): Promise<Blob> => {
+    if (requiresBackend) {
+      // Backend conversion via Cloudmersive
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('targetFormat', targetFormat);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/convert-document`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || 'Backend konverzija nije uspjela');
+      }
+
+      return await response.blob();
+    } else {
+      // Local browser conversion (PDF/JPEG/PNG)
+      return await convertFile(file, targetFormat);
+    }
   };
 
   const handleRemove = (index: number) => {
@@ -30,14 +53,14 @@ const Index = () => {
             Brza i sigurna konverzija dokumenata
           </p>
           <p className="text-sm text-muted-foreground mt-2">
-            PDF ↔ JPEG/PNG | Lokalna obrada | Bez slanja na server
+            PDF ↔ JPEG/PNG | Word/PowerPoint/Excel → PDF/JPEG/PNG | Sigurna obrada
           </p>
         </div>
 
         <div className="mb-8">
           <FileUpload
             onFilesSelected={handleFilesSelected}
-            acceptedFormats={["pdf", "jpeg", "jpg", "png"]}
+            acceptedFormats={["pdf", "jpeg", "jpg", "png", "docx", "doc", "pptx", "xlsx", "xls"]}
           />
         </div>
 

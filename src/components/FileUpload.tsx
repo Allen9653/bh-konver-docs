@@ -7,8 +7,25 @@ interface FileUploadProps {
   acceptedFormats: string[];
 }
 
+const formatToMimeType: Record<string, string> = {
+  pdf: "application/pdf",
+  jpeg: "image/jpeg",
+  jpg: "image/jpeg",
+  png: "image/png",
+  doc: "application/msword",
+  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  xls: "application/vnd.ms-excel",
+};
+
 export const FileUpload = ({ onFilesSelected, acceptedFormats }: FileUploadProps) => {
   const { toast } = useToast();
+
+  const acceptedMimeTypes = acceptedFormats
+    .map((format) => formatToMimeType[format] || "")
+    .filter(Boolean)
+    .join(",");
 
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
@@ -52,7 +69,7 @@ export const FileUpload = ({ onFilesSelected, acceptedFormats }: FileUploadProps
       <input
         type="file"
         multiple
-        accept={acceptedFormats.map((f) => `.${f}`).join(",")}
+        accept={`${acceptedMimeTypes},${acceptedFormats.map((f) => `.${f}`).join(",")}`}
         onChange={handleFileInput}
         className="hidden"
         id="file-input"

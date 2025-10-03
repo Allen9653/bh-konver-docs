@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 
 interface ConversionCardProps {
   file: File;
-  onConvert: (file: File, targetFormat: string) => Promise<Blob>;
+  onConvert: (file: File, targetFormat: string, requiresBackend: boolean) => Promise<Blob>;
   onRemove: () => void;
 }
 
@@ -17,25 +17,42 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
   const { toast } = useToast();
 
   const fileExtension = file.name.split(".").pop()?.toLowerCase();
-  const isPDF = fileExtension === "pdf";
   
   // Određivanje dostupnih formata na osnovu ulaznog fajla
-  const availableFormats = isPDF ? ["jpeg", "png"] : ["pdf"];
-  const [targetFormat, setTargetFormat] = useState(availableFormats[0]);
+  const getAvailableFormats = (ext: string | undefined): string[] => {
+    switch (ext) {
+      case "pdf": return ["jpeg", "png"];
+      case "jpeg":
+      case "jpg":
+      case "png": return ["pdf"];
+      case "docx":
+      case "doc": return ["pdf", "jpeg", "png", "html"];
+      case "pptx": return ["pdf", "jpeg", "png"];
+      case "xlsx":
+      case "xls": return ["pdf", "csv"];
+      default: return [];
+    }
+  };
+  
+  const availableFormats = getAvailableFormats(fileExtension);
+  const [targetFormat, setTargetFormat] = useState(availableFormats[0] || "pdf");
+  
+  const requiresBackend = ["docx", "doc", "pptx", "xlsx", "xls"].includes(fileExtension || "");
 
   const handleConvert = async () => {
     setConverting(true);
     try {
-      const result = await onConvert(file, targetFormat);
+      const result = await onConvert(file, targetFormat, requiresBackend);
       setConverted(result);
       toast({
         title: "Konverzija uspješna!",
         description: `Fajl je konvertovan u ${targetFormat.toUpperCase()}`,
       });
     } catch (error) {
+      console.error("Conversion error:", error);
       toast({
         title: "Greška",
-        description: "Konverzija nije uspjela. Molimo pokušajte ponovo.",
+        description: error instanceof Error ? error.message : "Konverzija nije uspjela. Molimo pokušajte ponovo.",
         variant: "destructive",
       });
     } finally {
@@ -58,7 +75,9 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
   return (
     <Card className="p-4">
       <div className="flex items-center gap-3 mb-4">
-        {isPDF ? (
+        {["docx", "doc", "pptx", "xlsx", "xls"].includes(fileExtension || "") ? (
+          <FileText className="w-8 h-8 text-primary" />
+        ) : fileExtension === "pdf" ? (
           <FileText className="w-8 h-8 text-destructive" />
         ) : (
           <Image className="w-8 h-8 text-primary" />
