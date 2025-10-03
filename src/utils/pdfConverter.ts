@@ -4,7 +4,7 @@ import * as pdfjsLib from "pdfjs-dist";
 // Set up PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
-export const convertPDFToJPEG = async (file: File): Promise<Blob> => {
+export const convertPDFToImage = async (file: File, format: "jpeg" | "png"): Promise<Blob> => {
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
   
@@ -29,6 +29,9 @@ export const convertPDFToJPEG = async (file: File): Promise<Blob> => {
   
   await page.render(renderContext as any).promise;
   
+  const mimeType = format === "jpeg" ? "image/jpeg" : "image/png";
+  const quality = format === "jpeg" ? 0.95 : undefined;
+  
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob) {
@@ -36,15 +39,22 @@ export const convertPDFToJPEG = async (file: File): Promise<Blob> => {
       } else {
         reject(new Error("Failed to create blob"));
       }
-    }, "image/jpeg", 0.95);
+    }, mimeType, quality);
   });
 };
 
-export const convertJPEGToPDF = async (file: File): Promise<Blob> => {
+export const convertImageToPDF = async (file: File): Promise<Blob> => {
   const pdfDoc = await PDFDocument.create();
-  
   const arrayBuffer = await file.arrayBuffer();
-  const image = await pdfDoc.embedJpg(arrayBuffer);
+  
+  const fileExtension = file.name.split(".").pop()?.toLowerCase();
+  let image;
+  
+  if (fileExtension === "png") {
+    image = await pdfDoc.embedPng(arrayBuffer);
+  } else {
+    image = await pdfDoc.embedJpg(arrayBuffer);
+  }
   
   const page = pdfDoc.addPage([image.width, image.height]);
   page.drawImage(image, {
@@ -61,10 +71,10 @@ export const convertJPEGToPDF = async (file: File): Promise<Blob> => {
 export const convertFile = async (file: File, targetFormat: string): Promise<Blob> => {
   const fileExtension = file.name.split(".").pop()?.toLowerCase();
   
-  if (fileExtension === "pdf" && targetFormat === "jpeg") {
-    return convertPDFToJPEG(file);
-  } else if ((fileExtension === "jpeg" || fileExtension === "jpg") && targetFormat === "pdf") {
-    return convertJPEGToPDF(file);
+  if (fileExtension === "pdf" && (targetFormat === "jpeg" || targetFormat === "png")) {
+    return convertPDFToImage(file, targetFormat as "jpeg" | "png");
+  } else if ((fileExtension === "jpeg" || fileExtension === "jpg" || fileExtension === "png") && targetFormat === "pdf") {
+    return convertImageToPDF(file);
   }
   
   throw new Error("Unsupported conversion");

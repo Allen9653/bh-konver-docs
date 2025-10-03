@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileText, Image, Download, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -17,7 +18,10 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
 
   const fileExtension = file.name.split(".").pop()?.toLowerCase();
   const isPDF = fileExtension === "pdf";
-  const targetFormat = isPDF ? "jpeg" : "pdf";
+  
+  // Određivanje dostupnih formata na osnovu ulaznog fajla
+  const availableFormats = isPDF ? ["jpeg", "png"] : ["pdf"];
+  const [targetFormat, setTargetFormat] = useState(availableFormats[0]);
 
   const handleConvert = async () => {
     setConverting(true);
@@ -66,6 +70,24 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
           </p>
         </div>
       </div>
+
+      {!converted && availableFormats.length > 1 && (
+        <div className="mb-3">
+          <label className="text-sm font-medium mb-2 block">Izlazni format:</label>
+          <Select value={targetFormat} onValueChange={setTargetFormat}>
+            <SelectTrigger className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {availableFormats.map((format) => (
+                <SelectItem key={format} value={format}>
+                  {format.toUpperCase()}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      )}
 
       <div className="flex gap-2">
         {!converted ? (

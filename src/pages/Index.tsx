@@ -30,14 +30,14 @@ const Index = () => {
             Brza i sigurna konverzija dokumenata
           </p>
           <p className="text-sm text-muted-foreground mt-2">
-            PDF ↔ JPEG | Lokalna obrada | Bez slanja na server
+            PDF ↔ JPEG/PNG | Lokalna obrada | Bez slanja na server
           </p>
         </div>
 
         <div className="mb-8">
           <FileUpload
             onFilesSelected={handleFilesSelected}
-            acceptedFormats={["pdf", "jpeg", "jpg"]}
+            acceptedFormats={["pdf", "jpeg", "jpg", "png"]}
           />
         </div>
 
