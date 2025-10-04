@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { FileUpload } from "@/components/FileUpload";
 import { ConversionCard } from "@/components/ConversionCard";
+import { PaymentModal } from "@/components/PaymentModal";
 import { convertFile } from "@/utils/pdfConverter";
+import { Button } from "@/components/ui/button";
+import { CreditCard } from "lucide-react";
 import logo from "@/assets/bh-konver-logo.png";
 
 const Index = () => {
   const [files, setFiles] = useState<File[]>([]);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
 
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles((prev) => [...prev, ...selectedFiles]);
@@ -55,6 +59,16 @@ const Index = () => {
           <p className="text-sm text-muted-foreground mt-2">
             PDF ↔ JPEG/PNG | Word/PowerPoint/Excel → PDF/JPEG/PNG | Sigurna obrada
           </p>
+          <div className="mt-6">
+            <Button
+              onClick={() => setPaymentModalOpen(true)}
+              size="lg"
+              className="gap-2"
+            >
+              <CreditCard className="w-4 h-4" />
+              Plati 1.00 BAM - Neograničene konverzije
+            </Button>
+          </div>
         </div>
 
         <div className="mb-8">
@@ -79,6 +93,11 @@ const Index = () => {
             ))}
           </div>
         )}
+
+        <PaymentModal
+          open={paymentModalOpen}
+          onOpenChange={setPaymentModalOpen}
+        />
       </div>
     </div>
   );
