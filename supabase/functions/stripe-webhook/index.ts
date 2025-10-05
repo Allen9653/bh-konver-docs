@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
 
 const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
-  apiVersion: "2025-08-27.basil",
+  apiVersion: "2024-11-20.acacia",
 });
 
 const webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET");

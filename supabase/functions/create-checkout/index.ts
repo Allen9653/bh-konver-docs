@@ -21,7 +21,7 @@ serve(async (req) => {
     console.log("Creating checkout session for:", email);
 
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
-      apiVersion: "2025-08-27.basil",
+      apiVersion: "2024-11-20.acacia",
     });
 
     // Check if customer exists
