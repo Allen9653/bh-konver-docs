@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import Stripe from "https://esm.sh/stripe@18.5.0";
+import Stripe from "https://esm.sh/stripe@13.0.0?target=deno";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -21,6 +21,7 @@ serve(async (req) => {
     console.log("Creating checkout session for:", email);
 
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
+      // @ts-ignore
       apiVersion: "2024-11-20.acacia",
     });
 
@@ -64,8 +65,9 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error("Error creating checkout session:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: errorMessage }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,
