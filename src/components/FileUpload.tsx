@@ -17,6 +17,8 @@ const formatToMimeType: Record<string, string> = {
   pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
   xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   xls: "application/vnd.ms-excel",
+  txt: "text/plain",
+  html: "text/html",
 };
 
 export const FileUpload = ({ onFilesSelected, acceptedFormats }: FileUploadProps) => {

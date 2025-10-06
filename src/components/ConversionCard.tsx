@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileText, Image, Download, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { getAvailableFormats, requiresBackend, formatDisplayName, type OutputFormat } from "@/types/formats";
 
 interface ConversionCardProps {
   file: File;
@@ -18,35 +19,19 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
 
   const fileExtension = file.name.split(".").pop()?.toLowerCase();
   
-  // Određivanje dostupnih formata na osnovu ulaznog fajla
-  const getAvailableFormats = (ext: string | undefined): string[] => {
-    switch (ext) {
-      case "pdf": return ["jpeg", "png"];
-      case "jpeg":
-      case "jpg":
-      case "png": return ["pdf"];
-      case "docx":
-      case "doc": return ["pdf", "jpeg", "png", "html"];
-      case "pptx": return ["pdf", "jpeg", "png"];
-      case "xlsx":
-      case "xls": return ["pdf", "csv"];
-      default: return [];
-    }
-  };
-  
   const availableFormats = getAvailableFormats(fileExtension);
-  const [targetFormat, setTargetFormat] = useState(availableFormats[0] || "pdf");
+  const [targetFormat, setTargetFormat] = useState<OutputFormat>(availableFormats[0] || "pdf");
   
-  const requiresBackend = ["docx", "doc", "pptx", "xlsx", "xls"].includes(fileExtension || "");
+  const needsBackend = requiresBackend(fileExtension);
 
   const handleConvert = async () => {
     setConverting(true);
     try {
-      const result = await onConvert(file, targetFormat, requiresBackend);
+      const result = await onConvert(file, targetFormat, needsBackend);
       setConverted(result);
       toast({
         title: "Konverzija uspješna!",
-        description: `Fajl je konvertovan u ${targetFormat.toUpperCase()}`,
+        description: `Dokument je konvertovan u ${formatDisplayName[targetFormat]}`,
       });
     } catch (error) {
       console.error("Conversion error:", error);
@@ -90,17 +75,17 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
         </div>
       </div>
 
-      {!converted && availableFormats.length > 1 && (
+      {!converted && availableFormats.length > 0 && (
         <div className="mb-3">
-          <label className="text-sm font-medium mb-2 block">Izlazni format:</label>
-          <Select value={targetFormat} onValueChange={setTargetFormat}>
+          <label className="text-sm font-medium mb-2 block">Odaberite željeni izlazni format:</label>
+          <Select value={targetFormat} onValueChange={(value) => setTargetFormat(value as OutputFormat)}>
             <SelectTrigger className="w-full">
-              <SelectValue />
+              <SelectValue placeholder="Izaberite format..." />
             </SelectTrigger>
             <SelectContent>
               {availableFormats.map((format) => (
                 <SelectItem key={format} value={format}>
-                  {format.toUpperCase()}
+                  {formatDisplayName[format]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -122,7 +107,7 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
                   Konvertujem...
                 </>
               ) : (
-                `Konvertuj u ${targetFormat.toUpperCase()}`
+                `Konvertuj u ${formatDisplayName[targetFormat]}`
               )}
             </Button>
             <Button variant="outline" onClick={onRemove}>

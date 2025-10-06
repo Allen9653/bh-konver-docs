@@ -57,7 +57,7 @@ const Index = () => {
             Brza i sigurna konverzija dokumenata
           </p>
           <p className="text-sm text-muted-foreground mt-2">
-            PDF ↔ JPEG/PNG | Word/PowerPoint/Excel → PDF/JPEG/PNG | Sigurna obrada
+            Višesmjerna konverzija: PDF • Word • Excel • PowerPoint • Slike • TXT • HTML • EPUB
           </p>
           <div className="mt-6">
             <Button
@@ -74,7 +74,7 @@ const Index = () => {
         <div className="mb-8">
           <FileUpload
             onFilesSelected={handleFilesSelected}
-            acceptedFormats={["pdf", "jpeg", "jpg", "png", "docx", "doc", "pptx", "xlsx", "xls"]}
+            acceptedFormats={["pdf", "jpeg", "jpg", "png", "docx", "doc", "pptx", "xlsx", "xls", "txt", "html"]}
           />
         </div>
 

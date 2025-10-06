@@ -27,22 +27,41 @@ serve(async (req) => {
     const fileExtension = file.name.split('.').pop()?.toLowerCase();
     console.log(`Converting ${fileExtension} to ${targetFormat}`);
 
-    // Determine Cloudmersive API endpoint
-    let apiEndpoint = '';
-    
-    if (fileExtension === 'docx' || fileExtension === 'doc') {
-      if (targetFormat === 'pdf') apiEndpoint = 'https://api.cloudmersive.com/convert/docx/to/pdf';
-      else if (targetFormat === 'jpeg') apiEndpoint = 'https://api.cloudmersive.com/convert/docx/to/jpg';
-      else if (targetFormat === 'png') apiEndpoint = 'https://api.cloudmersive.com/convert/docx/to/png';
-      else if (targetFormat === 'html') apiEndpoint = 'https://api.cloudmersive.com/convert/docx/to/html';
-    } else if (fileExtension === 'pptx') {
-      if (targetFormat === 'pdf') apiEndpoint = 'https://api.cloudmersive.com/convert/pptx/to/pdf';
-      else if (targetFormat === 'jpeg') apiEndpoint = 'https://api.cloudmersive.com/convert/pptx/to/jpg';
-      else if (targetFormat === 'png') apiEndpoint = 'https://api.cloudmersive.com/convert/pptx/to/png';
-    } else if (fileExtension === 'xlsx' || fileExtension === 'xls') {
-      if (targetFormat === 'pdf') apiEndpoint = 'https://api.cloudmersive.com/convert/xlsx/to/pdf';
-      else if (targetFormat === 'csv') apiEndpoint = 'https://api.cloudmersive.com/convert/xlsx/to/csv';
-    }
+    // Cloudmersive API endpoint mapping - modularno proširivo
+    const conversionMap: Record<string, Record<string, string>> = {
+      docx: {
+        pdf: 'https://api.cloudmersive.com/convert/docx/to/pdf',
+        jpeg: 'https://api.cloudmersive.com/convert/docx/to/jpg',
+        png: 'https://api.cloudmersive.com/convert/docx/to/png',
+        html: 'https://api.cloudmersive.com/convert/docx/to/html',
+        txt: 'https://api.cloudmersive.com/convert/docx/to/txt',
+      },
+      doc: {
+        pdf: 'https://api.cloudmersive.com/convert/doc/to/pdf',
+        jpeg: 'https://api.cloudmersive.com/convert/doc/to/jpg',
+        png: 'https://api.cloudmersive.com/convert/doc/to/png',
+        html: 'https://api.cloudmersive.com/convert/doc/to/html',
+        txt: 'https://api.cloudmersive.com/convert/doc/to/txt',
+      },
+      pptx: {
+        pdf: 'https://api.cloudmersive.com/convert/pptx/to/pdf',
+        jpeg: 'https://api.cloudmersive.com/convert/pptx/to/jpg',
+        png: 'https://api.cloudmersive.com/convert/pptx/to/png',
+        html: 'https://api.cloudmersive.com/convert/pptx/to/html',
+      },
+      xlsx: {
+        pdf: 'https://api.cloudmersive.com/convert/xlsx/to/pdf',
+        csv: 'https://api.cloudmersive.com/convert/xlsx/to/csv',
+        html: 'https://api.cloudmersive.com/convert/xlsx/to/html',
+      },
+      xls: {
+        pdf: 'https://api.cloudmersive.com/convert/xls/to/pdf',
+        csv: 'https://api.cloudmersive.com/convert/xls/to/csv',
+        html: 'https://api.cloudmersive.com/convert/xls/to/html',
+      },
+    };
+
+    const apiEndpoint = conversionMap[fileExtension || '']?.[targetFormat];
 
     if (!apiEndpoint) {
       return new Response(
