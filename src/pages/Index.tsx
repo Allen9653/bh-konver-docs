@@ -5,6 +5,7 @@ import { PaymentModal } from "@/components/PaymentModal";
 import { ModuleSelector } from "@/components/ModuleSelector";
 import { UnitConverter } from "@/components/UnitConverter";
 import { PricingSection } from "@/components/PricingSection";
+import { Footer } from "@/components/Footer";
 import { convertFile } from "@/utils/pdfConverter";
 import logo from "@/assets/bh-konver-logo.png";
 import type { ConversionModule } from "@/types/formats";
@@ -120,6 +121,8 @@ const Index = () => {
 
         <PaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} />
       </div>
+      
+      <Footer />
     </div>
   );
 };
