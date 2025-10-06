@@ -1,73 +1,69 @@
-// Definicija svih podržanih formata i njihovih konverzija
+// BH Konver MVP - Modularni formati
+
+export type ConversionModule = "image" | "pdf" | "unit";
 
 export type InputFormat = 
   | "pdf" 
   | "docx" 
-  | "doc" 
-  | "pptx" 
-  | "xlsx" 
-  | "xls" 
   | "jpeg" 
   | "jpg" 
   | "png"
-  | "txt"
-  | "html";
+  | "webp"
+  | "heic";
 
 export type OutputFormat = 
   | "pdf"
   | "docx"
-  | "txt"
   | "jpeg"
   | "jpg"
   | "png"
-  | "html"
-  | "xlsx"
-  | "csv"
-  | "epub";
+  | "svg";
 
 export interface FormatConversion {
   from: InputFormat;
   to: OutputFormat[];
   requiresBackend: boolean;
+  module: ConversionModule;
 }
 
-// Kompletna mapa konverzija - lako proširiva
+// MVP - Tri osnovna modula
 export const FORMAT_CONVERSIONS: Record<InputFormat, OutputFormat[]> = {
-  // PDF konverzije
-  pdf: ["jpeg", "png", "txt", "docx", "html"],
+  // Image Converter Module
+  webp: ["png"],
+  heic: ["jpg"],
+  png: ["svg", "pdf"],
   
-  // Word dokumenti
-  docx: ["pdf", "txt", "html", "jpeg", "png", "epub"],
-  doc: ["pdf", "txt", "html", "jpeg", "png", "epub"],
+  // PDF Converter Module
+  pdf: ["docx", "jpg"],
+  jpeg: ["pdf"],
+  jpg: ["pdf"],
   
-  // PowerPoint
-  pptx: ["pdf", "jpeg", "png", "html"],
-  
-  // Excel
-  xlsx: ["pdf", "csv", "html"],
-  xls: ["pdf", "csv", "html"],
-  
-  // Slike
-  jpeg: ["pdf", "png"],
-  jpg: ["pdf", "png"],
-  png: ["pdf", "jpeg"],
-  
-  // Tekst formati
-  txt: ["pdf", "docx", "html"],
-  html: ["pdf", "docx", "txt"],
+  // Word (dodatno)
+  docx: ["pdf"],
 };
 
-// Koje konverzije zahtijevaju backend (Cloudmersive)
+// Koje konverzije zahtijevaju backend
 export const BACKEND_REQUIRED_INPUTS: InputFormat[] = [
-  "docx", "doc", "pptx", "xlsx", "xls"
+  "docx", "webp", "heic"
 ];
 
-// Formati koji se mogu procesirati lokalno u browser-u
+// Lokalne konverzije (browser-side)
 export const LOCAL_CONVERSIONS: Record<string, OutputFormat[]> = {
-  pdf: ["jpeg", "png"],
+  pdf: ["jpg"],
   jpeg: ["pdf"],
   jpg: ["pdf"],
   png: ["pdf"],
+};
+
+// Modul mapiranje
+export const FORMAT_TO_MODULE: Record<InputFormat, ConversionModule> = {
+  webp: "image",
+  heic: "image",
+  png: "image",
+  jpeg: "image",
+  jpg: "image",
+  pdf: "pdf",
+  docx: "pdf",
 };
 
 export const getAvailableFormats = (inputFormat: string | undefined): OutputFormat[] => {
@@ -83,12 +79,8 @@ export const requiresBackend = (inputFormat: string | undefined): boolean => {
 export const formatDisplayName: Record<OutputFormat, string> = {
   pdf: "PDF",
   docx: "Word (DOCX)",
-  txt: "Tekst (TXT)",
-  jpeg: "JPEG slika",
-  jpg: "JPG slika",
-  png: "PNG slika",
-  html: "HTML",
-  xlsx: "Excel (XLSX)",
-  csv: "CSV",
-  epub: "E-knjiga (EPUB)",
+  jpeg: "JPEG",
+  jpg: "JPG",
+  png: "PNG",
+  svg: "SVG",
 };

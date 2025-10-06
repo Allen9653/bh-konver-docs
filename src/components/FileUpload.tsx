@@ -12,13 +12,9 @@ const formatToMimeType: Record<string, string> = {
   jpeg: "image/jpeg",
   jpg: "image/jpeg",
   png: "image/png",
-  doc: "application/msword",
+  webp: "image/webp",
+  heic: "image/heic",
   docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  xls: "application/vnd.ms-excel",
-  txt: "text/plain",
-  html: "text/html",
 };
 
 export const FileUpload = ({ onFilesSelected, acceptedFormats }: FileUploadProps) => {
