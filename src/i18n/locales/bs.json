@@ -1,0 +1,90 @@
+{
+  "hero": {
+    "title": "BH Konver",
+    "subtitle": "Modularni sistem za konverziju dokumenata i jedinica",
+    "version": "MVP verzija • 3 osnovna modula • Brzo i pouzdano"
+  },
+  "modules": {
+    "image": {
+      "name": "Image Converter",
+      "description": "WEBP→PNG, HEIC→JPG, PNG→SVG"
+    },
+    "pdf": {
+      "name": "PDF Converter",
+      "description": "PDF→Word, PDF→JPG, JPG→PDF"
+    },
+    "unit": {
+      "name": "Unit Converter",
+      "description": "cm↔inch, kg↔lbs, °C↔°F"
+    }
+  },
+  "unitConverter": {
+    "title": "Konverter jedinica",
+    "selectConversion": "Izaberite vrstu konverzije",
+    "inputValue": "Unesite vrijednost",
+    "result": "Rezultat",
+    "conversions": {
+      "cm_to_inch": "Centimetri → Inči",
+      "inch_to_cm": "Inči → Centimetri",
+      "kg_to_lbs": "Kilogrami → Funte",
+      "lbs_to_kg": "Funte → Kilogrami",
+      "celsius_to_fahrenheit": "Celzijus → Farenhajt",
+      "fahrenheit_to_celsius": "Farenhajt → Celzijus"
+    }
+  },
+  "fileUpload": {
+    "dragDrop": "Povucite i ispustite fajlove ovdje ili",
+    "browse": "Pretražite",
+    "supportedFormats": "Podržani formati"
+  },
+  "conversion": {
+    "yourFiles": "Vaši fajlovi",
+    "selectFormat": "Izaberite format",
+    "convert": "Konvertuj",
+    "download": "Preuzmi",
+    "remove": "Ukloni",
+    "converting": "Konvertujem...",
+    "success": "Uspješno konvertovano!",
+    "error": "Greška pri konverziji"
+  },
+  "pricing": {
+    "title": "Tarife",
+    "subtitle": "Izaberite plan koji odgovara vašim potrebama",
+    "single": {
+      "title": "Pojedinačna konverzija",
+      "price": "1 BAM",
+      "description": "1 dokument, max 3 A4 stranice",
+      "button": "Plati"
+    },
+    "pack": {
+      "title": "Paket 10 konverzija",
+      "price": "10 BAM",
+      "description": "Neograničene konverzije",
+      "button": "Kupi paket"
+    },
+    "monthly": {
+      "title": "Mjesečna pretplata",
+      "price": "50 BAM",
+      "description": "30 dana neograničene konverzije",
+      "button": "Pretplati se"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 BH Konver | Razvijeno u Bosni i Hercegovini, Zenica 72 000",
+    "ownership": "Vlasništvo B&H Assistant",
+    "motto": "Spajamo Kulture Stvaramo Šanse",
+    "privacy": "Privatnost",
+    "terms": "Uslovi korištenja",
+    "support": "Podrška"
+  },
+  "languages": {
+    "bs": "Bosanski",
+    "en": "English",
+    "de": "Deutsch",
+    "tr": "Türkçe"
+  },
+  "scripts": {
+    "latin": "Latinica",
+    "cyrillic": "Ćirilica"
+  }
+}

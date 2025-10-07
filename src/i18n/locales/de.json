@@ -1,0 +1,90 @@
+{
+  "hero": {
+    "title": "BH Konver",
+    "subtitle": "Modulares System für Dokument- und Einheitenkonvertierung",
+    "version": "MVP-Version • 3 Kernmodule • Schnell und zuverlässig"
+  },
+  "modules": {
+    "image": {
+      "name": "Bildkonverter",
+      "description": "WEBP→PNG, HEIC→JPG, PNG→SVG"
+    },
+    "pdf": {
+      "name": "PDF-Konverter",
+      "description": "PDF→Word, PDF→JPG, JPG→PDF"
+    },
+    "unit": {
+      "name": "Einheitenkonverter",
+      "description": "cm↔Zoll, kg↔Pfund, °C↔°F"
+    }
+  },
+  "unitConverter": {
+    "title": "Einheitenkonverter",
+    "selectConversion": "Konvertierungstyp auswählen",
+    "inputValue": "Wert eingeben",
+    "result": "Ergebnis",
+    "conversions": {
+      "cm_to_inch": "Zentimeter → Zoll",
+      "inch_to_cm": "Zoll → Zentimeter",
+      "kg_to_lbs": "Kilogramm → Pfund",
+      "lbs_to_kg": "Pfund → Kilogramm",
+      "celsius_to_fahrenheit": "Celsius → Fahrenheit",
+      "fahrenheit_to_celsius": "Fahrenheit → Celsius"
+    }
+  },
+  "fileUpload": {
+    "dragDrop": "Dateien hierher ziehen und ablegen oder",
+    "browse": "Durchsuchen",
+    "supportedFormats": "Unterstützte Formate"
+  },
+  "conversion": {
+    "yourFiles": "Ihre Dateien",
+    "selectFormat": "Format auswählen",
+    "convert": "Konvertieren",
+    "download": "Herunterladen",
+    "remove": "Entfernen",
+    "converting": "Konvertierung läuft...",
+    "success": "Erfolgreich konvertiert!",
+    "error": "Konvertierungsfehler"
+  },
+  "pricing": {
+    "title": "Preise",
+    "subtitle": "Wählen Sie einen Plan, der Ihren Bedürfnissen entspricht",
+    "single": {
+      "title": "Einzelkonvertierung",
+      "price": "1 BAM",
+      "description": "1 Dokument, max. 3 A4-Seiten",
+      "button": "Bezahlen"
+    },
+    "pack": {
+      "title": "10er-Konvertierungspaket",
+      "price": "10 BAM",
+      "description": "Unbegrenzte Konvertierungen",
+      "button": "Paket kaufen"
+    },
+    "monthly": {
+      "title": "Monatsabonnement",
+      "price": "50 BAM",
+      "description": "30 Tage unbegrenzte Konvertierungen",
+      "button": "Abonnieren"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 BH Konver | Entwickelt in Bosnien und Herzegowina, Zenica 72 000",
+    "ownership": "Eigentum von B&H Assistant",
+    "motto": "Kulturen verbinden Chancen schaffen",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "support": "Support"
+  },
+  "languages": {
+    "bs": "Bosanski",
+    "en": "English",
+    "de": "Deutsch",
+    "tr": "Türkçe"
+  },
+  "scripts": {
+    "latin": "Lateinisch",
+    "cyrillic": "Kyrillisch"
+  }
+}

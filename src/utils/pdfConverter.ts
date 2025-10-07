@@ -65,7 +65,7 @@ export const convertImageToPDF = async (file: File): Promise<Blob> => {
   });
   
   const pdfBytes = await pdfDoc.save();
-  return new Blob([pdfBytes], { type: "application/pdf" });
+  return new Blob([new Uint8Array(pdfBytes)], { type: "application/pdf" });
 };
 
 export const convertFile = async (file: File, targetFormat: string): Promise<Blob> => {

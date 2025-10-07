@@ -1,0 +1,90 @@
+{
+  "hero": {
+    "title": "BH Konver",
+    "subtitle": "Modular system for document and unit conversion",
+    "version": "MVP version • 3 core modules • Fast and reliable"
+  },
+  "modules": {
+    "image": {
+      "name": "Image Converter",
+      "description": "WEBP→PNG, HEIC→JPG, PNG→SVG"
+    },
+    "pdf": {
+      "name": "PDF Converter",
+      "description": "PDF→Word, PDF→JPG, JPG→PDF"
+    },
+    "unit": {
+      "name": "Unit Converter",
+      "description": "cm↔inch, kg↔lbs, °C↔°F"
+    }
+  },
+  "unitConverter": {
+    "title": "Unit Converter",
+    "selectConversion": "Select conversion type",
+    "inputValue": "Enter value",
+    "result": "Result",
+    "conversions": {
+      "cm_to_inch": "Centimeters → Inches",
+      "inch_to_cm": "Inches → Centimeters",
+      "kg_to_lbs": "Kilograms → Pounds",
+      "lbs_to_kg": "Pounds → Kilograms",
+      "celsius_to_fahrenheit": "Celsius → Fahrenheit",
+      "fahrenheit_to_celsius": "Fahrenheit → Celsius"
+    }
+  },
+  "fileUpload": {
+    "dragDrop": "Drag and drop files here or",
+    "browse": "Browse",
+    "supportedFormats": "Supported formats"
+  },
+  "conversion": {
+    "yourFiles": "Your files",
+    "selectFormat": "Select format",
+    "convert": "Convert",
+    "download": "Download",
+    "remove": "Remove",
+    "converting": "Converting...",
+    "success": "Successfully converted!",
+    "error": "Conversion error"
+  },
+  "pricing": {
+    "title": "Pricing",
+    "subtitle": "Choose a plan that fits your needs",
+    "single": {
+      "title": "Single Conversion",
+      "price": "1 BAM",
+      "description": "1 document, max 3 A4 pages",
+      "button": "Pay"
+    },
+    "pack": {
+      "title": "10 Conversions Pack",
+      "price": "10 BAM",
+      "description": "Unlimited conversions",
+      "button": "Buy Pack"
+    },
+    "monthly": {
+      "title": "Monthly Subscription",
+      "price": "50 BAM",
+      "description": "30 days unlimited conversions",
+      "button": "Subscribe"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 BH Konver | Developed in Bosnia and Herzegovina, Zenica 72 000",
+    "ownership": "Property of B&H Assistant",
+    "motto": "Connecting Cultures Creating Opportunities",
+    "privacy": "Privacy",
+    "terms": "Terms of Use",
+    "support": "Support"
+  },
+  "languages": {
+    "bs": "Bosanski",
+    "en": "English",
+    "de": "Deutsch",
+    "tr": "Türkçe"
+  },
+  "scripts": {
+    "latin": "Latin",
+    "cyrillic": "Cyrillic"
+  }
+}
