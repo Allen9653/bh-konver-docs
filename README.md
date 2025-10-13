@@ -96,3 +96,25 @@ Aplikacija za konverziju valuta sa fokusom na Bosnu i Hercegovinu, podržava vi�
 ```bash
 npm install
 npm run dev
+## 🏬 Microsoft Store priprema
+
+BH Konver je spreman za distribuciju putem Microsoft Store-a kao PWA aplikacija.
+
+- **Paket**: MSIX (generiran iz PWA builda)
+- **IARC ocjena**: Sve dobne skupine
+- **Primarni jezik**: Bosanski
+- **Podržani jezici**: Bosanski, Engleski, Njemački
+- **Ikone**: 512x512 PNG, 50x50 SVG
+- **Kratki opis**: Brza konverzija valuta za BiH
+- **Dugi opis**: BH Konver je lokalizirana aplikacija za konverziju valuta, optimizirana za korisnike u Bosni i Hercegovini. Podržava više izvora tečaja, offline rad i višejezični interfejs.
+
+## 📄 Licenca
+
+MIT (ili prilagođena BH Assistant licenca)
+
+## 📞 Kontakt+38762371962
+
+- Autor: Alen Jusufović
+- Platforma: BH Assistant
+- Email: [info@bh-assistant.ba]
+- Web: [www.bh-assistant.ba]
