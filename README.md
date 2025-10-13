@@ -71,3 +71,28 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+# BH Konver
+
+Aplikacija za konverziju valuta sa fokusom na Bosnu i Hercegovinu, podržava više izvora tečaja i lokalizaciju.
+
+## 🧪 Tehnički stog
+- Vite
+- React
+- ShadCN UI
+- TypeScript
+- Verzija: 20250728_minor
+
+## 🚀 Funkcionalnosti
+- Brza konverzija između BAM, EUR, USD, HRK i drugih valuta
+- Automatsko ažuriranje tečaja putem API-ja
+- Lokalizacija za bosanski, engleski i njemački jezik
+- Offline fallback za zadnje poznate vrijednosti
+
+## 🖥️ Platforma
+- Web aplikacija (PWA kompatibilna)
+- Testirano na Windows 10/11 (Edge, Chrome)
+
+## 📦 Instalacija
+```bash
+npm install
+npm run dev
