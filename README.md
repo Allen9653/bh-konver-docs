@@ -73,7 +73,11 @@ To connect a domain, navigate to Project > Settings > Domains and click Connect 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
 # BH Konver
 
-Aplikacija za konverziju valuta sa fokusom na Bosnu i Hercegovinu, podržava više izvora tečaja i lokalizaciju.
+# 🌀 BH KONVER – Konvertuj. Preuzmi. Pokreni.
+
+**BH KONVER** je web aplikacija za **konverziju dokumenata, medijskih fajlova i formata**, razvijena od strane _B&H Assistant d.o.o._ iz Zenice. Aplikacija omogućava korisnicima da brzo i sigurno konvertuju datoteke bez potrebe za dodatnim softverom.
+
+---
 
 ## 🧪 Tehnički stog
 - Vite
@@ -82,37 +86,101 @@ Aplikacija za konverziju valuta sa fokusom na Bosnu i Hercegovinu, podržava vi�
 - TypeScript
 - Verzija: 20250728_minor
 
+---
+
 ## 🚀 Funkcionalnosti
-- Brza konverzija između BAM, EUR, USD, HRK i drugih valuta
-- Automatsko ažuriranje tečaja putem API-ja
-- Lokalizacija za bosanski, engleski i njemački jezik
-- Offline fallback za zadnje poznate vrijednosti
+
+### 📄 Dokumenti & PDF
+- PDF to Word / JPG / EPUB  
+- DOCX to PDF  
+- JPG to PDF  
+- EPUB to PDF  
+- HEIC to PDF  
+- Ebook Converter  
+- Document Converter
+
+### 🎧 Audio
+- MP3 Converter  
+- MP3 to OGG  
+- Audio Converter  
+- MP4 to MP3  
+- Video to MP3
+
+### 📽️ Video
+- MP4 Converter  
+- MOV to MP4  
+- AVI to GIF  
+- MP4 to GIF  
+- Video to GIF  
+- GIF to MP4
+
+### 🖼️ Slike
+- WEBP to PNG / JPG  
+- JFIF to PNG  
+- PNG to SVG  
+- HEIC to JPG / PNG  
+- SVG Converter  
+- Image to GIF
+
+### 🧮 Ostalo
+- Unit Converter  
+- Time Converter
+
+---
+
+## 💰 Monetizacija
+
+BH KONVER je komercijalna aplikacija sa sljedećim cjenovnikom:
+
+- **2.00 BAM** po fajlu (max A4 format)  
+- **10.00 BAM** za 24h neograničene konverzije  
+- **50.00 BAM** za 30 dana neograničene konverzije
+
+Uplate se vrše putem **PayPal-a** na adresu: `alenjusufovic@yahoo.com`  
+Bankovni transferi se primaju na devizni račun u Raiffeisen banci.
+
+---
 
 ## 🖥️ Platforma
-- Web aplikacija (PWA kompatibilna)
-- Testirano na Windows 10/11 (Edge, Chrome)
+
+- Web aplikacija (PWA kompatibilna)  
+- Testirano na Windows 10/11 (Edge, Chrome)  
+- Spremno za objavu na bh-assistant.ba
+
+---
+
+## 🌐 Lokalizacija
+
+- Bosanski / Hrvatski / Srpski (latinica i ćirilica)  
+- Engleski  
+- Njemački  
+- Turski
+
+---
 
 ## 📦 Instalacija
+
 ```bash
 npm install
 npm run dev
-## 🏬 Microsoft Store priprema
+---
 
-BH Konver je spreman za distribuciju putem Microsoft Store-a kao PWA aplikacija.
+## 🏢 Pripada
 
-- **Paket**: MSIX (generiran iz PWA builda)
-- **IARC ocjena**: Sve dobne skupine
-- **Primarni jezik**: Bosanski
-- **Podržani jezici**: Bosanski, Engleski, Njemački
-- **Ikone**: 512x512 PNG, 50x50 SVG
-- **Kratki opis**: Brza konverzija valuta za BiH
-- **Dugi opis**: BH Konver je lokalizirana aplikacija za konverziju valuta, optimizirana za korisnike u Bosni i Hercegovini. Podržava više izvora tečaja, offline rad i višejezični interfejs.
+**B&H Assistant d.o.o.**  
+Zenica 72000, Bosna i Hercegovina  
+**JIB:** 4219296620005  
+**MBS:** 43-01-0177-25  
+**Pravna forma:** Društvo sa ograničenom odgovornošću registrovano u Gradu Zenici, ZDK BiH  
+**Slogan:** Spajamo Kulture – Stvaramo Šanse  
+**Vlasnici projekata:**  
+- SCENA+ magazin  
+- GUMMI – Učenje je Zabava  
+- ZENTAXI – Mir u Pokretu  
+- BH KONVER – Konverzija dokumenata i medija
 
-## 📄 Licenca
+---
 
-MIT (ili prilagođena BH Assistant licenca)
-
-## 📞 Kontakt+38762371962
 
 - Autor: Alen Jusufović
 - Platforma: BH Assistant
