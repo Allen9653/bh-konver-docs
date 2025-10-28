@@ -4,19 +4,17 @@ import {
   PayPalScriptProvider,
   PayPalButtons,
 } from "@paypal/react-paypal-js";
-import useAuth from "../hooks/useAuth"; // ⬅️ Dodaj hook
 
 const Pay = () => {
   const [clientId, setClientId] = useState("");
-  const { isAdmin } = useAuth(); // ⬅️ Provjera da li je Allen logovan
 
   useEffect(() => {
+    // Dohvati PayPal Client ID sa backend-a
     axios.get("/payment/config").then((res) => {
       setClientId(res.data.clientId);
     });
   }, []);
 
-  if (isAdmin) return null; // ⛔ Sakrij PayPal ako je Allen logovan
   if (!clientId) return <p>Učitavanje PayPal konfiguracije...</p>;
 
   return (
@@ -39,6 +37,7 @@ const Pay = () => {
           }}
           onApprove={(data, actions) => {
             return actions.order.capture().then((details) => {
+              // Pošalji potvrdu na backend
               axios.post("/webhook/paypal", {
                 orderID: data.orderID,
                 payerID: data.payerID,
