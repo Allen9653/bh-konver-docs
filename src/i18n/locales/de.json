@@ -1,17 +1,29 @@
 {
   "hero": {
     "title": "BH Konver",
-    "subtitle": "Modulares System für Dokument- und Einheitenkonvertierung",
-    "version": "MVP-Version • 3 Kernmodule • Schnell und zuverlässig"
+    "subtitle": "Umfassendes Dateikonvertierungssystem",
+    "version": "Video • Audio • Bilder • Dokumente • GIF • Einheiten"
   },
   "modules": {
+    "video": {
+      "name": "Videokonverter",
+      "description": "MP4→MP3, MOV→MP4, Video→GIF"
+    },
+    "audio": {
+      "name": "Audiokonverter",
+      "description": "MP3→OGG, MP4→MP3, Audioformate"
+    },
     "image": {
       "name": "Bildkonverter",
       "description": "WEBP→PNG, HEIC→JPG, PNG→SVG"
     },
-    "pdf": {
-      "name": "PDF-Konverter",
-      "description": "PDF→Word, PDF→JPG, JPG→PDF"
+    "document": {
+      "name": "PDF & Dokumente",
+      "description": "PDF→Word, PDF→JPG, DOCX→PDF"
+    },
+    "gif": {
+      "name": "GIF-Konverter",
+      "description": "Video→GIF, GIF→MP4, GIF→APNG"
     },
     "unit": {
       "name": "Einheitenkonverter",

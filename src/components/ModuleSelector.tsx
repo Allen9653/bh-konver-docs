@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Image, FileText, Calculator } from "lucide-react";
+import { Image, FileText, Calculator, Video, Music, Clapperboard } from "lucide-react";
 import type { ConversionModule } from "@/types/formats";
 
 interface ModuleSelectorProps {
@@ -9,16 +9,34 @@ interface ModuleSelectorProps {
 
 const MODULES = [
   {
+    id: "video" as ConversionModule,
+    name: "Video Converter",
+    description: "MP4→MP3, MOV→MP4, Video→GIF",
+    icon: Video,
+  },
+  {
+    id: "audio" as ConversionModule,
+    name: "Audio Converter",
+    description: "MP3→OGG, MP4→MP3, Audio formati",
+    icon: Music,
+  },
+  {
     id: "image" as ConversionModule,
     name: "Image Converter",
     description: "WEBP→PNG, HEIC→JPG, PNG→SVG",
     icon: Image,
   },
   {
-    id: "pdf" as ConversionModule,
-    name: "PDF Converter",
-    description: "PDF→Word, PDF→JPG, JPG→PDF",
+    id: "document" as ConversionModule,
+    name: "PDF & Documents",
+    description: "PDF→Word, PDF→JPG, DOCX→PDF",
     icon: FileText,
+  },
+  {
+    id: "gif" as ConversionModule,
+    name: "GIF Converter",
+    description: "Video→GIF, GIF→MP4, GIF→APNG",
+    icon: Clapperboard,
   },
   {
     id: "unit" as ConversionModule,
@@ -30,7 +48,7 @@ const MODULES = [
 
 export const ModuleSelector = ({ selectedModule, onSelectModule }: ModuleSelectorProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
       {MODULES.map((module) => {
         const Icon = module.icon;
         const isSelected = selectedModule === module.id;

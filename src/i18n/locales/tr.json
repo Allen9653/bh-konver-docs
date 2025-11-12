@@ -1,17 +1,29 @@
 {
   "hero": {
     "title": "BH Konver",
-    "subtitle": "Belge ve birim dönüşümü için modüler sistem",
-    "version": "MVP sürümü • 3 temel modül • Hızlı ve güvenilir"
+    "subtitle": "Kapsamlı dosya dönüştürme sistemi",
+    "version": "Video • Ses • Görüntüler • Belgeler • GIF • Birimler"
   },
   "modules": {
+    "video": {
+      "name": "Video Dönüştürücü",
+      "description": "MP4→MP3, MOV→MP4, Video→GIF"
+    },
+    "audio": {
+      "name": "Ses Dönüştürücü",
+      "description": "MP3→OGG, MP4→MP3, Ses formatları"
+    },
     "image": {
       "name": "Görüntü Dönüştürücü",
       "description": "WEBP→PNG, HEIC→JPG, PNG→SVG"
     },
-    "pdf": {
-      "name": "PDF Dönüştürücü",
-      "description": "PDF→Word, PDF→JPG, JPG→PDF"
+    "document": {
+      "name": "PDF ve Belgeler",
+      "description": "PDF→Word, PDF→JPG, DOCX→PDF"
+    },
+    "gif": {
+      "name": "GIF Dönüştürücü",
+      "description": "Video→GIF, GIF→MP4, GIF→APNG"
     },
     "unit": {
       "name": "Birim Dönüştürücü",

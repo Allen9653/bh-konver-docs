@@ -52,10 +52,16 @@ const Index = () => {
 
   const getAcceptedFormats = () => {
     switch (selectedModule) {
+      case "video":
+        return ["mp4", "mov", "avi", "webm", "mkv", "flv"];
+      case "audio":
+        return ["mp3", "ogg", "wav", "m4a", "aac", "flac"];
       case "image":
-        return ["webp", "heic", "png", "jpg", "jpeg"];
-      case "pdf":
-        return ["pdf", "jpg", "jpeg", "docx"];
+        return ["webp", "heic", "png", "jpg", "jpeg", "jfif", "svg"];
+      case "document":
+        return ["pdf", "docx", "doc", "epub", "txt"];
+      case "gif":
+        return ["gif", "apng", "mp4", "mov", "webm"];
       default:
         return [];
     }
@@ -70,10 +76,10 @@ const Index = () => {
             <img src={logo} alt="BH Konver Logo" className="max-w-md w-full h-auto" />
           </div>
           <p className="text-lg text-muted-foreground mb-2">
-            Modularni sistem za konverziju dokumenata i jedinica
+            Sveobuhvatni sistem za konverziju fajlova
           </p>
           <p className="text-sm text-muted-foreground">
-            MVP verzija • 3 osnovna modula • Brzo i pouzdano
+            Video • Audio • Slike • Dokumenti • GIF • Jedinice
           </p>
         </div>
 

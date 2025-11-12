@@ -1,17 +1,29 @@
 {
   "hero": {
     "title": "BH Konver",
-    "subtitle": "Modularni sistem za konverziju dokumenata i jedinica",
-    "version": "MVP verzija • 3 osnovna modula • Brzo i pouzdano"
+    "subtitle": "Sveobuhvatni sistem za konverziju fajlova",
+    "version": "Video • Audio • Slike • Dokumenti • GIF • Jedinice"
   },
   "modules": {
+    "video": {
+      "name": "Video Converter",
+      "description": "MP4→MP3, MOV→MP4, Video→GIF"
+    },
+    "audio": {
+      "name": "Audio Converter",
+      "description": "MP3→OGG, MP4→MP3, Audio formati"
+    },
     "image": {
       "name": "Image Converter",
       "description": "WEBP→PNG, HEIC→JPG, PNG→SVG"
     },
-    "pdf": {
-      "name": "PDF Converter",
-      "description": "PDF→Word, PDF→JPG, JPG→PDF"
+    "document": {
+      "name": "PDF & Dokumenti",
+      "description": "PDF→Word, PDF→JPG, DOCX→PDF"
+    },
+    "gif": {
+      "name": "GIF Converter",
+      "description": "Video→GIF, GIF→MP4, GIF→APNG"
     },
     "unit": {
       "name": "Unit Converter",

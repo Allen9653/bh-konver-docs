@@ -27,37 +27,115 @@ serve(async (req) => {
     const fileExtension = file.name.split('.').pop()?.toLowerCase();
     console.log(`Converting ${fileExtension} to ${targetFormat}`);
 
-    // Cloudmersive API endpoint mapping - modularno proširivo
+    // BH Konver - Kompletan mapping svih konverzija
     const conversionMap: Record<string, Record<string, string>> = {
+      // Video & Audio
+      mp4: {
+        mp3: 'https://api.cloudmersive.com/video/convert/to/mp3',
+        gif: 'https://api.cloudmersive.com/video/convert/to/gif',
+        webm: 'https://api.cloudmersive.com/video/convert/to/webm',
+      },
+      mov: {
+        mp4: 'https://api.cloudmersive.com/video/convert/to/mp4',
+        mp3: 'https://api.cloudmersive.com/video/convert/to/mp3',
+        gif: 'https://api.cloudmersive.com/video/convert/to/gif',
+      },
+      avi: {
+        mp4: 'https://api.cloudmersive.com/video/convert/to/mp4',
+        mp3: 'https://api.cloudmersive.com/video/convert/to/mp3',
+        gif: 'https://api.cloudmersive.com/video/convert/to/gif',
+      },
+      webm: {
+        mp4: 'https://api.cloudmersive.com/video/convert/to/mp4',
+        mp3: 'https://api.cloudmersive.com/video/convert/to/mp3',
+        gif: 'https://api.cloudmersive.com/video/convert/to/gif',
+      },
+      // Audio
+      mp3: {
+        ogg: 'https://api.cloudmersive.com/audio/convert/to/ogg',
+        wav: 'https://api.cloudmersive.com/audio/convert/to/wav',
+      },
+      ogg: {
+        mp3: 'https://api.cloudmersive.com/audio/convert/to/mp3',
+        wav: 'https://api.cloudmersive.com/audio/convert/to/wav',
+      },
+      wav: {
+        mp3: 'https://api.cloudmersive.com/audio/convert/to/mp3',
+        ogg: 'https://api.cloudmersive.com/audio/convert/to/ogg',
+      },
+      m4a: {
+        mp3: 'https://api.cloudmersive.com/audio/convert/to/mp3',
+      },
+      // Images
+      webp: {
+        png: 'https://api.cloudmersive.com/convert/image/to/png',
+        jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
+      },
+      jfif: {
+        png: 'https://api.cloudmersive.com/convert/image/to/png',
+        jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
+      },
+      heic: {
+        jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
+        png: 'https://api.cloudmersive.com/convert/image/to/png',
+        pdf: 'https://api.cloudmersive.com/convert/image/to/pdf',
+      },
+      png: {
+        jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
+        svg: 'https://api.cloudmersive.com/convert/image/to/svg',
+        pdf: 'https://api.cloudmersive.com/convert/image/to/pdf',
+        webp: 'https://api.cloudmersive.com/convert/image/to/webp',
+      },
+      jpg: {
+        png: 'https://api.cloudmersive.com/convert/image/to/png',
+        pdf: 'https://api.cloudmersive.com/convert/image/to/pdf',
+        webp: 'https://api.cloudmersive.com/convert/image/to/webp',
+      },
+      jpeg: {
+        png: 'https://api.cloudmersive.com/convert/image/to/png',
+        pdf: 'https://api.cloudmersive.com/convert/image/to/pdf',
+        webp: 'https://api.cloudmersive.com/convert/image/to/webp',
+      },
+      svg: {
+        png: 'https://api.cloudmersive.com/convert/image/to/png',
+        jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
+      },
+      // PDF & Documents
+      pdf: {
+        docx: 'https://api.cloudmersive.com/convert/pdf/to/docx',
+        jpg: 'https://api.cloudmersive.com/convert/pdf/to/jpg',
+        png: 'https://api.cloudmersive.com/convert/pdf/to/png',
+        epub: 'https://api.cloudmersive.com/convert/pdf/to/epub',
+        txt: 'https://api.cloudmersive.com/convert/pdf/to/txt',
+      },
       docx: {
         pdf: 'https://api.cloudmersive.com/convert/docx/to/pdf',
-        jpeg: 'https://api.cloudmersive.com/convert/docx/to/jpg',
+        jpg: 'https://api.cloudmersive.com/convert/docx/to/jpg',
         png: 'https://api.cloudmersive.com/convert/docx/to/png',
-        html: 'https://api.cloudmersive.com/convert/docx/to/html',
         txt: 'https://api.cloudmersive.com/convert/docx/to/txt',
       },
       doc: {
         pdf: 'https://api.cloudmersive.com/convert/doc/to/pdf',
-        jpeg: 'https://api.cloudmersive.com/convert/doc/to/jpg',
-        png: 'https://api.cloudmersive.com/convert/doc/to/png',
-        html: 'https://api.cloudmersive.com/convert/doc/to/html',
+        docx: 'https://api.cloudmersive.com/convert/doc/to/docx',
+        jpg: 'https://api.cloudmersive.com/convert/doc/to/jpg',
         txt: 'https://api.cloudmersive.com/convert/doc/to/txt',
       },
-      pptx: {
-        pdf: 'https://api.cloudmersive.com/convert/pptx/to/pdf',
-        jpeg: 'https://api.cloudmersive.com/convert/pptx/to/jpg',
-        png: 'https://api.cloudmersive.com/convert/pptx/to/png',
-        html: 'https://api.cloudmersive.com/convert/pptx/to/html',
+      epub: {
+        pdf: 'https://api.cloudmersive.com/convert/epub/to/pdf',
+        txt: 'https://api.cloudmersive.com/convert/epub/to/txt',
       },
-      xlsx: {
-        pdf: 'https://api.cloudmersive.com/convert/xlsx/to/pdf',
-        csv: 'https://api.cloudmersive.com/convert/xlsx/to/csv',
-        html: 'https://api.cloudmersive.com/convert/xlsx/to/html',
+      txt: {
+        pdf: 'https://api.cloudmersive.com/convert/txt/to/pdf',
       },
-      xls: {
-        pdf: 'https://api.cloudmersive.com/convert/xls/to/pdf',
-        csv: 'https://api.cloudmersive.com/convert/xls/to/csv',
-        html: 'https://api.cloudmersive.com/convert/xls/to/html',
+      // GIF
+      gif: {
+        mp4: 'https://api.cloudmersive.com/video/convert/to/mp4',
+        webm: 'https://api.cloudmersive.com/video/convert/to/webm',
+        apng: 'https://api.cloudmersive.com/video/convert/to/apng',
+      },
+      apng: {
+        gif: 'https://api.cloudmersive.com/video/convert/to/gif',
+        mp4: 'https://api.cloudmersive.com/video/convert/to/mp4',
       },
     };
 
