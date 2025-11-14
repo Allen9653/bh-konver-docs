@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Image, FileText, Calculator, Video, Music, Clapperboard } from "lucide-react";
+import { Image, FileText, Calculator, Video, Music, Clapperboard, Settings } from "lucide-react";
 import type { ConversionModule } from "@/types/formats";
 
 interface ModuleSelectorProps {
@@ -29,7 +29,7 @@ const MODULES = [
   {
     id: "document" as ConversionModule,
     name: "PDF & Documents",
-    description: "PDF→Word, PDF→JPG, DOCX→PDF",
+    description: "PDF→Word, DOCX→PDF, Excel→PDF, PPT→PDF",
     icon: FileText,
   },
   {
@@ -37,6 +37,12 @@ const MODULES = [
     name: "GIF Converter",
     description: "Video→GIF, GIF→MP4, GIF→APNG",
     icon: Clapperboard,
+  },
+  {
+    id: "pdf-tools" as ConversionModule,
+    name: "PDF Tools",
+    description: "Watermark, Rotate, Compress, Split, Merge",
+    icon: Settings,
   },
   {
     id: "unit" as ConversionModule,

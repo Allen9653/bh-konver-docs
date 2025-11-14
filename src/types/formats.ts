@@ -1,6 +1,6 @@
 // BH Konver - Kompletan sistem konverzije
 
-export type ConversionModule = "video" | "audio" | "image" | "document" | "gif" | "unit";
+export type ConversionModule = "video" | "audio" | "image" | "document" | "gif" | "unit" | "pdf-tools";
 
 export type InputFormat = 
   // Video formats
@@ -10,7 +10,7 @@ export type InputFormat =
   // Image formats
   | "webp" | "png" | "jpg" | "jpeg" | "heic" | "jfif" | "svg"
   // Document formats
-  | "pdf" | "docx" | "doc" | "epub" | "txt"
+  | "pdf" | "docx" | "doc" | "epub" | "txt" | "pptx" | "ppt" | "xlsx" | "xls"
   // GIF formats
   | "gif" | "apng";
 
@@ -66,6 +66,10 @@ export const FORMAT_CONVERSIONS: Record<InputFormat, OutputFormat[]> = {
   doc: ["pdf", "docx"],
   epub: ["pdf", "txt"],
   txt: ["pdf", "docx"],
+  pptx: ["pdf"],
+  ppt: ["pdf"],
+  xlsx: ["pdf"],
+  xls: ["pdf"],
   
   // GIF
   gif: ["mp4", "apng", "webm"],
@@ -77,7 +81,7 @@ export const BACKEND_REQUIRED_INPUTS: InputFormat[] = [
   "mp4", "mov", "avi", "webm", "mkv", "flv",
   "mp3", "ogg", "wav", "m4a", "aac", "flac",
   "webp", "jfif", "png", "jpg", "jpeg", "heic", "svg",
-  "pdf", "docx", "doc", "epub", "txt",
+  "pdf", "docx", "doc", "epub", "txt", "pptx", "ppt", "xlsx", "xls",
   "gif", "apng"
 ];
 
@@ -111,6 +115,10 @@ export const FORMAT_TO_MODULE: Record<InputFormat, ConversionModule> = {
   doc: "document",
   epub: "document",
   txt: "document",
+  pptx: "document",
+  ppt: "document",
+  xlsx: "document",
+  xls: "document",
   // GIF
   gif: "gif",
   apng: "gif",

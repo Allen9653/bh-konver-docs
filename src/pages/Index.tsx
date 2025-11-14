@@ -6,14 +6,18 @@ import { ModuleSelector } from "@/components/ModuleSelector";
 import { UnitConverter } from "@/components/UnitConverter";
 import { PricingSection } from "@/components/PricingSection";
 import { Footer } from "@/components/Footer";
+import { PDFToolsSelector } from "@/components/PDFToolsSelector";
+import { PDFToolsInterface } from "@/components/PDFToolsInterface";
 import { convertFile } from "@/utils/pdfConverter";
 import logo from "@/assets/bh-konver-logo.png";
 import type { ConversionModule } from "@/types/formats";
+import type { PDFOperation } from "@/types/pdfOperations";
 
 const Index = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [selectedModule, setSelectedModule] = useState<ConversionModule>("image");
+  const [selectedPDFTool, setSelectedPDFTool] = useState<PDFOperation | null>(null);
 
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles((prev) => [...prev, ...selectedFiles]);
@@ -59,7 +63,7 @@ const Index = () => {
       case "image":
         return ["webp", "heic", "png", "jpg", "jpeg", "jfif", "svg"];
       case "document":
-        return ["pdf", "docx", "doc", "epub", "txt"];
+        return ["pdf", "docx", "doc", "epub", "txt", "pptx", "ppt", "xlsx", "xls"];
       case "gif":
         return ["gif", "apng", "mp4", "mov", "webm"];
       default:
@@ -86,16 +90,28 @@ const Index = () => {
         {/* Module Selector */}
         <ModuleSelector selectedModule={selectedModule} onSelectModule={setSelectedModule} />
 
-        {/* Unit Converter Module */}
-        {selectedModule === "unit" && (
+        {/* PDF Tools Module */}
+        {selectedPDFTool ? (
+          <div className="mb-8">
+            <PDFToolsInterface
+              operation={selectedPDFTool}
+              onBack={() => setSelectedPDFTool(null)}
+            />
+          </div>
+        ) : selectedModule === "pdf-tools" ? (
+          <div className="mb-8">
+            <h2 className="text-2xl font-semibold text-foreground mb-6">PDF Alati</h2>
+            <PDFToolsSelector onSelectTool={(tool) => setSelectedPDFTool(tool)} />
+          </div>
+        ) : selectedModule === "unit" ? (
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">Konverter jedinica</h2>
             <UnitConverter />
           </div>
-        )}
+        ) : null}
 
         {/* File Upload for Image and PDF Modules */}
-        {selectedModule !== "unit" && (
+        {selectedModule !== "unit" && selectedModule !== "pdf-tools" && (
           <>
             <div className="mb-8">
               <FileUpload
