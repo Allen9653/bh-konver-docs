@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FileText, Image, Download, Loader2 } from "lucide-react";
+import { FileText, Image, Download, Loader2, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { getAvailableFormats, requiresBackend, formatDisplayName, type OutputFormat } from "@/types/formats";
+import { DocumentPreview } from "@/components/DocumentPreview";
 
 interface ConversionCardProps {
   file: File;
@@ -15,6 +16,7 @@ interface ConversionCardProps {
 export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProps) => {
   const [converting, setConverting] = useState(false);
   const [converted, setConverted] = useState<Blob | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const { toast } = useToast();
 
   const fileExtension = file.name.split(".").pop()?.toLowerCase();
@@ -97,6 +99,14 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
         {!converted ? (
           <>
             <Button
+              onClick={() => setPreviewOpen(true)}
+              variant="outline"
+              size="icon"
+              title="Pregled"
+            >
+              <Eye className="w-4 h-4" />
+            </Button>
+            <Button
               onClick={handleConvert}
               disabled={converting}
               className="flex-1"
@@ -126,6 +136,8 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
           </>
         )}
       </div>
+
+      <DocumentPreview file={file} open={previewOpen} onOpenChange={setPreviewOpen} />
     </Card>
   );
 };
