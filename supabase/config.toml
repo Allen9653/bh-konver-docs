@@ -3,6 +3,9 @@ project_id = "kvuiqexsovexuyfgztwk"
 [functions.convert-document]
 verify_jwt = false
 
+[functions.pdf-operations]
+verify_jwt = false
+
 [functions.create-checkout]
 verify_jwt = false
 

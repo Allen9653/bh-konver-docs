@@ -127,6 +127,18 @@ serve(async (req) => {
       txt: {
         pdf: 'https://api.cloudmersive.com/convert/txt/to/pdf',
       },
+      pptx: {
+        pdf: 'https://api.cloudmersive.com/convert/pptx/to/pdf',
+      },
+      ppt: {
+        pdf: 'https://api.cloudmersive.com/convert/ppt/to/pdf',
+      },
+      xlsx: {
+        pdf: 'https://api.cloudmersive.com/convert/xlsx/to/pdf',
+      },
+      xls: {
+        pdf: 'https://api.cloudmersive.com/convert/xls/to/pdf',
+      },
       // GIF
       gif: {
         mp4: 'https://api.cloudmersive.com/video/convert/to/mp4',
