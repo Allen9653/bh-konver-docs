@@ -6,6 +6,7 @@ import { FileText, Image, Download, Loader2, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { getAvailableFormats, requiresBackend, formatDisplayName, type OutputFormat } from "@/types/formats";
 import { DocumentPreview } from "@/components/DocumentPreview";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface ConversionCardProps {
   file: File;
@@ -17,6 +18,7 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
   const [converting, setConverting] = useState(false);
   const [converted, setConverted] = useState<Blob | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [convertedPreviewOpen, setConvertedPreviewOpen] = useState(false);
   const { toast } = useToast();
 
   const fileExtension = file.name.split(".").pop()?.toLowerCase();
@@ -126,6 +128,14 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
           </>
         ) : (
           <>
+            <Button
+              onClick={() => setConvertedPreviewOpen(true)}
+              variant="outline"
+              size="icon"
+              title="Pregled konvertovanog fajla"
+            >
+              <Eye className="w-4 h-4" />
+            </Button>
             <Button onClick={handleDownload} className="flex-1">
               <Download className="w-4 h-4 mr-2" />
               Preuzmi
@@ -138,6 +148,39 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
       </div>
 
       <DocumentPreview file={file} open={previewOpen} onOpenChange={setPreviewOpen} />
+      
+      <Dialog open={convertedPreviewOpen} onOpenChange={setConvertedPreviewOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+          <DialogHeader>
+            <DialogTitle>Pregled konvertovanog dokumenta</DialogTitle>
+          </DialogHeader>
+          {converted && (
+            <div className="flex items-center justify-center bg-muted/50 rounded-lg p-4">
+              {targetFormat === "pdf" ? (
+                <iframe
+                  src={URL.createObjectURL(converted)}
+                  className="w-full h-[500px] border-0 rounded-lg"
+                  title="Converted document"
+                />
+              ) : targetFormat.match(/^(jpg|jpeg|png|webp)$/) ? (
+                <img
+                  src={URL.createObjectURL(converted)}
+                  alt="Converted document"
+                  className="max-w-full max-h-[500px] object-contain"
+                />
+              ) : (
+                <div className="text-center space-y-2 p-8">
+                  <FileText className="w-16 h-16 text-muted-foreground mx-auto" />
+                  <p className="font-medium">Pregled nije dostupan</p>
+                  <p className="text-sm text-muted-foreground">
+                    Format {formatDisplayName[targetFormat]} ne podržava pregled
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };
