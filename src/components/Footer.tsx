@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Footer = () => {
   return (
     <footer className="bg-muted/30 border-t border-border mt-16">
@@ -27,15 +29,15 @@ export const Footer = () => {
               Privatnost
             </a>
             <span className="text-muted-foreground">|</span>
-            <a 
-              href="#" 
+            <Link 
+              to="/terms" 
               className="text-primary hover:text-primary/80 transition-colors"
             >
               Uslovi korištenja
-            </a>
+            </Link>
             <span className="text-muted-foreground">|</span>
             <a 
-              href="#" 
+              href="mailto:info@bh-assistant.ba" 
               className="text-primary hover:text-primary/80 transition-colors"
             >
               Podrška
