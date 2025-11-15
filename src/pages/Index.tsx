@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { FileUpload } from "@/components/FileUpload";
 import { ConversionCard } from "@/components/ConversionCard";
-import { PaymentModal } from "@/components/PaymentModal";
 import { ModuleSelector } from "@/components/ModuleSelector";
 import { UnitConverter } from "@/components/UnitConverter";
-import { PricingSection } from "@/components/PricingSection";
 import { Footer } from "@/components/Footer";
 import { PDFToolsSelector } from "@/components/PDFToolsSelector";
 import { PDFToolsInterface } from "@/components/PDFToolsInterface";
@@ -15,7 +13,6 @@ import type { PDFOperation } from "@/types/pdfOperations";
 
 const Index = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [selectedModule, setSelectedModule] = useState<ConversionModule>("image");
   const [selectedPDFTool, setSelectedPDFTool] = useState<PDFOperation | null>(null);
 
@@ -137,11 +134,6 @@ const Index = () => {
             )}
           </>
         )}
-
-        {/* Pricing Section */}
-        <PricingSection onSelectPlan={() => setPaymentModalOpen(true)} />
-
-        <PaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} />
       </div>
       
       <Footer />

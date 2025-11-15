@@ -7,7 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { PDFOperation, PDF_OPERATIONS } from "@/types/pdfOperations";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Loader2, Download, Share2, Edit3 } from "lucide-react";
+import { Loader2, Download, Share2, Edit3, Eye, FileText } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface PDFToolsInterfaceProps {
   operation: PDFOperation;
@@ -20,6 +21,7 @@ export const PDFToolsInterface = ({ operation, onBack }: PDFToolsInterfaceProps)
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [watermarkText, setWatermarkText] = useState("");
   const [rotationAngle, setRotationAngle] = useState("90");
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const config = PDF_OPERATIONS[operation];
 
@@ -172,6 +174,9 @@ export const PDFToolsInterface = ({ operation, onBack }: PDFToolsInterfaceProps)
 
         {resultUrl && (
           <div className="flex gap-2 pt-4">
+            <Button onClick={() => setPreviewOpen(true)} variant="outline" size="icon">
+              <Eye className="h-4 w-4" />
+            </Button>
             <Button onClick={handleDownload} className="flex-1">
               <Download className="mr-2 h-4 w-4" />
               Download
@@ -183,6 +188,23 @@ export const PDFToolsInterface = ({ operation, onBack }: PDFToolsInterfaceProps)
           </div>
         )}
       </CardContent>
+      
+      <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+          <DialogHeader>
+            <DialogTitle>Pregled rezultata</DialogTitle>
+          </DialogHeader>
+          {resultUrl && (
+            <div className="flex items-center justify-center bg-muted/50 rounded-lg p-4">
+              <iframe
+                src={resultUrl}
+                className="w-full h-[500px] border-0 rounded-lg"
+                title="Preview"
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };
