@@ -22,12 +22,12 @@ export const Footer = () => {
               info@bh-assistant.ba
             </a>
             <span className="text-muted-foreground">|</span>
-            <a 
-              href="#" 
+            <Link 
+              to="/privacy" 
               className="text-primary hover:text-primary/80 transition-colors"
             >
               Privatnost
-            </a>
+            </Link>
             <span className="text-muted-foreground">|</span>
             <Link 
               to="/terms" 
