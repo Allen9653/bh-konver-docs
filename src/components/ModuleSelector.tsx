@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { Image, FileText, Calculator, Video, Music, Clapperboard, Settings } from "lucide-react";
 import type { ConversionModule } from "@/types/formats";
@@ -10,49 +11,43 @@ interface ModuleSelectorProps {
 const MODULES = [
   {
     id: "video" as ConversionModule,
-    name: "Video Converter",
-    description: "MP4→MP3, MOV→MP4, Video→GIF",
+    key: "video",
     icon: Video,
   },
   {
     id: "audio" as ConversionModule,
-    name: "Audio Converter",
-    description: "MP3→OGG, MP4→MP3, Audio formati",
+    key: "audio",
     icon: Music,
   },
   {
     id: "image" as ConversionModule,
-    name: "Image Converter",
-    description: "WEBP→PNG, HEIC→JPG, PNG→SVG",
+    key: "image",
     icon: Image,
   },
   {
     id: "document" as ConversionModule,
-    name: "PDF & Documents",
-    description: "PDF→Word, DOCX→PDF, Excel→PDF, PPT→PDF",
+    key: "document",
     icon: FileText,
   },
   {
     id: "gif" as ConversionModule,
-    name: "GIF Converter",
-    description: "Video→GIF, GIF→MP4, GIF→APNG",
+    key: "gif",
     icon: Clapperboard,
   },
   {
     id: "pdf-tools" as ConversionModule,
-    name: "PDF Tools",
-    description: "Watermark, Rotate, Compress, Split, Merge",
+    key: "pdf-tools",
     icon: Settings,
   },
   {
     id: "unit" as ConversionModule,
-    name: "Unit Converter",
-    description: "cm↔inch, kg↔lbs, °C↔°F",
+    key: "unit",
     icon: Calculator,
   },
 ];
 
 export const ModuleSelector = ({ selectedModule, onSelectModule }: ModuleSelectorProps) => {
+  const { t } = useTranslation();
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
       {MODULES.map((module) => {
@@ -73,9 +68,9 @@ export const ModuleSelector = ({ selectedModule, onSelectModule }: ModuleSelecto
               </div>
               <div>
                 <h3 className={`font-semibold mb-1 ${isSelected ? "text-primary" : ""}`}>
-                  {module.name}
+                  {t(`modules.${module.key}.name`)}
                 </h3>
-                <p className="text-sm text-muted-foreground">{module.description}</p>
+                <p className="text-sm text-muted-foreground">{t(`modules.${module.key}.description`)}</p>
               </div>
             </div>
           </Card>

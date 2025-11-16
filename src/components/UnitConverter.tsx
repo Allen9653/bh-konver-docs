@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -54,6 +55,7 @@ const CONVERSIONS: ConversionUnit[] = [
 ];
 
 export const UnitConverter = () => {
+  const { t } = useTranslation();
   const [selectedConversion, setSelectedConversion] = useState<ConversionUnit>(CONVERSIONS[0]);
   const [inputValue, setInputValue] = useState<string>("");
   const [result, setResult] = useState<string>("");
@@ -80,7 +82,7 @@ export const UnitConverter = () => {
     <Card className="p-6">
       <div className="space-y-4">
         <div>
-          <Label>Odaberite konverziju</Label>
+          <Label>{t('unitConverter.selectConversion')}</Label>
           <Select onValueChange={handleConversionChange} defaultValue="0">
             <SelectTrigger>
               <SelectValue />
@@ -88,7 +90,7 @@ export const UnitConverter = () => {
             <SelectContent>
               {CONVERSIONS.map((conv, idx) => (
                 <SelectItem key={idx} value={idx.toString()}>
-                  {conv.from} → {conv.to}
+                  {t(`unitConverter.conversions.${conv.from.toLowerCase()}_to_${conv.to.toLowerCase().replace('°', '')}`)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -102,7 +104,7 @@ export const UnitConverter = () => {
               type="number"
               value={inputValue}
               onChange={(e) => handleConvert(e.target.value)}
-              placeholder="Unesite vrijednost"
+              placeholder={t('unitConverter.inputValue')}
             />
           </div>
 
@@ -112,7 +114,7 @@ export const UnitConverter = () => {
 
           <div>
             <Label>{selectedConversion.to}</Label>
-            <Input type="text" value={result} readOnly placeholder="Rezultat" />
+            <Input type="text" value={result} readOnly placeholder={t('unitConverter.result')} />
           </div>
         </div>
       </div>

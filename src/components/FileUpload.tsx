@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -18,6 +19,7 @@ const formatToMimeType: Record<string, string> = {
 };
 
 export const FileUpload = ({ onFilesSelected, acceptedFormats }: FileUploadProps) => {
+  const { t } = useTranslation();
   const { toast } = useToast();
 
   const acceptedMimeTypes = acceptedFormats
@@ -36,8 +38,8 @@ export const FileUpload = ({ onFilesSelected, acceptedFormats }: FileUploadProps
 
       if (validFiles.length === 0) {
         toast({
-          title: "Greška",
-          description: `Molimo odaberite fajlove sa formatima: ${acceptedFormats.join(", ")}`,
+          title: t('conversion.error'),
+          description: `${t('fileUpload.supportedFormats')}: ${acceptedFormats.join(", ")}`,
           variant: "destructive",
         });
         return;
@@ -78,10 +80,10 @@ export const FileUpload = ({ onFilesSelected, acceptedFormats }: FileUploadProps
         </div>
         <div>
           <p className="text-lg font-semibold text-foreground mb-2">
-            Prevucite fajlove ovdje ili kliknite za odabir
+            {t('fileUpload.dragDrop')} {t('fileUpload.browse')}
           </p>
           <p className="text-sm text-muted-foreground">
-            Podržani formati: {acceptedFormats.join(", ").toUpperCase()}
+            {t('fileUpload.supportedFormats')}: {acceptedFormats.join(", ").toUpperCase()}
           </p>
         </div>
       </label>
