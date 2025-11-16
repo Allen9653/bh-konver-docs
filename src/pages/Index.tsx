@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FileUpload } from "@/components/FileUpload";
 import { ConversionCard } from "@/components/ConversionCard";
 import { ModuleSelector } from "@/components/ModuleSelector";
@@ -7,14 +8,27 @@ import { Footer } from "@/components/Footer";
 import { PDFToolsSelector } from "@/components/PDFToolsSelector";
 import { PDFToolsInterface } from "@/components/PDFToolsInterface";
 import { convertFile } from "@/utils/pdfConverter";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { Button } from "@/components/ui/button";
+import { LogIn, LogOut } from "lucide-react";
 import logo from "@/assets/bh-konver-logo.png";
 import type { ConversionModule } from "@/types/formats";
 import type { PDFOperation } from "@/types/pdfOperations";
 
 const Index = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const [selectedModule, setSelectedModule] = useState<ConversionModule>("image");
+  const [selectedModule, setSelectedModule] = useState<ConversionModule>("unit");
   const [selectedPDFTool, setSelectedPDFTool] = useState<PDFOperation | null>(null);
+  const { user, isAdmin, loading, signOut } = useAdminAuth();
+  const navigate = useNavigate();
+
+  // Redirect authenticated users to see all features
+  useEffect(() => {
+    if (!loading && user && !isAdmin) {
+      // Regular users only see unit converter (which is free)
+      setSelectedModule("unit");
+    }
+  }, [user, isAdmin, loading]);
 
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles((prev) => [...prev, ...selectedFiles]);
@@ -68,6 +82,8 @@ const Index = () => {
     }
   };
 
+  const showFullFeatures = isAdmin;
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -82,33 +98,61 @@ const Index = () => {
           <p className="text-sm text-muted-foreground">
             Video • Audio • Slike • Dokumenti • GIF • Jedinice
           </p>
+          
+          {/* Auth Status */}
+          <div className="mt-4 flex items-center justify-center gap-3">
+            {user ? (
+              <>
+                <span className="text-sm text-muted-foreground">
+                  {user.email} {isAdmin && <span className="text-primary font-semibold">(Admin)</span>}
+                </span>
+                <Button variant="outline" size="sm" onClick={signOut}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Odjava
+                </Button>
+              </>
+            ) : (
+              <Button variant="default" size="sm" onClick={() => navigate("/auth")}>
+                <LogIn className="mr-2 h-4 w-4" />
+                Admin prijava
+              </Button>
+            )}
+          </div>
         </div>
 
-        {/* Module Selector */}
-        <ModuleSelector selectedModule={selectedModule} onSelectModule={setSelectedModule} />
+        {/* Module Selector - Show all modules for admin, only unit for others */}
+        {showFullFeatures ? (
+          <ModuleSelector selectedModule={selectedModule} onSelectModule={setSelectedModule} />
+        ) : (
+          <div className="mb-8">
+            <p className="text-center text-muted-foreground mb-4">
+              Konvertor jedinica je besplatan za sve korisnike. Za pristup drugim funkcijama, prijavite se kao administrator.
+            </p>
+          </div>
+        )}
 
-        {/* PDF Tools Module */}
-        {selectedPDFTool ? (
+        {/* PDF Tools Module - Only for admin */}
+        {showFullFeatures && selectedPDFTool ? (
           <div className="mb-8">
             <PDFToolsInterface
               operation={selectedPDFTool}
               onBack={() => setSelectedPDFTool(null)}
             />
           </div>
-        ) : selectedModule === "pdf-tools" ? (
+        ) : showFullFeatures && selectedModule === "pdf-tools" ? (
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-6">PDF Alati</h2>
             <PDFToolsSelector onSelectTool={(tool) => setSelectedPDFTool(tool)} />
           </div>
-        ) : selectedModule === "unit" ? (
+        ) : selectedModule === "unit" || !showFullFeatures ? (
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">Konverter jedinica</h2>
+            <h2 className="text-2xl font-semibold text-foreground mb-6">Konvertor Jedinica</h2>
             <UnitConverter />
           </div>
         ) : null}
 
-        {/* File Upload for Image and PDF Modules */}
-        {selectedModule !== "unit" && selectedModule !== "pdf-tools" && (
+        {/* File Upload for Image and PDF Modules - Only for admin */}
+        {showFullFeatures && selectedModule !== "unit" && selectedModule !== "pdf-tools" && (
           <>
             <div className="mb-8">
               <FileUpload
