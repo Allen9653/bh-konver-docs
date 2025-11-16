@@ -25,6 +25,10 @@
       "name": "GIF-Konverter",
       "description": "Video→GIF, GIF→MP4, GIF→APNG"
     },
+    "pdf-tools": {
+      "name": "PDF-Tools",
+      "description": "Wasserzeichen, Drehen, Komprimieren, Teilen, Zusammenführen"
+    },
     "unit": {
       "name": "Einheitenkonverter",
       "description": "cm↔Zoll, kg↔Pfund, °C↔°F"
@@ -41,7 +45,9 @@
       "kg_to_lbs": "Kilogramm → Pfund",
       "lbs_to_kg": "Pfund → Kilogramm",
       "celsius_to_fahrenheit": "Celsius → Fahrenheit",
-      "fahrenheit_to_celsius": "Fahrenheit → Celsius"
+      "fahrenheit_to_celsius": "Fahrenheit → Celsius",
+      "c_to_f": "Celsius → Fahrenheit",
+      "f_to_c": "Fahrenheit → Celsius"
     }
   },
   "fileUpload": {

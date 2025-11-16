@@ -25,6 +25,10 @@
       "name": "GIF Converter",
       "description": "Video→GIF, GIF→MP4, GIF→APNG"
     },
+    "pdf-tools": {
+      "name": "PDF Alati",
+      "description": "Vodeni žig, Rotiraj, Kompresuj, Podijeli, Spoji"
+    },
     "unit": {
       "name": "Unit Converter",
       "description": "cm↔inch, kg↔lbs, °C↔°F"
@@ -41,7 +45,9 @@
       "kg_to_lbs": "Kilogrami → Funte",
       "lbs_to_kg": "Funte → Kilogrami",
       "celsius_to_fahrenheit": "Celzijus → Farenhajt",
-      "fahrenheit_to_celsius": "Farenhajt → Celzijus"
+      "fahrenheit_to_celsius": "Farenhajt → Celzijus",
+      "c_to_f": "Celzijus → Farenhajt",
+      "f_to_c": "Farenhajt → Celzijus"
     }
   },
   "fileUpload": {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,6 +16,7 @@ interface ConversionCardProps {
 }
 
 export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProps) => {
+  const { t } = useTranslation();
   const [converting, setConverting] = useState(false);
   const [converted, setConverted] = useState<Blob | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -34,14 +36,14 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
       const result = await onConvert(file, targetFormat, needsBackend);
       setConverted(result);
       toast({
-        title: "Konverzija uspješna!",
-        description: `Dokument je konvertovan u ${formatDisplayName[targetFormat]}`,
+        title: t('conversion.success'),
+        description: `${t('conversion.success')} ${formatDisplayName[targetFormat]}`,
       });
     } catch (error) {
       console.error("Conversion error:", error);
       toast({
-        title: "Greška",
-        description: error instanceof Error ? error.message : "Konverzija nije uspjela. Molimo pokušajte ponovo.",
+        title: t('conversion.error'),
+        description: error instanceof Error ? error.message : t('conversion.error'),
         variant: "destructive",
       });
     } finally {
@@ -81,10 +83,10 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
 
       {!converted && availableFormats.length > 0 && (
         <div className="mb-3">
-          <label className="text-sm font-medium mb-2 block">Odaberite željeni izlazni format:</label>
+          <label className="text-sm font-medium mb-2 block">{t('conversion.selectFormat')}:</label>
           <Select value={targetFormat} onValueChange={(value) => setTargetFormat(value as OutputFormat)}>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Izaberite format..." />
+              <SelectValue placeholder={t('conversion.selectFormat')} />
             </SelectTrigger>
             <SelectContent>
               {availableFormats.map((format) => (
@@ -116,14 +118,14 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
               {converting ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Konvertujem...
+                  {t('conversion.converting')}
                 </>
               ) : (
-                `Konvertuj u ${formatDisplayName[targetFormat]}`
+                `${t('conversion.convert')} ${formatDisplayName[targetFormat]}`
               )}
             </Button>
             <Button variant="outline" onClick={onRemove}>
-              Ukloni
+              {t('conversion.remove')}
             </Button>
           </>
         ) : (
@@ -138,10 +140,10 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
             </Button>
             <Button onClick={handleDownload} className="flex-1">
               <Download className="w-4 h-4 mr-2" />
-              Preuzmi
+              {t('conversion.download')}
             </Button>
             <Button variant="outline" onClick={onRemove}>
-              Ukloni
+              {t('conversion.remove')}
             </Button>
           </>
         )}
