@@ -3,12 +3,14 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import bs from './locales/bs.json';
+import bsCyrl from './locales/bs-Cyrl.json';
 import en from './locales/en.json';
 import de from './locales/de.json';
 import tr from './locales/tr.json';
 
 const resources = {
   bs: { translation: bs },
+  'bs-Cyrl': { translation: bsCyrl },
   en: { translation: en },
   de: { translation: de },
   tr: { translation: tr },

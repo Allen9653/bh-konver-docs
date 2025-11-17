@@ -37,11 +37,11 @@ export const LanguageSwitcher = () => {
     setScript(newScript);
     localStorage.setItem("script", newScript);
     
-    // Apply script change to body
-    if (newScript === "cyrillic" && i18n.language === "bs") {
-      document.body.classList.add("cyrillic-script");
+    // Change language based on script
+    if (newScript === "cyrillic") {
+      i18n.changeLanguage("bs-Cyrl");
     } else {
-      document.body.classList.remove("cyrillic-script");
+      i18n.changeLanguage("bs");
     }
     
     // Trigger re-render
@@ -50,10 +50,12 @@ export const LanguageSwitcher = () => {
 
   useEffect(() => {
     // Apply script on mount
-    if (script === "cyrillic" && i18n.language === "bs") {
-      document.body.classList.add("cyrillic-script");
+    if (script === "cyrillic") {
+      i18n.changeLanguage("bs-Cyrl");
+    } else if (i18n.language === "bs-Cyrl") {
+      i18n.changeLanguage("bs");
     }
-  }, [script, i18n.language]);
+  }, [script, i18n]);
 
   const currentLanguage = languages.find((lang) => lang.code === i18n.language);
 
@@ -81,7 +83,7 @@ export const LanguageSwitcher = () => {
       </DropdownMenu>
 
       {/* Script Selector (only for Bosnian) */}
-      {i18n.language === "bs" && (
+      {(i18n.language === "bs" || i18n.language === "bs-Cyrl") && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="gap-2">
