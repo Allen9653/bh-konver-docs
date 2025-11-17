@@ -104,5 +104,16 @@
   "scripts": {
     "latin": "Lateinisch",
     "cyrillic": "Kyrillisch"
+  },
+  "scriptSelector": {
+    "latin": "Lateinisch",
+    "cyrillic": "Kyrillisch"
+  },
+  "adSpace": {
+    "title": "Hier könnte Ihre Werbung stehen",
+    "description": "Unternehmen können die gesamte Startseite von BH Konver mieten, um die App mit ihrer Werbung zu schmücken - zusätzliche Einnahmequelle",
+    "benefit1": "✓ Hohe Sichtbarkeit",
+    "benefit2": "✓ Zielgruppe",
+    "benefit3": "✓ Flexible Pakete"
   }
 }

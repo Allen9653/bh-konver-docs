@@ -14,6 +14,12 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Button } from "@/components/ui/button";
 import { LogIn, LogOut } from "lucide-react";
 import logo from "@/assets/bh-konver-logo.png";
+import etnoFiguralni from "@/assets/etno-figuralni.png";
+import etnoLjiljan from "@/assets/etno-ljiljan.png";
+import etnoJelen from "@/assets/etno-jelen.png";
+import etnoCvijet from "@/assets/etno-cvijet.png";
+import etnoArkada from "@/assets/etno-arkada.png";
+import etnoFauna from "@/assets/etno-fauna.png";
 import type { ConversionModule } from "@/types/formats";
 import type { PDFOperation } from "@/types/pdfOperations";
 
@@ -88,8 +94,38 @@ const Index = () => {
   const showFullFeatures = isAdmin;
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Etno Background Decorations */}
+      <div className="fixed inset-0 pointer-events-none opacity-10">
+        <img src={etnoLjiljan} alt="" className="absolute top-10 right-10 w-32 h-32 object-contain animate-float" />
+        <img src={etnoJelen} alt="" className="absolute top-1/4 left-10 w-40 h-40 object-contain animate-float-delayed" />
+        <img src={etnoCvijet} alt="" className="absolute bottom-20 right-20 w-36 h-36 object-contain animate-float" />
+        <img src={etnoArkada} alt="" className="absolute bottom-10 left-1/4 w-48 h-48 object-contain animate-float-delayed" />
+        <img src={etnoFauna} alt="" className="absolute top-1/2 right-1/3 w-32 h-32 object-contain animate-float" />
+      </div>
+
+      <div className="container mx-auto px-4 py-8 max-w-7xl relative z-10">
+        <div className="grid lg:grid-cols-[300px_1fr] gap-8">
+          {/* Ad Space - Left Side */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-8 bg-card border-2 border-dashed border-border rounded-lg p-8 min-h-[600px] flex flex-col items-center justify-center text-center hover:border-primary/50 transition-colors">
+              <img src={etnoFiguralni} alt="Etno pattern" className="w-32 h-32 object-contain mb-6 opacity-60" />
+              <h3 className="text-xl font-semibold text-foreground mb-3">
+                {t('adSpace.title')}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-6">
+                {t('adSpace.description')}
+              </p>
+              <div className="space-y-2 text-xs text-muted-foreground">
+                <p>{t('adSpace.benefit1')}</p>
+                <p>{t('adSpace.benefit2')}</p>
+                <p>{t('adSpace.benefit3')}</p>
+              </div>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <main>
         {/* Language Switcher */}
         <div className="flex justify-end mb-4">
           <LanguageSwitcher />
@@ -186,6 +222,8 @@ const Index = () => {
             )}
           </>
         )}
+          </main>
+        </div>
       </div>
       
       <Footer />

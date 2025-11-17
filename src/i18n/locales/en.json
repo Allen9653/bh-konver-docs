@@ -104,5 +104,16 @@
   "scripts": {
     "latin": "Latin",
     "cyrillic": "Cyrillic"
+  },
+  "scriptSelector": {
+    "latin": "Latin",
+    "cyrillic": "Cyrillic"
+  },
+  "adSpace": {
+    "title": "Your Ad Could Be Here",
+    "description": "Companies can rent the entire front page of BH Konver to decorate the app with their ads - additional revenue source",
+    "benefit1": "✓ High visibility",
+    "benefit2": "✓ Targeted audience",
+    "benefit3": "✓ Flexible packages"
   }
 }
