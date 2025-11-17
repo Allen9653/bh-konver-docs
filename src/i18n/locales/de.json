@@ -1,8 +1,10 @@
 {
   "hero": {
     "title": "BH Konver",
+    "mainTitle": "BH KONVER ist Ihr digitales Konvertierungstool",
     "subtitle": "Umfassendes Dateikonvertierungssystem",
-    "version": "Video • Audio • Bilder • Dokumente • GIF • Einheiten"
+    "version": "Video • Audio • Bilder • Dokumente • GIF • Einheiten",
+    "featuresTitle": "Alle Konvertierungen, die BH Konver bietet:"
   },
   "modules": {
     "video": {
@@ -68,23 +70,34 @@
   "pricing": {
     "title": "Preise",
     "subtitle": "Wählen Sie einen Plan, der Ihren Bedürfnissen entspricht",
-    "single": {
-      "title": "Einzelkonvertierung",
-      "price": "1 BAM",
-      "description": "1 Dokument, max. 3 A4-Seiten",
-      "button": "Bezahlen"
+    "popular": "Beliebteste",
+    "selectButton": "Plan wählen",
+    "day": {
+      "title": "24 Stunden",
+      "description": "Perfekt für schnelle Projekte",
+      "duration": "24h Zugang",
+      "feature1": "Unbegrenzte Konvertierungen 24h",
+      "feature2": "Alle Formate verfügbar",
+      "feature3": "Schnelle Verarbeitung"
     },
-    "pack": {
-      "title": "10er-Konvertierungspaket",
-      "price": "10 BAM",
-      "description": "Unbegrenzte Konvertierungen",
-      "button": "Paket kaufen"
+    "twoDay": {
+      "title": "48 Stunden",
+      "description": "Beliebteste Wahl",
+      "duration": "48h Zugang",
+      "feature1": "Unbegrenzte Konvertierungen 48h",
+      "feature2": "Alle Formate verfügbar",
+      "feature3": "Keine Größenbeschränkungen",
+      "feature4": "Prioritätsunterstützung"
     },
     "monthly": {
       "title": "Monatsabonnement",
-      "price": "50 BAM",
-      "description": "30 Tage unbegrenzte Konvertierungen",
-      "button": "Abonnieren"
+      "description": "Bester Wert für regelmäßige Benutzer",
+      "duration": "1 Monat",
+      "feature1": "Unbegrenzte Konvertierungen 30 Tage",
+      "feature2": "Alle Formate und PDF-Tools",
+      "feature3": "Keine Größenbeschränkungen",
+      "feature4": "VIP-Support 24/7",
+      "feature5": "API-Zugang"
     }
   },
   "footer": {

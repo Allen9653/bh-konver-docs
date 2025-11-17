@@ -1,8 +1,10 @@
 {
   "hero": {
     "title": "BH Konver",
+    "mainTitle": "BH KONVER Dijital Dönüştürme Aracınızdır",
     "subtitle": "Kapsamlı dosya dönüştürme sistemi",
-    "version": "Video • Ses • Görüntüler • Belgeler • GIF • Birimler"
+    "version": "Video • Ses • Görüntüler • Belgeler • GIF • Birimler",
+    "featuresTitle": "BH Konver'in sunduğu tüm dönüşümler:"
   },
   "modules": {
     "video": {
@@ -62,23 +64,34 @@
   "pricing": {
     "title": "Fiyatlandırma",
     "subtitle": "İhtiyaçlarınıza uygun bir plan seçin",
-    "single": {
-      "title": "Tek Dönüşüm",
-      "price": "1 BAM",
-      "description": "1 belge, maksimum 3 A4 sayfa",
-      "button": "Öde"
+    "popular": "En Popüler",
+    "selectButton": "Plan Seç",
+    "day": {
+      "title": "24 Saat",
+      "description": "Hızlı projeler için mükemmel",
+      "duration": "24 saat erişim",
+      "feature1": "24 saat sınırsız dönüşüm",
+      "feature2": "Tüm formatlar mevcut",
+      "feature3": "Hızlı işleme"
     },
-    "pack": {
-      "title": "10 Dönüşüm Paketi",
-      "price": "10 BAM",
-      "description": "Sınırsız dönüşüm",
-      "button": "Paket Satın Al"
+    "twoDay": {
+      "title": "48 Saat",
+      "description": "En popüler seçim",
+      "duration": "48 saat erişim",
+      "feature1": "48 saat sınırsız dönüşüm",
+      "feature2": "Tüm formatlar mevcut",
+      "feature3": "Boyut sınırı yok",
+      "feature4": "Öncelikli destek"
     },
     "monthly": {
       "title": "Aylık Abonelik",
-      "price": "50 BAM",
-      "description": "30 gün sınırsız dönüşüm",
-      "button": "Abone Ol"
+      "description": "Düzenli kullanıcılar için en iyi değer",
+      "duration": "1 ay",
+      "feature1": "30 gün sınırsız dönüşüm",
+      "feature2": "Tüm formatlar ve PDF araçları",
+      "feature3": "Boyut sınırı yok",
+      "feature4": "VIP destek 24/7",
+      "feature5": "API erişimi"
     }
   },
   "footer": {

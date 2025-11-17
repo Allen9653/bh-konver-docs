@@ -1,8 +1,10 @@
 {
   "hero": {
     "title": "BH Konver",
+    "mainTitle": "BH KONVER is Your Digital Conversion Tool",
     "subtitle": "Comprehensive file conversion system",
-    "version": "Video • Audio • Images • Documents • GIF • Units"
+    "version": "Video • Audio • Images • Documents • GIF • Units",
+    "featuresTitle": "All conversions BH Konver offers:"
   },
   "modules": {
     "video": {
@@ -68,23 +70,34 @@
   "pricing": {
     "title": "Pricing",
     "subtitle": "Choose a plan that fits your needs",
-    "single": {
-      "title": "Single Conversion",
-      "price": "1 BAM",
-      "description": "1 document, max 3 A4 pages",
-      "button": "Pay"
+    "popular": "Most Popular",
+    "selectButton": "Select Plan",
+    "day": {
+      "title": "24 Hours",
+      "description": "Perfect for quick projects",
+      "duration": "24h access",
+      "feature1": "Unlimited conversions 24h",
+      "feature2": "All formats available",
+      "feature3": "Fast processing"
     },
-    "pack": {
-      "title": "10 Conversions Pack",
-      "price": "10 BAM",
-      "description": "Unlimited conversions",
-      "button": "Buy Pack"
+    "twoDay": {
+      "title": "48 Hours",
+      "description": "Most popular choice",
+      "duration": "48h access",
+      "feature1": "Unlimited conversions 48h",
+      "feature2": "All formats available",
+      "feature3": "No size limits",
+      "feature4": "Priority support"
     },
     "monthly": {
       "title": "Monthly Subscription",
-      "price": "50 BAM",
-      "description": "30 days unlimited conversions",
-      "button": "Subscribe"
+      "description": "Best value for regular users",
+      "duration": "1 month",
+      "feature1": "Unlimited conversions 30 days",
+      "feature2": "All formats and PDF tools",
+      "feature3": "No size limits",
+      "feature4": "VIP support 24/7",
+      "feature5": "API access"
     }
   },
   "footer": {

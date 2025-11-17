@@ -9,11 +9,13 @@ import { Footer } from "@/components/Footer";
 import { PDFToolsSelector } from "@/components/PDFToolsSelector";
 import { PDFToolsInterface } from "@/components/PDFToolsInterface";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { PricingSection } from "@/components/PricingSection";
 import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Button } from "@/components/ui/button";
 import { LogIn, LogOut } from "lucide-react";
 import logo from "@/assets/bh-konver-logo.png";
+import bhIllustration from "@/assets/bh-illustration.jpg";
 import etnoFiguralni from "@/assets/etno-figuralni.png";
 import etnoLjiljan from "@/assets/etno-ljiljan.png";
 import etnoJelen from "@/assets/etno-jelen.png";
@@ -136,12 +138,49 @@ const Index = () => {
           <div className="flex items-center justify-center mb-4">
             <img src={logo} alt="BH Konver Logo" className="max-w-md w-full h-auto" />
           </div>
+          
+          {/* BH Illustration */}
+          <div className="relative mb-8 rounded-lg overflow-hidden max-w-2xl mx-auto">
+            <img src={bhIllustration} alt="Bosnia and Herzegovina" className="w-full h-auto opacity-90" />
+          </div>
+
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            {t('hero.mainTitle')}
+          </h1>
           <p className="text-lg text-muted-foreground mb-2">
             {t('hero.subtitle')}
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mb-6">
             {t('hero.version')}
           </p>
+
+          {/* Features List */}
+          <div className="max-w-3xl mx-auto mb-8">
+            <h2 className="text-xl font-semibold text-foreground mb-4">{t('hero.featuresTitle')}</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+              <div className="p-3 bg-card border border-border rounded-lg">
+                <span className="font-semibold text-primary">📹</span> {t('modules.video.name')}
+              </div>
+              <div className="p-3 bg-card border border-border rounded-lg">
+                <span className="font-semibold text-primary">🎵</span> {t('modules.audio.name')}
+              </div>
+              <div className="p-3 bg-card border border-border rounded-lg">
+                <span className="font-semibold text-primary">🖼️</span> {t('modules.image.name')}
+              </div>
+              <div className="p-3 bg-card border border-border rounded-lg">
+                <span className="font-semibold text-primary">📄</span> {t('modules.document.name')}
+              </div>
+              <div className="p-3 bg-card border border-border rounded-lg">
+                <span className="font-semibold text-primary">✨</span> {t('modules.gif.name')}
+              </div>
+              <div className="p-3 bg-card border border-border rounded-lg">
+                <span className="font-semibold text-primary">🔧</span> {t('modules.pdf-tools.name')}
+              </div>
+              <div className="p-3 bg-card border border-border rounded-lg">
+                <span className="font-semibold text-primary">📐</span> {t('modules.unit.name')}
+              </div>
+            </div>
+          </div>
           
           {/* Auth Status */}
           <div className="mt-4 flex items-center justify-center gap-3">
@@ -163,6 +202,12 @@ const Index = () => {
             )}
           </div>
         </div>
+
+        {/* Pricing Section */}
+        <PricingSection onSelectPlan={(tier) => {
+          console.log('Selected plan:', tier);
+          // TODO: Implement payment integration
+        }} />
 
         {/* Module Selector - Show all modules for admin, only unit for others */}
         {showFullFeatures ? (

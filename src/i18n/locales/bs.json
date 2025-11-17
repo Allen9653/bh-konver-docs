@@ -1,8 +1,10 @@
 {
   "hero": {
     "title": "BH Konver",
+    "mainTitle": "BH KONVER je Vaš digitalni alat za konverziju",
     "subtitle": "Sveobuhvatni sistem za konverziju fajlova",
-    "version": "Video • Audio • Slike • Dokumenti • GIF • Jedinice"
+    "version": "Video • Audio • Slike • Dokumenti • GIF • Jedinice",
+    "featuresTitle": "Sve konverzije koje BH Konver nudi:"
   },
   "modules": {
     "video": {
@@ -68,23 +70,34 @@
   "pricing": {
     "title": "Tarife",
     "subtitle": "Izaberite plan koji odgovara vašim potrebama",
-    "single": {
-      "title": "Pojedinačna konverzija",
-      "price": "1 BAM",
-      "description": "1 dokument, max 3 A4 stranice",
-      "button": "Plati"
+    "popular": "Najpopularnije",
+    "selectButton": "Odaberi plan",
+    "day": {
+      "title": "24 sata",
+      "description": "Idealno za brze projekte",
+      "duration": "24h pristup",
+      "feature1": "Neograničene konverzije 24h",
+      "feature2": "Svi formati dostupni",
+      "feature3": "Brzo procesiranje"
     },
-    "pack": {
-      "title": "Paket 10 konverzija",
-      "price": "10 BAM",
-      "description": "Neograničene konverzije",
-      "button": "Kupi paket"
+    "twoDay": {
+      "title": "48 sati",
+      "description": "Najpopularniji izbor",
+      "duration": "48h pristup",
+      "feature1": "Neograničene konverzije 48h",
+      "feature2": "Svi formati dostupni",
+      "feature3": "Bez ograničenja veličine",
+      "feature4": "Prioritetna podrška"
     },
     "monthly": {
       "title": "Mjesečna pretplata",
-      "price": "50 BAM",
-      "description": "30 dana neograničene konverzije",
-      "button": "Pretplati se"
+      "description": "Najbolja vrijednost za redovne korisnike",
+      "duration": "1 mjesec",
+      "feature1": "Neograničene konverzije 30 dana",
+      "feature2": "Svi formati i PDF alati",
+      "feature3": "Bez ograničenja veličine",
+      "feature4": "VIP podrška 24/7",
+      "feature5": "API pristup"
     }
   },
   "footer": {
