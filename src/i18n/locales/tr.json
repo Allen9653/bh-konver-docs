@@ -98,5 +98,16 @@
   "scripts": {
     "latin": "Latin",
     "cyrillic": "Kiril"
+  },
+  "scriptSelector": {
+    "latin": "Latin",
+    "cyrillic": "Kiril"
+  },
+  "adSpace": {
+    "title": "Burada Sizin Reklamınız Olabilir",
+    "description": "Şirketler, uygulamayı reklamlarıyla süslemek için BH Konver'in tüm ön sayfasını kiralayabilir - ek gelir kaynağı",
+    "benefit1": "✓ Yüksek görünürlük",
+    "benefit2": "✓ Hedef kitle",
+    "benefit3": "✓ Esnek paketler"
   }
 }

@@ -104,5 +104,16 @@
   "scripts": {
     "latin": "Latinica",
     "cyrillic": "Ćirilica"
+  },
+  "scriptSelector": {
+    "latin": "Latinica",
+    "cyrillic": "Ćirilica"
+  },
+  "adSpace": {
+    "title": "Ovdje može biti Vaša Reklama",
+    "description": "Firme koje žele mogu zakupiti cijelu front page od BH Konver da ukrase app svojim reklamama - dodatni izvor zarade",
+    "benefit1": "✓ Visoka vidljivost",
+    "benefit2": "✓ Ciljana publika",
+    "benefit3": "✓ Fleksibilni paketi"
   }
 }
