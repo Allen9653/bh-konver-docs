@@ -118,10 +118,16 @@ const Index = () => {
               <p className="text-sm text-muted-foreground mb-6">
                 {t('adSpace.description')}
               </p>
-              <div className="space-y-2 text-xs text-muted-foreground">
-                <p>{t('adSpace.benefit1')}</p>
-                <p>{t('adSpace.benefit2')}</p>
-                <p>{t('adSpace.benefit3')}</p>
+              <div className="space-y-3 text-sm">
+                <div className="bg-muted/50 rounded-lg p-4">
+                  <p className="font-semibold text-foreground mb-1">{t('adSpace.contact')}</p>
+                  <p className="text-primary font-mono">📧 info@bh-assistant.ba</p>
+                </div>
+                <div className="text-xs text-muted-foreground space-y-2 text-left">
+                  <p>✓ {t('adSpace.benefit1')}</p>
+                  <p>✓ {t('adSpace.benefit2')}</p>
+                  <p>✓ {t('adSpace.benefit3')}</p>
+                </div>
               </div>
             </div>
           </aside>
