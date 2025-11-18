@@ -117,10 +117,11 @@
     "cyrillic": "Kiril"
   },
   "adSpace": {
-    "title": "Burada Sizin Reklamınız Olabilir",
-    "description": "Şirketler, uygulamayı reklamlarıyla süslemek için BH Konver'in tüm ön sayfasını kiralayabilir - ek gelir kaynağı",
-    "benefit1": "✓ Yüksek görünürlük",
-    "benefit2": "✓ Hedef kitle",
-    "benefit3": "✓ Esnek paketler"
+    "title": "Reklamınız Burada Olabilir",
+    "description": "Şirketler, uygulamayı reklamlarıyla süslemek için BH Konver'in tüm ön sayfasını kiralayabilir - bu bizim için ek bir gelir kaynağıdır.",
+    "contact": "Kiralama için iletişim:",
+    "benefit1": "Binlerce kullanıcıya ulaşın",
+    "benefit2": "İş kitlesinizi hedefleyin",
+    "benefit3": "Esnek reklam paketleri"
   }
 }

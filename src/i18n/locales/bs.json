@@ -123,10 +123,11 @@
     "cyrillic": "Ćirilica"
   },
   "adSpace": {
-    "title": "Ovdje može biti Vaša Reklama",
-    "description": "Firme koje žele mogu zakupiti cijelu front page od BH Konver da ukrase app svojim reklamama - dodatni izvor zarade",
-    "benefit1": "✓ Visoka vidljivost",
-    "benefit2": "✓ Ciljana publika",
-    "benefit3": "✓ Fleksibilni paketi"
+    "title": "Ovdje može biti Vaša Reklama?",
+    "description": "Firme koje žele mogu zakupiti cijelu front page od BH Konver da ukrase app svojim reklamama to nam je dodatni izvor zarade.",
+    "contact": "Kontakt za zakup:",
+    "benefit1": "Dosegnite hiljade korisnika",
+    "benefit2": "Ciljajte biznis audijenciju",
+    "benefit3": "Fleksibilni paketi oglašavanja"
   }
 }
