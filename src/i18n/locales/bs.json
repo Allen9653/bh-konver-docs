@@ -129,5 +129,18 @@
     "benefit1": "Dosegnite hiljade korisnika",
     "benefit2": "Ciljajte biznis audijenciju",
     "benefit3": "Fleksibilni paketi oglašavanja"
+  },
+  "currencyConverter": {
+    "title": "Konverter valuta (BAM)",
+    "description": "Brza i besplatna konverzija valuta za posjetioce",
+    "amount": "Iznos",
+    "from": "Od valute",
+    "to": "U valutu",
+    "result": "Rezultat",
+    "lastUpdate": "Zadnje ažuriranje",
+    "refreshed": "Tečajna lista ažurirana",
+    "error": "Greška pri učitavanju tečajne liste",
+    "usingCached": "Koriste se keširani podaci",
+    "privacyNotice": "Widget može učitavati resurse od trećih strana. Provjerite našu Privacy/Cookie politiku."
   }
 }
