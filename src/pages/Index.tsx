@@ -10,6 +10,7 @@ import { PDFToolsSelector } from "@/components/PDFToolsSelector";
 import { PDFToolsInterface } from "@/components/PDFToolsInterface";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { PricingSection } from "@/components/PricingSection";
+import { CurrencyConverter } from "@/components/CurrencyConverter";
 import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Button } from "@/components/ui/button";
@@ -214,6 +215,11 @@ const Index = () => {
           console.log('Selected plan:', tier);
           // TODO: Implement payment integration
         }} />
+
+        {/* Currency Converter - Free for everyone */}
+        <div className="mb-12 px-4">
+          <CurrencyConverter />
+        </div>
 
         {/* Module Selector - Show all modules for admin, only unit for others */}
         {showFullFeatures ? (

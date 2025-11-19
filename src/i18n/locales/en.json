@@ -129,5 +129,18 @@
     "benefit1": "Reach thousands of users",
     "benefit2": "Target business audience",
     "benefit3": "Flexible advertising packages"
+  },
+  "currencyConverter": {
+    "title": "Currency Converter (BAM)",
+    "description": "Quick and free currency conversion for visitors",
+    "amount": "Amount",
+    "from": "From currency",
+    "to": "To currency",
+    "result": "Result",
+    "lastUpdate": "Last update",
+    "refreshed": "Exchange rates refreshed",
+    "error": "Error loading exchange rates",
+    "usingCached": "Using cached data",
+    "privacyNotice": "This widget may load resources from third parties. Please check our Privacy/Cookie policy."
   }
 }

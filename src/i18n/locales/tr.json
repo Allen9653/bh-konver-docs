@@ -123,5 +123,18 @@
     "benefit1": "Binlerce kullanıcıya ulaşın",
     "benefit2": "İş kitlesinizi hedefleyin",
     "benefit3": "Esnek reklam paketleri"
+  },
+  "currencyConverter": {
+    "title": "Döviz Çevirici (BAM)",
+    "description": "Ziyaretçiler için hızlı ve ücretsiz döviz çevirisi",
+    "amount": "Miktar",
+    "from": "Para biriminden",
+    "to": "Para birimine",
+    "result": "Sonuç",
+    "lastUpdate": "Son güncelleme",
+    "refreshed": "Döviz kurları güncellendi",
+    "error": "Döviz kurları yüklenirken hata",
+    "usingCached": "Önbelleğe alınmış veriler kullanılıyor",
+    "privacyNotice": "Bu widget üçüncü taraflardan kaynaklar yükleyebilir. Lütfen Gizlilik/Çerez politikamızı kontrol edin."
   }
 }

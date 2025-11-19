@@ -129,5 +129,18 @@
     "benefit1": "Erreichen Sie Tausende von Benutzern",
     "benefit2": "Zielen Sie auf Geschäftspublikum",
     "benefit3": "Flexible Werbepakete"
+  },
+  "currencyConverter": {
+    "title": "Währungsrechner (BAM)",
+    "description": "Schnelle und kostenlose Währungsumrechnung für Besucher",
+    "amount": "Betrag",
+    "from": "Von Währung",
+    "to": "In Währung",
+    "result": "Ergebnis",
+    "lastUpdate": "Letzte Aktualisierung",
+    "refreshed": "Wechselkurse aktualisiert",
+    "error": "Fehler beim Laden der Wechselkurse",
+    "usingCached": "Zwischengespeicherte Daten werden verwendet",
+    "privacyNotice": "Dieses Widget kann Ressourcen von Dritten laden. Bitte überprüfen Sie unsere Datenschutz-/Cookie-Richtlinie."
   }
 }
