@@ -101,12 +101,146 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 BH Konver | Entwickelt in Bosnien und Herzegowina, Zenica 72 000",
+    "copyright": "© 2025 BH Konver",
+    "developed": "Entwickelt in Bosnien und Herzegowina, Zenica 72 000",
     "ownership": "Eigentum von B&H Assistant",
     "motto": "Kulturen verbinden Chancen schaffen",
     "privacy": "Datenschutz",
     "terms": "Nutzungsbedingungen",
     "support": "Support"
+  },
+  "common": {
+    "back": "Zurück"
+  },
+  "privacy": {
+    "title": "Datenschutz",
+    "description": "BH Konver respektiert Ihre Privatsphäre. Die Anwendung sammelt oder speichert keine persönlichen Daten außer denen, die der Benutzer freiwillig zur Nutzung der Funktionalität eingibt. Alle Daten werden ausschließlich zur Anzeige öffentlich verfügbarer Formulare von offiziellen BiH-Institutionswebsites verwendet. Durch die Nutzung der Anwendung akzeptieren Sie, dass Ihre Daten nicht verkauft, geteilt oder missbraucht werden.",
+    "businessPolicy": {
+      "title": "Datenschutzrichtlinie",
+      "description": "BH Konver respektiert Ihre Privatsphäre. Die Anwendung sammelt oder speichert keine persönlichen Daten außer denen, die der Benutzer freiwillig zur Nutzung der Funktionalität eingibt. Alle Daten werden ausschließlich zur Anzeige öffentlich verfügbarer Formulare von offiziellen BiH-Institutionswebsites verwendet. Durch die Nutzung der Anwendung akzeptieren Sie, dass Ihre Daten nicht verkauft, geteilt oder missbraucht werden."
+    },
+    "technology": "Technische Sicherheitsmaßnahmen",
+    "ssl": {
+      "title": "SSL-Verschlüsselung",
+      "description": "Alle Kommunikation zwischen Benutzer und Server ist durch SSL/TLS-Verschlüsselung geschützt."
+    },
+    "dataCenters": {
+      "title": "Sichere Rechenzentren",
+      "description": "Wir nutzen sichere Rechenzentren mit physischem Schutz und redundanten Systemen."
+    },
+    "monitoring": {
+      "title": "24/7 Überwachung",
+      "description": "Unsere Systeme werden ständig überwacht für schnelle Erkennung und Reaktion auf Sicherheitsbedrohungen."
+    },
+    "api": {
+      "title": "Sichere API",
+      "description": "Alle API-Aufrufe sind authentifiziert und verschlüsselt."
+    },
+    "idps": {
+      "title": "Eindringschutz",
+      "description": "Wir verwenden fortschrittliche Systeme zur Erkennung und Verhinderung von Eindringlingen."
+    },
+    "backup": {
+      "title": "Datensicherungen",
+      "description": "Wir erstellen regelmäßig Datensicherungen."
+    },
+    "vpn": {
+      "title": "VPN-Zugang",
+      "description": "Administratorzugang ist durch VPN geschützt."
+    },
+    "uptime": {
+      "title": "Hohe Verfügbarkeit",
+      "description": "Wir garantieren hohe Verfügbarkeit unserer Dienste."
+    },
+    "isolation": {
+      "title": "Datenisolation",
+      "description": "Benutzerdaten sind isoliert und geschützt."
+    },
+    "practices": "Sicherheitspraktiken",
+    "compliance": {
+      "title": "Compliance",
+      "description": "Wir halten alle relevanten Datenschutzvorschriften ein."
+    },
+    "accessControl": {
+      "title": "Zugriffskontrolle",
+      "description": "Strenge Zugriffskontrolle für sensible Daten."
+    },
+    "privacyPolicy": {
+      "title": "Datenschutzrichtlinie",
+      "description": "Klare und transparente Datenschutzrichtlinie."
+    },
+    "training": {
+      "title": "Mitarbeiterschulung",
+      "description": "Regelmäßige Mitarbeiterschulung zu Sicherheitspraktiken."
+    },
+    "sdlc": {
+      "title": "Sichere Entwicklung",
+      "description": "Sicherheitspraktiken in die Softwareentwicklung integriert."
+    },
+    "incident": {
+      "title": "Vorfallmanagement",
+      "description": "Definierte Prozesse für das Management von Sicherheitsvorfällen."
+    }
+  },
+  "terms": {
+    "title": "Nutzungsbedingungen",
+    "intro": "BH Konver ist ein kostenloses digitales Tool. Der Benutzer verpflichtet sich, die Anwendung ausschließlich zum Auffinden öffentlicher Formulare zu verwenden. B&H Assistant d.o.o. garantiert keine ständige Verfügbarkeit externer URLs und ist nicht für den Inhalt externer Websites verantwortlich. Unbefugtes Kopieren, Verbreiten oder kommerzielle Missbrauch der Anwendung ohne schriftliche Genehmigung des Eigentümers ist verboten.",
+    "eligibility": {
+      "title": "Wer kann den Dienst nutzen",
+      "description": "Der Dienst steht allen Benutzern zur Verfügung, die diese Nutzungsbedingungen akzeptieren."
+    },
+    "ownership": {
+      "title": "Eigentum und Urheberrecht",
+      "description": "Alle Rechte an der BH Konver-Anwendung gehören B&H Assistant d.o.o. Unbefugtes Kopieren, Verbreiten oder kommerzieller Missbrauch ist streng verboten."
+    },
+    "commercial": {
+      "title": "Kommerzielle Nutzung",
+      "description1": "Für die kommerzielle Nutzung ist eine schriftliche Genehmigung des Eigentümers erforderlich.",
+      "description2": "Kontaktieren Sie uns für weitere Informationen zu kommerziellen Lizenzen."
+    },
+    "dataSecurity": {
+      "title": "Datensicherheit",
+      "description": "Wir ergreifen alle angemessenen Maßnahmen zum Schutz Ihrer Daten, können aber keine absolute Sicherheit garantieren."
+    },
+    "restrictions": {
+      "title": "Nutzungseinschränkungen",
+      "intro": "Benutzer dürfen nicht:",
+      "item1": "Die Anwendung für illegale Aktivitäten nutzen",
+      "item2": "Versuchen, auf geschützte Teile des Systems zuzugreifen",
+      "item3": "Server mit automatisierten Anfragen überlasten"
+    },
+    "payments": {
+      "title": "Zahlungen und Abonnements",
+      "description": "Alle Zahlungen werden über sichere Zahlungsgateways abgewickelt. Rückerstattungen sind gemäß unserer Rückerstattungsrichtlinie möglich."
+    },
+    "liability": {
+      "title": "Haftungsbeschränkung",
+      "description": "B&H Assistant d.o.o. haftet nicht für Schäden, die durch die Nutzung der Anwendung oder die Unfähigkeit, auf den Dienst zuzugreifen, entstehen."
+    },
+    "changes": {
+      "title": "Änderungen der Bedingungen",
+      "description": "Wir behalten uns das Recht vor, diese Bedingungen zu ändern. Benutzer werden über wesentliche Änderungen informiert."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "description": "Bei Fragen kontaktieren Sie uns unter:"
+    }
+  },
+  "support": {
+    "title": "Support",
+    "description": "Die Support-Option ermöglicht es Benutzern, Fehler oder Probleme direkt per E-Mail-Adresse zu melden. Alle gemeldeten Probleme werden protokolliert und so schnell wie möglich behoben.",
+    "contact": {
+      "title": "Kontaktieren Sie uns",
+      "description": "Um ein Problem zu melden oder Fragen zu stellen, senden Sie eine E-Mail an:"
+    },
+    "report": {
+      "title": "Problem melden",
+      "description": "Beschreiben Sie das Problem so detailliert wie möglich, damit wir Ihnen helfen können. Geben Sie Informationen über den verwendeten Browser, das Gerät und den Schritt an, der zum Problem geführt hat."
+    },
+    "response": {
+      "title": "Antwortzeit",
+      "description": "Wir bemühen uns, alle Anfragen innerhalb von 24-48 Stunden zu beantworten. Dringende Probleme werden vorrangig gelöst."
+    }
   },
   "languages": {
     "bs": "Bosanski",
