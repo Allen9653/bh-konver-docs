@@ -101,12 +101,146 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 BH Konver | Razvijeno u Bosni i Hercegovini, Zenica 72 000",
+    "copyright": "© 2025 BH Konver",
+    "developed": "Razvijeno u Bosni i Hercegovini, Zenica 72 000",
     "ownership": "Vlasništvo B&H Assistant",
     "motto": "Spajamo Kulture Stvaramo Šanse",
     "privacy": "Privatnost",
     "terms": "Uslovi korištenja",
     "support": "Podrška"
+  },
+  "common": {
+    "back": "Nazad"
+  },
+  "privacy": {
+    "title": "Privatnost",
+    "description": "BH Konver poštuje vašu privatnost. Aplikacija ne prikuplja niti pohranjuje lične podatke osim onih koje korisnik dobrovoljno unese radi korištenja funkcionalnosti. Svi podaci se koriste isključivo za prikaz javno dostupnih obrazaca i formulara sa zvaničnih web stranica institucija u BiH. Korištenjem aplikacije prihvatate da se vaši podaci neće biti prodavani, dijeljeni ili zloupotrebljeni.",
+    "businessPolicy": {
+      "title": "Politika privatnosti",
+      "description": "BH Konver poštuje vašu privatnost. Aplikacija ne prikuplja niti pohranjuje lične podatke osim onih koje korisnik dobrovoljno unese radi korištenja funkcionalnosti. Svi podaci se koriste isključivo za prikaz javno dostupnih obrazaca i formulara sa zvaničnih web stranica institucija u BiH. Korištenjem aplikacije prihvatate da se vaši podaci neće biti prodavani, dijeljeni ili zloupotrebljeni."
+    },
+    "technology": "Tehničke mjere sigurnosti",
+    "ssl": {
+      "title": "SSL Enkripcija",
+      "description": "Sva komunikacija između korisnika i servera je zaštićena SSL/TLS enkripcijom."
+    },
+    "dataCenters": {
+      "title": "Sigurni data centri",
+      "description": "Koristimo sigurne data centre sa fizičkom zaštitom i redundantnim sistemima."
+    },
+    "monitoring": {
+      "title": "24/7 Nadzor",
+      "description": "Naši sistemi su pod stalnim nadzorom radi brze detekcije i reakcije na sigurnosne prijetnje."
+    },
+    "api": {
+      "title": "Sigurni API",
+      "description": "Svi API pozivi su autentificirani i enkriptirani."
+    },
+    "idps": {
+      "title": "Zaštita od upada",
+      "description": "Koristimo napredne sisteme za detekciju i prevenciju upada."
+    },
+    "backup": {
+      "title": "Sigurnosne kopije",
+      "description": "Redovno pravimo sigurnosne kopije podataka."
+    },
+    "vpn": {
+      "title": "VPN pristup",
+      "description": "Administratorski pristup je zaštićen VPN-om."
+    },
+    "uptime": {
+      "title": "Visoka dostupnost",
+      "description": "Garantujemo visoku dostupnost naših servisa."
+    },
+    "isolation": {
+      "title": "Izolacija podataka",
+      "description": "Podaci korisnika su izolirani i zaštićeni."
+    },
+    "practices": "Sigurnosne prakse",
+    "compliance": {
+      "title": "Usklađenost",
+      "description": "Pridržavamo se svih relevantnih propisa o zaštiti podataka."
+    },
+    "accessControl": {
+      "title": "Kontrola pristupa",
+      "description": "Stroga kontrola pristupa osjetljivim podacima."
+    },
+    "privacyPolicy": {
+      "title": "Politika privatnosti",
+      "description": "Jasna i transparentna politika privatnosti."
+    },
+    "training": {
+      "title": "Obuka osoblja",
+      "description": "Redovna obuka osoblja o sigurnosnim praksama."
+    },
+    "sdlc": {
+      "title": "Sigurni razvoj",
+      "description": "Sigurnosne prakse integrirane u razvoj softvera."
+    },
+    "incident": {
+      "title": "Upravljanje incidentima",
+      "description": "Definisani procesi za upravljanje sigurnosnim incidentima."
+    }
+  },
+  "terms": {
+    "title": "Uslovi korištenja",
+    "intro": "BH Konver je besplatan digitalni alat. Korisnik se obavezuje da aplikaciju koristi isključivo u svrhu pronalaženja javnih obrazaca i formulara. B&H Assistant d.o.o. ne garantuje stalnu dostupnost eksternih URL-ova niti odgovara za sadržaj vanjskih stranica. Zabranjeno je neovlašteno kopiranje, distribucija ili komercijalna zloupotreba aplikacije bez pismenog odobrenja vlasnika.",
+    "eligibility": {
+      "title": "Ko može koristiti uslugu",
+      "description": "Usluga je dostupna svim korisnicima koji prihvataju ove uslove korištenja."
+    },
+    "ownership": {
+      "title": "Vlasništvo i autorska prava",
+      "description": "Sva prava na BH Konver aplikaciju pripadaju B&H Assistant d.o.o. Neovlašteno kopiranje, distribucija ili komercijalna zloupotreba je strogo zabranjena."
+    },
+    "commercial": {
+      "title": "Komercijalna upotreba",
+      "description1": "Za komercijalnu upotrebu potrebno je pismeno odobrenje vlasnika.",
+      "description2": "Kontaktirajte nas za više informacija o komercijalnim licencama."
+    },
+    "dataSecurity": {
+      "title": "Sigurnost podataka",
+      "description": "Poduzimamo sve razumne mjere za zaštitu vaših podataka, ali ne možemo garantovati apsolutnu sigurnost."
+    },
+    "restrictions": {
+      "title": "Ograničenja korištenja",
+      "intro": "Korisnici ne smiju:",
+      "item1": "Koristiti aplikaciju za ilegalne aktivnosti",
+      "item2": "Pokušavati pristupiti zaštićenim dijelovima sistema",
+      "item3": "Preopterećivati servere automatiziranim zahtjevima"
+    },
+    "payments": {
+      "title": "Plaćanja i pretplate",
+      "description": "Sva plaćanja se procesiraju putem sigurnih payment gateway-a. Povrat novca je moguć u skladu sa našom politikom povrata."
+    },
+    "liability": {
+      "title": "Ograničenje odgovornosti",
+      "description": "B&H Assistant d.o.o. ne odgovara za štetu nastalu korištenjem aplikacije ili nemogućnošću pristupa servisu."
+    },
+    "changes": {
+      "title": "Izmjene uslova",
+      "description": "Zadržavamo pravo izmjene ovih uslova. Korisnici će biti obaviješteni o značajnim promjenama."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "description": "Za sva pitanja kontaktirajte nas na:"
+    }
+  },
+  "support": {
+    "title": "Podrška",
+    "description": "Opcija Podrška omogućava korisniku da direktno prijavi kvar ili problem putem e-mail adrese. Svi prijavljeni problemi se evidentiraju i rješavaju u najkraćem mogućem roku.",
+    "contact": {
+      "title": "Kontaktirajte nas",
+      "description": "Za prijavu problema ili pitanja pošaljite email na:"
+    },
+    "report": {
+      "title": "Prijavite problem",
+      "description": "Opišite problem što detaljnije kako bismo vam mogli pomoći. Uključite informacije o korištenom pregledniku, uređaju i koraku koji je doveo do problema."
+    },
+    "response": {
+      "title": "Vrijeme odgovora",
+      "description": "Trudimo se odgovoriti na sve upite u roku od 24-48 sati. Hitni problemi se rješavaju prioritetno."
+    }
   },
   "languages": {
     "bs": "Bosanski",

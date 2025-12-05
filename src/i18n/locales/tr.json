@@ -27,6 +27,10 @@
       "name": "GIF Dönüştürücü",
       "description": "Video→GIF, GIF→MP4, GIF→APNG"
     },
+    "pdf-tools": {
+      "name": "PDF Araçları",
+      "description": "Filigran, Döndür, Sıkıştır, Böl, Birleştir"
+    },
     "unit": {
       "name": "Birim Dönüştürücü",
       "description": "cm↔inç, kg↔libre, °C↔°F"
@@ -43,7 +47,9 @@
       "kg_to_lbs": "Kilogram → Libre",
       "lbs_to_kg": "Libre → Kilogram",
       "celsius_to_fahrenheit": "Santigrat → Fahrenheit",
-      "fahrenheit_to_celsius": "Fahrenheit → Santigrat"
+      "fahrenheit_to_celsius": "Fahrenheit → Santigrat",
+      "c_to_f": "Santigrat → Fahrenheit",
+      "f_to_c": "Fahrenheit → Santigrat"
     }
   },
   "fileUpload": {
@@ -95,12 +101,146 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 BH Konver | Bosna-Hersek'te geliştirilmiştir, Zenica 72 000",
+    "copyright": "© 2025 BH Konver",
+    "developed": "Bosna-Hersek'te geliştirilmiştir, Zenica 72 000",
     "ownership": "B&H Assistant'ın mülkiyetindedir",
     "motto": "Kültürleri Birleştiriyoruz Fırsatlar Yaratıyoruz",
     "privacy": "Gizlilik",
     "terms": "Kullanım Koşulları",
     "support": "Destek"
+  },
+  "common": {
+    "back": "Geri"
+  },
+  "privacy": {
+    "title": "Gizlilik",
+    "description": "BH Konver gizliliğinize saygı duyar. Uygulama, kullanıcının işlevselliği kullanmak için gönüllü olarak girdiği veriler dışında kişisel verileri toplamaz veya saklamaz. Tüm veriler yalnızca resmi BiH kurum web sitelerinden halka açık formları görüntülemek için kullanılır. Uygulamayı kullanarak verilerinizin satılmayacağını, paylaşılmayacağını veya kötüye kullanılmayacağını kabul etmiş olursunuz.",
+    "businessPolicy": {
+      "title": "Gizlilik Politikası",
+      "description": "BH Konver gizliliğinize saygı duyar. Uygulama, kullanıcının işlevselliği kullanmak için gönüllü olarak girdiği veriler dışında kişisel verileri toplamaz veya saklamaz. Tüm veriler yalnızca resmi BiH kurum web sitelerinden halka açık formları görüntülemek için kullanılır. Uygulamayı kullanarak verilerinizin satılmayacağını, paylaşılmayacağını veya kötüye kullanılmayacağını kabul etmiş olursunuz."
+    },
+    "technology": "Teknik Güvenlik Önlemleri",
+    "ssl": {
+      "title": "SSL Şifreleme",
+      "description": "Kullanıcı ve sunucu arasındaki tüm iletişim SSL/TLS şifrelemesi ile korunmaktadır."
+    },
+    "dataCenters": {
+      "title": "Güvenli Veri Merkezleri",
+      "description": "Fiziksel koruma ve yedekli sistemlerle güvenli veri merkezleri kullanıyoruz."
+    },
+    "monitoring": {
+      "title": "7/24 İzleme",
+      "description": "Sistemlerimiz güvenlik tehditlerine hızlı tespit ve müdahale için sürekli izlenmektedir."
+    },
+    "api": {
+      "title": "Güvenli API",
+      "description": "Tüm API çağrıları kimlik doğrulaması yapılmış ve şifrelenmiştir."
+    },
+    "idps": {
+      "title": "Sızma Koruması",
+      "description": "Gelişmiş sızma tespit ve önleme sistemleri kullanıyoruz."
+    },
+    "backup": {
+      "title": "Veri Yedeklemeleri",
+      "description": "Düzenli olarak veri yedeklemeleri oluşturuyoruz."
+    },
+    "vpn": {
+      "title": "VPN Erişimi",
+      "description": "Yönetici erişimi VPN ile korunmaktadır."
+    },
+    "uptime": {
+      "title": "Yüksek Kullanılabilirlik",
+      "description": "Hizmetlerimizin yüksek kullanılabilirliğini garanti ediyoruz."
+    },
+    "isolation": {
+      "title": "Veri İzolasyonu",
+      "description": "Kullanıcı verileri izole edilmiş ve korunmaktadır."
+    },
+    "practices": "Güvenlik Uygulamaları",
+    "compliance": {
+      "title": "Uyumluluk",
+      "description": "Tüm ilgili veri koruma düzenlemelerine uyuyoruz."
+    },
+    "accessControl": {
+      "title": "Erişim Kontrolü",
+      "description": "Hassas veriler için sıkı erişim kontrolü."
+    },
+    "privacyPolicy": {
+      "title": "Gizlilik Politikası",
+      "description": "Açık ve şeffaf gizlilik politikası."
+    },
+    "training": {
+      "title": "Personel Eğitimi",
+      "description": "Güvenlik uygulamaları konusunda düzenli personel eğitimi."
+    },
+    "sdlc": {
+      "title": "Güvenli Geliştirme",
+      "description": "Yazılım geliştirmeye entegre edilmiş güvenlik uygulamaları."
+    },
+    "incident": {
+      "title": "Olay Yönetimi",
+      "description": "Güvenlik olaylarını yönetmek için tanımlanmış süreçler."
+    }
+  },
+  "terms": {
+    "title": "Kullanım Koşulları",
+    "intro": "BH Konver ücretsiz bir dijital araçtır. Kullanıcı, uygulamayı yalnızca halka açık formları bulmak için kullanmayı kabul eder. B&H Assistant d.o.o. harici URL'lerin sürekli kullanılabilirliğini garanti etmez ve harici web sitesi içeriğinden sorumlu değildir. Mal sahibinin yazılı izni olmadan uygulamanın yetkisiz kopyalanması, dağıtılması veya ticari kötüye kullanılması yasaktır.",
+    "eligibility": {
+      "title": "Hizmeti Kimler Kullanabilir",
+      "description": "Hizmet, bu kullanım koşullarını kabul eden tüm kullanıcılara açıktır."
+    },
+    "ownership": {
+      "title": "Mülkiyet ve Telif Hakkı",
+      "description": "BH Konver uygulamasına ilişkin tüm haklar B&H Assistant d.o.o.'ya aittir. Yetkisiz kopyalama, dağıtım veya ticari kötüye kullanım kesinlikle yasaktır."
+    },
+    "commercial": {
+      "title": "Ticari Kullanım",
+      "description1": "Ticari kullanım için mal sahibinin yazılı izni gereklidir.",
+      "description2": "Ticari lisanslar hakkında daha fazla bilgi için bizimle iletişime geçin."
+    },
+    "dataSecurity": {
+      "title": "Veri Güvenliği",
+      "description": "Verilerinizi korumak için tüm makul önlemleri alıyoruz, ancak mutlak güvenliği garanti edemeyiz."
+    },
+    "restrictions": {
+      "title": "Kullanım Kısıtlamaları",
+      "intro": "Kullanıcılar şunları yapmamalıdır:",
+      "item1": "Uygulamayı yasadışı faaliyetler için kullanmak",
+      "item2": "Sistemin korunan bölümlerine erişmeye çalışmak",
+      "item3": "Sunucuları otomatik isteklerle aşırı yüklemek"
+    },
+    "payments": {
+      "title": "Ödemeler ve Abonelikler",
+      "description": "Tüm ödemeler güvenli ödeme ağ geçitleri üzerinden işlenir. İade politikamıza göre geri ödeme yapılabilir."
+    },
+    "liability": {
+      "title": "Sorumluluk Sınırlaması",
+      "description": "B&H Assistant d.o.o. uygulamanın kullanımından veya hizmete erişilememesinden kaynaklanan hasarlardan sorumlu değildir."
+    },
+    "changes": {
+      "title": "Koşullarda Değişiklikler",
+      "description": "Bu koşulları değiştirme hakkını saklı tutuyoruz. Kullanıcılar önemli değişikliklerden haberdar edilecektir."
+    },
+    "contact": {
+      "title": "İletişim",
+      "description": "Herhangi bir sorunuz için bizimle iletişime geçin:"
+    }
+  },
+  "support": {
+    "title": "Destek",
+    "description": "Destek seçeneği, kullanıcıların hataları veya sorunları doğrudan e-posta adresi üzerinden bildirmesine olanak tanır. Bildirilen tüm sorunlar kaydedilir ve en kısa sürede çözülür.",
+    "contact": {
+      "title": "Bize Ulaşın",
+      "description": "Bir sorunu bildirmek veya soru sormak için e-posta gönderin:"
+    },
+    "report": {
+      "title": "Sorun Bildir",
+      "description": "Size yardımcı olabilmemiz için sorunu mümkün olduğunca ayrıntılı açıklayın. Kullanılan tarayıcı, cihaz ve soruna yol açan adım hakkında bilgi ekleyin."
+    },
+    "response": {
+      "title": "Yanıt Süresi",
+      "description": "Tüm sorulara 24-48 saat içinde yanıt vermeye çalışıyoruz. Acil sorunlar öncelikli olarak çözülür."
+    }
   },
   "languages": {
     "bs": "Bosanski",

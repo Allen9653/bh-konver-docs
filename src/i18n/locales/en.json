@@ -101,12 +101,146 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 BH Konver | Developed in Bosnia and Herzegovina, Zenica 72 000",
+    "copyright": "© 2025 BH Konver",
+    "developed": "Developed in Bosnia and Herzegovina, Zenica 72 000",
     "ownership": "Property of B&H Assistant",
     "motto": "Connecting Cultures Creating Opportunities",
     "privacy": "Privacy",
     "terms": "Terms of Use",
     "support": "Support"
+  },
+  "common": {
+    "back": "Back"
+  },
+  "privacy": {
+    "title": "Privacy",
+    "description": "BH Konver respects your privacy. The application does not collect or store personal data except what the user voluntarily enters to use the functionality. All data is used exclusively to display publicly available forms from official BiH institution websites. By using the application, you accept that your data will not be sold, shared, or misused.",
+    "businessPolicy": {
+      "title": "Privacy Policy",
+      "description": "BH Konver respects your privacy. The application does not collect or store personal data except what the user voluntarily enters to use the functionality. All data is used exclusively to display publicly available forms from official BiH institution websites. By using the application, you accept that your data will not be sold, shared, or misused."
+    },
+    "technology": "Technical Security Measures",
+    "ssl": {
+      "title": "SSL Encryption",
+      "description": "All communication between user and server is protected by SSL/TLS encryption."
+    },
+    "dataCenters": {
+      "title": "Secure Data Centers",
+      "description": "We use secure data centers with physical protection and redundant systems."
+    },
+    "monitoring": {
+      "title": "24/7 Monitoring",
+      "description": "Our systems are under constant monitoring for quick detection and response to security threats."
+    },
+    "api": {
+      "title": "Secure API",
+      "description": "All API calls are authenticated and encrypted."
+    },
+    "idps": {
+      "title": "Intrusion Protection",
+      "description": "We use advanced intrusion detection and prevention systems."
+    },
+    "backup": {
+      "title": "Data Backups",
+      "description": "We regularly create data backups."
+    },
+    "vpn": {
+      "title": "VPN Access",
+      "description": "Administrative access is protected by VPN."
+    },
+    "uptime": {
+      "title": "High Availability",
+      "description": "We guarantee high availability of our services."
+    },
+    "isolation": {
+      "title": "Data Isolation",
+      "description": "User data is isolated and protected."
+    },
+    "practices": "Security Practices",
+    "compliance": {
+      "title": "Compliance",
+      "description": "We comply with all relevant data protection regulations."
+    },
+    "accessControl": {
+      "title": "Access Control",
+      "description": "Strict access control for sensitive data."
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "description": "Clear and transparent privacy policy."
+    },
+    "training": {
+      "title": "Staff Training",
+      "description": "Regular staff training on security practices."
+    },
+    "sdlc": {
+      "title": "Secure Development",
+      "description": "Security practices integrated into software development."
+    },
+    "incident": {
+      "title": "Incident Management",
+      "description": "Defined processes for managing security incidents."
+    }
+  },
+  "terms": {
+    "title": "Terms of Use",
+    "intro": "BH Konver is a free digital tool. The user agrees to use the application exclusively for finding public forms. B&H Assistant d.o.o. does not guarantee constant availability of external URLs nor is responsible for external website content. Unauthorized copying, distribution, or commercial misuse of the application is prohibited without written permission from the owner.",
+    "eligibility": {
+      "title": "Who Can Use the Service",
+      "description": "The service is available to all users who accept these terms of use."
+    },
+    "ownership": {
+      "title": "Ownership and Copyright",
+      "description": "All rights to the BH Konver application belong to B&H Assistant d.o.o. Unauthorized copying, distribution, or commercial misuse is strictly prohibited."
+    },
+    "commercial": {
+      "title": "Commercial Use",
+      "description1": "Written permission from the owner is required for commercial use.",
+      "description2": "Contact us for more information about commercial licenses."
+    },
+    "dataSecurity": {
+      "title": "Data Security",
+      "description": "We take all reasonable measures to protect your data, but cannot guarantee absolute security."
+    },
+    "restrictions": {
+      "title": "Usage Restrictions",
+      "intro": "Users must not:",
+      "item1": "Use the application for illegal activities",
+      "item2": "Attempt to access protected parts of the system",
+      "item3": "Overload servers with automated requests"
+    },
+    "payments": {
+      "title": "Payments and Subscriptions",
+      "description": "All payments are processed through secure payment gateways. Refunds are possible according to our refund policy."
+    },
+    "liability": {
+      "title": "Limitation of Liability",
+      "description": "B&H Assistant d.o.o. is not responsible for damage caused by using the application or inability to access the service."
+    },
+    "changes": {
+      "title": "Changes to Terms",
+      "description": "We reserve the right to change these terms. Users will be notified of significant changes."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "For any questions contact us at:"
+    }
+  },
+  "support": {
+    "title": "Support",
+    "description": "The Support option allows users to directly report bugs or problems via email address. All reported issues are logged and resolved as quickly as possible.",
+    "contact": {
+      "title": "Contact Us",
+      "description": "To report a problem or ask questions, send an email to:"
+    },
+    "report": {
+      "title": "Report a Problem",
+      "description": "Describe the problem in as much detail as possible so we can help you. Include information about the browser used, device, and the step that led to the problem."
+    },
+    "response": {
+      "title": "Response Time",
+      "description": "We strive to respond to all inquiries within 24-48 hours. Urgent issues are resolved with priority."
+    }
   },
   "languages": {
     "bs": "Bosanski",
