@@ -14,6 +14,89 @@ export type Database = {
   }
   public: {
     Tables: {
+      conversions: {
+        Row: {
+          converted_url: string | null
+          created_at: string
+          file_size_bytes: number | null
+          id: string
+          original_filename: string
+          original_format: string
+          status: string
+          target_format: string
+          transaction_id: string | null
+          user_email: string | null
+        }
+        Insert: {
+          converted_url?: string | null
+          created_at?: string
+          file_size_bytes?: number | null
+          id?: string
+          original_filename: string
+          original_format: string
+          status?: string
+          target_format: string
+          transaction_id?: string | null
+          user_email?: string | null
+        }
+        Update: {
+          converted_url?: string | null
+          created_at?: string
+          file_size_bytes?: number | null
+          id?: string
+          original_filename?: string
+          original_format?: string
+          status?: string
+          target_format?: string
+          transaction_id?: string | null
+          user_email?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversions_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents: {
+        Row: {
+          created_at: string
+          file_size_bytes: number | null
+          file_type: string
+          filename: string
+          id: string
+          storage_path: string | null
+          thumbnail_url: string | null
+          updated_at: string
+          user_email: string
+        }
+        Insert: {
+          created_at?: string
+          file_size_bytes?: number | null
+          file_type: string
+          filename: string
+          id?: string
+          storage_path?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+          user_email: string
+        }
+        Update: {
+          created_at?: string
+          file_size_bytes?: number | null
+          file_type?: string
+          filename?: string
+          id?: string
+          storage_path?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+          user_email?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -32,6 +115,48 @@ export type Database = {
           email?: string | null
           id?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          currency: string
+          expires_at: string | null
+          id: string
+          paypal_order_id: string | null
+          paypal_payer_id: string | null
+          plan_id: string
+          status: string
+          updated_at: string
+          user_email: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          currency?: string
+          expires_at?: string | null
+          id?: string
+          paypal_order_id?: string | null
+          paypal_payer_id?: string | null
+          plan_id: string
+          status?: string
+          updated_at?: string
+          user_email: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          currency?: string
+          expires_at?: string | null
+          id?: string
+          paypal_order_id?: string | null
+          paypal_payer_id?: string | null
+          plan_id?: string
+          status?: string
+          updated_at?: string
+          user_email?: string
         }
         Relationships: []
       }
