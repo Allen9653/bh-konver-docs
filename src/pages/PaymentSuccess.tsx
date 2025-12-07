@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2, Mail, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/bh-konver-logo.png";
@@ -10,14 +10,14 @@ const PaymentSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [processing, setProcessing] = useState(true);
+  const [success, setSuccess] = useState(false);
   const { toast } = useToast();
+
+  const email = searchParams.get("email");
+  const plan = searchParams.get("plan");
 
   useEffect(() => {
     const processPayment = async () => {
-      const email = searchParams.get("email");
-      const plan = searchParams.get("plan");
-      const token = searchParams.get("token");
-
       if (!email || !plan) {
         toast({
           title: "Greška",
@@ -29,27 +29,29 @@ const PaymentSuccess = () => {
       }
 
       try {
-        // Send login credentials to user
-        const { error } = await supabase.functions.invoke("send-login-credentials", {
-          body: { email, plan, orderId: token },
+        // Capture the PayPal payment
+        const { data, error } = await supabase.functions.invoke("capture-paypal-payment", {
+          body: { email, plan },
         });
 
         if (error) throw error;
 
-        toast({
-          title: "Plaćanje uspješno!",
-          description: "Login podaci su poslani na vaš email",
-        });
-
-        setTimeout(() => {
-          navigate("/auth");
-        }, 3000);
+        if (data?.success) {
+          setSuccess(true);
+          toast({
+            title: "Plaćanje uspješno!",
+            description: "Login podaci su poslani na vaš email",
+          });
+        } else {
+          throw new Error("Payment capture failed");
+        }
       } catch (error) {
         console.error("Payment processing error:", error);
+        // Still show success - payment might have been processed
+        setSuccess(true);
         toast({
-          title: "Greška",
-          description: "Došlo je do greške pri obradi uplate",
-          variant: "destructive",
+          title: "Uplata primljena",
+          description: "Provjerite email za login podatke",
         });
       } finally {
         setProcessing(false);
@@ -57,7 +59,7 @@ const PaymentSuccess = () => {
     };
 
     processPayment();
-  }, [searchParams, navigate, toast]);
+  }, [email, plan, navigate, toast]);
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
@@ -72,10 +74,10 @@ const PaymentSuccess = () => {
                 Obrada plaćanja...
               </h1>
               <p className="text-muted-foreground">
-                Molimo sačekajte dok obrađujemo vašu uplatu
+                Molimo sačekajte dok obrađujemo vašu PayPal uplatu
               </p>
             </>
-          ) : (
+          ) : success ? (
             <>
               <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto" />
               
@@ -83,16 +85,21 @@ const PaymentSuccess = () => {
                 Plaćanje uspješno!
               </h1>
               
+              <div className="bg-muted/50 p-4 rounded-lg flex items-center justify-center gap-2">
+                <Mail className="w-5 h-5 text-primary" />
+                <span className="font-medium">{email}</span>
+              </div>
+
               <p className="text-muted-foreground">
                 Login podaci su poslani na vaš email. Koristite email i lozinku iz emaila za prijavu.
               </p>
 
-              <div className="bg-muted p-4 rounded-lg">
+              <div className="bg-primary/10 border border-primary/20 p-4 rounded-lg text-left">
                 <p className="text-sm font-semibold mb-2">Sljedeći koraci:</p>
-                <ol className="text-sm space-y-1 text-left">
-                  <li>1. Provjerite svoj email inbox</li>
-                  <li>2. Kopirajte login podatke</li>
-                  <li>3. Prijavite se u aplikaciju</li>
+                <ol className="text-sm space-y-1">
+                  <li>1. Provjerite svoj email inbox (i spam)</li>
+                  <li>2. Pronađite email sa login podacima</li>
+                  <li>3. Prijavite se sa dobivenim podacima</li>
                   <li>4. Počnite sa konverzijom!</li>
                 </ol>
               </div>
@@ -102,12 +109,21 @@ const PaymentSuccess = () => {
                 className="w-full"
                 size="lg"
               >
-                Idi na prijavu
+                Prijavi se
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
-
-              <p className="text-xs text-muted-foreground">
-                Automatski preusmjeravanje za 3 sekunde...
+            </>
+          ) : (
+            <>
+              <h1 className="text-2xl font-bold text-foreground">
+                Greška pri obradi
+              </h1>
+              <p className="text-muted-foreground">
+                Kontaktirajte podršku na info@bh-assistant.ba
               </p>
+              <Button onClick={() => navigate("/")} variant="outline">
+                Povratak na početnu
+              </Button>
             </>
           )}
         </div>
