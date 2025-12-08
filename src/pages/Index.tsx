@@ -14,8 +14,9 @@ import { CurrencyConverter } from "@/components/CurrencyConverter";
 import { PayPalPaymentModal } from "@/components/PayPalPaymentModal";
 import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { useSubscription } from "@/hooks/useSubscription";
 import { Button } from "@/components/ui/button";
-import { LogIn, LogOut } from "lucide-react";
+import { LogIn, LogOut, Crown } from "lucide-react";
 import logo from "@/assets/bh-konver-logo.png";
 import bhIllustration from "@/assets/bh-illustration.jpg";
 import etnoFiguralni from "@/assets/etno-figuralni.png";
@@ -34,15 +35,18 @@ const Index = () => {
   const [selectedPDFTool, setSelectedPDFTool] = useState<PDFOperation | null>(null);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const { user, isAdmin, loading, signOut } = useAdminAuth();
+  const { hasActiveSubscription, expiresAt, loading: subLoading } = useSubscription(user?.email);
   const navigate = useNavigate();
 
-  // Redirect authenticated users to see all features
+  // Check if user has access to premium features (admin OR paid subscription)
+  const showFullFeatures = isAdmin || hasActiveSubscription;
+
+  // Set default module based on access
   useEffect(() => {
-    if (!loading && user && !isAdmin) {
-      // Regular users only see unit converter (which is free)
+    if (!loading && !subLoading && !showFullFeatures) {
       setSelectedModule("unit");
     }
-  }, [user, isAdmin, loading]);
+  }, [loading, subLoading, showFullFeatures]);
 
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles((prev) => [...prev, ...selectedFiles]);
@@ -96,7 +100,7 @@ const Index = () => {
     }
   };
 
-  const showFullFeatures = isAdmin;
+  
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
@@ -191,22 +195,39 @@ const Index = () => {
             </div>
           </div>
           
-          {/* Auth Status */}
-          <div className="mt-4 flex items-center justify-center gap-3">
+          {/* Auth Status & Subscription Info */}
+          <div className="mt-4 flex flex-col items-center gap-3">
             {user ? (
               <>
-                <span className="text-sm text-muted-foreground">
-                  {user.email} {isAdmin && <span className="text-primary font-semibold">(Admin)</span>}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground">
+                    {user.email}
+                  </span>
+                  {isAdmin && (
+                    <span className="bg-primary text-primary-foreground px-2 py-0.5 rounded-full text-xs font-semibold">
+                      Admin
+                    </span>
+                  )}
+                  {hasActiveSubscription && !isAdmin && (
+                    <span className="bg-amber-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1">
+                      <Crown className="w-3 h-3" /> Premium
+                    </span>
+                  )}
+                </div>
+                {hasActiveSubscription && expiresAt && !isAdmin && (
+                  <p className="text-xs text-muted-foreground">
+                    Pretplata ističe: {expiresAt.toLocaleDateString('bs-BA')}
+                  </p>
+                )}
                 <Button variant="outline" size="sm" onClick={signOut}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  {t('footer.support')}
+                  Odjavi se
                 </Button>
               </>
             ) : (
               <Button variant="default" size="sm" onClick={() => navigate("/auth")}>
                 <LogIn className="mr-2 h-4 w-4" />
-                Admin {t('footer.support')}
+                Admin Prijava
               </Button>
             )}
           </div>
@@ -224,13 +245,28 @@ const Index = () => {
         </div>
 
         {/* Module Selector - Show all modules for admin, only unit for others */}
-        {showFullFeatures ? (
-          <ModuleSelector selectedModule={selectedModule} onSelectModule={setSelectedModule} />
-        ) : (
-          <div className="mb-8">
-            <p className="text-center text-muted-foreground mb-4">
-              {t('unitConverter.title')} je besplatan za sve korisnike. Za pristup drugim funkcijama, prijavite se kao administrator.
+        {/* Module Selector */}
+        <ModuleSelector selectedModule={selectedModule} onSelectModule={(module) => {
+          if (module === "unit") {
+            setSelectedModule(module);
+          } else if (showFullFeatures) {
+            setSelectedModule(module);
+          } else {
+            // User needs to pay for premium features
+            setPaymentModalOpen(true);
+          }
+        }} />
+        
+        {!showFullFeatures && selectedModule !== "unit" && (
+          <div className="mb-8 text-center p-6 bg-muted/30 rounded-lg border border-border">
+            <Crown className="w-12 h-12 text-amber-500 mx-auto mb-3" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Premium Funkcija</h3>
+            <p className="text-muted-foreground mb-4">
+              Za pristup konverzijama fajlova, odaberite jedan od naših paketa.
             </p>
+            <Button onClick={() => setPaymentModalOpen(true)}>
+              Odaberi Paket
+            </Button>
           </div>
         )}
 
