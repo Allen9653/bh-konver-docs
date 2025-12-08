@@ -11,6 +11,7 @@ import { PDFToolsInterface } from "@/components/PDFToolsInterface";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { PricingSection } from "@/components/PricingSection";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
+import { PayPalPaymentModal } from "@/components/PayPalPaymentModal";
 import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,7 @@ const Index = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [selectedModule, setSelectedModule] = useState<ConversionModule>("unit");
   const [selectedPDFTool, setSelectedPDFTool] = useState<PDFOperation | null>(null);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const { user, isAdmin, loading, signOut } = useAdminAuth();
   const navigate = useNavigate();
 
@@ -211,10 +213,10 @@ const Index = () => {
         </div>
 
         {/* Pricing Section */}
-        <PricingSection onSelectPlan={(tier) => {
-          console.log('Selected plan:', tier);
-          // TODO: Implement payment integration
-        }} />
+        <PricingSection onSelectPlan={() => setPaymentModalOpen(true)} />
+        
+        {/* PayPal Payment Modal */}
+        <PayPalPaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} />
 
         {/* Currency Converter - Free for everyone */}
         <div className="mb-12 px-4">
