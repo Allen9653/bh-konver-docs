@@ -38,15 +38,10 @@ const Index = () => {
   const { hasActiveSubscription, expiresAt, loading: subLoading } = useSubscription(user?.email);
   const navigate = useNavigate();
 
-  // Check if user has access to premium features (admin OR paid subscription)
-  const showFullFeatures = isAdmin || hasActiveSubscription;
-
-  // Set default module based on access
-  useEffect(() => {
-    if (!loading && !subLoading && !showFullFeatures) {
-      setSelectedModule("unit");
-    }
-  }, [loading, subLoading, showFullFeatures]);
+  // Check if user has access to premium features (admin OR paid subscription OR logged in user)
+  // All logged-in users can access modules for testing/demo, premium features for paid users
+  const canAccessModules = !!user; // Any logged-in user can access modules
+  const isPremiumUser = isAdmin || hasActiveSubscription; // Full premium access
 
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles((prev) => [...prev, ...selectedFiles]);
@@ -208,13 +203,13 @@ const Index = () => {
                       Admin
                     </span>
                   )}
-                  {hasActiveSubscription && !isAdmin && (
+                  {isPremiumUser && !isAdmin && (
                     <span className="bg-amber-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1">
                       <Crown className="w-3 h-3" /> Premium
                     </span>
                   )}
                 </div>
-                {hasActiveSubscription && expiresAt && !isAdmin && (
+                {isPremiumUser && expiresAt && !isAdmin && (
                   <p className="text-xs text-muted-foreground">
                     Pretplata ističe: {expiresAt.toLocaleDateString('bs-BA')}
                   </p>
@@ -244,54 +239,54 @@ const Index = () => {
           <CurrencyConverter />
         </div>
 
-        {/* Module Selector - Show all modules for admin, only unit for others */}
-        {/* Module Selector */}
+        {/* Module Selector - All modules accessible for logged-in users */}
         <ModuleSelector selectedModule={selectedModule} onSelectModule={(module) => {
           if (module === "unit") {
             setSelectedModule(module);
-          } else if (showFullFeatures) {
+          } else if (canAccessModules) {
+            // Logged-in users can access all modules
             setSelectedModule(module);
           } else {
-            // User needs to pay for premium features
-            setPaymentModalOpen(true);
+            // Guest users need to login first
+            navigate("/auth");
           }
         }} />
         
-        {!showFullFeatures && selectedModule !== "unit" && (
+        {!canAccessModules && selectedModule !== "unit" && (
           <div className="mb-8 text-center p-6 bg-muted/30 rounded-lg border border-border">
-            <Crown className="w-12 h-12 text-amber-500 mx-auto mb-3" />
-            <h3 className="text-lg font-semibold text-foreground mb-2">Premium Funkcija</h3>
+            <LogIn className="w-12 h-12 text-primary mx-auto mb-3" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Prijava Potrebna</h3>
             <p className="text-muted-foreground mb-4">
-              Za pristup konverzijama fajlova, odaberite jedan od naših paketa.
+              Za pristup konverzijama fajlova, prijavite se na vaš račun.
             </p>
-            <Button onClick={() => setPaymentModalOpen(true)}>
-              Odaberi Paket
+            <Button onClick={() => navigate("/auth")}>
+              Prijavi se
             </Button>
           </div>
         )}
 
-        {/* PDF Tools Module - Only for admin */}
-        {showFullFeatures && selectedPDFTool ? (
+        {/* PDF Tools Module - For logged-in users */}
+        {canAccessModules && selectedPDFTool ? (
           <div className="mb-8">
             <PDFToolsInterface
               operation={selectedPDFTool}
               onBack={() => setSelectedPDFTool(null)}
             />
           </div>
-        ) : showFullFeatures && selectedModule === "pdf-tools" ? (
+        ) : canAccessModules && selectedModule === "pdf-tools" ? (
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-6">PDF Alati</h2>
             <PDFToolsSelector onSelectTool={(tool) => setSelectedPDFTool(tool)} />
           </div>
-        ) : selectedModule === "unit" || !showFullFeatures ? (
+        ) : selectedModule === "unit" ? (
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-6">{t('unitConverter.title')}</h2>
             <UnitConverter />
           </div>
         ) : null}
 
-        {/* File Upload for Image and PDF Modules - Only for admin */}
-        {showFullFeatures && selectedModule !== "unit" && selectedModule !== "pdf-tools" && (
+        {/* File Upload for all conversion modules - For logged-in users */}
+        {canAccessModules && selectedModule !== "unit" && selectedModule !== "pdf-tools" && (
           <>
             <div className="mb-8">
               <FileUpload
