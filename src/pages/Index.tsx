@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FileUpload } from "@/components/FileUpload";
@@ -12,11 +12,13 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { PricingSection } from "@/components/PricingSection";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
 import { PayPalPaymentModal } from "@/components/PayPalPaymentModal";
+import { TransparencyBanner } from "@/components/TransparencyBanner";
+import { QuickActions } from "@/components/QuickActions";
 import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { Button } from "@/components/ui/button";
-import { LogIn, LogOut, Crown } from "lucide-react";
+import { LogIn, LogOut, Crown, History } from "lucide-react";
 import logo from "@/assets/bh-konver-logo.png";
 import bhIllustration from "@/assets/bh-illustration.jpg";
 import etnoFiguralni from "@/assets/etno-figuralni.png";
@@ -37,6 +39,7 @@ const Index = () => {
   const { user, isAdmin, loading, signOut } = useAdminAuth();
   const { hasActiveSubscription, expiresAt, loading: subLoading } = useSubscription(user?.email);
   const navigate = useNavigate();
+  const uploadRef = useRef<HTMLDivElement>(null);
 
   // Check if user has access to premium features (admin OR paid subscription OR logged in user)
   // All logged-in users can access modules for testing/demo, premium features for paid users
@@ -214,22 +217,39 @@ const Index = () => {
                     Pretplata ističe: {expiresAt.toLocaleDateString('bs-BA')}
                   </p>
                 )}
-                <Button variant="outline" size="sm" onClick={signOut}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Odjavi se
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" onClick={() => navigate("/history")}>
+                    <History className="mr-2 h-4 w-4" />
+                    Moji dokumenti
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={signOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Odjavi se
+                  </Button>
+                </div>
               </>
             ) : (
               <Button variant="default" size="sm" onClick={() => navigate("/auth")}>
                 <LogIn className="mr-2 h-4 w-4" />
-                Admin Prijava
+                Prijava / Registracija
               </Button>
             )}
           </div>
         </div>
 
+        {/* Quick Actions */}
+        <QuickActions 
+          isLoggedIn={!!user} 
+          onUploadClick={() => uploadRef.current?.scrollIntoView({ behavior: "smooth" })} 
+        />
+
+        {/* Transparency Banner */}
+        <TransparencyBanner />
+
         {/* Pricing Section */}
-        <PricingSection onSelectPlan={() => setPaymentModalOpen(true)} />
+        <div id="pricing">
+          <PricingSection onSelectPlan={() => setPaymentModalOpen(true)} />
+        </div>
         
         {/* PayPal Payment Modal */}
         <PayPalPaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} />
@@ -287,7 +307,7 @@ const Index = () => {
 
         {/* File Upload for all conversion modules - For logged-in users */}
         {canAccessModules && selectedModule !== "unit" && selectedModule !== "pdf-tools" && (
-          <>
+          <div ref={uploadRef}>
             <div className="mb-8">
               <FileUpload
                 onFilesSelected={handleFilesSelected}
@@ -310,9 +330,9 @@ const Index = () => {
                 ))}
               </div>
             )}
-          </>
+          </div>
         )}
-          </main>
+        </main>
         </div>
       </div>
       

@@ -276,5 +276,43 @@
     "error": "Greška pri učitavanju tečajne liste",
     "usingCached": "Koriste se keširani podaci",
     "privacyNotice": "Widget može učitavati resurse od trećih strana. Provjerite našu Privacy/Cookie politiku."
+  },
+  "transparency": {
+    "title": "Transparentnost i Sigurnost",
+    "subtitle": "Vaša privatnost je naš prioritet",
+    "autodelete": {
+      "title": "Automatsko brisanje",
+      "description": "Svi dokumenti se automatski brišu svakog dana u 10:00h"
+    },
+    "noretention": {
+      "title": "Nema zadržavanja",
+      "description": "Ne pohranjujemo vaše dokumente nakon brisanja"
+    },
+    "nosharing": {
+      "title": "Bez dijeljenja",
+      "description": "Nikada ne dijelimo vaše podatke sa trećim stranama"
+    }
+  },
+  "quickActions": {
+    "guestTitle": "Započnite sada",
+    "guestDescription": "Registrujte se za pristup svim konverzijama ili se prijavite ako već imate račun",
+    "register": "Registracija",
+    "login": "Prijava",
+    "upload": "Upload",
+    "history": "Moji dokumenti",
+    "pricing": "Cijene",
+    "support": "Podrška"
+  },
+  "history": {
+    "title": "Moji dokumenti",
+    "documents": "Uploadovani dokumenti",
+    "conversions": "Historija konverzija",
+    "noDocuments": "Nemate uploadovanih dokumenata",
+    "noConversions": "Nemate konverzija",
+    "refresh": "Osvježi",
+    "delete": "Obriši",
+    "completed": "Završeno",
+    "transparencyNotice": "Svi dokumenti se automatski brišu svaki dan u 10:00h radi vaše sigurnosti i privatnosti.",
+    "timeUntilDeletion": "Vrijeme do sljedećeg brisanja"
   }
 }

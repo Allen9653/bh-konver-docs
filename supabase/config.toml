@@ -42,3 +42,9 @@ verify_jwt = false
 
 [functions.capture-paypal-payment]
 verify_jwt = false
+
+[functions.cleanup-documents]
+verify_jwt = false
+
+[functions.send-conversion-notification]
+verify_jwt = false
