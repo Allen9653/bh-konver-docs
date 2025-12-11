@@ -276,5 +276,43 @@
     "error": "Fehler beim Laden der Wechselkurse",
     "usingCached": "Zwischengespeicherte Daten werden verwendet",
     "privacyNotice": "Dieses Widget kann Ressourcen von Dritten laden. Bitte überprüfen Sie unsere Datenschutz-/Cookie-Richtlinie."
+  },
+  "transparency": {
+    "title": "Transparenz & Sicherheit",
+    "subtitle": "Ihre Privatsphäre hat Priorität",
+    "autodelete": {
+      "title": "Automatische Löschung",
+      "description": "Alle Dokumente werden täglich um 10:00 Uhr automatisch gelöscht"
+    },
+    "noretention": {
+      "title": "Keine Aufbewahrung",
+      "description": "Wir speichern Ihre Dokumente nach der Löschung nicht"
+    },
+    "nosharing": {
+      "title": "Keine Weitergabe",
+      "description": "Wir geben Ihre Daten niemals an Dritte weiter"
+    }
+  },
+  "quickActions": {
+    "guestTitle": "Jetzt starten",
+    "guestDescription": "Registrieren Sie sich für den Zugriff auf alle Konvertierungen oder melden Sie sich an",
+    "register": "Registrieren",
+    "login": "Anmelden",
+    "upload": "Hochladen",
+    "history": "Meine Dokumente",
+    "pricing": "Preise",
+    "support": "Support"
+  },
+  "history": {
+    "title": "Meine Dokumente",
+    "documents": "Hochgeladene Dokumente",
+    "conversions": "Konvertierungsverlauf",
+    "noDocuments": "Sie haben keine hochgeladenen Dokumente",
+    "noConversions": "Sie haben keine Konvertierungen",
+    "refresh": "Aktualisieren",
+    "delete": "Löschen",
+    "completed": "Abgeschlossen",
+    "transparencyNotice": "Alle Dokumente werden täglich um 10:00 Uhr für Ihre Sicherheit und Privatsphäre automatisch gelöscht.",
+    "timeUntilDeletion": "Zeit bis zur nächsten Löschung"
   }
 }
