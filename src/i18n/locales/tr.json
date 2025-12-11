@@ -276,5 +276,43 @@
     "error": "Döviz kurları yüklenirken hata",
     "usingCached": "Önbelleğe alınmış veriler kullanılıyor",
     "privacyNotice": "Bu widget üçüncü taraflardan kaynaklar yükleyebilir. Lütfen Gizlilik/Çerez politikamızı kontrol edin."
+  },
+  "transparency": {
+    "title": "Şeffaflık ve Güvenlik",
+    "subtitle": "Gizliliğiniz önceliğimizdir",
+    "autodelete": {
+      "title": "Otomatik silme",
+      "description": "Tüm belgeler her gün saat 10:00'da otomatik olarak silinir"
+    },
+    "noretention": {
+      "title": "Saklama yok",
+      "description": "Silme işleminden sonra belgelerinizi saklamıyoruz"
+    },
+    "nosharing": {
+      "title": "Paylaşım yok",
+      "description": "Verilerinizi asla üçüncü taraflarla paylaşmıyoruz"
+    }
+  },
+  "quickActions": {
+    "guestTitle": "Şimdi Başlayın",
+    "guestDescription": "Tüm dönüşümlere erişmek için kayıt olun veya zaten hesabınız varsa giriş yapın",
+    "register": "Kayıt Ol",
+    "login": "Giriş Yap",
+    "upload": "Yükle",
+    "history": "Belgelerim",
+    "pricing": "Fiyatlar",
+    "support": "Destek"
+  },
+  "history": {
+    "title": "Belgelerim",
+    "documents": "Yüklenen Belgeler",
+    "conversions": "Dönüşüm Geçmişi",
+    "noDocuments": "Yüklenen belgeniz yok",
+    "noConversions": "Dönüşümünüz yok",
+    "refresh": "Yenile",
+    "delete": "Sil",
+    "completed": "Tamamlandı",
+    "transparencyNotice": "Tüm belgeler güvenliğiniz ve gizliliğiniz için her gün saat 10:00'da otomatik olarak silinir.",
+    "timeUntilDeletion": "Bir sonraki silme süresine kadar"
   }
 }

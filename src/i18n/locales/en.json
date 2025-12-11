@@ -276,5 +276,43 @@
     "error": "Error loading exchange rates",
     "usingCached": "Using cached data",
     "privacyNotice": "This widget may load resources from third parties. Please check our Privacy/Cookie policy."
+  },
+  "transparency": {
+    "title": "Transparency & Security",
+    "subtitle": "Your privacy is our priority",
+    "autodelete": {
+      "title": "Auto-delete",
+      "description": "All documents are automatically deleted every day at 10:00 AM"
+    },
+    "noretention": {
+      "title": "No retention",
+      "description": "We do not store your documents after deletion"
+    },
+    "nosharing": {
+      "title": "No sharing",
+      "description": "We never share your data with third parties"
+    }
+  },
+  "quickActions": {
+    "guestTitle": "Get Started Now",
+    "guestDescription": "Register to access all conversions or log in if you already have an account",
+    "register": "Register",
+    "login": "Login",
+    "upload": "Upload",
+    "history": "My Documents",
+    "pricing": "Pricing",
+    "support": "Support"
+  },
+  "history": {
+    "title": "My Documents",
+    "documents": "Uploaded Documents",
+    "conversions": "Conversion History",
+    "noDocuments": "You have no uploaded documents",
+    "noConversions": "You have no conversions",
+    "refresh": "Refresh",
+    "delete": "Delete",
+    "completed": "Completed",
+    "transparencyNotice": "All documents are automatically deleted every day at 10:00 AM for your security and privacy.",
+    "timeUntilDeletion": "Time until next deletion"
   }
 }
