@@ -5,6 +5,7 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 import { Footer } from "@/components/Footer";
 import { 
   ArrowLeft, 
@@ -17,7 +18,9 @@ import {
   BarChart3,
   CheckCircle,
   Clock,
-  XCircle
+  XCircle,
+  Trash2,
+  Loader2
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -56,6 +59,7 @@ interface DashboardStats {
 export default function Admin() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { toast } = useToast();
   const { user, isAdmin, loading } = useAdminAuth();
   const [stats, setStats] = useState<DashboardStats>({
     totalUsers: 0,
@@ -67,6 +71,7 @@ export default function Admin() {
     conversions: [],
   });
   const [loadingStats, setLoadingStats] = useState(true);
+  const [cleanupLoading, setCleanupLoading] = useState(false);
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -130,6 +135,32 @@ export default function Admin() {
     }
   }, [isAdmin]);
 
+  const handleManualCleanup = async () => {
+    setCleanupLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("cleanup-documents");
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Cleanup uspješan",
+        description: `Obrisano dokumenata: ${data?.deletedFiles || 0}, konverzija: ${data?.deletedConversions || 0}`,
+      });
+      
+      // Refresh stats after cleanup
+      window.location.reload();
+    } catch (error) {
+      console.error("Cleanup error:", error);
+      toast({
+        title: "Greška",
+        description: "Došlo je do greške prilikom brisanja dokumenata",
+        variant: "destructive",
+      });
+    } finally {
+      setCleanupLoading(false);
+    }
+  };
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "completed":
@@ -175,11 +206,25 @@ export default function Admin() {
           {t("common.back")}
         </Button>
 
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">Admin Panel</h1>
-          <p className="text-muted-foreground">
-            Upravljajte korisnicima, transakcijama i postavkama aplikacije.
-          </p>
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-4xl font-bold text-foreground mb-2">Admin Panel</h1>
+            <p className="text-muted-foreground">
+              Upravljajte korisnicima, transakcijama i postavkama aplikacije.
+            </p>
+          </div>
+          <Button 
+            variant="destructive" 
+            onClick={handleManualCleanup}
+            disabled={cleanupLoading}
+          >
+            {cleanupLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Trash2 className="mr-2 h-4 w-4" />
+            )}
+            Ručni Cleanup
+          </Button>
         </div>
 
         {/* Stats Cards */}

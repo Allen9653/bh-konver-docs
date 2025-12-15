@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,6 +17,7 @@ import { supabase } from "@/integrations/supabase/client";
 interface PayPalPaymentModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  initialPlanId?: string;
 }
 
 const PRICING_PLANS = [
@@ -25,10 +26,17 @@ const PRICING_PLANS = [
   { id: "monthly", label: "Mjesečna pretplata", price: "50.00", duration: "30 dana" },
 ];
 
-export function PayPalPaymentModal({ open, onOpenChange }: PayPalPaymentModalProps) {
+export function PayPalPaymentModal({ open, onOpenChange, initialPlanId }: PayPalPaymentModalProps) {
   const [email, setEmail] = useState("");
-  const [selectedPlan, setSelectedPlan] = useState("24h");
+  const [selectedPlan, setSelectedPlan] = useState(initialPlanId || "24h");
   const [loading, setLoading] = useState(false);
+  
+  // Update selected plan when initialPlanId changes
+  useEffect(() => {
+    if (initialPlanId) {
+      setSelectedPlan(initialPlanId);
+    }
+  }, [initialPlanId]);
   const { toast } = useToast();
 
   const handlePayment = async () => {

@@ -36,6 +36,7 @@ const Index = () => {
   const [selectedModule, setSelectedModule] = useState<ConversionModule>("unit");
   const [selectedPDFTool, setSelectedPDFTool] = useState<PDFOperation | null>(null);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [selectedPlanId, setSelectedPlanId] = useState<string>("24h");
   const { user, isAdmin, loading, signOut } = useAdminAuth();
   const { hasActiveSubscription, expiresAt, loading: subLoading } = useSubscription(user?.email);
   const navigate = useNavigate();
@@ -248,11 +249,18 @@ const Index = () => {
 
         {/* Pricing Section */}
         <div id="pricing">
-          <PricingSection onSelectPlan={() => setPaymentModalOpen(true)} />
+          <PricingSection onSelectPlan={(tier) => {
+            setSelectedPlanId(tier.id);
+            setPaymentModalOpen(true);
+          }} />
         </div>
         
         {/* PayPal Payment Modal */}
-        <PayPalPaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} />
+        <PayPalPaymentModal 
+          open={paymentModalOpen} 
+          onOpenChange={setPaymentModalOpen}
+          initialPlanId={selectedPlanId}
+        />
 
         {/* Currency Converter - Free for everyone */}
         <div className="mb-12 px-4">

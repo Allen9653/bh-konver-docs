@@ -14,9 +14,11 @@ interface PricingTier {
   icon: any;
 }
 
-interface PricingSectionProps {
+export interface PricingSectionProps {
   onSelectPlan: (tier: PricingTier) => void;
 }
+
+export type { PricingTier };
 
 export const PricingSection = ({ onSelectPlan }: PricingSectionProps) => {
   const { t } = useTranslation();
