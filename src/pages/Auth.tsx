@@ -48,9 +48,22 @@ const Auth = () => {
 
         if (error) throw error;
 
+        // Send welcome email with subscription info
+        try {
+          await supabase.functions.invoke("send-email", {
+            body: {
+              type: "welcome",
+              email,
+            },
+          });
+        } catch (emailError) {
+          console.error("Failed to send welcome email:", emailError);
+          // Don't block registration if email fails
+        }
+
         toast({
           title: "Uspješna registracija",
-          description: "Možete se prijaviti.",
+          description: "Provjerite email za informacije o pretplatama!",
         });
         setIsLogin(true);
       }
