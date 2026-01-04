@@ -48,3 +48,6 @@ verify_jwt = false
 
 [functions.send-conversion-notification]
 verify_jwt = false
+
+[functions.verify-admin]
+verify_jwt = false
