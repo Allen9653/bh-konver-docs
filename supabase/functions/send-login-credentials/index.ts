@@ -22,8 +22,16 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    // Generate random password for the user
-    const tempPassword = Math.random().toString(36).slice(-12) + "Aa1!";
+    // Generate cryptographically secure temporary password
+    const generateSecurePassword = (length = 20): string => {
+      const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+      const randomValues = new Uint8Array(length);
+      crypto.getRandomValues(randomValues);
+      return Array.from(randomValues)
+        .map(x => charset[x % charset.length])
+        .join('');
+    };
+    const tempPassword = generateSecurePassword(20);
 
     // Create user account
     const { data: userData, error: createError } = await supabaseAdmin.auth.admin.createUser({

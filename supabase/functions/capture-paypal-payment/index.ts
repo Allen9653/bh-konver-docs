@@ -82,12 +82,16 @@ serve(async (req) => {
         })
         .eq("paypal_order_id", orderId);
 
-      if (updateError) {
-        console.error("Error updating transaction:", updateError);
-      }
-
-      // Generate temporary login credentials
-      const tempPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-4).toUpperCase();
+      // Generate cryptographically secure temporary password
+      const generateSecurePassword = (length = 20): string => {
+        const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+        const randomValues = new Uint8Array(length);
+        crypto.getRandomValues(randomValues);
+        return Array.from(randomValues)
+          .map(x => charset[x % charset.length])
+          .join('');
+      };
+      const tempPassword = generateSecurePassword(20);
       
       // Create user account if not exists
       const { data: existingUser } = await supabase
