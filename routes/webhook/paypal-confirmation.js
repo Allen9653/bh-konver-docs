@@ -99,22 +99,33 @@ setInterval(() => {
   processedWebhooks.clear();
 }, WEBHOOK_EXPIRY_MS);
 
+// Lista podržanih PayPal event tipova
+const SUPPORTED_EVENTS = [
+  "PAYMENT.SALE.COMPLETED",
+  "PAYMENT.CAPTURE.COMPLETED",
+  "CHECKOUT.ORDER.APPROVED",
+  "CHECKOUT.ORDER.COMPLETED"
+];
+
 // 📩 Potvrda PayPal uplate sa verifikacijom potpisa
 router.post("/paypal", async (req, res) => {
   try {
     const transmissionId = req.headers["paypal-transmission-id"];
+    const eventType = req.body?.event_type;
+
+    console.log(`[PAYPAL] Primljen webhook: ${eventType || "UNKNOWN"}, ID: ${transmissionId || "N/A"}`);
 
     // Replay protection - provjeri da li je webhook već obrađen
     if (transmissionId && processedWebhooks.has(transmissionId)) {
-      console.warn("[PAYPAL] Duplikat webhook-a:", transmissionId);
+      console.warn("[PAYPAL] ⚠️ Replay pokušaj detektovan:", transmissionId);
       return res.status(200).json({ message: "Webhook već obrađen." });
     }
 
     // Verifikuj webhook potpis
     const isValid = await verifyWebhookSignature(req);
     if (!isValid) {
-      console.error("[PAYPAL] Nevažeći webhook potpis");
-      return res.status(401).json({ error: "Nevažeći webhook potpis" });
+      console.error("[PAYPAL] ❌ Nevažeći webhook potpis - ODBIJENO");
+      return res.status(400).json({ error: "Invalid signature" });
     }
 
     // Dodaj u set obrađenih webhook-ova
@@ -122,20 +133,41 @@ router.post("/paypal", async (req, res) => {
       processedWebhooks.add(transmissionId);
     }
 
-    const { orderID, payerID, amount, email } = req.body;
+    // Provjeri da li je event podržan
+    if (!eventType || !SUPPORTED_EVENTS.includes(eventType)) {
+      console.log(`[PAYPAL] ℹ️ Nepodržani event ignorisan: ${eventType}`);
+      return res.status(200).json({ message: "Event ignorisan - nije relevantan." });
+    }
+
+    // Izvuci podatke iz webhook payload-a
+    const resource = req.body?.resource || {};
+    const orderID = resource.id || resource.supplementary_data?.related_ids?.order_id;
+    const payerID = resource.payer?.payer_id;
+    const amount = resource.amount?.total || resource.amount?.value;
+    const currency = resource.amount?.currency || resource.amount?.currency_code;
+    const email = resource.payer?.email_address || resource.payer?.payer_info?.email;
 
     // Logiraj potvrđenu uplatu
-    console.log("✅ Uplata potvrđena (verificirana):", { 
+    console.log("✅ [PAYPAL] Uplata potvrđena (verificirana):", { 
+      eventType,
       orderID, 
       payerID, 
-      amount, 
+      amount,
+      currency,
       email,
       transmissionId 
     });
 
-    res.status(200).json({ message: "Uplata primljena i verificirana." });
+    // TODO: Ovdje dodaj poslovnu logiku za obradu uplate
+    // npr. ažuriraj bazu, kreiraj korisnika, pošalji email...
+
+    res.status(200).json({ 
+      message: "Uplata primljena i verificirana.",
+      eventType,
+      orderID
+    });
   } catch (error) {
-    console.error("[PAYPAL] Greška pri obradi webhook-a:", error.message);
+    console.error("[PAYPAL] ❌ Greška pri obradi webhook-a:", error.message);
     res.status(500).json({ error: "Greška pri obradi webhook-a" });
   }
 });
