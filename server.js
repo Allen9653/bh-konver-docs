@@ -1,8 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const app = express();
 const path = require("path");
+
+// 🔒 Sigurnosna zaglavlja (XSS, clickjacking, MIME sniffing protection)
+app.use(helmet());
 
 // 🔒 CORS konfiguracija
 const corsOptions = {
