@@ -181,6 +181,39 @@ export type Database = {
         }
         Relationships: []
       }
+      webhook_audit_log: {
+        Row: {
+          client_ip: string | null
+          event_type: string | null
+          id: string
+          notes: string | null
+          received_at: string
+          request_payload: Json | null
+          status: string
+          transmission_id: string | null
+        }
+        Insert: {
+          client_ip?: string | null
+          event_type?: string | null
+          id?: string
+          notes?: string | null
+          received_at?: string
+          request_payload?: Json | null
+          status: string
+          transmission_id?: string | null
+        }
+        Update: {
+          client_ip?: string | null
+          event_type?: string | null
+          id?: string
+          notes?: string | null
+          received_at?: string
+          request_payload?: Json | null
+          status?: string
+          transmission_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
