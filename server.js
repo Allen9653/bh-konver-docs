@@ -1,9 +1,20 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const path = require("path");
 
+// 🔒 CORS konfiguracija
+const corsOptions = {
+  origin: process.env.ALLOWED_ORIGINS?.split(",") || ["https://bhkonver.ba"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+  optionsSuccessStatus: 200,
+  allowedHeaders: ["Content-Type", "Authorization"]
+};
+
 // 📦 Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
