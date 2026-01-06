@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Footer } from "@/components/Footer";
+import { WebhookAuditFilters, type AuditFilters } from "@/components/WebhookAuditFilters";
 import { 
   ArrowLeft, 
   Users, 
@@ -85,6 +86,12 @@ export default function Admin() {
   });
   const [loadingStats, setLoadingStats] = useState(true);
   const [cleanupLoading, setCleanupLoading] = useState(false);
+  const [auditFilters, setAuditFilters] = useState<AuditFilters>({
+    status: "all",
+    dateFrom: "",
+    dateTo: "",
+    eventType: "all",
+  });
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -155,6 +162,39 @@ export default function Admin() {
       fetchStats();
     }
   }, [isAdmin]);
+
+  // Filtered audit logs based on filters
+  const filteredAuditLogs = useMemo(() => {
+    return stats.auditLogs.filter((log) => {
+      // Status filter
+      if (auditFilters.status !== "all" && log.status !== auditFilters.status) {
+        return false;
+      }
+      
+      // Event type filter
+      if (auditFilters.eventType !== "all" && log.event_type !== auditFilters.eventType) {
+        return false;
+      }
+      
+      // Date from filter
+      if (auditFilters.dateFrom) {
+        const logDate = new Date(log.received_at);
+        const fromDate = new Date(auditFilters.dateFrom);
+        fromDate.setHours(0, 0, 0, 0);
+        if (logDate < fromDate) return false;
+      }
+      
+      // Date to filter
+      if (auditFilters.dateTo) {
+        const logDate = new Date(log.received_at);
+        const toDate = new Date(auditFilters.dateTo);
+        toDate.setHours(23, 59, 59, 999);
+        if (logDate > toDate) return false;
+      }
+      
+      return true;
+    });
+  }, [stats.auditLogs, auditFilters]);
 
   const handleManualCleanup = async () => {
     setCleanupLoading(true);
@@ -476,51 +516,60 @@ export default function Admin() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
+                <WebhookAuditFilters onFilterChange={setAuditFilters} />
+                
                 {loadingStats ? (
                   <div className="flex justify-center py-8">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
                   </div>
-                ) : stats.auditLogs.length === 0 ? (
+                ) : filteredAuditLogs.length === 0 ? (
                   <p className="text-center text-muted-foreground py-8">
-                    Nema zabilježenih webhook događaja.
+                    {stats.auditLogs.length === 0 
+                      ? "Nema zabilježenih webhook događaja."
+                      : "Nema rezultata za primijenjene filtere."}
                   </p>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="border-b">
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Vrijeme</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Event Type</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Transmission ID</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">IP Adresa</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Napomena</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {stats.auditLogs.map((log) => (
-                          <tr key={log.id} className="border-b hover:bg-muted/50">
-                            <td className="py-3 px-4 whitespace-nowrap">
-                              {new Date(log.received_at).toLocaleString("bs-BA")}
-                            </td>
-                            <td className="py-3 px-4 font-mono text-xs">
-                              {log.event_type || "N/A"}
-                            </td>
-                            <td className="py-3 px-4">{getStatusBadge(log.status)}</td>
-                            <td className="py-3 px-4 font-mono text-xs max-w-[150px] truncate">
-                              {log.transmission_id || "N/A"}
-                            </td>
-                            <td className="py-3 px-4 font-mono text-xs">
-                              {log.client_ip || "N/A"}
-                            </td>
-                            <td className="py-3 px-4 max-w-[200px] truncate text-muted-foreground">
-                              {log.notes || "-"}
-                            </td>
+                  <>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Prikazano {filteredAuditLogs.length} od {stats.auditLogs.length} zapisa
+                    </p>
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead>
+                          <tr className="border-b">
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Vrijeme</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Event Type</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Transmission ID</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">IP Adresa</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Napomena</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                        </thead>
+                        <tbody>
+                          {filteredAuditLogs.map((log) => (
+                            <tr key={log.id} className="border-b hover:bg-muted/50">
+                              <td className="py-3 px-4 whitespace-nowrap">
+                                {new Date(log.received_at).toLocaleString("bs-BA")}
+                              </td>
+                              <td className="py-3 px-4 font-mono text-xs">
+                                {log.event_type || "N/A"}
+                              </td>
+                              <td className="py-3 px-4">{getStatusBadge(log.status)}</td>
+                              <td className="py-3 px-4 font-mono text-xs max-w-[150px] truncate">
+                                {log.transmission_id || "N/A"}
+                              </td>
+                              <td className="py-3 px-4 font-mono text-xs">
+                                {log.client_ip || "N/A"}
+                              </td>
+                              <td className="py-3 px-4 max-w-[200px] truncate text-muted-foreground">
+                                {log.notes || "-"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
                 )}
               </CardContent>
             </Card>
