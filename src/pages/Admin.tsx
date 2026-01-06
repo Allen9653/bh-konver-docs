@@ -13,14 +13,14 @@ import {
   CreditCard, 
   FileText, 
   TrendingUp,
-  Mail,
-  Settings,
-  BarChart3,
   CheckCircle,
   Clock,
   XCircle,
   Trash2,
-  Loader2
+  Loader2,
+  Shield,
+  AlertTriangle,
+  Ban
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -46,6 +46,17 @@ interface Conversion {
   created_at: string;
 }
 
+interface WebhookAuditLog {
+  id: string;
+  event_type: string | null;
+  transmission_id: string | null;
+  status: string;
+  request_payload: unknown;
+  received_at: string;
+  client_ip: string | null;
+  notes: string | null;
+}
+
 interface DashboardStats {
   totalUsers: number;
   totalPayments: number;
@@ -54,6 +65,7 @@ interface DashboardStats {
   recentUsers: Array<{ id: string; email: string; created_at: string }>;
   transactions: Transaction[];
   conversions: Conversion[];
+  auditLogs: WebhookAuditLog[];
 }
 
 export default function Admin() {
@@ -69,6 +81,7 @@ export default function Admin() {
     recentUsers: [],
     transactions: [],
     conversions: [],
+    auditLogs: [],
   });
   const [loadingStats, setLoadingStats] = useState(true);
   const [cleanupLoading, setCleanupLoading] = useState(false);
@@ -110,6 +123,13 @@ export default function Admin() {
           .order("created_at", { ascending: false })
           .limit(50);
 
+        // Fetch webhook audit logs
+        const { data: auditLogs } = await supabase
+          .from("webhook_audit_log")
+          .select("*")
+          .order("received_at", { ascending: false })
+          .limit(100);
+
         // Calculate total revenue from completed transactions
         const completedTransactions = (transactions || []).filter(t => t.status === "completed");
         const totalRevenue = completedTransactions.reduce((sum, t) => sum + Number(t.amount), 0);
@@ -122,6 +142,7 @@ export default function Admin() {
           recentUsers: recentUsers || [],
           transactions: transactions || [],
           conversions: conversions || [],
+          auditLogs: auditLogs || [],
         });
       } catch (error) {
         console.error("Error fetching stats:", error);
@@ -164,9 +185,10 @@ export default function Admin() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "completed":
+      case "Accepted":
         return (
           <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100">
-            <CheckCircle className="w-3 h-3" /> Završeno
+            <CheckCircle className="w-3 h-3" /> {status === "Accepted" ? "Prihvaćen" : "Završeno"}
           </span>
         );
       case "pending":
@@ -176,9 +198,22 @@ export default function Admin() {
           </span>
         );
       case "failed":
+      case "Invalid Signature":
         return (
           <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100">
-            <XCircle className="w-3 h-3" /> Neuspješno
+            <XCircle className="w-3 h-3" /> {status === "Invalid Signature" ? "Nevažeći potpis" : "Neuspješno"}
+          </span>
+        );
+      case "Replay":
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100">
+            <AlertTriangle className="w-3 h-3" /> Replay napad
+          </span>
+        );
+      case "Ignored":
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100">
+            <Ban className="w-3 h-3" /> Ignorisan
           </span>
         );
       default:
@@ -276,10 +311,14 @@ export default function Admin() {
 
         {/* Tabs for different sections */}
         <Tabs defaultValue="users" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="users">Korisnici</TabsTrigger>
             <TabsTrigger value="transactions">Transakcije</TabsTrigger>
             <TabsTrigger value="conversions">Konverzije</TabsTrigger>
+            <TabsTrigger value="audit" className="flex items-center gap-1">
+              <Shield className="w-3 h-3" />
+              Webhook Audit
+            </TabsTrigger>
           </TabsList>
 
           {/* Users Tab */}
@@ -416,6 +455,66 @@ export default function Admin() {
                             <td className="py-3 px-4">{getStatusBadge(conv.status)}</td>
                             <td className="py-3 px-4">
                               {new Date(conv.created_at).toLocaleDateString("bs-BA")}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Webhook Audit Tab */}
+          <TabsContent value="audit">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="w-5 h-5" />
+                  PayPal Webhook Audit Log
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {loadingStats ? (
+                  <div className="flex justify-center py-8">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                  </div>
+                ) : stats.auditLogs.length === 0 ? (
+                  <p className="text-center text-muted-foreground py-8">
+                    Nema zabilježenih webhook događaja.
+                  </p>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b">
+                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Vrijeme</th>
+                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Event Type</th>
+                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
+                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Transmission ID</th>
+                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">IP Adresa</th>
+                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Napomena</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {stats.auditLogs.map((log) => (
+                          <tr key={log.id} className="border-b hover:bg-muted/50">
+                            <td className="py-3 px-4 whitespace-nowrap">
+                              {new Date(log.received_at).toLocaleString("bs-BA")}
+                            </td>
+                            <td className="py-3 px-4 font-mono text-xs">
+                              {log.event_type || "N/A"}
+                            </td>
+                            <td className="py-3 px-4">{getStatusBadge(log.status)}</td>
+                            <td className="py-3 px-4 font-mono text-xs max-w-[150px] truncate">
+                              {log.transmission_id || "N/A"}
+                            </td>
+                            <td className="py-3 px-4 font-mono text-xs">
+                              {log.client_ip || "N/A"}
+                            </td>
+                            <td className="py-3 px-4 max-w-[200px] truncate text-muted-foreground">
+                              {log.notes || "-"}
                             </td>
                           </tr>
                         ))}
