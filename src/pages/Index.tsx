@@ -18,7 +18,7 @@ import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { Button } from "@/components/ui/button";
-import { LogIn, LogOut, Crown, History } from "lucide-react";
+import { LogIn, LogOut, Crown, History, Shield } from "lucide-react";
 import logo from "@/assets/bh-konver-logo.png";
 import bhIllustration from "@/assets/bh-illustration.jpg";
 import etnoFiguralni from "@/assets/etno-figuralni.png";
@@ -44,8 +44,10 @@ const Index = () => {
 
   // Check if user has access to premium features (admin OR paid subscription OR logged in user)
   // All logged-in users can access modules for testing/demo, premium features for paid users
-  const canAccessModules = !!user; // Any logged-in user can access modules
-  const isPremiumUser = isAdmin || hasActiveSubscription; // Full premium access
+  // Admin users can view but NOT use upload/convert (role-based restriction)
+  const canAccessModules = !!user && !isAdmin; // Logged-in non-admin users can access modules
+  const isPremiumUser = isAdmin || hasActiveSubscription; // Full premium access for display
+  const isViewOnly = isAdmin; // Admin is view-only mode
 
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles((prev) => [...prev, ...selectedFiles]);
@@ -280,7 +282,7 @@ const Index = () => {
           }
         }} />
         
-        {!canAccessModules && selectedModule !== "unit" && (
+        {!canAccessModules && selectedModule !== "unit" && !isAdmin && (
           <div className="mb-8 text-center p-6 bg-muted/30 rounded-lg border border-border">
             <LogIn className="w-12 h-12 text-primary mx-auto mb-3" />
             <h3 className="text-lg font-semibold text-foreground mb-2">Prijava Potrebna</h3>
@@ -289,6 +291,20 @@ const Index = () => {
             </p>
             <Button onClick={() => navigate("/auth")}>
               Prijavi se
+            </Button>
+          </div>
+        )}
+
+        {/* Admin View-Only Notice */}
+        {isAdmin && selectedModule !== "unit" && (
+          <div className="mb-8 text-center p-6 bg-amber-50 dark:bg-amber-950/30 rounded-lg border border-amber-200 dark:border-amber-800">
+            <Shield className="w-12 h-12 text-amber-600 mx-auto mb-3" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Administratorski Mod</h3>
+            <p className="text-muted-foreground mb-4">
+              Kao administrator imate pristup pregledu i upravljanju sistemom, ali Upload i Convert funkcionalnosti su dostupne samo korisnicima.
+            </p>
+            <Button variant="outline" onClick={() => navigate("/admin")}>
+              Idi na Admin Panel
             </Button>
           </div>
         )}
