@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Footer } from "@/components/Footer";
 import { WebhookAuditFilters, type AuditFilters } from "@/components/WebhookAuditFilters";
 import { AdminPagination } from "@/components/AdminPagination";
+import { AdminSearchInput } from "@/components/AdminSearchInput";
 import { 
   ArrowLeft, 
   Users, 
@@ -115,6 +116,12 @@ export default function Admin() {
     dateTo: "",
     eventType: "all",
   });
+  
+  // Search queries
+  const [usersSearch, setUsersSearch] = useState("");
+  const [transactionsSearch, setTransactionsSearch] = useState("");
+  const [conversionsSearch, setConversionsSearch] = useState("");
+  const [auditSearch, setAuditSearch] = useState("");
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -160,18 +167,23 @@ export default function Admin() {
     }
   }, [isAdmin]);
 
-  // Fetch users with pagination
-  const fetchUsers = useCallback(async (page: number) => {
+  // Fetch users with pagination and search
+  const fetchUsers = useCallback(async (page: number, search: string) => {
     setLoadingUsers(true);
     try {
       const from = (page - 1) * ITEMS_PER_PAGE;
       const to = from + ITEMS_PER_PAGE - 1;
 
-      const { data, count } = await supabase
+      let query = supabase
         .from("profiles")
         .select("id, email, created_at", { count: "exact" })
-        .order("created_at", { ascending: false })
-        .range(from, to);
+        .order("created_at", { ascending: false });
+
+      if (search) {
+        query = query.ilike("email", `%${search}%`);
+      }
+
+      const { data, count } = await query.range(from, to);
 
       setRecentUsers(data || []);
       setTotalUsers(count || 0);
@@ -182,18 +194,23 @@ export default function Admin() {
     }
   }, []);
 
-  // Fetch transactions with pagination
-  const fetchTransactions = useCallback(async (page: number) => {
+  // Fetch transactions with pagination and search
+  const fetchTransactions = useCallback(async (page: number, search: string) => {
     setLoadingTransactions(true);
     try {
       const from = (page - 1) * ITEMS_PER_PAGE;
       const to = from + ITEMS_PER_PAGE - 1;
 
-      const { data, count } = await supabase
+      let query = supabase
         .from("transactions")
         .select("*", { count: "exact" })
-        .order("created_at", { ascending: false })
-        .range(from, to);
+        .order("created_at", { ascending: false });
+
+      if (search) {
+        query = query.or(`user_email.ilike.%${search}%,plan_id.ilike.%${search}%,paypal_order_id.ilike.%${search}%`);
+      }
+
+      const { data, count } = await query.range(from, to);
 
       setTransactions(data || []);
       setTotalTransactions(count || 0);
@@ -204,18 +221,23 @@ export default function Admin() {
     }
   }, []);
 
-  // Fetch conversions with pagination
-  const fetchConversions = useCallback(async (page: number) => {
+  // Fetch conversions with pagination and search
+  const fetchConversions = useCallback(async (page: number, search: string) => {
     setLoadingConversions(true);
     try {
       const from = (page - 1) * ITEMS_PER_PAGE;
       const to = from + ITEMS_PER_PAGE - 1;
 
-      const { data, count } = await supabase
+      let query = supabase
         .from("conversions")
         .select("*", { count: "exact" })
-        .order("created_at", { ascending: false })
-        .range(from, to);
+        .order("created_at", { ascending: false });
+
+      if (search) {
+        query = query.or(`user_email.ilike.%${search}%,original_filename.ilike.%${search}%,original_format.ilike.%${search}%,target_format.ilike.%${search}%`);
+      }
+
+      const { data, count } = await query.range(from, to);
 
       setConversions(data || []);
       setTotalConversions(count || 0);
@@ -226,8 +248,8 @@ export default function Admin() {
     }
   }, []);
 
-  // Fetch audit logs with pagination and filters
-  const fetchAuditLogs = useCallback(async (page: number, filters: AuditFilters) => {
+  // Fetch audit logs with pagination, filters, and search
+  const fetchAuditLogs = useCallback(async (page: number, filters: AuditFilters, search: string) => {
     setLoadingAudit(true);
     try {
       const from = (page - 1) * ITEMS_PER_PAGE;
@@ -251,6 +273,11 @@ export default function Admin() {
       if (filters.dateTo) {
         query = query.lte("received_at", `${filters.dateTo}T23:59:59`);
       }
+      
+      // Apply search
+      if (search) {
+        query = query.or(`event_type.ilike.%${search}%,transmission_id.ilike.%${search}%,client_ip.ilike.%${search}%,notes.ilike.%${search}%`);
+      }
 
       const { data, count } = await query.range(from, to);
 
@@ -266,39 +293,64 @@ export default function Admin() {
   // Initial data fetch
   useEffect(() => {
     if (isAdmin) {
-      fetchUsers(usersPage);
-      fetchTransactions(transactionsPage);
-      fetchConversions(conversionsPage);
-      fetchAuditLogs(auditPage, auditFilters);
+      fetchUsers(usersPage, usersSearch);
+      fetchTransactions(transactionsPage, transactionsSearch);
+      fetchConversions(conversionsPage, conversionsSearch);
+      fetchAuditLogs(auditPage, auditFilters, auditSearch);
     }
-  }, [isAdmin, fetchUsers, fetchTransactions, fetchConversions, fetchAuditLogs]);
+  }, [isAdmin]);
 
   // Page change handlers
   const handleUsersPageChange = (page: number) => {
     setUsersPage(page);
-    fetchUsers(page);
+    fetchUsers(page, usersSearch);
   };
 
   const handleTransactionsPageChange = (page: number) => {
     setTransactionsPage(page);
-    fetchTransactions(page);
+    fetchTransactions(page, transactionsSearch);
   };
 
   const handleConversionsPageChange = (page: number) => {
     setConversionsPage(page);
-    fetchConversions(page);
+    fetchConversions(page, conversionsSearch);
   };
 
   const handleAuditPageChange = (page: number) => {
     setAuditPage(page);
-    fetchAuditLogs(page, auditFilters);
+    fetchAuditLogs(page, auditFilters, auditSearch);
   };
+  
+  // Search handlers
+  const handleUsersSearch = useCallback((query: string) => {
+    setUsersSearch(query);
+    setUsersPage(1);
+    fetchUsers(1, query);
+  }, [fetchUsers]);
+
+  const handleTransactionsSearch = useCallback((query: string) => {
+    setTransactionsSearch(query);
+    setTransactionsPage(1);
+    fetchTransactions(1, query);
+  }, [fetchTransactions]);
+
+  const handleConversionsSearch = useCallback((query: string) => {
+    setConversionsSearch(query);
+    setConversionsPage(1);
+    fetchConversions(1, query);
+  }, [fetchConversions]);
+
+  const handleAuditSearch = useCallback((query: string) => {
+    setAuditSearch(query);
+    setAuditPage(1);
+    fetchAuditLogs(1, auditFilters, query);
+  }, [fetchAuditLogs, auditFilters]);
 
   // Filter change handler
   const handleAuditFiltersChange = (newFilters: AuditFilters) => {
     setAuditFilters(newFilters);
     setAuditPage(1);
-    fetchAuditLogs(1, newFilters);
+    fetchAuditLogs(1, newFilters, auditSearch);
   };
 
   const handleManualCleanup = async () => {
@@ -475,8 +527,13 @@ export default function Admin() {
           {/* Users Tab */}
           <TabsContent value="users">
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <CardTitle>Korisnici ({totalUsers})</CardTitle>
+                <AdminSearchInput 
+                  placeholder="Pretraži po email-u..."
+                  onSearch={handleUsersSearch}
+                  className="w-full sm:w-64"
+                />
               </CardHeader>
               <CardContent>
                 {loadingUsers ? (
@@ -531,8 +588,13 @@ export default function Admin() {
           {/* Transactions Tab */}
           <TabsContent value="transactions">
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <CardTitle>Transakcije ({totalTransactions})</CardTitle>
+                <AdminSearchInput 
+                  placeholder="Pretraži po email-u, paketu, PayPal ID..."
+                  onSearch={handleTransactionsSearch}
+                  className="w-full sm:w-72"
+                />
               </CardHeader>
               <CardContent>
                 {loadingTransactions ? (
@@ -587,8 +649,13 @@ export default function Admin() {
           {/* Conversions Tab */}
           <TabsContent value="conversions">
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <CardTitle>Konverzije ({totalConversions})</CardTitle>
+                <AdminSearchInput 
+                  placeholder="Pretraži po email-u, fajlu, formatu..."
+                  onSearch={handleConversionsSearch}
+                  className="w-full sm:w-72"
+                />
               </CardHeader>
               <CardContent>
                 {loadingConversions ? (
@@ -647,11 +714,18 @@ export default function Admin() {
           {/* Webhook Audit Tab */}
           <TabsContent value="audit">
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Shield className="w-5 h-5" />
-                  PayPal Webhook Audit Log ({totalAuditLogs})
-                </CardTitle>
+              <CardHeader className="flex flex-col gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <CardTitle className="flex items-center gap-2">
+                    <Shield className="w-5 h-5" />
+                    PayPal Webhook Audit Log ({totalAuditLogs})
+                  </CardTitle>
+                  <AdminSearchInput 
+                    placeholder="Pretraži po event type, transmission ID, IP..."
+                    onSearch={handleAuditSearch}
+                    className="w-full sm:w-80"
+                  />
+                </div>
               </CardHeader>
               <CardContent>
                 <WebhookAuditFilters onFilterChange={handleAuditFiltersChange} />
