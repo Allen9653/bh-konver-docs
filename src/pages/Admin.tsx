@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Footer } from "@/components/Footer";
 import { WebhookAuditFilters, type AuditFilters } from "@/components/WebhookAuditFilters";
+import { AdminPagination } from "@/components/AdminPagination";
 import { 
   ArrowLeft, 
   Users, 
@@ -63,29 +64,51 @@ interface DashboardStats {
   totalPayments: number;
   totalConversions: number;
   totalRevenue: number;
-  recentUsers: Array<{ id: string; email: string; created_at: string }>;
-  transactions: Transaction[];
-  conversions: Conversion[];
-  auditLogs: WebhookAuditLog[];
 }
+
+const ITEMS_PER_PAGE = 10;
 
 export default function Admin() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { toast } = useToast();
   const { user, isAdmin, loading } = useAdminAuth();
+  
+  // Stats
   const [stats, setStats] = useState<DashboardStats>({
     totalUsers: 0,
     totalPayments: 0,
     totalConversions: 0,
     totalRevenue: 0,
-    recentUsers: [],
-    transactions: [],
-    conversions: [],
-    auditLogs: [],
   });
+  
+  // Paginated data
+  const [recentUsers, setRecentUsers] = useState<Array<{ id: string; email: string; created_at: string }>>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [conversions, setConversions] = useState<Conversion[]>([]);
+  const [auditLogs, setAuditLogs] = useState<WebhookAuditLog[]>([]);
+  
+  // Total counts for pagination
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalTransactions, setTotalTransactions] = useState(0);
+  const [totalConversions, setTotalConversions] = useState(0);
+  const [totalAuditLogs, setTotalAuditLogs] = useState(0);
+  
+  // Current pages
+  const [usersPage, setUsersPage] = useState(1);
+  const [transactionsPage, setTransactionsPage] = useState(1);
+  const [conversionsPage, setConversionsPage] = useState(1);
+  const [auditPage, setAuditPage] = useState(1);
+  
+  // Loading states
   const [loadingStats, setLoadingStats] = useState(true);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+  const [loadingTransactions, setLoadingTransactions] = useState(false);
+  const [loadingConversions, setLoadingConversions] = useState(false);
+  const [loadingAudit, setLoadingAudit] = useState(false);
   const [cleanupLoading, setCleanupLoading] = useState(false);
+  
+  // Filters
   const [auditFilters, setAuditFilters] = useState<AuditFilters>({
     status: "all",
     dateFrom: "",
@@ -99,57 +122,31 @@ export default function Admin() {
     }
   }, [user, isAdmin, loading, navigate]);
 
+  // Fetch initial stats
   useEffect(() => {
     const fetchStats = async () => {
       if (!isAdmin) return;
 
       try {
-        // Fetch profiles count
-        const { count: usersCount } = await supabase
-          .from("profiles")
-          .select("*", { count: "exact", head: true });
+        const [
+          { count: usersCount },
+          { count: paymentsCount },
+          { count: conversionsCount },
+          { data: completedTx },
+        ] = await Promise.all([
+          supabase.from("profiles").select("*", { count: "exact", head: true }),
+          supabase.from("transactions").select("*", { count: "exact", head: true }),
+          supabase.from("conversions").select("*", { count: "exact", head: true }),
+          supabase.from("transactions").select("amount").eq("status", "completed"),
+        ]);
 
-        // Fetch recent users
-        const { data: recentUsers } = await supabase
-          .from("profiles")
-          .select("id, email, created_at")
-          .order("created_at", { ascending: false })
-          .limit(10);
-
-        // Fetch transactions
-        const { data: transactions, count: paymentsCount } = await supabase
-          .from("transactions")
-          .select("*", { count: "exact" })
-          .order("created_at", { ascending: false })
-          .limit(50);
-
-        // Fetch conversions
-        const { data: conversions, count: conversionsCount } = await supabase
-          .from("conversions")
-          .select("*", { count: "exact" })
-          .order("created_at", { ascending: false })
-          .limit(50);
-
-        // Fetch webhook audit logs
-        const { data: auditLogs } = await supabase
-          .from("webhook_audit_log")
-          .select("*")
-          .order("received_at", { ascending: false })
-          .limit(100);
-
-        // Calculate total revenue from completed transactions
-        const completedTransactions = (transactions || []).filter(t => t.status === "completed");
-        const totalRevenue = completedTransactions.reduce((sum, t) => sum + Number(t.amount), 0);
+        const totalRevenue = (completedTx || []).reduce((sum, t) => sum + Number(t.amount), 0);
 
         setStats({
           totalUsers: usersCount || 0,
           totalPayments: paymentsCount || 0,
           totalConversions: conversionsCount || 0,
           totalRevenue,
-          recentUsers: recentUsers || [],
-          transactions: transactions || [],
-          conversions: conversions || [],
-          auditLogs: auditLogs || [],
         });
       } catch (error) {
         console.error("Error fetching stats:", error);
@@ -163,38 +160,146 @@ export default function Admin() {
     }
   }, [isAdmin]);
 
-  // Filtered audit logs based on filters
-  const filteredAuditLogs = useMemo(() => {
-    return stats.auditLogs.filter((log) => {
-      // Status filter
-      if (auditFilters.status !== "all" && log.status !== auditFilters.status) {
-        return false;
+  // Fetch users with pagination
+  const fetchUsers = useCallback(async (page: number) => {
+    setLoadingUsers(true);
+    try {
+      const from = (page - 1) * ITEMS_PER_PAGE;
+      const to = from + ITEMS_PER_PAGE - 1;
+
+      const { data, count } = await supabase
+        .from("profiles")
+        .select("id, email, created_at", { count: "exact" })
+        .order("created_at", { ascending: false })
+        .range(from, to);
+
+      setRecentUsers(data || []);
+      setTotalUsers(count || 0);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } finally {
+      setLoadingUsers(false);
+    }
+  }, []);
+
+  // Fetch transactions with pagination
+  const fetchTransactions = useCallback(async (page: number) => {
+    setLoadingTransactions(true);
+    try {
+      const from = (page - 1) * ITEMS_PER_PAGE;
+      const to = from + ITEMS_PER_PAGE - 1;
+
+      const { data, count } = await supabase
+        .from("transactions")
+        .select("*", { count: "exact" })
+        .order("created_at", { ascending: false })
+        .range(from, to);
+
+      setTransactions(data || []);
+      setTotalTransactions(count || 0);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    } finally {
+      setLoadingTransactions(false);
+    }
+  }, []);
+
+  // Fetch conversions with pagination
+  const fetchConversions = useCallback(async (page: number) => {
+    setLoadingConversions(true);
+    try {
+      const from = (page - 1) * ITEMS_PER_PAGE;
+      const to = from + ITEMS_PER_PAGE - 1;
+
+      const { data, count } = await supabase
+        .from("conversions")
+        .select("*", { count: "exact" })
+        .order("created_at", { ascending: false })
+        .range(from, to);
+
+      setConversions(data || []);
+      setTotalConversions(count || 0);
+    } catch (error) {
+      console.error("Error fetching conversions:", error);
+    } finally {
+      setLoadingConversions(false);
+    }
+  }, []);
+
+  // Fetch audit logs with pagination and filters
+  const fetchAuditLogs = useCallback(async (page: number, filters: AuditFilters) => {
+    setLoadingAudit(true);
+    try {
+      const from = (page - 1) * ITEMS_PER_PAGE;
+      const to = from + ITEMS_PER_PAGE - 1;
+
+      let query = supabase
+        .from("webhook_audit_log")
+        .select("*", { count: "exact" })
+        .order("received_at", { ascending: false });
+
+      // Apply filters
+      if (filters.status !== "all") {
+        query = query.eq("status", filters.status);
       }
-      
-      // Event type filter
-      if (auditFilters.eventType !== "all" && log.event_type !== auditFilters.eventType) {
-        return false;
+      if (filters.eventType !== "all") {
+        query = query.eq("event_type", filters.eventType);
       }
-      
-      // Date from filter
-      if (auditFilters.dateFrom) {
-        const logDate = new Date(log.received_at);
-        const fromDate = new Date(auditFilters.dateFrom);
-        fromDate.setHours(0, 0, 0, 0);
-        if (logDate < fromDate) return false;
+      if (filters.dateFrom) {
+        query = query.gte("received_at", `${filters.dateFrom}T00:00:00`);
       }
-      
-      // Date to filter
-      if (auditFilters.dateTo) {
-        const logDate = new Date(log.received_at);
-        const toDate = new Date(auditFilters.dateTo);
-        toDate.setHours(23, 59, 59, 999);
-        if (logDate > toDate) return false;
+      if (filters.dateTo) {
+        query = query.lte("received_at", `${filters.dateTo}T23:59:59`);
       }
-      
-      return true;
-    });
-  }, [stats.auditLogs, auditFilters]);
+
+      const { data, count } = await query.range(from, to);
+
+      setAuditLogs(data || []);
+      setTotalAuditLogs(count || 0);
+    } catch (error) {
+      console.error("Error fetching audit logs:", error);
+    } finally {
+      setLoadingAudit(false);
+    }
+  }, []);
+
+  // Initial data fetch
+  useEffect(() => {
+    if (isAdmin) {
+      fetchUsers(usersPage);
+      fetchTransactions(transactionsPage);
+      fetchConversions(conversionsPage);
+      fetchAuditLogs(auditPage, auditFilters);
+    }
+  }, [isAdmin, fetchUsers, fetchTransactions, fetchConversions, fetchAuditLogs]);
+
+  // Page change handlers
+  const handleUsersPageChange = (page: number) => {
+    setUsersPage(page);
+    fetchUsers(page);
+  };
+
+  const handleTransactionsPageChange = (page: number) => {
+    setTransactionsPage(page);
+    fetchTransactions(page);
+  };
+
+  const handleConversionsPageChange = (page: number) => {
+    setConversionsPage(page);
+    fetchConversions(page);
+  };
+
+  const handleAuditPageChange = (page: number) => {
+    setAuditPage(page);
+    fetchAuditLogs(page, auditFilters);
+  };
+
+  // Filter change handler
+  const handleAuditFiltersChange = (newFilters: AuditFilters) => {
+    setAuditFilters(newFilters);
+    setAuditPage(1);
+    fetchAuditLogs(1, newFilters);
+  };
 
   const handleManualCleanup = async () => {
     setCleanupLoading(true);
@@ -264,6 +369,12 @@ export default function Admin() {
         );
     }
   };
+
+  // Calculate total pages
+  const usersTotalPages = Math.ceil(totalUsers / ITEMS_PER_PAGE);
+  const transactionsTotalPages = Math.ceil(totalTransactions / ITEMS_PER_PAGE);
+  const conversionsTotalPages = Math.ceil(totalConversions / ITEMS_PER_PAGE);
+  const auditTotalPages = Math.ceil(totalAuditLogs / ITEMS_PER_PAGE);
 
   if (loading || !isAdmin) {
     return (
@@ -365,44 +476,53 @@ export default function Admin() {
           <TabsContent value="users">
             <Card>
               <CardHeader>
-                <CardTitle>Nedavni korisnici</CardTitle>
+                <CardTitle>Korisnici ({totalUsers})</CardTitle>
               </CardHeader>
               <CardContent>
-                {loadingStats ? (
+                {loadingUsers ? (
                   <div className="flex justify-center py-8">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
                   </div>
-                ) : stats.recentUsers.length === 0 ? (
+                ) : recentUsers.length === 0 ? (
                   <p className="text-center text-muted-foreground py-8">
                     Nema registrovanih korisnika.
                   </p>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="border-b">
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Email</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Datum registracije</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {stats.recentUsers.map((user) => (
-                          <tr key={user.id} className="border-b hover:bg-muted/50">
-                            <td className="py-3 px-4">{user.email}</td>
-                            <td className="py-3 px-4">
-                              {new Date(user.created_at).toLocaleDateString("bs-BA")}
-                            </td>
-                            <td className="py-3 px-4">
-                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100">
-                                Aktivan
-                              </span>
-                            </td>
+                  <>
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead>
+                          <tr className="border-b">
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Email</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Datum registracije</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                        </thead>
+                        <tbody>
+                          {recentUsers.map((u) => (
+                            <tr key={u.id} className="border-b hover:bg-muted/50">
+                              <td className="py-3 px-4">{u.email}</td>
+                              <td className="py-3 px-4">
+                                {new Date(u.created_at).toLocaleDateString("bs-BA")}
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100">
+                                  Aktivan
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <AdminPagination
+                      currentPage={usersPage}
+                      totalPages={usersTotalPages}
+                      onPageChange={handleUsersPageChange}
+                      totalItems={totalUsers}
+                      itemsPerPage={ITEMS_PER_PAGE}
+                    />
+                  </>
                 )}
               </CardContent>
             </Card>
@@ -412,44 +532,53 @@ export default function Admin() {
           <TabsContent value="transactions">
             <Card>
               <CardHeader>
-                <CardTitle>Transakcije</CardTitle>
+                <CardTitle>Transakcije ({totalTransactions})</CardTitle>
               </CardHeader>
               <CardContent>
-                {loadingStats ? (
+                {loadingTransactions ? (
                   <div className="flex justify-center py-8">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
                   </div>
-                ) : stats.transactions.length === 0 ? (
+                ) : transactions.length === 0 ? (
                   <p className="text-center text-muted-foreground py-8">
                     Nema transakcija.
                   </p>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="border-b">
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Email</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Paket</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Iznos</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Datum</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {stats.transactions.map((tx) => (
-                          <tr key={tx.id} className="border-b hover:bg-muted/50">
-                            <td className="py-3 px-4">{tx.user_email}</td>
-                            <td className="py-3 px-4 capitalize">{tx.plan_id}</td>
-                            <td className="py-3 px-4 font-medium">{tx.amount} {tx.currency}</td>
-                            <td className="py-3 px-4">{getStatusBadge(tx.status)}</td>
-                            <td className="py-3 px-4">
-                              {new Date(tx.created_at).toLocaleDateString("bs-BA")}
-                            </td>
+                  <>
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead>
+                          <tr className="border-b">
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Email</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Paket</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Iznos</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Datum</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                        </thead>
+                        <tbody>
+                          {transactions.map((tx) => (
+                            <tr key={tx.id} className="border-b hover:bg-muted/50">
+                              <td className="py-3 px-4">{tx.user_email}</td>
+                              <td className="py-3 px-4 capitalize">{tx.plan_id}</td>
+                              <td className="py-3 px-4 font-medium">{tx.amount} {tx.currency}</td>
+                              <td className="py-3 px-4">{getStatusBadge(tx.status)}</td>
+                              <td className="py-3 px-4">
+                                {new Date(tx.created_at).toLocaleDateString("bs-BA")}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <AdminPagination
+                      currentPage={transactionsPage}
+                      totalPages={transactionsTotalPages}
+                      onPageChange={handleTransactionsPageChange}
+                      totalItems={totalTransactions}
+                      itemsPerPage={ITEMS_PER_PAGE}
+                    />
+                  </>
                 )}
               </CardContent>
             </Card>
@@ -459,48 +588,57 @@ export default function Admin() {
           <TabsContent value="conversions">
             <Card>
               <CardHeader>
-                <CardTitle>Konverzije</CardTitle>
+                <CardTitle>Konverzije ({totalConversions})</CardTitle>
               </CardHeader>
               <CardContent>
-                {loadingStats ? (
+                {loadingConversions ? (
                   <div className="flex justify-center py-8">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
                   </div>
-                ) : stats.conversions.length === 0 ? (
+                ) : conversions.length === 0 ? (
                   <p className="text-center text-muted-foreground py-8">
                     Nema konverzija.
                   </p>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="border-b">
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Korisnik</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Fajl</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Konverzija</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
-                          <th className="text-left py-3 px-4 font-medium text-muted-foreground">Datum</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {stats.conversions.map((conv) => (
-                          <tr key={conv.id} className="border-b hover:bg-muted/50">
-                            <td className="py-3 px-4">{conv.user_email || "Anonimni"}</td>
-                            <td className="py-3 px-4 max-w-[200px] truncate">{conv.original_filename}</td>
-                            <td className="py-3 px-4">
-                              <span className="text-muted-foreground">{conv.original_format}</span>
-                              {" → "}
-                              <span className="font-medium text-primary">{conv.target_format}</span>
-                            </td>
-                            <td className="py-3 px-4">{getStatusBadge(conv.status)}</td>
-                            <td className="py-3 px-4">
-                              {new Date(conv.created_at).toLocaleDateString("bs-BA")}
-                            </td>
+                  <>
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead>
+                          <tr className="border-b">
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Korisnik</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Fajl</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Konverzija</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
+                            <th className="text-left py-3 px-4 font-medium text-muted-foreground">Datum</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                        </thead>
+                        <tbody>
+                          {conversions.map((conv) => (
+                            <tr key={conv.id} className="border-b hover:bg-muted/50">
+                              <td className="py-3 px-4">{conv.user_email || "Anonimni"}</td>
+                              <td className="py-3 px-4 max-w-[200px] truncate">{conv.original_filename}</td>
+                              <td className="py-3 px-4">
+                                <span className="text-muted-foreground">{conv.original_format}</span>
+                                {" → "}
+                                <span className="font-medium text-primary">{conv.target_format}</span>
+                              </td>
+                              <td className="py-3 px-4">{getStatusBadge(conv.status)}</td>
+                              <td className="py-3 px-4">
+                                {new Date(conv.created_at).toLocaleDateString("bs-BA")}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <AdminPagination
+                      currentPage={conversionsPage}
+                      totalPages={conversionsTotalPages}
+                      onPageChange={handleConversionsPageChange}
+                      totalItems={totalConversions}
+                      itemsPerPage={ITEMS_PER_PAGE}
+                    />
+                  </>
                 )}
               </CardContent>
             </Card>
@@ -512,27 +650,24 @@ export default function Admin() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="w-5 h-5" />
-                  PayPal Webhook Audit Log
+                  PayPal Webhook Audit Log ({totalAuditLogs})
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <WebhookAuditFilters onFilterChange={setAuditFilters} />
+                <WebhookAuditFilters onFilterChange={handleAuditFiltersChange} />
                 
-                {loadingStats ? (
+                {loadingAudit ? (
                   <div className="flex justify-center py-8">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
                   </div>
-                ) : filteredAuditLogs.length === 0 ? (
+                ) : auditLogs.length === 0 ? (
                   <p className="text-center text-muted-foreground py-8">
-                    {stats.auditLogs.length === 0 
+                    {totalAuditLogs === 0 
                       ? "Nema zabilježenih webhook događaja."
                       : "Nema rezultata za primijenjene filtere."}
                   </p>
                 ) : (
                   <>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Prikazano {filteredAuditLogs.length} od {stats.auditLogs.length} zapisa
-                    </p>
                     <div className="overflow-x-auto">
                       <table className="w-full">
                         <thead>
@@ -546,7 +681,7 @@ export default function Admin() {
                           </tr>
                         </thead>
                         <tbody>
-                          {filteredAuditLogs.map((log) => (
+                          {auditLogs.map((log) => (
                             <tr key={log.id} className="border-b hover:bg-muted/50">
                               <td className="py-3 px-4 whitespace-nowrap">
                                 {new Date(log.received_at).toLocaleString("bs-BA")}
@@ -569,6 +704,13 @@ export default function Admin() {
                         </tbody>
                       </table>
                     </div>
+                    <AdminPagination
+                      currentPage={auditPage}
+                      totalPages={auditTotalPages}
+                      onPageChange={handleAuditPageChange}
+                      totalItems={totalAuditLogs}
+                      itemsPerPage={ITEMS_PER_PAGE}
+                    />
                   </>
                 )}
               </CardContent>
