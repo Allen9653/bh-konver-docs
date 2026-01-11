@@ -43,11 +43,9 @@ const Index = () => {
   const uploadRef = useRef<HTMLDivElement>(null);
 
   // Check if user has access to premium features (admin OR paid subscription OR logged in user)
-  // All logged-in users can access modules for testing/demo, premium features for paid users
-  // Admin users can view but NOT use upload/convert (role-based restriction)
-  const canAccessModules = !!user && !isAdmin; // Logged-in non-admin users can access modules
+  // All logged-in users can access modules, including admins
+  const canAccessModules = !!user; // Any logged-in user (including admin) can access modules
   const isPremiumUser = isAdmin || hasActiveSubscription; // Full premium access for display
-  const isViewOnly = isAdmin; // Admin is view-only mode
 
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles((prev) => [...prev, ...selectedFiles]);
@@ -295,16 +293,12 @@ const Index = () => {
           </div>
         )}
 
-        {/* Admin View-Only Notice */}
-        {isAdmin && selectedModule !== "unit" && (
-          <div className="mb-8 text-center p-6 bg-amber-50 dark:bg-amber-950/30 rounded-lg border border-amber-200 dark:border-amber-800">
-            <Shield className="w-12 h-12 text-amber-600 mx-auto mb-3" />
-            <h3 className="text-lg font-semibold text-foreground mb-2">Administratorski Mod</h3>
-            <p className="text-muted-foreground mb-4">
-              Kao administrator imate pristup pregledu i upravljanju sistemom, ali Upload i Convert funkcionalnosti su dostupne samo korisnicima.
-            </p>
+        {/* Admin Panel Link */}
+        {isAdmin && (
+          <div className="mb-8 text-center">
             <Button variant="outline" onClick={() => navigate("/admin")}>
-              Idi na Admin Panel
+              <Shield className="w-4 h-4 mr-2" />
+              Admin Panel
             </Button>
           </div>
         )}
