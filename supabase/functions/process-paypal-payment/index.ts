@@ -91,9 +91,17 @@ serve(async (req) => {
     if (orderData.id) {
       const approvalUrl = orderData.links.find((link: any) => link.rel === "approve")?.href;
       
+      // Look up user_id from profiles by email
+      const { data: profileData } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("email", email)
+        .maybeSingle();
+      
       // Save transaction to database for tracking
       const { error: insertError } = await supabase.from("transactions").insert({
         user_email: email,
+        user_id: profileData?.id || null, // Include user_id if user exists
         plan_id: plan,
         amount: parseFloat(amount),
         currency: "BAM",
