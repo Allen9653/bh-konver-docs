@@ -79,19 +79,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Check user role - Admins cannot upload files
-    const { data: roleData } = await supabaseAdmin
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .single();
-
-    if (roleData?.role === "admin") {
-      return new Response(
-        JSON.stringify({ error: "Administratori nemaju pristup upload funkcionalnosti" }),
-        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    // Optionally log admin uploads (admins now allowed to upload)
 
     // Parse form data
     const formData = await req.formData();
