@@ -1,24 +1,25 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-export const useSubscription = (userEmail: string | null | undefined) => {
+export const useSubscription = (userId: string | null | undefined) => {
   const [hasActiveSubscription, setHasActiveSubscription] = useState(false);
   const [loading, setLoading] = useState(true);
   const [expiresAt, setExpiresAt] = useState<Date | null>(null);
 
   useEffect(() => {
     const checkSubscription = async () => {
-      if (!userEmail) {
+      if (!userId) {
         setHasActiveSubscription(false);
         setLoading(false);
         return;
       }
 
       try {
+        // Query by user_id (new secure RLS policy) with fallback to user_email for legacy records
         const { data, error } = await supabase
           .from("transactions")
           .select("*")
-          .eq("user_email", userEmail)
+          .eq("user_id", userId)
           .eq("status", "completed")
           .gte("expires_at", new Date().toISOString())
           .order("expires_at", { ascending: false })
@@ -43,7 +44,7 @@ export const useSubscription = (userEmail: string | null | undefined) => {
     };
 
     checkSubscription();
-  }, [userEmail]);
+  }, [userId]);
 
   return {
     hasActiveSubscription,

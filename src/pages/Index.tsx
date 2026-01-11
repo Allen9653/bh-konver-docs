@@ -38,7 +38,7 @@ const Index = () => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [selectedPlanId, setSelectedPlanId] = useState<string>("24h");
   const { user, isAdmin, loading, signOut } = useAdminAuth();
-  const { hasActiveSubscription, expiresAt, loading: subLoading } = useSubscription(user?.email);
+  const { hasActiveSubscription, expiresAt, loading: subLoading } = useSubscription(user?.id);
   const navigate = useNavigate();
   const uploadRef = useRef<HTMLDivElement>(null);
 

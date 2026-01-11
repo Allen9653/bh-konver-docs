@@ -72,15 +72,14 @@ serve(async (req) => {
     if (captureData.status === "COMPLETED") {
       const payerId = captureData.payer?.payer_id;
 
-      // Update transaction status
-      const { error: updateError } = await supabase
-        .from("transactions")
-        .update({ 
-          status: "completed",
-          paypal_payer_id: payerId,
-          updated_at: new Date().toISOString()
-        })
-        .eq("paypal_order_id", orderId);
+      // Check for existing user first
+      const { data: existingProfile } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("email", email)
+        .maybeSingle();
+
+      let userId = existingProfile?.id;
 
       // Generate cryptographically secure temporary password
       const generateSecurePassword = (length = 20): string => {
@@ -92,15 +91,8 @@ serve(async (req) => {
           .join('');
       };
       const tempPassword = generateSecurePassword(20);
-      
-      // Create user account if not exists
-      const { data: existingUser } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("email", email)
-        .maybeSingle();
 
-      if (!existingUser) {
+      if (!existingProfile) {
         // Create new auth user
         const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
           email: email,
@@ -112,8 +104,20 @@ serve(async (req) => {
           console.error("Error creating user:", createError);
         } else {
           console.log("User created successfully:", newUser.user?.id);
+          userId = newUser.user?.id;
         }
       }
+
+      // Update transaction status with user_id
+      const { error: updateError } = await supabase
+        .from("transactions")
+        .update({ 
+          status: "completed",
+          paypal_payer_id: payerId,
+          user_id: userId || null, // Link transaction to user
+          updated_at: new Date().toISOString()
+        })
+        .eq("paypal_order_id", orderId);
 
       // Send login credentials via email using edge function
       const sendEmailResponse = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
