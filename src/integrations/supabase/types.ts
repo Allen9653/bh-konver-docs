@@ -59,6 +59,13 @@ export type Database = {
             referencedRelation: "transactions"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "conversions_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "transactions_secure_view"
+            referencedColumns: ["id"]
+          },
         ]
       }
       documents: {
@@ -219,7 +226,51 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      transactions_secure_view: {
+        Row: {
+          amount: number | null
+          created_at: string | null
+          currency: string | null
+          expires_at: string | null
+          id: string | null
+          paypal_order_id: string | null
+          paypal_payer_id: string | null
+          plan_id: string | null
+          status: string | null
+          updated_at: string | null
+          user_email: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string | null
+          currency?: string | null
+          expires_at?: string | null
+          id?: string | null
+          paypal_order_id?: never
+          paypal_payer_id?: never
+          plan_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_email?: never
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string | null
+          currency?: string | null
+          expires_at?: string | null
+          id?: string | null
+          paypal_order_id?: never
+          paypal_payer_id?: never
+          plan_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_email?: never
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
@@ -229,6 +280,8 @@ export type Database = {
         }
         Returns: boolean
       }
+      mask_email: { Args: { email: string }; Returns: string }
+      mask_paypal_id: { Args: { paypal_id: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "user"
