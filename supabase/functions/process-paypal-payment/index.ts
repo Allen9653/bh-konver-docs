@@ -1,12 +1,10 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+import { getCorsHeaders } from "../_shared/cors.ts";
 
 serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+  
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -16,7 +14,7 @@ serve(async (req) => {
 
     console.log("Processing PayPal payment for:", { email, plan, amount });
 
-    // PayPal API credentials - Alen Jusufovic: alenjusufovic@yahoo.com
+    // PayPal API credentials
     const PAYPAL_CLIENT_ID = Deno.env.get("PAYPAL_CLIENT_ID");
     const PAYPAL_SECRET = Deno.env.get("PAYPAL_SECRET");
     const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // Use api-m.paypal.com for production
@@ -130,6 +128,7 @@ serve(async (req) => {
 
   } catch (error) {
     console.error("PayPal payment error:", error);
+    const corsHeaders = getCorsHeaders(req);
     const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
     return new Response(JSON.stringify({ error: errorMessage }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
