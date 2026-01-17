@@ -10,9 +10,9 @@ serve(async (req) => {
   }
 
   try {
-    const { email, plan, orderId } = await req.json();
+    const { email, plan, orderId, expiresAt } = await req.json();
 
-    console.log("Sending login credentials to:", email);
+    console.log("Creating user account with magic link for:", email);
 
     // Create Supabase admin client
     const supabaseAdmin = createClient(
@@ -20,28 +20,75 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    // Generate cryptographically secure temporary password
-    const generateSecurePassword = (length = 20): string => {
-      const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
-      const randomValues = new Uint8Array(length);
-      crypto.getRandomValues(randomValues);
-      return Array.from(randomValues)
-        .map(x => charset[x % charset.length])
-        .join('');
-    };
-    const tempPassword = generateSecurePassword(20);
+    const appUrl = Deno.env.get("APP_URL") || "https://bh-konver.lovable.app";
 
-    // Create user account
+    // Check if user already exists
+    const { data: existingUsers } = await supabaseAdmin.auth.admin.listUsers();
+    const existingUser = existingUsers?.users?.find(u => u.email === email);
+
+    if (existingUser) {
+      // User already exists - generate magic link for existing user
+      console.log("User already exists, generating magic link");
+      
+      const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
+        type: 'magiclink',
+        email: email,
+        options: {
+          redirectTo: `${appUrl}/success`
+        }
+      });
+
+      if (linkError) throw linkError;
+
+      const magicLink = linkData.properties?.action_link;
+      
+      // SECURITY: Never log magic links - only log non-sensitive metadata
+      console.log("Magic link generated for existing user:", {
+        email,
+        plan,
+        orderId,
+        userId: existingUser.id,
+        createdAt: new Date().toISOString()
+      });
+
+      return new Response(JSON.stringify({ 
+        success: true,
+        message: "Magic link generated for existing user",
+        userId: existingUser.id,
+        magicLink: magicLink,
+        expiresAt: expiresAt
+      }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
+
+    // Create new user account without password (passwordless)
     const { data: userData, error: createError } = await supabaseAdmin.auth.admin.createUser({
       email,
-      password: tempPassword,
       email_confirm: true,
     });
 
     if (createError) throw createError;
 
-    // SECURITY: Never log passwords - only log non-sensitive metadata
-    console.log("User account created:", {
+    // Generate magic link for the new user
+    const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
+      type: 'magiclink',
+      email: email,
+      options: {
+        redirectTo: `${appUrl}/success`
+      }
+    });
+
+    if (linkError) {
+      console.error("Error generating magic link:", linkError);
+      throw linkError;
+    }
+
+    const magicLink = linkData.properties?.action_link;
+
+    // SECURITY: Never log magic links - only log non-sensitive metadata
+    console.log("User account created with magic link:", {
       email,
       plan,
       orderId,
@@ -49,28 +96,12 @@ serve(async (req) => {
       createdAt: new Date().toISOString()
     });
 
-    // Send notification to info@bh-assistant.ba
-    const notificationBody = {
-      to: "info@bh-assistant.ba",
-      subject: `Nova uplata - ${email}`,
-      html: `
-        <h2>Nova uplata primljena</h2>
-        <p><strong>Email korisnika:</strong> ${email}</p>
-        <p><strong>Paket:</strong> ${plan}</p>
-        <p><strong>PayPal Order ID:</strong> ${orderId}</p>
-        <p><strong>Datum:</strong> ${new Date().toLocaleString('bs-BA')}</p>
-        <hr>
-        <p>Potrebno izraditi PDV račun.</p>
-      `
-    };
-
-    // Here you would call your email service (Resend, SendGrid, etc.)
-    console.log("Notification email:", notificationBody);
-
     return new Response(JSON.stringify({ 
       success: true,
-      message: "Login credentials sent",
-      userId: userData.user.id
+      message: "User created with magic link",
+      userId: userData.user.id,
+      magicLink: magicLink,
+      expiresAt: expiresAt
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
