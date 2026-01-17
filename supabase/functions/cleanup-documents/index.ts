@@ -12,14 +12,48 @@ serve(async (req: Request): Promise<Response> => {
 
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    console.log("Starting daily document cleanup at 10:00...");
+    // Verify admin authentication
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader) {
+      console.error("Cleanup attempted without authentication");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - authentication required" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const token = authHeader.replace("Bearer ", "");
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
+    
+    if (authError || !user) {
+      console.error("Auth error during cleanup:", authError);
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Verify user has admin role
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+    const { data: roleData, error: roleError } = await supabaseAdmin
+      .rpc("has_role", { _role: "admin", _user_id: user.id });
+
+    if (roleError || !roleData) {
+      console.error("Admin role check failed:", roleError);
+      return new Response(
+        JSON.stringify({ error: "Forbidden - admin access required" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    console.log(`Admin cleanup initiated by: ${user.email}`);
 
     // Delete all documents from the documents table
-    const { data: deletedDocs, error: docsError } = await supabase
+    const { data: deletedDocs, error: docsError } = await supabaseAdmin
       .from("documents")
       .delete()
       .neq("id", "00000000-0000-0000-0000-000000000000") // Delete all (workaround)
@@ -36,7 +70,7 @@ serve(async (req: Request): Promise<Response> => {
     const oneDayAgo = new Date();
     oneDayAgo.setDate(oneDayAgo.getDate() - 1);
 
-    const { data: deletedConvs, error: convsError } = await supabase
+    const { data: deletedConvs, error: convsError } = await supabaseAdmin
       .from("conversions")
       .delete()
       .lt("created_at", oneDayAgo.toISOString())
@@ -49,7 +83,7 @@ serve(async (req: Request): Promise<Response> => {
     }
 
     // Delete files from storage bucket
-    const { data: storageFiles, error: listError } = await supabase
+    const { data: storageFiles, error: listError } = await supabaseAdmin
       .storage
       .from("user-documents")
       .list();
@@ -57,7 +91,7 @@ serve(async (req: Request): Promise<Response> => {
     if (!listError && storageFiles && storageFiles.length > 0) {
       const filePaths = storageFiles.map(file => file.name);
       
-      const { error: deleteError } = await supabase
+      const { error: deleteError } = await supabaseAdmin
         .storage
         .from("user-documents")
         .remove(filePaths);
@@ -72,12 +106,13 @@ serve(async (req: Request): Promise<Response> => {
     const summary = {
       success: true,
       timestamp: new Date().toISOString(),
+      initiatedBy: user.email,
       deleted: {
         documents: deletedDocs?.length || 0,
         conversions: deletedConvs?.length || 0,
         storageFiles: storageFiles?.length || 0
       },
-      message: "Daily cleanup completed successfully. All user documents have been deleted for security and privacy."
+      message: "Admin cleanup completed successfully. All user documents have been deleted for security and privacy."
     };
 
     console.log("Cleanup completed:", summary);

@@ -10,23 +10,58 @@ serve(async (req) => {
   }
 
   try {
+    // Initialize Supabase client for authentication
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    
+    // Verify user authentication
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader) {
+      console.error("Payment capture attempted without authentication");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - authentication required" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const token = authHeader.replace("Bearer ", "");
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
+    
+    if (authError || !user) {
+      console.error("Auth error during payment capture:", authError);
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { email, plan } = await req.json();
 
-    console.log("Capturing PayPal payment for:", { email, plan });
+    // Validate that the authenticated user matches the payment email
+    if (user.email !== email) {
+      console.error(`Email mismatch: authenticated=${user.email}, requested=${email}`);
+      return new Response(
+        JSON.stringify({ error: "Payment email must match authenticated user" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    console.log("Capturing PayPal payment for:", { email, plan, userId: user.id });
 
     const PAYPAL_CLIENT_ID = Deno.env.get("PAYPAL_CLIENT_ID");
     const PAYPAL_SECRET = Deno.env.get("PAYPAL_SECRET");
     const PAYPAL_API = "https://api-m.sandbox.paypal.com";
 
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     // Get the pending transaction order ID
     const { data: pendingTx } = await supabase
       .from("transactions")
-      .select("paypal_order_id")
+      .select("paypal_order_id, expires_at")
       .eq("user_email", email)
+      .eq("user_id", user.id) // Ensure transaction belongs to authenticated user
       .eq("plan_id", plan)
       .eq("status", "pending")
       .order("created_at", { ascending: false })
@@ -35,7 +70,7 @@ serve(async (req) => {
 
     const orderId = pendingTx?.paypal_order_id;
     if (!orderId) {
-      throw new Error("No pending transaction found");
+      throw new Error("No pending transaction found for this user");
     }
 
     console.log("Found order ID:", orderId);
@@ -63,59 +98,27 @@ serve(async (req) => {
     });
 
     const captureData = await captureResponse.json();
-    console.log("Capture response:", captureData);
+    console.log("Capture response status:", captureData.status);
 
     if (captureData.status === "COMPLETED") {
       const payerId = captureData.payer?.payer_id;
 
-      // Check for existing user first
-      const { data: existingProfile } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("email", email)
-        .maybeSingle();
-
-      let userId = existingProfile?.id;
-
-      // Generate cryptographically secure temporary password
-      const generateSecurePassword = (length = 20): string => {
-        const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
-        const randomValues = new Uint8Array(length);
-        crypto.getRandomValues(randomValues);
-        return Array.from(randomValues)
-          .map(x => charset[x % charset.length])
-          .join('');
-      };
-      const tempPassword = generateSecurePassword(20);
-
-      if (!existingProfile) {
-        // Create new auth user
-        const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
-          email: email,
-          password: tempPassword,
-          email_confirm: true,
-        });
-
-        if (createError) {
-          console.error("Error creating user:", createError);
-        } else {
-          console.log("User created successfully:", newUser.user?.id);
-          userId = newUser.user?.id;
-        }
-      }
-
-      // Update transaction status with user_id
+      // Update transaction status
       const { error: updateError } = await supabase
         .from("transactions")
         .update({ 
           status: "completed",
           paypal_payer_id: payerId,
-          user_id: userId || null, // Link transaction to user
           updated_at: new Date().toISOString()
         })
-        .eq("paypal_order_id", orderId);
+        .eq("paypal_order_id", orderId)
+        .eq("user_id", user.id); // Ensure we only update user's own transaction
 
-      // Send login credentials via email using edge function
+      if (updateError) {
+        console.error("Error updating transaction:", updateError);
+      }
+
+      // Send confirmation email to user (using service role for internal call)
       const sendEmailResponse = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
         method: "POST",
         headers: {
@@ -124,18 +127,18 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           type: "login_credentials",
-          to: email,
+          email: email,
           username: email,
-          password: tempPassword,
-          plan: plan,
+          password: "Koristite postojeću lozinku", // User already has account
+          expiresAt: pendingTx?.expires_at || new Date().toISOString(),
         }),
       });
 
       if (!sendEmailResponse.ok) {
-        console.error("Failed to send credentials email");
+        console.error("Failed to send confirmation email");
       }
 
-      // Notify admin about the payment
+      // Notify admin about the payment (no sensitive data)
       await fetch(`${supabaseUrl}/functions/v1/send-email`, {
         method: "POST",
         headers: {
@@ -146,13 +149,21 @@ serve(async (req) => {
           type: "custom",
           to: "info@bh-assistant.ba",
           subject: `Nova uplata - ${plan}`,
-          message: `Nova uplata primljena!\n\nEmail korisnika: ${email}\nPaket: ${plan}\nPayPal Order ID: ${orderId}\nDatum: ${new Date().toLocaleString("bs-BA")}`,
+          html: `
+            <h2>Nova uplata primljena!</h2>
+            <p><strong>Korisnik:</strong> ${email}</p>
+            <p><strong>Paket:</strong> ${plan}</p>
+            <p><strong>PayPal Order ID:</strong> ${orderId}</p>
+            <p><strong>Datum:</strong> ${new Date().toLocaleString("bs-BA")}</p>
+          `,
         }),
       });
 
+      console.log(`Payment captured successfully for user: ${email}`);
+
       return new Response(JSON.stringify({
         success: true,
-        message: "Payment captured and credentials sent" 
+        message: "Payment captured successfully" 
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,

@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { getCorsHeaders } from "../_shared/cors.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
@@ -68,6 +69,31 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Verify authentication
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+  
+  const authHeader = req.headers.get("authorization");
+  if (!authHeader) {
+    console.error("Email request without authentication");
+    return new Response(
+      JSON.stringify({ error: "Unauthorized - authentication required" }),
+      { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+
+  const token = authHeader.replace("Bearer ", "");
+  const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+  const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
+  
+  if (authError || !user) {
+    console.error("Auth error for email request:", authError);
+    return new Response(
+      JSON.stringify({ error: "Invalid authentication token" }),
+      { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+
   if (!RESEND_API_KEY) {
     console.error("RESEND_API_KEY is not set");
     return new Response(
@@ -82,9 +108,12 @@ const handler = async (req: Request): Promise<Response> => {
 
     switch (body.type) {
       case "login_credentials": {
-        const { email, username, password, expiresAt } = body;
+        const { email, username, expiresAt } = body;
+        // SECURITY: Password is passed in body but NEVER logged
+        const password = body.password;
         
-        console.log(`Sending login credentials to ${email}`);
+        // Log only non-sensitive information
+        console.log(`Sending login credentials to user (email: ${email}, expiresAt: ${expiresAt})`);
         
         emailResponse = await sendEmail(
           [email],
@@ -117,7 +146,7 @@ const handler = async (req: Request): Promise<Response> => {
           `
         );
 
-        // Notify admin about new payment
+        // Notify admin about new payment (no credentials in admin notification)
         await sendEmail(
           ["info@bh-assistant.ba"],
           `Nova uplata - ${email}`,
@@ -129,14 +158,14 @@ const handler = async (req: Request): Promise<Response> => {
           `
         );
 
-        console.log("Login credentials and admin notification sent successfully");
+        console.log("Login credentials email sent successfully (credentials securely delivered)");
         break;
       }
 
       case "document_share": {
         const { recipientEmail, senderName, documentName, documentUrl } = body;
         
-        console.log(`Sharing document ${documentName} with ${recipientEmail}`);
+        console.log(`Sharing document "${documentName}" from ${senderName} to ${recipientEmail}`);
         
         emailResponse = await sendEmail(
           [recipientEmail],
@@ -184,7 +213,7 @@ const handler = async (req: Request): Promise<Response> => {
       case "custom": {
         const { to, subject, html, from, replyTo } = body;
         
-        console.log(`Sending custom email to ${to}`);
+        console.log(`Sending custom email to ${to} (subject: ${subject})`);
         
         emailResponse = await sendEmail([to], subject, html, from, replyTo);
 
