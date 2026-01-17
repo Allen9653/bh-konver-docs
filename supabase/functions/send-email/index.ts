@@ -4,11 +4,10 @@ import { getCorsHeaders } from "../_shared/cors.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
-interface LoginCredentialsRequest {
-  type: "login_credentials";
+interface MagicLinkRequest {
+  type: "magic_link";
   email: string;
-  username: string;
-  password: string;
+  magicLink: string;
   expiresAt: string;
 }
 
@@ -34,7 +33,7 @@ interface WelcomeEmailRequest {
   email: string;
 }
 
-type EmailRequest = LoginCredentialsRequest | DocumentShareRequest | CustomEmailRequest | WelcomeEmailRequest;
+type EmailRequest = MagicLinkRequest | DocumentShareRequest | CustomEmailRequest | WelcomeEmailRequest;
 
 async function sendEmail(to: string[], subject: string, html: string, from?: string, replyTo?: string) {
   const res = await fetch("https://api.resend.com/emails", {
@@ -107,17 +106,15 @@ const handler = async (req: Request): Promise<Response> => {
     let emailResponse;
 
     switch (body.type) {
-      case "login_credentials": {
-        const { email, username, expiresAt } = body;
-        // SECURITY: Password is passed in body but NEVER logged
-        const password = body.password;
+      case "magic_link": {
+        const { email, magicLink, expiresAt } = body;
+        // SECURITY: Magic link is never logged - only non-sensitive metadata
         
-        // Log only non-sensitive information
-        console.log(`Sending login credentials to user (email: ${email}, expiresAt: ${expiresAt})`);
+        console.log(`Sending magic link to user (email: ${email}, expiresAt: ${expiresAt})`);
         
         emailResponse = await sendEmail(
           [email],
-          "Vaši login podaci za BH Konver",
+          "Vaš link za pristup BH Konver",
           `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
               <div style="text-align: center; margin-bottom: 30px;">
@@ -126,15 +123,21 @@ const handler = async (req: Request): Promise<Response> => {
               </div>
               
               <h2 style="color: #1e3a8a;">Dobrodošli!</h2>
-              <p>Hvala vam na kupovini. Evo vaših pristupnih podataka:</p>
+              <p>Hvala vam na kupovini. Kliknite na dugme ispod da se prijavite:</p>
+              
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="${magicLink}" style="display: inline-block; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">
+                  Prijavite se
+                </a>
+              </div>
               
               <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <p><strong>Email:</strong> ${username}</p>
-                <p><strong>Lozinka:</strong> ${password}</p>
+                <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Važi do:</strong> ${expiresAt}</p>
               </div>
               
-              <p style="color: #ef4444; font-weight: bold;">Važno: Sačuvajte ove podatke na sigurnom mjestu!</p>
+              <p style="color: #ef4444; font-weight: bold;">Važno: Ovaj link je validan samo 1 sat i može se koristiti samo jednom!</p>
+              <p style="color: #64748b; font-size: 14px;">Ako niste zatražili ovaj email, možete ga ignorisati.</p>
               
               <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align: center;">
                 <p style="color: #64748b; font-size: 12px;">
@@ -146,7 +149,7 @@ const handler = async (req: Request): Promise<Response> => {
           `
         );
 
-        // Notify admin about new payment (no credentials in admin notification)
+        // Notify admin about new payment (no sensitive links in admin notification)
         await sendEmail(
           ["info@bh-assistant.ba"],
           `Nova uplata - ${email}`,
@@ -154,11 +157,11 @@ const handler = async (req: Request): Promise<Response> => {
             <h2>Nova uplata primljena</h2>
             <p><strong>Korisnik:</strong> ${email}</p>
             <p><strong>Važi do:</strong> ${expiresAt}</p>
-            <p>Login kredencijali su poslani korisniku.</p>
+            <p>Magic link za pristup je poslan korisniku.</p>
           `
         );
 
-        console.log("Login credentials email sent successfully (credentials securely delivered)");
+        console.log("Magic link email sent successfully (link securely delivered)");
         break;
       }
 

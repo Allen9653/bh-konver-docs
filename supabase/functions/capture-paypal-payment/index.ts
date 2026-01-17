@@ -118,24 +118,40 @@ serve(async (req) => {
         console.error("Error updating transaction:", updateError);
       }
 
-      // Send confirmation email to user (using service role for internal call)
-      const sendEmailResponse = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${supabaseServiceKey}`,
-        },
-        body: JSON.stringify({
-          type: "login_credentials",
-          email: email,
-          username: email,
-          password: "Koristite postojeću lozinku", // User already has account
-          expiresAt: pendingTx?.expires_at || new Date().toISOString(),
-        }),
+      // Generate magic link for the user instead of sending passwords
+      const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
+        type: 'magiclink',
+        email: email,
+        options: {
+          redirectTo: `${supabaseUrl.replace('.supabase.co', '.lovable.app')}/success`
+        }
       });
 
-      if (!sendEmailResponse.ok) {
-        console.error("Failed to send confirmation email");
+      if (linkError) {
+        console.error("Failed to generate magic link:", linkError);
+      }
+
+      const magicLink = linkData?.properties?.action_link;
+
+      // Send magic link email to user (using service role for internal call)
+      if (magicLink) {
+        const sendEmailResponse = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${supabaseServiceKey}`,
+          },
+          body: JSON.stringify({
+            type: "magic_link",
+            email: email,
+            magicLink: magicLink,
+            expiresAt: pendingTx?.expires_at || new Date().toISOString(),
+          }),
+        });
+
+        if (!sendEmailResponse.ok) {
+          console.error("Failed to send magic link email");
+        }
       }
 
       // Notify admin about the payment (no sensitive data)
