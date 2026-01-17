@@ -40,13 +40,13 @@ serve(async (req) => {
 
     if (createError) throw createError;
 
-    // Send credentials email (you'll need to set up email service)
-    // For now, we'll just log it
-    console.log("User created with credentials:", {
+    // SECURITY: Never log passwords - only log non-sensitive metadata
+    console.log("User account created:", {
       email,
-      password: tempPassword,
       plan,
-      orderId
+      orderId,
+      userId: userData.user.id,
+      createdAt: new Date().toISOString()
     });
 
     // Send notification to info@bh-assistant.ba

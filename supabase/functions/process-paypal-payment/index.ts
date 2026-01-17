@@ -10,7 +10,45 @@ serve(async (req) => {
   }
 
   try {
+    // Initialize Supabase client for authentication
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    
+    // Verify user authentication
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader) {
+      console.error("Payment processing attempted without authentication");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - authentication required" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const token = authHeader.replace("Bearer ", "");
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
+    
+    if (authError || !user) {
+      console.error("Auth error during payment processing:", authError);
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    console.log(`Payment processing initiated by user: ${user.email}`);
+
     const { email, plan, amount, duration } = await req.json();
+
+    // Validate that the authenticated user matches the payment email
+    if (user.email !== email) {
+      console.error(`Email mismatch: authenticated=${user.email}, requested=${email}`);
+      return new Response(
+        JSON.stringify({ error: "Payment email must match authenticated user" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
     console.log("Processing PayPal payment for:", { email, plan, amount });
 
@@ -19,9 +57,7 @@ serve(async (req) => {
     const PAYPAL_SECRET = Deno.env.get("PAYPAL_SECRET");
     const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // Use api-m.paypal.com for production
 
-    // Supabase client for tracking
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    // Supabase admin client for database operations
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     // Get PayPal access token
@@ -89,17 +125,10 @@ serve(async (req) => {
     if (orderData.id) {
       const approvalUrl = orderData.links.find((link: any) => link.rel === "approve")?.href;
       
-      // Look up user_id from profiles by email
-      const { data: profileData } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("email", email)
-        .maybeSingle();
-      
-      // Save transaction to database for tracking
+      // Save transaction to database for tracking (use authenticated user's ID)
       const { error: insertError } = await supabase.from("transactions").insert({
         user_email: email,
-        user_id: profileData?.id || null, // Include user_id if user exists
+        user_id: user.id,
         plan_id: plan,
         amount: parseFloat(amount),
         currency: "BAM",
