@@ -106,10 +106,11 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Generate safe file path
+    // Generate safe file path using user.id (UUID) to align with storage RLS policies
+    // Storage policies expect: auth.uid()::text = (storage.foldername(name))[1]
     const timestamp = Date.now();
     const sanitizedFilename = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const storagePath = `${user.email}/${timestamp}_${sanitizedFilename}`;
+    const storagePath = `${user.id}/${timestamp}_${sanitizedFilename}`;
 
     // Read file content
     const fileBuffer = await file.arrayBuffer();
