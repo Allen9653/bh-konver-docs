@@ -247,12 +247,12 @@ export type Database = {
           currency?: string | null
           expires_at?: string | null
           id?: string | null
-          paypal_order_id?: string | null
-          paypal_payer_id?: string | null
+          paypal_order_id?: never
+          paypal_payer_id?: never
           plan_id?: string | null
           status?: string | null
           updated_at?: string | null
-          user_email?: string | null
+          user_email?: never
           user_id?: string | null
         }
         Update: {
@@ -261,12 +261,12 @@ export type Database = {
           currency?: string | null
           expires_at?: string | null
           id?: string | null
-          paypal_order_id?: string | null
-          paypal_payer_id?: string | null
+          paypal_order_id?: never
+          paypal_payer_id?: never
           plan_id?: string | null
           status?: string | null
           updated_at?: string | null
-          user_email?: string | null
+          user_email?: never
           user_id?: string | null
         }
         Relationships: []
