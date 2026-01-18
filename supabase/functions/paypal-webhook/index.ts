@@ -24,7 +24,39 @@ const getSupabaseClient = (): SupabaseClient => {
   );
 };
 
-// Log webhook event to audit table
+// Sanitize payload to remove sensitive data before logging
+function sanitizePayload(payload: unknown): unknown {
+  if (!payload || typeof payload !== 'object') {
+    return payload;
+  }
+
+  const sensitiveFields = [
+    'credit_card', 'card_number', 'cvv', 'cvc', 'ssn', 'social_security',
+    'password', 'secret', 'api_key', 'access_token', 'refresh_token',
+    'account_number', 'routing_number', 'bank_account', 'iban', 'swift',
+    'tax_id', 'national_id', 'passport', 'driver_license'
+  ];
+
+  const sanitized = JSON.parse(JSON.stringify(payload));
+  
+  function redactSensitive(obj: Record<string, unknown>, path = ''): void {
+    for (const key of Object.keys(obj)) {
+      const lowerKey = key.toLowerCase();
+      const isSensitive = sensitiveFields.some(field => lowerKey.includes(field));
+      
+      if (isSensitive) {
+        obj[key] = '[REDACTED]';
+      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+        redactSensitive(obj[key] as Record<string, unknown>, `${path}.${key}`);
+      }
+    }
+  }
+
+  redactSensitive(sanitized);
+  return sanitized;
+}
+
+// Log webhook event to audit table with sanitized payload
 async function logAuditEvent(
   supabase: SupabaseClient,
   eventType: string | null,
@@ -35,11 +67,14 @@ async function logAuditEvent(
   notes: string | null
 ): Promise<void> {
   try {
+    // Sanitize payload before storing to remove sensitive data
+    const sanitizedPayload = sanitizePayload(payload);
+    
     await supabase.from("webhook_audit_log").insert({
       event_type: eventType,
       transmission_id: transmissionId,
       status,
-      request_payload: payload,
+      request_payload: sanitizedPayload,
       client_ip: clientIp,
       notes
     });
