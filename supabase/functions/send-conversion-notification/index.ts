@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { getCorsHeaders } from "../_shared/cors.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
@@ -44,6 +45,33 @@ serve(async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Initialize Supabase client for authentication
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+    
+    // Verify user authentication - sending notifications requires login
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader) {
+      console.error("Notification attempted without authentication");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - authentication required" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const token = authHeader.replace("Bearer ", "");
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
+    
+    if (authError || !user) {
+      console.error("Auth error during notification:", authError);
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    console.log(`Notification initiated by user: ${user.email}`);
     const { 
       userEmail, 
       fileName, 
@@ -55,6 +83,15 @@ serve(async (req: Request): Promise<Response> => {
 
     if (!userEmail || !fileName) {
       throw new Error("Missing required fields: userEmail and fileName");
+    }
+
+    // Validate that the authenticated user matches the notification email
+    if (user.email !== userEmail) {
+      console.error(`Email mismatch: authenticated=${user.email}, requested=${userEmail}`);
+      return new Response(
+        JSON.stringify({ error: "Notification email must match authenticated user" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     console.log(`Sending conversion notification to ${userEmail}...`);

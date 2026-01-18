@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { getCorsHeaders } from "../_shared/cors.ts";
 
 const CLOUDMERSIVE_API_KEY = Deno.env.get('CLOUDMERSIVE_API_KEY');
@@ -11,6 +12,33 @@ serve(async (req) => {
   }
 
   try {
+    // Initialize Supabase client for authentication
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+    
+    // Verify user authentication - conversions require login
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader) {
+      console.error("Conversion attempted without authentication");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - authentication required for conversions" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const token = authHeader.replace("Bearer ", "");
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
+    
+    if (authError || !user) {
+      console.error("Auth error during conversion:", authError);
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    console.log(`Conversion initiated by user: ${user.email}`);
     const formData = await req.formData();
     const file = formData.get('file') as File;
     const targetFormat = formData.get('targetFormat') as string;
