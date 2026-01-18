@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FileUpload } from "@/components/FileUpload";
@@ -17,6 +17,7 @@ import { QuickActions } from "@/components/QuickActions";
 import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { LogIn, LogOut, Crown, History, Shield } from "lucide-react";
 import logo from "@/assets/bh-konver-logo.png";
@@ -58,10 +59,19 @@ const Index = () => {
       formData.append('file', file);
       formData.append('targetFormat', targetFormat);
 
+      // Get the user's session token for authentication
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        throw new Error('Morate biti prijavljeni za konverziju fajlova');
+      }
+
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/convert-document`,
         {
           method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`,
+          },
           body: formData,
         }
       );
