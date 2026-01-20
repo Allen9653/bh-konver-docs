@@ -182,8 +182,9 @@ serve(async (req) => {
   } catch (error: any) {
     console.error("Error in pdf-operations:", error);
     const corsHeaders = getCorsHeaders(req);
+    // Sanitize error message - don't expose internal API details
     return new Response(
-      JSON.stringify({ error: error.message || "Unknown error occurred" }),
+      JSON.stringify({ error: "Operacija nije uspjela. Molimo pokušajte ponovo." }),
       {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

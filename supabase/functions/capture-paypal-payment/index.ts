@@ -191,8 +191,8 @@ serve(async (req) => {
   } catch (error) {
     console.error("Capture payment error:", error);
     const corsHeaders = getCorsHeaders(req);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
-    return new Response(JSON.stringify({ error: errorMessage }), {
+    // Sanitize error message - don't expose internal details
+    return new Response(JSON.stringify({ error: "Greška pri potvrdi plaćanja. Molimo kontaktirajte podršku." }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
     });
