@@ -126,7 +126,7 @@ Deno.serve(async (req) => {
     if (uploadError) {
       console.error("Upload error:", uploadError);
       return new Response(
-        JSON.stringify({ error: "Greška pri uploadu fajla", details: uploadError.message }),
+        JSON.stringify({ error: "Greška pri uploadu fajla. Molimo pokušajte ponovo." }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }

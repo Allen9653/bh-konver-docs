@@ -158,8 +158,8 @@ serve(async (req) => {
   } catch (error) {
     console.error("PayPal payment error:", error);
     const corsHeaders = getCorsHeaders(req);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
-    return new Response(JSON.stringify({ error: errorMessage }), {
+    // Sanitize error message - don't expose internal details
+    return new Response(JSON.stringify({ error: "Greška pri obradi plaćanja. Molimo pokušajte ponovo." }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
     });

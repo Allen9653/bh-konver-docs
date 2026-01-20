@@ -203,7 +203,7 @@ serve(async (req) => {
       const errorText = await cloudmersiveResponse.text();
       console.error('Cloudmersive API error:', errorText);
       return new Response(
-        JSON.stringify({ error: 'Conversion failed', details: errorText }),
+        JSON.stringify({ error: 'Konverzija nije uspjela. Molimo pokušajte ponovo.' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
