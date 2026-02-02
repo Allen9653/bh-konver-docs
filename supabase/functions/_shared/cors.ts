@@ -1,15 +1,23 @@
 // Shared CORS configuration for BH KONVER edge functions
-// Uses wildcard for Lovable preview URLs while maintaining security
+// Supports Lovable preview & published domains for both development and production
 
 export function getAllowedOrigin(req: Request): string {
   const origin = req.headers.get("origin") || "";
   
-  // Allow Lovable preview URLs (pattern: https://id-preview--*.lovable.app)
-  if (origin.includes('.lovable.app') || 
-      origin.includes('.lovable.dev') ||
-      origin.includes('localhost') ||
-      origin.includes('127.0.0.1') ||
-      origin.includes('supabase.co')) {
+  // Allow all Lovable-related domains (preview, published, dev)
+  // Pattern examples:
+  //   https://id-preview--<uuid>.lovableproject.com (preview)
+  //   https://<uuid>.lovableproject.com (preview fallback)
+  //   https://bh-konver.lovable.app (published)
+  //   https://*.lovable.app, https://*.lovable.dev (Lovable infra)
+  if (
+    origin.includes('.lovableproject.com') ||
+    origin.includes('.lovable.app') || 
+    origin.includes('.lovable.dev') ||
+    origin.includes('localhost') ||
+    origin.includes('127.0.0.1') ||
+    origin.includes('supabase.co')
+  ) {
     return origin;
   }
   
