@@ -65,12 +65,15 @@ const Index = () => {
         throw new Error('Morate biti prijavljeni za konverziju fajlova');
       }
 
+      // IMPORTANT: Do NOT set Content-Type header manually for FormData!
+      // The browser automatically sets it with the correct multipart boundary.
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/convert-document`,
         {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
+            // Let browser set Content-Type with boundary automatically
           },
           body: formData,
         }
