@@ -52,6 +52,43 @@ const Index = () => {
     setFiles((prev) => [...prev, ...selectedFiles]);
   };
 
+  // Poll for async job completion
+  const pollForJobCompletion = async (jobId: string): Promise<Blob> => {
+    const maxAttempts = 60; // 2 minutes max
+    let attempts = 0;
+    
+    while (attempts < maxAttempts) {
+      const { data: job, error } = await supabase
+        .from('processing_jobs')
+        .select('status, progress, result_url, error')
+        .eq('id', jobId)
+        .single();
+      
+      if (error) {
+        throw new Error('Greška pri provjeri statusa konverzije');
+      }
+      
+      if (job.status === 'completed' && job.result_url) {
+        // Fetch the converted file from storage
+        const response = await fetch(job.result_url);
+        if (!response.ok) {
+          throw new Error('Greška pri preuzimanju konvertovanog fajla');
+        }
+        return await response.blob();
+      }
+      
+      if (job.status === 'failed') {
+        throw new Error(job.error || 'Konverzija nije uspjela');
+      }
+      
+      // Wait 2 seconds before next poll
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      attempts++;
+    }
+    
+    throw new Error('Konverzija je trajala predugo. Pokušajte ponovo.');
+  };
+
   const handleConvert = async (file: File, targetFormat: string, requiresBackend: boolean): Promise<Blob> => {
     if (requiresBackend) {
       // Backend conversion via Cloudmersive
@@ -65,19 +102,25 @@ const Index = () => {
         throw new Error('Morate biti prijavljeni za konverziju fajlova');
       }
 
-      // IMPORTANT: Do NOT set Content-Type header manually for FormData!
-      // The browser automatically sets it with the correct multipart boundary.
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/convert-document`,
         {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
-            // Let browser set Content-Type with boundary automatically
           },
           body: formData,
         }
       );
+
+      // Check for async response (202 Accepted)
+      if (response.status === 202) {
+        const asyncData = await response.json();
+        if (asyncData.job_id) {
+          // Poll for completion
+          return await pollForJobCompletion(asyncData.job_id);
+        }
+      }
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));

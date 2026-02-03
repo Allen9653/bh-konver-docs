@@ -104,6 +104,45 @@ export type Database = {
         }
         Relationships: []
       }
+      processing_jobs: {
+        Row: {
+          created_at: string
+          error: string | null
+          id: string
+          original_filename: string
+          progress: number
+          result_url: string | null
+          status: string
+          target_format: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          error?: string | null
+          id?: string
+          original_filename: string
+          progress?: number
+          result_url?: string | null
+          status?: string
+          target_format: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          error?: string | null
+          id?: string
+          original_filename?: string
+          progress?: number
+          result_url?: string | null
+          status?: string
+          target_format?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
