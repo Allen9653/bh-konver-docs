@@ -54,7 +54,7 @@ const Index = () => {
 
   // Poll for async job completion
   const pollForJobCompletion = async (jobId: string): Promise<Blob> => {
-    const maxAttempts = 60; // 2 minutes max
+    const maxAttempts = 90; // 3 minutes max (for video/audio)
     let attempts = 0;
     
     while (attempts < maxAttempts) {
@@ -69,9 +69,13 @@ const Index = () => {
       }
       
       if (job.status === 'completed' && job.result_url) {
-        // Fetch the converted file from storage
+        // result_url is now a signed URL, fetch directly
         const response = await fetch(job.result_url);
         if (!response.ok) {
+          // If signed URL expired, we need to regenerate
+          if (response.status === 400 || response.status === 403) {
+            throw new Error('Link za preuzimanje je istekao. Pokušajte ponovo.');
+          }
           throw new Error('Greška pri preuzimanju konvertovanog fajla');
         }
         return await response.blob();

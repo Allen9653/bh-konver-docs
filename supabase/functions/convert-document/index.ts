@@ -32,6 +32,14 @@ const conversionMap: Record<string, Record<string, string>> = {
     mp3: 'https://api.cloudmersive.com/video/convert/to/mp3',
     gif: 'https://api.cloudmersive.com/video/convert/to/gif',
   },
+  mkv: {
+    mp4: 'https://api.cloudmersive.com/video/convert/to/mp4',
+    mp3: 'https://api.cloudmersive.com/video/convert/to/mp3',
+  },
+  flv: {
+    mp4: 'https://api.cloudmersive.com/video/convert/to/mp4',
+    mp3: 'https://api.cloudmersive.com/video/convert/to/mp3',
+  },
   // Audio
   mp3: {
     ogg: 'https://api.cloudmersive.com/audio/convert/to/ogg',
@@ -48,39 +56,45 @@ const conversionMap: Record<string, Record<string, string>> = {
   m4a: {
     mp3: 'https://api.cloudmersive.com/audio/convert/to/mp3',
   },
+  aac: {
+    mp3: 'https://api.cloudmersive.com/audio/convert/to/mp3',
+  },
+  flac: {
+    mp3: 'https://api.cloudmersive.com/audio/convert/to/mp3',
+  },
   // Images
   webp: {
-    png: 'https://api.cloudmersive.com/convert/image/to/png',
-    jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
+    png: 'https://api.cloudmersive.com/image/convert/to/png',
+    jpg: 'https://api.cloudmersive.com/image/convert/to/jpg',
   },
   jfif: {
-    png: 'https://api.cloudmersive.com/convert/image/to/png',
-    jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
+    png: 'https://api.cloudmersive.com/image/convert/to/png',
+    jpg: 'https://api.cloudmersive.com/image/convert/to/jpg',
   },
   heic: {
-    jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
-    png: 'https://api.cloudmersive.com/convert/image/to/png',
-    pdf: 'https://api.cloudmersive.com/convert/image/to/pdf',
+    jpg: 'https://api.cloudmersive.com/image/convert/to/jpg',
+    png: 'https://api.cloudmersive.com/image/convert/to/png',
+    pdf: 'https://api.cloudmersive.com/image/convert/to/pdf',
   },
   png: {
-    jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
-    svg: 'https://api.cloudmersive.com/convert/image/to/svg',
-    pdf: 'https://api.cloudmersive.com/convert/image/to/pdf',
-    webp: 'https://api.cloudmersive.com/convert/image/to/webp',
+    jpg: 'https://api.cloudmersive.com/image/convert/to/jpg',
+    svg: 'https://api.cloudmersive.com/image/convert/to/svg',
+    pdf: 'https://api.cloudmersive.com/image/convert/to/pdf',
+    webp: 'https://api.cloudmersive.com/image/convert/to/webp',
   },
   jpg: {
-    png: 'https://api.cloudmersive.com/convert/image/to/png',
-    pdf: 'https://api.cloudmersive.com/convert/image/to/pdf',
-    webp: 'https://api.cloudmersive.com/convert/image/to/webp',
+    png: 'https://api.cloudmersive.com/image/convert/to/png',
+    pdf: 'https://api.cloudmersive.com/image/convert/to/pdf',
+    webp: 'https://api.cloudmersive.com/image/convert/to/webp',
   },
   jpeg: {
-    png: 'https://api.cloudmersive.com/convert/image/to/png',
-    pdf: 'https://api.cloudmersive.com/convert/image/to/pdf',
-    webp: 'https://api.cloudmersive.com/convert/image/to/webp',
+    png: 'https://api.cloudmersive.com/image/convert/to/png',
+    pdf: 'https://api.cloudmersive.com/image/convert/to/pdf',
+    webp: 'https://api.cloudmersive.com/image/convert/to/webp',
   },
   svg: {
-    png: 'https://api.cloudmersive.com/convert/image/to/png',
-    jpg: 'https://api.cloudmersive.com/convert/image/to/jpg',
+    png: 'https://api.cloudmersive.com/image/convert/to/png',
+    jpg: 'https://api.cloudmersive.com/image/convert/to/jpg',
   },
   // PDF & Documents
   pdf: {
@@ -133,10 +147,30 @@ const conversionMap: Record<string, Record<string, string>> = {
   },
 };
 
-// Check if conversion is heavy (video/audio) and needs async processing
+// MIME types for converted files
+const mimeTypes: Record<string, string> = {
+  pdf: 'application/pdf',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png',
+  webp: 'image/webp',
+  gif: 'image/gif',
+  mp4: 'video/mp4',
+  webm: 'video/webm',
+  mp3: 'audio/mpeg',
+  ogg: 'audio/ogg',
+  wav: 'audio/wav',
+  txt: 'text/plain',
+  epub: 'application/epub+zip',
+  svg: 'image/svg+xml',
+  apng: 'image/apng',
+};
+
+// Check if conversion is heavy (video/audio/gif) and needs async processing
 function isHeavyConversion(fileExtension: string, targetFormat: string): boolean {
-  const heavySourceFormats = ['mp4', 'mov', 'avi', 'webm', 'gif', 'apng'];
-  const heavyTargetFormats = ['gif', 'mp4', 'webm', 'mp3', 'ogg', 'wav'];
+  const heavySourceFormats = ['mp4', 'mov', 'avi', 'webm', 'mkv', 'flv', 'gif', 'apng'];
+  const heavyTargetFormats = ['gif', 'mp4', 'webm', 'mp3', 'ogg', 'wav', 'apng'];
   return heavySourceFormats.includes(fileExtension) || heavyTargetFormats.includes(targetFormat);
 }
 
@@ -145,6 +179,9 @@ async function processConversionInBackground(
   jobId: string,
   fileBuffer: ArrayBuffer,
   apiEndpoint: string,
+  targetFormat: string,
+  originalFilename: string,
+  userId: string,
   supabaseUrl: string,
   supabaseServiceKey: string
 ) {
@@ -156,9 +193,9 @@ async function processConversionInBackground(
     // Update progress to 25%
     await supabase.from('processing_jobs').update({ progress: 25 }).eq('id', jobId);
     
-    // Call Cloudmersive API
+    // Call Cloudmersive API with longer timeout for background
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minute timeout for background
+    const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minute timeout for background
     
     const cloudmersiveResponse = await fetch(apiEndpoint, {
       method: 'POST',
@@ -181,7 +218,7 @@ async function processConversionInBackground(
       if (status === 401 || status === 403) {
         errorMessage = 'Servis trenutno nije dostupan.';
       } else if (status === 413) {
-        errorMessage = 'Fajl je prevelik. Maksimalna veličina je 10MB.';
+        errorMessage = 'Fajl je prevelik. Maksimalna veličina je 50MB.';
       } else if (status === 429) {
         errorMessage = 'Previše zahtjeva. Pokušajte kasnije.';
       }
@@ -199,12 +236,17 @@ async function processConversionInBackground(
     // Get converted data
     const convertedData = await cloudmersiveResponse.arrayBuffer();
     
+    // Generate filename with proper extension
+    const baseName = originalFilename.replace(/\.[^/.]+$/, '');
+    const fileName = `${userId}/converted/${jobId}_${baseName}.${targetFormat}`;
+    
     // Store in Supabase storage
-    const fileName = `converted/${jobId}`;
+    const contentType = mimeTypes[targetFormat] || cloudmersiveResponse.headers.get('content-type') || 'application/octet-stream';
+    
     const { error: uploadError } = await supabase.storage
       .from('user-documents')
       .upload(fileName, convertedData, {
-        contentType: cloudmersiveResponse.headers.get('content-type') || 'application/octet-stream',
+        contentType,
         upsert: true,
       });
     
@@ -218,13 +260,25 @@ async function processConversionInBackground(
       return;
     }
     
-    // Get public URL
-    const { data: urlData } = supabase.storage.from('user-documents').getPublicUrl(fileName);
+    // Create signed URL (valid for 1 hour)
+    const { data: signedUrlData, error: signedUrlError } = await supabase.storage
+      .from('user-documents')
+      .createSignedUrl(fileName, 3600);
     
-    // Mark as completed
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      console.error(`Background: Failed to create signed URL for job ${jobId}:`, signedUrlError);
+      await supabase.from('processing_jobs').update({ 
+        status: 'failed', 
+        error: 'Greška pri kreiranju linka za preuzimanje.',
+        progress: 100 
+      }).eq('id', jobId);
+      return;
+    }
+    
+    // Mark as completed with signed URL
     await supabase.from('processing_jobs').update({ 
       status: 'completed', 
-      result_url: urlData.publicUrl,
+      result_url: signedUrlData.signedUrl,
       progress: 100 
     }).eq('id', jobId);
     
@@ -233,8 +287,8 @@ async function processConversionInBackground(
   } catch (error) {
     console.error(`Background: Error in job ${jobId}:`, error);
     
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-    await supabase.from('processing_jobs').update({ 
+    const supabaseRetry = createClient(supabaseUrl, supabaseServiceKey);
+    await supabaseRetry.from('processing_jobs').update({ 
       status: 'failed', 
       error: error instanceof Error ? error.message : 'Nepoznata greška',
       progress: 100 
@@ -339,7 +393,8 @@ serve(async (req) => {
     const fileBuffer = await file.arrayBuffer();
     
     // Check if this is a heavy conversion that needs async processing
-    if (isHeavyConversion(fileExtension, targetFormat) || file.size > 2 * 1024 * 1024) {
+    // Heavy = video/audio/gif OR file > 5MB
+    if (isHeavyConversion(fileExtension, targetFormat) || file.size > 5 * 1024 * 1024) {
       console.log(`Heavy conversion detected, using async processing for ${file.name}`);
       
       // Create job record with service role to bypass RLS
@@ -370,6 +425,9 @@ serve(async (req) => {
           job.id,
           fileBuffer,
           apiEndpoint,
+          targetFormat,
+          file.name,
+          user.id,
           supabaseUrl,
           supabaseServiceKey
         )
@@ -386,11 +444,11 @@ serve(async (req) => {
       );
     }
 
-    // Synchronous conversion for small/light files
+    // Synchronous conversion for small/light files (images, documents < 5MB)
     console.log(`Light conversion, processing synchronously: ${apiEndpoint}`);
     
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 25000); // 25 second timeout for sync
+    const timeoutId = setTimeout(() => controller.abort(), 55000); // 55 second timeout for sync
     
     try {
       const cloudmersiveResponse = await fetch(apiEndpoint, {
@@ -413,7 +471,7 @@ serve(async (req) => {
         if (status === 401 || status === 403) {
           errorMessage = 'Servis trenutno nije dostupan. Molimo pokušajte kasnije.';
         } else if (status === 413) {
-          errorMessage = 'Fajl je prevelik. Maksimalna veličina je 10MB.';
+          errorMessage = 'Fajl je prevelik. Maksimalna veličina je 50MB.';
         } else if (status === 429) {
           errorMessage = 'Previše zahtjeva. Molimo sačekajte par sekundi.';
         }
@@ -426,7 +484,7 @@ serve(async (req) => {
 
       // Return converted file directly
       const convertedData = await cloudmersiveResponse.arrayBuffer();
-      const contentType = cloudmersiveResponse.headers.get('content-type') || 'application/octet-stream';
+      const contentType = mimeTypes[targetFormat] || cloudmersiveResponse.headers.get('content-type') || 'application/octet-stream';
       
       console.log(`Sync conversion successful, returning ${convertedData.byteLength} bytes`);
       
@@ -434,6 +492,7 @@ serve(async (req) => {
         headers: {
           ...corsHeaders,
           'Content-Type': contentType,
+          'Content-Disposition': `attachment; filename="${file.name.replace(/\.[^/.]+$/, '')}.${targetFormat}"`,
         },
       });
       
@@ -443,7 +502,7 @@ serve(async (req) => {
       if (fetchError instanceof Error && fetchError.name === 'AbortError') {
         console.error('Cloudmersive API timeout');
         return new Response(
-          JSON.stringify({ error: 'Konverzija je trajala predugo. Pokušajte sa manjim fajlom.' }),
+          JSON.stringify({ error: 'Konverzija je trajala predugo. Pokušajte sa manjim fajlom ili koristite async opciju.' }),
           { status: 504, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
