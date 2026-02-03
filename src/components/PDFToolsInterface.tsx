@@ -58,23 +58,50 @@ export const PDFToolsInterface = ({ operation, onBack }: PDFToolsInterfaceProps)
         formData.append("angle", rotationAngle);
       }
 
-      const { data, error } = await supabase.functions.invoke("pdf-operations", {
-        body: formData,
-      });
+      // Get session token for authentication
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        throw new Error("Morate biti prijavljeni za korištenje PDF alata");
+      }
 
-      if (error) throw error;
+      // Use fetch directly for proper FormData handling
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/pdf-operations`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Nepoznata greška' }));
+        throw new Error(errorData.error || 'PDF operacija nije uspjela');
+      }
+
+      const data = await response.json();
 
       if (data.file) {
-        const blob = new Blob([Uint8Array.from(atob(data.file), c => c.charCodeAt(0))], {
+        // Decode base64 in chunks to avoid stack overflow for large files
+        const binaryString = atob(data.file);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        const blob = new Blob([bytes], {
           type: data.contentType || "application/pdf"
         });
         const url = URL.createObjectURL(blob);
         setResultUrl(url);
         toast.success("Operacija uspješna!");
+      } else {
+        throw new Error("Nije vraćen rezultat");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error processing:", error);
-      toast.error(error.message || "Greška pri procesiranju");
+      toast.error(error instanceof Error ? error.message : "Greška pri procesiranju");
     } finally {
       setProcessing(false);
     }

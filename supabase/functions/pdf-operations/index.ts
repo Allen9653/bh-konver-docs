@@ -2,6 +2,8 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { getCorsHeaders } from "../_shared/cors.ts";
 
+const CLOUDMERSIVE_API_KEY = Deno.env.get("CLOUDMERSIVE_API_KEY");
+
 serve(async (req) => {
   const corsHeaders = getCorsHeaders(req);
   
@@ -19,7 +21,7 @@ serve(async (req) => {
     const authHeader = req.headers.get("authorization");
     if (!authHeader) {
       return new Response(
-        JSON.stringify({ error: "Unauthorized - authentication required" }),
+        JSON.stringify({ error: "Neautorizovan pristup - potrebna prijava" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -30,165 +32,253 @@ serve(async (req) => {
     if (authError || !user) {
       console.error("Auth error:", authError);
       return new Response(
-        JSON.stringify({ error: "Invalid authentication token" }),
+        JSON.stringify({ error: "Neispravna autentifikacija" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     console.log(`PDF operation requested by user: ${user.email}`);
 
-    const formData = await req.formData();
-    const operation = formData.get("operation") as string;
-    const apiKey = Deno.env.get("CLOUDMERSIVE_API_KEY");
-
-    if (!apiKey) {
-      throw new Error("CLOUDMERSIVE_API_KEY is not configured");
+    if (!CLOUDMERSIVE_API_KEY) {
+      console.error("CLOUDMERSIVE_API_KEY not configured");
+      return new Response(
+        JSON.stringify({ error: "Servis trenutno nije dostupan." }),
+        { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
+    // Parse form data
+    let formData;
+    try {
+      formData = await req.formData();
+    } catch (parseError) {
+      console.error("Error parsing form data:", parseError);
+      return new Response(
+        JSON.stringify({ error: "Greška pri čitanju zahtjeva." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const operation = formData.get("operation") as string;
+    console.log(`PDF operation: ${operation}`);
+
     const operationEndpoints: Record<string, string> = {
-      "remove-watermark": "https://api.cloudmersive.com/convert/edit/pdf/watermark/remove",
-      "compress-pdf": "https://api.cloudmersive.com/convert/pdf/optimize",
-      "compress-jpeg": "https://api.cloudmersive.com/image/resize/resize-simple",
-      "split-pdf": "https://api.cloudmersive.com/convert/pdf/split",
-      "rotate": "https://api.cloudmersive.com/convert/edit/pdf/pages/rotate",
+      "remove-watermark": "https://api.cloudmersive.com/convert/edit/pdf/watermark/remove/all-watermarks",
+      "compress-pdf": "https://api.cloudmersive.com/convert/edit/pdf/optimize/reduce-file-size",
+      "compress-jpeg": "https://api.cloudmersive.com/image/resize/preserveAspectRatio",
+      "split-pdf": "https://api.cloudmersive.com/convert/split/pdf",
+      "rotate": "https://api.cloudmersive.com/convert/edit/pdf/pages/rotate/all",
     };
 
+    // Handle add-watermark operation
     if (operation === "add-watermark") {
       const file = formData.get("file0") as File;
       const watermarkText = formData.get("watermarkText") as string;
 
-      const watermarkFormData = new FormData();
-      watermarkFormData.append("imageFile", file);
-      watermarkFormData.append("watermarkText", watermarkText);
-      watermarkFormData.append("fontSize", "24");
-      watermarkFormData.append("fontColor", "#000000");
-      watermarkFormData.append("fontTransparency", "50");
+      if (!file) {
+        return new Response(
+          JSON.stringify({ error: "Fajl nije priložen" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
 
-      const response = await fetch(
-        "https://api.cloudmersive.com/convert/edit/pdf/watermark/add-text",
-        {
-          method: "POST",
-          headers: {
-            "Apikey": apiKey,
-          },
-          body: watermarkFormData,
-        }
-      );
+      if (!watermarkText) {
+        return new Response(
+          JSON.stringify({ error: "Tekst watermark-a je obavezan" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      const fileBuffer = await file.arrayBuffer();
+
+      // Build URL with query parameters for watermark settings
+      const watermarkUrl = new URL("https://api.cloudmersive.com/convert/edit/pdf/watermark/insert/text");
+      watermarkUrl.searchParams.set("watermarkText", watermarkText);
+      watermarkUrl.searchParams.set("fontName", "Arial");
+      watermarkUrl.searchParams.set("fontSize", "48");
+      watermarkUrl.searchParams.set("fontColor", "#808080");
+      watermarkUrl.searchParams.set("fontTransparency", "0.5");
+
+      const response = await fetch(watermarkUrl.toString(), {
+        method: "POST",
+        headers: {
+          "Apikey": CLOUDMERSIVE_API_KEY,
+          "Content-Type": "application/pdf",
+        },
+        body: fileBuffer,
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Cloudmersive API error:", errorText);
-        throw new Error(`Conversion failed: ${response.status}`);
+        console.error("Cloudmersive API error:", response.status, errorText);
+        return new Response(
+          JSON.stringify({ error: "Dodavanje watermark-a nije uspjelo." }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
 
       const resultBuffer = await response.arrayBuffer();
-      const base64 = btoa(String.fromCharCode(...new Uint8Array(resultBuffer)));
-
-      return new Response(
-        JSON.stringify({
-          file: base64,
-          contentType: response.headers.get("content-type") || "application/pdf",
-        }),
-        {
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
-      );
-    }
-
-    if (operation === "merge-pdf") {
-      const file1 = formData.get("file0") as File;
-      const file2 = formData.get("file1") as File;
-
-      const mergeFormData = new FormData();
-      mergeFormData.append("file1", file1);
-      mergeFormData.append("file2", file2);
-
-      const response = await fetch(
-        "https://api.cloudmersive.com/convert/pdf/merge",
-        {
-          method: "POST",
-          headers: {
-            "Apikey": apiKey,
-          },
-          body: mergeFormData,
-        }
-      );
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Cloudmersive API error:", errorText);
-        throw new Error(`Merge failed: ${response.status}`);
-      }
-
-      const resultBuffer = await response.arrayBuffer();
-      const base64 = btoa(String.fromCharCode(...new Uint8Array(resultBuffer)));
+      const base64 = arrayBufferToBase64(resultBuffer);
 
       return new Response(
         JSON.stringify({
           file: base64,
           contentType: "application/pdf",
         }),
-        {
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
+    // Handle merge-pdf operation
+    if (operation === "merge-pdf") {
+      const file1 = formData.get("file0") as File;
+      const file2 = formData.get("file1") as File;
+
+      if (!file1 || !file2) {
+        return new Response(
+          JSON.stringify({ error: "Potrebna su najmanje 2 fajla za spajanje" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      const file1Buffer = await file1.arrayBuffer();
+      const file2Buffer = await file2.arrayBuffer();
+
+      // First, merge two PDFs
+      const mergeFormData = new FormData();
+      mergeFormData.append("inputFile1", new Blob([file1Buffer], { type: "application/pdf" }), file1.name);
+      mergeFormData.append("inputFile2", new Blob([file2Buffer], { type: "application/pdf" }), file2.name);
+
+      const response = await fetch("https://api.cloudmersive.com/convert/merge/pdf/multi", {
+        method: "POST",
+        headers: {
+          "Apikey": CLOUDMERSIVE_API_KEY,
+        },
+        body: mergeFormData,
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Cloudmersive API error:", response.status, errorText);
+        return new Response(
+          JSON.stringify({ error: "Spajanje PDF-ova nije uspjelo." }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      const resultBuffer = await response.arrayBuffer();
+      const base64 = arrayBufferToBase64(resultBuffer);
+
+      return new Response(
+        JSON.stringify({
+          file: base64,
+          contentType: "application/pdf",
+        }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Handle other operations
     const endpoint = operationEndpoints[operation];
     if (!endpoint) {
-      throw new Error(`Unsupported operation: ${operation}`);
+      return new Response(
+        JSON.stringify({ error: `Nepodržana operacija: ${operation}` }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const file = formData.get("file0") as File;
     if (!file) {
-      throw new Error("No file provided");
+      return new Response(
+        JSON.stringify({ error: "Fajl nije priložen" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const fileBuffer = await file.arrayBuffer();
-    const operationFormData = new FormData();
-    operationFormData.append("imageFile", new Blob([fileBuffer]));
+    let response;
 
     if (operation === "rotate") {
       const angle = formData.get("angle") || "90";
-      operationFormData.append("rotationAngle", angle);
-    }
+      const rotateUrl = new URL(endpoint);
+      rotateUrl.searchParams.set("rotationAngle", angle.toString());
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Apikey": apiKey,
-      },
-      body: operationFormData,
-    });
+      response = await fetch(rotateUrl.toString(), {
+        method: "POST",
+        headers: {
+          "Apikey": CLOUDMERSIVE_API_KEY,
+          "Content-Type": "application/pdf",
+        },
+        body: fileBuffer,
+      });
+    } else if (operation === "compress-jpeg") {
+      // For JPEG compression, use different endpoint
+      const compressUrl = new URL("https://api.cloudmersive.com/image/resize/preserveAspectRatio");
+      compressUrl.searchParams.set("maxWidth", "1920");
+      compressUrl.searchParams.set("maxHeight", "1080");
+
+      response = await fetch(compressUrl.toString(), {
+        method: "POST",
+        headers: {
+          "Apikey": CLOUDMERSIVE_API_KEY,
+          "Content-Type": file.type || "image/jpeg",
+        },
+        body: fileBuffer,
+      });
+    } else {
+      response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Apikey": CLOUDMERSIVE_API_KEY,
+          "Content-Type": "application/pdf",
+        },
+        body: fileBuffer,
+      });
+    }
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Cloudmersive API error:", errorText);
-      throw new Error(`Operation failed: ${response.status}`);
+      console.error("Cloudmersive API error:", response.status, errorText);
+      return new Response(
+        JSON.stringify({ error: "Operacija nije uspjela. Molimo pokušajte ponovo." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const resultBuffer = await response.arrayBuffer();
-    const base64 = btoa(String.fromCharCode(...new Uint8Array(resultBuffer)));
+    const base64 = arrayBufferToBase64(resultBuffer);
+    const contentType = operation === "compress-jpeg" ? "image/jpeg" : "application/pdf";
 
     return new Response(
       JSON.stringify({
         file: base64,
-        contentType: response.headers.get("content-type") || "application/pdf",
+        contentType,
       }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-  } catch (error: any) {
+    
+  } catch (error: unknown) {
     console.error("Error in pdf-operations:", error);
     const corsHeaders = getCorsHeaders(req);
-    // Sanitize error message - don't expose internal API details
     return new Response(
       JSON.stringify({ error: "Operacija nije uspjela. Molimo pokušajte ponovo." }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });
+
+// Helper function to convert ArrayBuffer to base64 in chunks (avoid stack overflow)
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(buffer);
+  const chunkSize = 8192;
+  let binary = "";
+  
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    const chunk = bytes.subarray(i, Math.min(i + chunkSize, bytes.length));
+    for (let j = 0; j < chunk.length; j++) {
+      binary += String.fromCharCode(chunk[j]);
+    }
+  }
+  
+  return btoa(binary);
+}
