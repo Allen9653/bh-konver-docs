@@ -71,6 +71,8 @@ export const PDFToolsInterface = ({ operation, onBack }: PDFToolsInterfaceProps)
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
+            // Required by the functions gateway (prevents CORS/NetworkError “Failed to fetch”)
+            'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
           },
           body: formData,
         }
