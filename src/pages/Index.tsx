@@ -94,6 +94,8 @@ const Index = () => {
   };
 
   const handleConvert = async (file: File, targetFormat: string, requiresBackend: boolean): Promise<Blob> => {
+    console.log(`[BH KONVER] Starting conversion: ${file.name} → ${targetFormat}, backend=${requiresBackend}, size=${file.size}`);
+    
     if (requiresBackend) {
       // Backend conversion via Cloudmersive
       const formData = new FormData();
@@ -101,39 +103,70 @@ const Index = () => {
       formData.append('targetFormat', targetFormat);
 
       // Get the user's session token for authentication
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) {
+        console.error('[BH KONVER] Session error:', sessionError);
+        throw new Error('Greška pri provjeri prijave. Pokušajte se ponovo prijaviti.');
+      }
       if (!session?.access_token) {
+        console.error('[BH KONVER] No session/token found');
         throw new Error('Morate biti prijavljeni za konverziju fajlova');
       }
+      console.log('[BH KONVER] Session OK, user:', session.user?.email);
 
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/convert-document`,
-        {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      
+      if (!supabaseUrl || !apikey) {
+        console.error('[BH KONVER] Missing env vars:', { supabaseUrl: !!supabaseUrl, apikey: !!apikey });
+        throw new Error('Konfiguracija servisa nije ispravna. Kontaktirajte podršku.');
+      }
+
+      const fetchUrl = `${supabaseUrl}/functions/v1/convert-document`;
+      console.log('[BH KONVER] Fetching:', fetchUrl);
+
+      let response: Response;
+      try {
+        response = await fetch(fetchUrl, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
-            // Required by the functions gateway (prevents CORS/NetworkError “Failed to fetch”)
-            'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            'apikey': apikey,
           },
           body: formData,
-        }
-      );
+        });
+      } catch (fetchError) {
+        console.error('[BH KONVER] Fetch failed (network error):', fetchError);
+        throw new Error('Mrežna greška — provjerite internet konekciju ili pokušajte ponovo.');
+      }
+
+      console.log('[BH KONVER] Response status:', response.status);
 
       // Check for async response (202 Accepted)
       if (response.status === 202) {
         const asyncData = await response.json();
+        console.log('[BH KONVER] Async job started:', asyncData.job_id);
         if (asyncData.job_id) {
-          // Poll for completion
           return await pollForJobCompletion(asyncData.job_id);
         }
       }
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-        throw new Error(errorData.error || 'Backend konverzija nije uspjela');
+        let errorMessage = 'Backend konverzija nije uspjela';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+        } catch {
+          const textBody = await response.text().catch(() => '');
+          console.error('[BH KONVER] Non-JSON error response:', textBody);
+        }
+        console.error('[BH KONVER] Conversion error:', response.status, errorMessage);
+        throw new Error(errorMessage);
       }
 
-      return await response.blob();
+      const blob = await response.blob();
+      console.log('[BH KONVER] Conversion successful, blob size:', blob.size);
+      return blob;
     } else {
       // Local browser conversion (PDF/JPEG/PNG)
       return await convertFile(file, targetFormat);
