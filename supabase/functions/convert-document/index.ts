@@ -306,6 +306,7 @@ serve(async (req) => {
 
   try {
     console.log('Convert-document function called');
+    console.log('Cloudmersive key:', CLOUDMERSIVE_API_KEY ? 'found (' + CLOUDMERSIVE_API_KEY.substring(0, 8) + '...)' : 'MISSING');
     
     // Check Cloudmersive API key
     if (!CLOUDMERSIVE_API_KEY) {
