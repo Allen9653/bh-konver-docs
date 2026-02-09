@@ -54,7 +54,7 @@ export const FORMAT_CONVERSIONS: Record<InputFormat, OutputFormat[]> = {
   // IMAGE
   webp: ["png", "jpg"],
   jfif: ["png", "jpg"],
-  png: ["svg", "pdf", "webp", "jpg"],
+  png: ["pdf", "webp", "jpg"],
   jpg: ["pdf", "png", "webp"],
   jpeg: ["pdf", "png", "webp"],
   heic: ["jpg", "png", "pdf"],
