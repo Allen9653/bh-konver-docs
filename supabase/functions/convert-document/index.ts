@@ -74,22 +74,22 @@ const conversionMap: Record<string, Record<string, string>> = {
   heic: {
     jpg: 'https://api.cloudmersive.com/image/convert/to/jpg',
     png: 'https://api.cloudmersive.com/image/convert/to/png',
-    pdf: 'https://api.cloudmersive.com/image/convert/to/pdf',
+    pdf: 'https://api.cloudmersive.com/convert/image/heic/to/pdf',
   },
   png: {
     jpg: 'https://api.cloudmersive.com/image/convert/to/jpg',
     svg: 'https://api.cloudmersive.com/image/convert/to/svg',
-    pdf: 'https://api.cloudmersive.com/image/convert/to/pdf',
+    pdf: 'https://api.cloudmersive.com/convert/image/png/to/pdf',
     webp: 'https://api.cloudmersive.com/image/convert/to/webp',
   },
   jpg: {
     png: 'https://api.cloudmersive.com/image/convert/to/png',
-    pdf: 'https://api.cloudmersive.com/image/convert/to/pdf',
+    pdf: 'https://api.cloudmersive.com/convert/image/jpg/to/pdf',
     webp: 'https://api.cloudmersive.com/image/convert/to/webp',
   },
   jpeg: {
     png: 'https://api.cloudmersive.com/image/convert/to/png',
-    pdf: 'https://api.cloudmersive.com/image/convert/to/pdf',
+    pdf: 'https://api.cloudmersive.com/convert/image/jpeg/to/pdf',
     webp: 'https://api.cloudmersive.com/image/convert/to/webp',
   },
   svg: {
