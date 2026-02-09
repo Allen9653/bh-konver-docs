@@ -78,7 +78,6 @@ const conversionMap: Record<string, Record<string, string>> = {
   },
   png: {
     jpg: 'https://api.cloudmersive.com/image/convert/to/jpg',
-    svg: 'https://api.cloudmersive.com/image/convert/to/svg',
     pdf: 'https://api.cloudmersive.com/convert/image/png/to/pdf',
     webp: 'https://api.cloudmersive.com/image/convert/to/webp',
   },
@@ -93,8 +92,8 @@ const conversionMap: Record<string, Record<string, string>> = {
     webp: 'https://api.cloudmersive.com/image/convert/to/webp',
   },
   svg: {
-    png: 'https://api.cloudmersive.com/image/convert/to/png',
-    jpg: 'https://api.cloudmersive.com/image/convert/to/jpg',
+    png: 'https://api.cloudmersive.com/convert/image/svg/to/png',
+    jpg: 'https://api.cloudmersive.com/convert/image/svg/to/jpg',
   },
   // PDF & Documents
   pdf: {
@@ -466,7 +465,8 @@ serve(async (req) => {
 
       if (!cloudmersiveResponse.ok) {
         const status = cloudmersiveResponse.status;
-        console.error(`Cloudmersive API error: ${status}`);
+        const errorBody = await cloudmersiveResponse.text().catch(() => 'no body');
+        console.error(`Cloudmersive API error: ${status}, body: ${errorBody}`);
         
         let errorMessage = 'Konverzija nije uspjela. Molimo pokušajte ponovo.';
         if (status === 401 || status === 403) {
