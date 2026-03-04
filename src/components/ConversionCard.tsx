@@ -6,12 +6,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FileText, Image, Download, Loader2, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { getAvailableFormats, requiresBackend, formatDisplayName, type OutputFormat } from "@/types/formats";
+import { canConvertClientSide } from "@/utils/clientConverter";
 import { DocumentPreview } from "@/components/DocumentPreview";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ConversionProgress } from "@/components/ConversionProgress";
 
 interface ConversionCardProps {
   file: File;
-  onConvert: (file: File, targetFormat: string, requiresBackend: boolean) => Promise<Blob>;
+  onConvert: (file: File, targetFormat: string, requiresBackend: boolean, onProgress?: (p: { stage: string; percent: number }) => void) => Promise<Blob>;
   onRemove: () => void;
 }
 
@@ -21,6 +23,7 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
   const [converted, setConverted] = useState<Blob | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [convertedPreviewOpen, setConvertedPreviewOpen] = useState(false);
+  const [progress, setProgress] = useState<{ stage: string; percent: number } | null>(null);
   const { toast } = useToast();
 
   const fileExtension = file.name.split(".").pop()?.toLowerCase();
@@ -28,19 +31,23 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
   const availableFormats = getAvailableFormats(fileExtension);
   const [targetFormat, setTargetFormat] = useState<OutputFormat>(availableFormats[0] || "pdf");
   
-  const needsBackend = requiresBackend(fileExtension);
+  const needsBackend = requiresBackend(fileExtension) && !canConvertClientSide(fileExtension || "", targetFormat);
+  const isClientSide = canConvertClientSide(fileExtension || "", targetFormat);
 
   const handleConvert = async () => {
     setConverting(true);
+    setProgress({ stage: "Pokretanje...", percent: 0 });
     try {
-      const result = await onConvert(file, targetFormat, needsBackend);
+      const result = await onConvert(file, targetFormat, needsBackend, (p) => setProgress(p));
       setConverted(result);
+      setProgress(null);
       toast({
         title: t('conversion.success'),
         description: `${t('conversion.success')} ${formatDisplayName[targetFormat]}`,
       });
     } catch (error) {
       console.error("Conversion error:", error);
+      setProgress(null);
       toast({
         title: t('conversion.error'),
         description: error instanceof Error ? error.message : t('conversion.error'),
@@ -77,11 +84,21 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
           <p className="font-medium truncate">{file.name}</p>
           <p className="text-sm text-muted-foreground">
             {(file.size / 1024).toFixed(2)} KB
+            {isClientSide && (
+              <span className="ml-2 text-xs bg-accent text-accent-foreground px-1.5 py-0.5 rounded">
+                ⚡ Lokalno
+              </span>
+            )}
           </p>
         </div>
       </div>
 
-      {!converted && availableFormats.length > 0 && (
+      {/* Conversion progress */}
+      {converting && progress && (
+        <ConversionProgress stage={progress.stage} percent={progress.percent} />
+      )}
+
+      {!converted && availableFormats.length > 0 && !converting && (
         <div className="mb-3">
           <label className="text-sm font-medium mb-2 block">{t('conversion.selectFormat')}:</label>
           <Select value={targetFormat} onValueChange={(value) => setTargetFormat(value as OutputFormat)}>
@@ -92,6 +109,7 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
               {availableFormats.map((format) => (
                 <SelectItem key={format} value={format}>
                   {formatDisplayName[format]}
+                  {canConvertClientSide(fileExtension || "", format) && " ⚡"}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -107,6 +125,7 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
               variant="outline"
               size="icon"
               title="Pregled"
+              disabled={converting}
             >
               <Eye className="w-4 h-4" />
             </Button>
@@ -118,13 +137,13 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
               {converting ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  {t('conversion.converting')}
+                  {progress?.stage || t('conversion.converting')}
                 </>
               ) : (
                 `${t('conversion.convert')} ${formatDisplayName[targetFormat]}`
               )}
             </Button>
-            <Button variant="outline" onClick={onRemove}>
+            <Button variant="outline" onClick={onRemove} disabled={converting}>
               {t('conversion.remove')}
             </Button>
           </>
@@ -164,7 +183,7 @@ export const ConversionCard = ({ file, onConvert, onRemove }: ConversionCardProp
                   className="w-full h-[500px] border-0 rounded-lg"
                   title="Converted document"
                 />
-              ) : targetFormat.match(/^(jpg|jpeg|png|webp)$/) ? (
+              ) : targetFormat.match(/^(jpg|jpeg|png|webp|gif)$/) ? (
                 <img
                   src={URL.createObjectURL(converted)}
                   alt="Converted document"

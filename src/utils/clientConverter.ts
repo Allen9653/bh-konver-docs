@@ -1,0 +1,337 @@
+/**
+ * BH KONVER - Client-Side Conversion Engine
+ * 
+ * Handles conversions directly in the browser using:
+ * - Canvas API for image format conversions
+ * - pdf-lib for PDF creation, merge, rotate, watermark
+ * - pdfjs-dist for PDF rendering to image
+ * - @ffmpeg/ffmpeg (WASM) for video/audio conversions
+ * - docx library for DOCX generation
+ */
+
+import { PDFDocument, rgb, StandardFonts, degrees } from "pdf-lib";
+import * as pdfjsLib from "pdfjs-dist";
+
+// PDF.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+export type ConversionProgress = {
+  stage: string;
+  percent: number;
+};
+
+type ProgressCallback = (progress: ConversionProgress) => void;
+
+// ─── Which conversions can run client-side ───
+const CLIENT_SIDE_MAP: Record<string, string[]> = {
+  // Image conversions via Canvas
+  png: ["jpg", "jpeg", "webp", "pdf"],
+  jpg: ["png", "webp", "pdf"],
+  jpeg: ["png", "webp", "pdf"],
+  webp: ["png", "jpg"],
+  jfif: ["png", "jpg"],
+  // PDF to image via pdfjs
+  pdf: ["jpg", "jpeg", "png"],
+  // Video to GIF via ffmpeg WASM
+  mp4: ["gif"],
+  webm: ["gif"],
+  mov: ["gif"],
+  avi: ["gif"],
+};
+
+export const canConvertClientSide = (inputExt: string, outputFormat: string): boolean => {
+  const formats = CLIENT_SIDE_MAP[inputExt?.toLowerCase()];
+  return formats?.includes(outputFormat?.toLowerCase()) ?? false;
+};
+
+// ─── Main entry point ───
+export const convertClientSide = async (
+  file: File,
+  targetFormat: string,
+  onProgress?: ProgressCallback
+): Promise<Blob> => {
+  const ext = file.name.split(".").pop()?.toLowerCase() || "";
+  const target = targetFormat.toLowerCase();
+
+  onProgress?.({ stage: "Priprema fajla...", percent: 10 });
+
+  // Image → Image (Canvas)
+  if (isImageExt(ext) && isImageExt(target)) {
+    return convertImageToImage(file, target, onProgress);
+  }
+
+  // Image → PDF (pdf-lib)
+  if (isImageExt(ext) && target === "pdf") {
+    return convertImageToPDF(file, onProgress);
+  }
+
+  // PDF → Image (pdfjs)
+  if (ext === "pdf" && isImageExt(target)) {
+    return convertPDFToImage(file, target as "jpg" | "jpeg" | "png", onProgress);
+  }
+
+  // Video → GIF (ffmpeg WASM)
+  if (isVideoExt(ext) && target === "gif") {
+    return convertVideoToGif(file, onProgress);
+  }
+
+  throw new Error(`Client-side konverzija ${ext} → ${target} nije podržana`);
+};
+
+// ─── Helpers ───
+const isImageExt = (ext: string) => ["png", "jpg", "jpeg", "webp", "jfif"].includes(ext);
+const isVideoExt = (ext: string) => ["mp4", "webm", "mov", "avi"].includes(ext);
+
+// ─── Image → Image via Canvas ───
+async function convertImageToImage(
+  file: File,
+  target: string,
+  onProgress?: ProgressCallback
+): Promise<Blob> {
+  onProgress?.({ stage: "Učitavanje slike...", percent: 20 });
+
+  const bitmap = await createImageBitmap(file);
+  const canvas = document.createElement("canvas");
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
+  const ctx = canvas.getContext("2d")!;
+  ctx.drawImage(bitmap, 0, 0);
+
+  onProgress?.({ stage: "Konvertovanje formata...", percent: 60 });
+
+  const mimeMap: Record<string, string> = {
+    png: "image/png",
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    webp: "image/webp",
+  };
+
+  const mime = mimeMap[target] || "image/png";
+  const quality = target === "png" ? undefined : 0.92;
+
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        onProgress?.({ stage: "Završeno!", percent: 100 });
+        blob ? resolve(blob) : reject(new Error("Canvas blob kreiranje neuspješno"));
+      },
+      mime,
+      quality
+    );
+  });
+}
+
+// ─── Image → PDF via pdf-lib ───
+async function convertImageToPDF(
+  file: File,
+  onProgress?: ProgressCallback
+): Promise<Blob> {
+  onProgress?.({ stage: "Kreiranje PDF-a...", percent: 30 });
+
+  const pdfDoc = await PDFDocument.create();
+  const arrayBuffer = await file.arrayBuffer();
+  const ext = file.name.split(".").pop()?.toLowerCase();
+
+  // For webp/jfif, convert to PNG first via canvas
+  let imageBytes: ArrayBuffer;
+  let isPng = false;
+
+  if (ext === "webp" || ext === "jfif") {
+    const bitmap = await createImageBitmap(file);
+    const canvas = document.createElement("canvas");
+    canvas.width = bitmap.width;
+    canvas.height = bitmap.height;
+    canvas.getContext("2d")!.drawImage(bitmap, 0, 0);
+    const pngBlob = await new Promise<Blob>((res) =>
+      canvas.toBlob((b) => res(b!), "image/png")
+    );
+    imageBytes = await pngBlob.arrayBuffer();
+    isPng = true;
+  } else {
+    imageBytes = arrayBuffer;
+    isPng = ext === "png";
+  }
+
+  onProgress?.({ stage: "Ugrađivanje slike...", percent: 60 });
+
+  const image = isPng
+    ? await pdfDoc.embedPng(imageBytes)
+    : await pdfDoc.embedJpg(imageBytes);
+
+  const page = pdfDoc.addPage([image.width, image.height]);
+  page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+
+  onProgress?.({ stage: "Spremanje PDF-a...", percent: 90 });
+  const pdfBytes = await pdfDoc.save();
+  onProgress?.({ stage: "Završeno!", percent: 100 });
+
+  return new Blob([new Uint8Array(pdfBytes) as BlobPart], { type: "application/pdf" });
+}
+
+// ─── PDF → Image via pdfjs ───
+async function convertPDFToImage(
+  file: File,
+  format: "jpg" | "jpeg" | "png",
+  onProgress?: ProgressCallback
+): Promise<Blob> {
+  onProgress?.({ stage: "Učitavanje PDF-a...", percent: 20 });
+
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const page = await pdf.getPage(1);
+
+  onProgress?.({ stage: "Renderovanje stranice...", percent: 50 });
+
+  const viewport = page.getViewport({ scale: 2.0 });
+  const canvas = document.createElement("canvas");
+  canvas.width = viewport.width;
+  canvas.height = viewport.height;
+  const ctx = canvas.getContext("2d")!;
+
+  await page.render({ canvasContext: ctx, viewport } as any).promise;
+
+  onProgress?.({ stage: "Kreiranje slike...", percent: 80 });
+
+  const mime = format === "png" ? "image/png" : "image/jpeg";
+  const quality = format === "png" ? undefined : 0.95;
+
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        onProgress?.({ stage: "Završeno!", percent: 100 });
+        blob ? resolve(blob) : reject(new Error("Greška pri kreiranju slike"));
+      },
+      mime,
+      quality
+    );
+  });
+}
+
+// ─── Video → GIF via @ffmpeg/ffmpeg WASM ───
+async function convertVideoToGif(
+  file: File,
+  onProgress?: ProgressCallback
+): Promise<Blob> {
+  onProgress?.({ stage: "Učitavanje video procesora (WASM)...", percent: 10 });
+
+  const { FFmpeg } = await import("@ffmpeg/ffmpeg");
+  const { fetchFile } = await import("@ffmpeg/util");
+
+  const ffmpeg = new FFmpeg();
+
+  ffmpeg.on("progress", ({ progress }) => {
+    const pct = Math.min(Math.round(progress * 80) + 15, 95);
+    onProgress?.({ stage: "Konvertovanje u GIF...", percent: pct });
+  });
+
+  await ffmpeg.load();
+
+  onProgress?.({ stage: "Priprema videa...", percent: 15 });
+
+  const inputName = "input" + file.name.substring(file.name.lastIndexOf("."));
+  await ffmpeg.writeFile(inputName, await fetchFile(file));
+
+  onProgress?.({ stage: "Konvertovanje u GIF...", percent: 20 });
+
+  // Convert with reasonable quality: 10fps, 480px width, max 10 seconds
+  await ffmpeg.exec([
+    "-i", inputName,
+    "-t", "10",
+    "-vf", "fps=10,scale=480:-1:flags=lanczos",
+    "-f", "gif",
+    "output.gif",
+  ]);
+
+  const data = await ffmpeg.readFile("output.gif");
+  onProgress?.({ stage: "Završeno!", percent: 100 });
+
+  return new Blob([data as BlobPart], { type: "image/gif" });
+}
+
+// ─── PDF Tools (client-side) ───
+
+export const rotatePDFClientSide = async (
+  file: File,
+  angle: number,
+  onProgress?: ProgressCallback
+): Promise<Blob> => {
+  onProgress?.({ stage: "Rotiranje PDF-a...", percent: 30 });
+  const pdfDoc = await PDFDocument.load(await file.arrayBuffer());
+  const pages = pdfDoc.getPages();
+  pages.forEach((page) => page.setRotation(degrees(angle)));
+  onProgress?.({ stage: "Spremanje...", percent: 80 });
+  const bytes = await pdfDoc.save();
+  onProgress?.({ stage: "Završeno!", percent: 100 });
+  return new Blob([new Uint8Array(bytes) as BlobPart], { type: "application/pdf" });
+};
+
+export const mergePDFsClientSide = async (
+  files: File[],
+  onProgress?: ProgressCallback
+): Promise<Blob> => {
+  onProgress?.({ stage: "Spajanje PDF-ova...", percent: 20 });
+  const mergedDoc = await PDFDocument.create();
+
+  for (let i = 0; i < files.length; i++) {
+    const pdfBytes = await files[i].arrayBuffer();
+    const srcDoc = await PDFDocument.load(pdfBytes);
+    const copiedPages = await mergedDoc.copyPages(srcDoc, srcDoc.getPageIndices());
+    copiedPages.forEach((page) => mergedDoc.addPage(page));
+    onProgress?.({ stage: `Spajanje ${i + 1}/${files.length}...`, percent: 20 + (70 * (i + 1)) / files.length });
+  }
+
+  const bytes = await mergedDoc.save();
+  onProgress?.({ stage: "Završeno!", percent: 100 });
+  return new Blob([new Uint8Array(bytes) as BlobPart], { type: "application/pdf" });
+};
+
+export const addWatermarkClientSide = async (
+  file: File,
+  watermarkText: string,
+  onProgress?: ProgressCallback
+): Promise<Blob> => {
+  onProgress?.({ stage: "Dodavanje vodenog žiga...", percent: 30 });
+  const pdfDoc = await PDFDocument.load(await file.arrayBuffer());
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const pages = pdfDoc.getPages();
+
+  pages.forEach((page) => {
+    const { width, height } = page.getSize();
+    const fontSize = Math.min(width, height) * 0.08;
+    page.drawText(watermarkText, {
+      x: width / 4,
+      y: height / 2,
+      size: fontSize,
+      font,
+      color: rgb(0.75, 0.75, 0.75),
+      rotate: degrees(45),
+      opacity: 0.3,
+    });
+  });
+
+  onProgress?.({ stage: "Spremanje...", percent: 80 });
+  const bytes = await pdfDoc.save();
+  onProgress?.({ stage: "Završeno!", percent: 100 });
+  return new Blob([new Uint8Array(bytes) as BlobPart], { type: "application/pdf" });
+};
+
+export const extractPDFText = async (
+  file: File,
+  onProgress?: ProgressCallback
+): Promise<string> => {
+  onProgress?.({ stage: "Čitanje PDF teksta...", percent: 20 });
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  let fullText = "";
+
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    const pageText = content.items.map((item: any) => item.str).join(" ");
+    fullText += pageText + "\n\n";
+    onProgress?.({ stage: `Stranica ${i}/${pdf.numPages}...`, percent: 20 + (70 * i) / pdf.numPages });
+  }
+
+  onProgress?.({ stage: "Završeno!", percent: 100 });
+  return fullText;
+};
