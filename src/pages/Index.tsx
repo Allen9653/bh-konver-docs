@@ -15,6 +15,7 @@ import { PayPalPaymentModal } from "@/components/PayPalPaymentModal";
 import { TransparencyBanner } from "@/components/TransparencyBanner";
 import { QuickActions } from "@/components/QuickActions";
 import { convertFile } from "@/utils/pdfConverter";
+import { canConvertClientSide, convertClientSide, type ConversionProgress } from "@/utils/clientConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
@@ -93,16 +94,28 @@ const Index = () => {
     throw new Error('Konverzija je trajala predugo. Pokušajte ponovo.');
   };
 
-  const handleConvert = async (file: File, targetFormat: string, requiresBackend: boolean): Promise<Blob> => {
-    console.log(`[BH KONVER] Starting conversion: ${file.name} → ${targetFormat}, backend=${requiresBackend}, size=${file.size}`);
-    
-    if (requiresBackend) {
-      // Backend conversion via Cloudmersive
+  const handleConvert = async (
+    file: File,
+    targetFormat: string,
+    needsBackend: boolean,
+    onProgress?: (p: ConversionProgress) => void
+  ): Promise<Blob> => {
+    const ext = file.name.split(".").pop()?.toLowerCase() || "";
+    console.log(`[BH KONVER] Starting conversion: ${file.name} → ${targetFormat}, backend=${needsBackend}, clientSide=${canConvertClientSide(ext, targetFormat)}, size=${file.size}`);
+
+    // Prefer client-side conversion when available
+    if (canConvertClientSide(ext, targetFormat)) {
+      console.log('[BH KONVER] Using client-side conversion engine');
+      return await convertClientSide(file, targetFormat, onProgress);
+    }
+
+    if (needsBackend) {
+      // Backend conversion via Cloudmersive (fallback)
+      onProgress?.({ stage: "Slanje na server...", percent: 10 });
       const formData = new FormData();
       formData.append('file', file);
       formData.append('targetFormat', targetFormat);
 
-      // Get the user's session token for authentication
       const { data: { session }, error: sessionError } = await supabase.auth.getSession();
       if (sessionError) {
         console.error('[BH KONVER] Session error:', sessionError);
@@ -112,22 +125,19 @@ const Index = () => {
         console.error('[BH KONVER] No session/token found');
         throw new Error('Morate biti prijavljeni za konverziju fajlova');
       }
-      console.log('[BH KONVER] Session OK, user:', session.user?.email);
 
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
       const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
       
       if (!supabaseUrl || !apikey) {
-        console.error('[BH KONVER] Missing env vars:', { supabaseUrl: !!supabaseUrl, apikey: !!apikey });
         throw new Error('Konfiguracija servisa nije ispravna. Kontaktirajte podršku.');
       }
 
-      const fetchUrl = `${supabaseUrl}/functions/v1/convert-document`;
-      console.log('[BH KONVER] Fetching:', fetchUrl);
+      onProgress?.({ stage: "Konvertovanje na serveru...", percent: 30 });
 
       let response: Response;
       try {
-        response = await fetch(fetchUrl, {
+        response = await fetch(`${supabaseUrl}/functions/v1/convert-document`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
@@ -136,16 +146,13 @@ const Index = () => {
           body: formData,
         });
       } catch (fetchError) {
-        console.error('[BH KONVER] Fetch failed (network error):', fetchError);
-        throw new Error('Mrežna greška — provjerite internet konekciju ili pokušajte ponovo.');
+        console.error('[BH KONVER] Fetch failed:', fetchError);
+        throw new Error('Mrežna greška — provjerite internet konekciju.');
       }
 
-      console.log('[BH KONVER] Response status:', response.status);
-
-      // Check for async response (202 Accepted)
       if (response.status === 202) {
         const asyncData = await response.json();
-        console.log('[BH KONVER] Async job started:', asyncData.job_id);
+        onProgress?.({ stage: "Čekanje na rezultat...", percent: 50 });
         if (asyncData.job_id) {
           return await pollForJobCompletion(asyncData.job_id);
         }
@@ -157,18 +164,15 @@ const Index = () => {
           const errorData = await response.json();
           errorMessage = errorData.error || errorMessage;
         } catch {
-          const textBody = await response.text().catch(() => '');
-          console.error('[BH KONVER] Non-JSON error response:', textBody);
+          // ignore
         }
-        console.error('[BH KONVER] Conversion error:', response.status, errorMessage);
         throw new Error(errorMessage);
       }
 
-      const blob = await response.blob();
-      console.log('[BH KONVER] Conversion successful, blob size:', blob.size);
-      return blob;
+      onProgress?.({ stage: "Završeno!", percent: 100 });
+      return await response.blob();
     } else {
-      // Local browser conversion (PDF/JPEG/PNG)
+      // Legacy local conversion
       return await convertFile(file, targetFormat);
     }
   };

@@ -1,7 +1,7 @@
 {
   "name": "BH Konver",
   "short_name": "Konver",
-  "description": "Brza konverzija valuta za korisnike u Bosni i Hercegovini.",
+  "description": "Sve-u-jednom alat za konverziju dokumenata, slika, videa i valuta u BiH.",
   "lang": "bs",
   "start_url": "/",
   "display": "standalone",
