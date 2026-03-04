@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileText, Image, Download, Loader2, Eye, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { convertImage, convertPdf } from "@/utils/clientConverter";
-
+import { convertImage, convertPdf } from "../utils/clientConverter";
 export const ConversionCard = ({ file, onRemove }: { file: File, onRemove: () => void }) => {
   const { t } = useTranslation();
   const { toast } = useToast();
