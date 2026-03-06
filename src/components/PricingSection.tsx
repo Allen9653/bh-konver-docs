@@ -72,7 +72,7 @@ export const PricingSection = ({ onSelectPlan }: PricingSectionProps) => {
   return (
     <div className="py-12 mb-8">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-foreground mb-2">{t('pricing.title')}</h2>
+        <h2 className="text-3xl font-bold font-display text-foreground mb-2">{t('pricing.title')}</h2>
         <p className="text-muted-foreground">{t('pricing.subtitle')}</p>
       </div>
 
@@ -82,13 +82,13 @@ export const PricingSection = ({ onSelectPlan }: PricingSectionProps) => {
           return (
             <Card
               key={tier.id}
-              className={`p-6 relative hover:shadow-xl transition-all duration-300 ${
-                tier.popular ? "border-primary border-2 shadow-lg scale-105" : ""
+              className={`p-6 relative hover:shadow-lg transition-all duration-300 ${
+                tier.popular ? "border-primary border-2 shadow-md scale-105" : "border-border"
               }`}
             >
               {tier.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold">
+                  <span className="gradient-gold text-accent-foreground px-3 py-1 rounded-full text-xs font-semibold">
                     {t('pricing.popular')}
                   </span>
                 </div>
@@ -107,14 +107,14 @@ export const PricingSection = ({ onSelectPlan }: PricingSectionProps) => {
               <ul className="space-y-3 mb-6">
                 {tier.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                     <span className="text-sm">{feature}</span>
                   </li>
                 ))}
               </ul>
 
               <Button
-                className="w-full"
+                className={`w-full ${tier.popular ? "bg-primary hover:bg-primary/90 text-primary-foreground" : ""}`}
                 variant={tier.popular ? "default" : "outline"}
                 onClick={() => onSelectPlan(tier)}
               >
