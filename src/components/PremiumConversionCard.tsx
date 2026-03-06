@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Image, Video, Music, Download, Loader2, Zap, X, RotateCcw } from "lucide-react";
@@ -30,6 +31,7 @@ const formatSize = (bytes: number) => {
 };
 
 export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConvert }: PremiumConversionCardProps) => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const ext = file.name.split(".").pop()?.toLowerCase() || "";
   const availableFormats = useMemo(() => getAvailableFormats(ext), [ext]);
@@ -57,11 +59,11 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
       }
       setResultUrl(URL.createObjectURL(blob));
       setStep("download");
-      toast({ title: "Conversion complete", description: `${file.name} → .${format}` });
+      toast({ title: t('conversion.success'), description: `${file.name} → .${format}` });
     } catch (error) {
       console.error(error);
       setStep("upload");
-      toast({ variant: "destructive", title: "Conversion failed", description: String(error) });
+      toast({ variant: "destructive", title: t('conversion.error'), description: String(error) });
     } finally {
       setIsConverting(false);
       setProgress(null);
@@ -77,22 +79,20 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
 
   return (
     <Card className="p-6 border border-border bg-card">
-      {/* Step Progress */}
       <StepProgress currentStep={step} />
 
-      {/* File info */}
       <div className="flex items-center justify-between mb-5 pb-4 border-b border-border">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0">
-            <Icon className="w-5 h-5 text-foreground" />
+          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+            <Icon className="w-5 h-5 text-primary" />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-medium truncate">{file.name}</p>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <span>{formatSize(file.size)}</span>
               {isClientSide && (
-                <span className="inline-flex items-center gap-0.5 bg-secondary text-foreground px-1.5 py-0.5 rounded text-[10px] font-medium">
-                  <Zap className="w-2.5 h-2.5" /> Local
+                <span className="inline-flex items-center gap-0.5 bg-accent/20 text-accent-foreground px-1.5 py-0.5 rounded text-[10px] font-medium">
+                  <Zap className="w-2.5 h-2.5 text-accent" /> Local
                 </span>
               )}
             </div>
@@ -105,34 +105,32 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
         )}
       </div>
 
-      {/* Progress bar during conversion */}
       {progress && <ProgressBar stage={progress.stage} percent={progress.percent} />}
 
-      {/* Format selection + convert button */}
       {!resultUrl ? (
         <div className="space-y-4">
           <div>
-            <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">Output Format</p>
+            <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">{t('conversion.selectFormat')}</p>
             <FormatGrid formats={availableFormats} selected={format} onSelect={(f) => setFormat(f as typeof format)} />
           </div>
           <Button
             onClick={handleConversion}
             disabled={isConverting || availableFormats.length === 0}
-            className="w-full h-11 text-sm font-medium"
+            className="w-full h-11 text-sm font-medium bg-primary hover:bg-primary/90 text-primary-foreground"
           >
             {isConverting ? <Loader2 className="animate-spin mr-2 w-4 h-4" /> : null}
-            {isConverting ? "Converting..." : `Convert to ${format.toUpperCase()}`}
+            {isConverting ? t('conversion.converting') : `${t('conversion.convert')} → ${format.toUpperCase()}`}
           </Button>
         </div>
       ) : (
         <div className="space-y-3">
-          <Button asChild className="w-full h-11 text-sm font-medium bg-foreground text-background hover:bg-foreground/90">
+          <Button asChild className="w-full h-11 text-sm font-medium gradient-gold text-accent-foreground hover:opacity-90">
             <a href={resultUrl} download={`${file.name.replace(/\.[^/.]+$/, "")}.${format}`}>
-              <Download className="mr-2 w-4 h-4" /> Download Converted File
+              <Download className="mr-2 w-4 h-4" /> {t('conversion.download')}
             </a>
           </Button>
           <Button variant="outline" className="w-full h-11 text-sm" onClick={handleReset}>
-            <RotateCcw className="mr-2 w-4 h-4" /> Convert Another File
+            <RotateCcw className="mr-2 w-4 h-4" /> {t('conversion.convert')}
           </Button>
         </div>
       )}

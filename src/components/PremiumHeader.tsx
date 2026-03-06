@@ -23,7 +23,9 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
         <div className="flex items-center gap-3">
           <img src={logo} alt="BH Konver" className="h-8 w-auto" />
           <div className="hidden sm:block">
-            <h1 className="text-sm font-semibold tracking-tight text-foreground leading-none">BH KONVER</h1>
+            <h1 className="text-sm font-bold font-display tracking-tight text-foreground leading-none">
+              BH <span className="text-primary">KONVER</span>
+            </h1>
             <p className="text-[11px] text-muted-foreground tracking-wide">Premium File Suite</p>
           </div>
         </div>
@@ -39,7 +41,7 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
                 </Button>
               )}
               {isPremium && !isAdmin && (
-                <span className="text-[10px] bg-foreground text-background px-1.5 py-0.5 rounded font-medium flex items-center gap-1">
+                <span className="text-[10px] bg-accent text-accent-foreground px-1.5 py-0.5 rounded font-medium flex items-center gap-1">
                   <Crown className="w-3 h-3" /> PRO
                 </span>
               )}
@@ -51,9 +53,9 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
               </Button>
             </>
           ) : (
-            <Button variant="default" size="sm" onClick={() => navigate("/auth")} className="h-8 text-xs">
+            <Button size="sm" onClick={() => navigate("/auth")} className="h-8 text-xs bg-primary hover:bg-primary/90 text-primary-foreground">
               <LogIn className="mr-1 h-3.5 w-3.5" />
-              Sign In
+              {t('quickActions.login')}
             </Button>
           )}
         </div>

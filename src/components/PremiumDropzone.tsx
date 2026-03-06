@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -8,6 +9,7 @@ interface PremiumDropzoneProps {
 }
 
 export const PremiumDropzone = ({ onFilesSelected, acceptedFormats }: PremiumDropzoneProps) => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [isDragging, setIsDragging] = useState(false);
 
@@ -19,15 +21,15 @@ export const PremiumDropzone = ({ onFilesSelected, acceptedFormats }: PremiumDro
       });
       if (valid.length === 0) {
         toast({
-          title: "Unsupported format",
-          description: `Accepted: ${acceptedFormats.map((f) => f.toUpperCase()).join(", ")}`,
+          title: t('conversion.error'),
+          description: `${t('fileUpload.supportedFormats')}: ${acceptedFormats.map((f) => f.toUpperCase()).join(", ")}`,
           variant: "destructive",
         });
         return [];
       }
       return valid;
     },
-    [acceptedFormats, toast]
+    [acceptedFormats, toast, t]
   );
 
   const handleDrop = useCallback(
@@ -57,10 +59,10 @@ export const PremiumDropzone = ({ onFilesSelected, acceptedFormats }: PremiumDro
         setIsDragging(true);
       }}
       onDragLeave={() => setIsDragging(false)}
-      className={`relative border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200 cursor-pointer group ${
+      className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-200 cursor-pointer group ${
         isDragging
-          ? "border-foreground bg-accent/50 scale-[1.01]"
-          : "border-border hover:border-foreground/30 bg-card"
+          ? "border-primary bg-primary/5 scale-[1.01]"
+          : "border-border hover:border-primary/40 bg-card"
       }`}
     >
       <input
@@ -72,13 +74,13 @@ export const PremiumDropzone = ({ onFilesSelected, acceptedFormats }: PremiumDro
       />
       <div className="flex flex-col items-center gap-3">
         <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-colors ${
-          isDragging ? "bg-foreground text-background" : "bg-secondary text-muted-foreground group-hover:bg-foreground group-hover:text-background"
+          isDragging ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
         }`}>
           <Upload className="w-6 h-6" />
         </div>
         <div>
           <p className="text-sm font-medium text-foreground">
-            Drop files here or <span className="underline underline-offset-4">browse</span>
+            {t('fileUpload.dragDrop')} <span className="underline underline-offset-4 text-primary">{t('fileUpload.browse')}</span>
           </p>
           <p className="text-xs text-muted-foreground mt-1">
             {acceptedFormats.map((f) => f.toUpperCase()).join(" · ")}
