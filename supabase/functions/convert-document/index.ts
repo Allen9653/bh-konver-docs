@@ -173,6 +173,52 @@ function isHeavyConversion(fileExtension: string, targetFormat: string): boolean
   return heavySourceFormats.includes(fileExtension) || heavyTargetFormats.includes(targetFormat);
 }
 
+type UpstreamConversionError = {
+  httpStatus: number;
+  userMessage: string;
+  code: string;
+};
+
+function mapUpstreamConversionError(status: number): UpstreamConversionError {
+  if (status === 401 || status === 403) {
+    return {
+      httpStatus: 503,
+      userMessage: 'Servis za kompleksne konverzije je trenutno nedostupan. Molimo pokušajte kasnije.',
+      code: 'UPSTREAM_AUTH_FAILED',
+    };
+  }
+
+  if (status === 413) {
+    return {
+      httpStatus: 413,
+      userMessage: 'Fajl je prevelik. Maksimalna veličina je 50MB.',
+      code: 'FILE_TOO_LARGE',
+    };
+  }
+
+  if (status === 429) {
+    return {
+      httpStatus: 429,
+      userMessage: 'Previše zahtjeva. Molimo sačekajte par sekundi.',
+      code: 'RATE_LIMITED',
+    };
+  }
+
+  if (status >= 500) {
+    return {
+      httpStatus: 502,
+      userMessage: 'Servis za konverziju trenutno ne odgovara. Molimo pokušajte kasnije.',
+      code: 'UPSTREAM_UNAVAILABLE',
+    };
+  }
+
+  return {
+    httpStatus: 502,
+    userMessage: 'Konverzija nije uspjela. Molimo pokušajte ponovo.',
+    code: 'UPSTREAM_CONVERSION_FAILED',
+  };
+}
+
 // Background conversion function
 async function processConversionInBackground(
   jobId: string,
@@ -213,22 +259,15 @@ async function processConversionInBackground(
     
     if (!cloudmersiveResponse.ok) {
       const status = cloudmersiveResponse.status;
-      let errorMessage = 'Konverzija nije uspjela.';
-      if (status === 401 || status === 403) {
-        errorMessage = 'Servis trenutno nije dostupan.';
-      } else if (status === 413) {
-        errorMessage = 'Fajl je prevelik. Maksimalna veličina je 50MB.';
-      } else if (status === 429) {
-        errorMessage = 'Previše zahtjeva. Pokušajte kasnije.';
-      }
-      
+      const mappedError = mapUpstreamConversionError(status);
+
       await supabase.from('processing_jobs').update({ 
         status: 'failed', 
-        error: errorMessage,
+        error: mappedError.userMessage,
         progress: 100 
       }).eq('id', jobId);
       
-      console.error(`Background: Conversion failed for job ${jobId}: ${errorMessage}`);
+      console.error(`Background: Conversion failed for job ${jobId}: ${mappedError.code} (${status})`);
       return;
     }
     
@@ -305,7 +344,7 @@ serve(async (req) => {
 
   try {
     console.log('Convert-document function called');
-    console.log('Cloudmersive key:', CLOUDMERSIVE_API_KEY ? 'found (' + CLOUDMERSIVE_API_KEY.substring(0, 8) + '...)' : 'MISSING');
+    console.log('Cloudmersive key configured:', Boolean(CLOUDMERSIVE_API_KEY));
     
     // Check Cloudmersive API key
     if (!CLOUDMERSIVE_API_KEY) {
@@ -466,20 +505,13 @@ serve(async (req) => {
       if (!cloudmersiveResponse.ok) {
         const status = cloudmersiveResponse.status;
         const errorBody = await cloudmersiveResponse.text().catch(() => 'no body');
-        console.error(`Cloudmersive API error: ${status}, body: ${errorBody}`);
-        
-        let errorMessage = 'Konverzija nije uspjela. Molimo pokušajte ponovo.';
-        if (status === 401 || status === 403) {
-          errorMessage = 'Servis trenutno nije dostupan. Molimo pokušajte kasnije.';
-        } else if (status === 413) {
-          errorMessage = 'Fajl je prevelik. Maksimalna veličina je 50MB.';
-        } else if (status === 429) {
-          errorMessage = 'Previše zahtjeva. Molimo sačekajte par sekundi.';
-        }
-        
+        const mappedError = mapUpstreamConversionError(status);
+
+        console.error(`Cloudmersive API error: ${mappedError.code} (${status}), body: ${errorBody}`);
+
         return new Response(
-          JSON.stringify({ error: errorMessage }),
-          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          JSON.stringify({ error: mappedError.userMessage, code: mappedError.code }),
+          { status: mappedError.httpStatus, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
 
@@ -503,12 +535,16 @@ serve(async (req) => {
       if (fetchError instanceof Error && fetchError.name === 'AbortError') {
         console.error('Cloudmersive API timeout');
         return new Response(
-          JSON.stringify({ error: 'Konverzija je trajala predugo. Pokušajte sa manjim fajlom ili koristite async opciju.' }),
+          JSON.stringify({ error: 'Konverzija je trajala predugo. Pokušajte sa manjim fajlom ili koristite async opciju.', code: 'UPSTREAM_TIMEOUT' }),
           { status: 504, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
-      
-      throw fetchError;
+
+      console.error('Cloudmersive network error:', fetchError);
+      return new Response(
+        JSON.stringify({ error: 'Servis za konverziju trenutno nije dostupan. Molimo pokušajte kasnije.', code: 'UPSTREAM_NETWORK_ERROR' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
   } catch (error) {

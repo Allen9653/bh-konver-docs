@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      cleanup_jobs: {
+        Row: {
+          attempts: number | null
+          created_at: string | null
+          id: string
+          last_error: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          attempts?: number | null
+          created_at?: string | null
+          id?: string
+          last_error?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          attempts?: number | null
+          created_at?: string | null
+          id?: string
+          last_error?: string | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       conversions: {
         Row: {
           converted_url: string | null
