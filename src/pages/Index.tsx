@@ -209,7 +209,9 @@ const Index = () => {
           <PayPalPaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} initialPlanId={selectedPlanId} />
 
           <div className="mt-12">
-            <CurrencyConverter />
+            <SponsorBanners>
+              <CurrencyConverter />
+            </SponsorBanners>
           </div>
         </div>
       </main>
