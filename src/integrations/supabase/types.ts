@@ -41,6 +41,33 @@ export type Database = {
         }
         Relationships: []
       }
+      conversion_logs: {
+        Row: {
+          created_at: string
+          file_size_kb: number
+          from_format: string
+          id: string
+          to_format: string
+          user_email: string | null
+        }
+        Insert: {
+          created_at?: string
+          file_size_kb: number
+          from_format: string
+          id?: string
+          to_format: string
+          user_email?: string | null
+        }
+        Update: {
+          created_at?: string
+          file_size_kb?: number
+          from_format?: string
+          id?: string
+          to_format?: string
+          user_email?: string | null
+        }
+        Relationships: []
+      }
       conversions: {
         Row: {
           converted_url: string | null
