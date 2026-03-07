@@ -10,6 +10,9 @@ import { Footer } from "@/components/Footer";
 import { WebhookAuditFilters, type AuditFilters } from "@/components/WebhookAuditFilters";
 import { AdminPagination } from "@/components/AdminPagination";
 import { AdminSearchInput } from "@/components/AdminSearchInput";
+import { AdminConversionStats } from "@/components/AdminConversionStats";
+import { AdminDangerZone } from "@/components/AdminDangerZone";
+import { AdminAdsManager } from "@/components/AdminAdsManager";
 import { 
   ArrowLeft, 
   Users, 
@@ -23,7 +26,8 @@ import {
   Loader2,
   Shield,
   AlertTriangle,
-  Ban
+  Ban,
+  BarChart3
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -438,19 +442,19 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <div className="container mx-auto px-4 py-8 max-w-7xl flex-1">
-        <Button variant="ghost" onClick={() => navigate("/")} className="mb-6">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          {t("common.back")}
-        </Button>
-
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="gradient-hero text-white py-6 px-4 mb-0">
+        <div className="container mx-auto max-w-7xl flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-foreground mb-2">Admin Panel</h1>
-            <p className="text-muted-foreground">
-              Upravljajte korisnicima, transakcijama i postavkama aplikacije.
-            </p>
+            <h1 className="text-3xl font-bold font-display">Admin Panel</h1>
+            <p className="text-white/70 text-sm">Upravljajte korisnicima, transakcijama i postavkama</p>
           </div>
+          <Button variant="ghost" onClick={() => navigate("/")} className="text-white hover:bg-white/10">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Nazad
+          </Button>
+        </div>
+      </div>
+      <div className="container mx-auto px-4 py-8 max-w-7xl flex-1">
+        <div className="mb-6 flex justify-end">
           <Button 
             variant="destructive" 
             onClick={handleManualCleanup}
@@ -514,13 +518,16 @@ export default function Admin() {
 
         {/* Tabs for different sections */}
         <Tabs defaultValue="users" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="users">Korisnici</TabsTrigger>
             <TabsTrigger value="transactions">Transakcije</TabsTrigger>
             <TabsTrigger value="conversions">Konverzije</TabsTrigger>
+            <TabsTrigger value="logs" className="flex items-center gap-1">
+              <BarChart3 className="w-3 h-3" /> Logovi
+            </TabsTrigger>
+            <TabsTrigger value="ads">Reklame</TabsTrigger>
             <TabsTrigger value="audit" className="flex items-center gap-1">
-              <Shield className="w-3 h-3" />
-              Webhook Audit
+              <Shield className="w-3 h-3" /> Webhook
             </TabsTrigger>
           </TabsList>
 
@@ -790,7 +797,22 @@ export default function Admin() {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Conversion Logs Tab */}
+          <TabsContent value="logs">
+            <AdminConversionStats />
+          </TabsContent>
+
+          {/* Ads Manager Tab */}
+          <TabsContent value="ads">
+            <AdminAdsManager />
+          </TabsContent>
         </Tabs>
+
+        {/* Danger Zone */}
+        <div className="mt-8">
+          <AdminDangerZone />
+        </div>
       </div>
       <Footer />
     </div>

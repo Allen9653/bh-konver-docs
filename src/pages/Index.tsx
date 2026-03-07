@@ -8,6 +8,7 @@ import { PremiumConversionCard } from "@/components/PremiumConversionCard";
 import { ModuleTabs } from "@/components/ModuleTabs";
 import { UnitConverter } from "@/components/UnitConverter";
 import { PDFToolsSelector } from "@/components/PDFToolsSelector";
+import { SponsorBanners } from "@/components/SponsorBanners";
 import { PDFToolsInterface } from "@/components/PDFToolsInterface";
 import { PricingSection } from "@/components/PricingSection";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
@@ -206,10 +207,13 @@ const Index = () => {
           </div>
 
           <PayPalPaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} initialPlanId={selectedPlanId} />
+        </div>
 
-          <div className="mt-12">
+        {/* Currency Converter with Sponsor Banners - wider container */}
+        <div className="mt-12 max-w-6xl mx-auto px-4 pb-10">
+          <SponsorBanners>
             <CurrencyConverter />
-          </div>
+          </SponsorBanners>
         </div>
       </main>
 
