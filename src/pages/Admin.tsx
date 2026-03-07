@@ -517,13 +517,16 @@ export default function Admin() {
 
         {/* Tabs for different sections */}
         <Tabs defaultValue="users" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="users">Korisnici</TabsTrigger>
             <TabsTrigger value="transactions">Transakcije</TabsTrigger>
             <TabsTrigger value="conversions">Konverzije</TabsTrigger>
+            <TabsTrigger value="logs" className="flex items-center gap-1">
+              <BarChart3 className="w-3 h-3" /> Logovi
+            </TabsTrigger>
+            <TabsTrigger value="ads">Reklame</TabsTrigger>
             <TabsTrigger value="audit" className="flex items-center gap-1">
-              <Shield className="w-3 h-3" />
-              Webhook Audit
+              <Shield className="w-3 h-3" /> Webhook
             </TabsTrigger>
           </TabsList>
 
