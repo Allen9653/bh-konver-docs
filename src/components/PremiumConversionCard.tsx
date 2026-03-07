@@ -9,6 +9,7 @@ import { ConversionProgress as ProgressBar } from "@/components/ConversionProgre
 import { StepProgress, type ConversionStep } from "@/components/StepProgress";
 import { FormatGrid } from "@/components/FormatGrid";
 import { getAvailableFormats } from "@/types/formats";
+import { supabase } from "@/integrations/supabase/client";
 
 interface PremiumConversionCardProps {
   file: File;
@@ -60,6 +61,18 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
       setResultUrl(URL.createObjectURL(blob));
       setStep("download");
       toast({ title: t('conversion.success'), description: `${file.name} → .${format}` });
+
+      // Log conversion metadata to conversion_logs (fire-and-forget)
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        supabase.from("conversion_logs").insert({
+          from_format: ext,
+          to_format: format,
+          file_size_kb: Math.round(file.size / 1024),
+          user_email: session?.user?.email || "anonymous",
+        }).then(({ error }) => {
+          if (error) console.warn("Failed to log conversion:", error.message);
+        });
+      });
     } catch (error) {
       console.error(error);
       setStep("upload");
