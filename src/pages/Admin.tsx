@@ -797,7 +797,22 @@ export default function Admin() {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Conversion Logs Tab */}
+          <TabsContent value="logs">
+            <AdminConversionStats />
+          </TabsContent>
+
+          {/* Ads Manager Tab */}
+          <TabsContent value="ads">
+            <AdminAdsManager />
+          </TabsContent>
         </Tabs>
+
+        {/* Danger Zone */}
+        <div className="mt-8">
+          <AdminDangerZone />
+        </div>
       </div>
       <Footer />
     </div>

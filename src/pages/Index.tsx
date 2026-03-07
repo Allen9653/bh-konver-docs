@@ -8,6 +8,7 @@ import { PremiumConversionCard } from "@/components/PremiumConversionCard";
 import { ModuleTabs } from "@/components/ModuleTabs";
 import { UnitConverter } from "@/components/UnitConverter";
 import { PDFToolsSelector } from "@/components/PDFToolsSelector";
+import { SponsorBanners } from "@/components/SponsorBanners";
 import { PDFToolsInterface } from "@/components/PDFToolsInterface";
 import { PricingSection } from "@/components/PricingSection";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
