@@ -10,6 +10,9 @@ import { Footer } from "@/components/Footer";
 import { WebhookAuditFilters, type AuditFilters } from "@/components/WebhookAuditFilters";
 import { AdminPagination } from "@/components/AdminPagination";
 import { AdminSearchInput } from "@/components/AdminSearchInput";
+import { AdminConversionStats } from "@/components/AdminConversionStats";
+import { AdminDangerZone } from "@/components/AdminDangerZone";
+import { AdminAdsManager } from "@/components/AdminAdsManager";
 import { 
   ArrowLeft, 
   Users, 
@@ -438,19 +441,19 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <div className="container mx-auto px-4 py-8 max-w-7xl flex-1">
-        <Button variant="ghost" onClick={() => navigate("/")} className="mb-6">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          {t("common.back")}
-        </Button>
-
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="gradient-hero text-white py-6 px-4 mb-0">
+        <div className="container mx-auto max-w-7xl flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-foreground mb-2">Admin Panel</h1>
-            <p className="text-muted-foreground">
-              Upravljajte korisnicima, transakcijama i postavkama aplikacije.
-            </p>
+            <h1 className="text-3xl font-bold font-display">Admin Panel</h1>
+            <p className="text-white/70 text-sm">Upravljajte korisnicima, transakcijama i postavkama</p>
           </div>
+          <Button variant="ghost" onClick={() => navigate("/")} className="text-white hover:bg-white/10">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Nazad
+          </Button>
+        </div>
+      </div>
+      <div className="container mx-auto px-4 py-8 max-w-7xl flex-1">
+        <div className="mb-6 flex justify-end">
           <Button 
             variant="destructive" 
             onClick={handleManualCleanup}
