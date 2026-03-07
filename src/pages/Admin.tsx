@@ -26,7 +26,8 @@ import {
   Loader2,
   Shield,
   AlertTriangle,
-  Ban
+  Ban,
+  BarChart3
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
