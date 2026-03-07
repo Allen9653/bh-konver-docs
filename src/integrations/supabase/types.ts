@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      ads_management: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          is_active: boolean
+          name: string
+          position: string
+          target_url: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url: string
+          is_active?: boolean
+          name: string
+          position?: string
+          target_url: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          name?: string
+          position?: string
+          target_url?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cleanup_jobs: {
         Row: {
           attempts: number | null
@@ -373,6 +406,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      manual_purge_all_logs: { Args: never; Returns: undefined }
       mask_email: { Args: { email: string }; Returns: string }
       mask_paypal_id: { Args: { paypal_id: string }; Returns: string }
     }
