@@ -240,13 +240,11 @@ async function convertVideoToGif(
     onProgress?.({ stage: "Konvertovanje u GIF...", percent: pct });
   });
 
-  // Load ffmpeg core from local node_modules (bundled by Vite)
-  const coreURL = new URL("@ffmpeg/core/dist/umd/ffmpeg-core.js", import.meta.url).href;
-  const wasmURL = new URL("@ffmpeg/core/dist/umd/ffmpeg-core.wasm", import.meta.url).href;
-
+  // Load ffmpeg core – use toBlobURL to fetch from CDN (avoids CORP/bundling issues)
+  const CORE_BASE = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd";
   await ffmpeg.load({
-    coreURL: await toBlobURL(coreURL, "text/javascript"),
-    wasmURL: await toBlobURL(wasmURL, "application/wasm"),
+    coreURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.js`, "text/javascript"),
+    wasmURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.wasm`, "application/wasm"),
   });
 
   onProgress?.({ stage: "Priprema videa...", percent: 15 });
