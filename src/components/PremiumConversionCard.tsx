@@ -49,6 +49,7 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
     setIsConverting(true);
     setStep("processing");
     setProgress(null);
+    let conversionSucceeded = false;
     try {
       let blob: Blob;
       if (isClientSide) {
@@ -60,9 +61,34 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
       }
       setResultUrl(URL.createObjectURL(blob));
       setStep("download");
+      conversionSucceeded = true;
       toast({ title: t('conversion.success'), description: `${file.name} → .${format}` });
+    } catch (error) {
+      console.error("[BH KONVER] Conversion failed:", error);
+      setStep("upload");
+      toast({ variant: "destructive", title: t('conversion.error'), description: String(error) });
 
-      // Log conversion metadata to conversion_logs (fire-and-forget)
+      // Log failure to server_errors (fire-and-forget)
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        supabase.from("server_errors" as any).insert({
+          error_message: String(error),
+          error_code: "CLIENT_CONVERSION_FAILED",
+          file_name: file.name,
+          from_format: ext,
+          to_format: format,
+          file_size_kb: Math.round(file.size / 1024),
+          user_email: session?.user?.email || "anonymous",
+        }).then(({ error: dbErr }) => {
+          if (dbErr) console.warn("[BH KONVER] Failed to log error:", dbErr.message);
+        });
+      });
+    } finally {
+      setIsConverting(false);
+      setProgress(null);
+    }
+
+    // ONLY log to conversion_logs on SUCCESS
+    if (conversionSucceeded) {
       supabase.auth.getSession().then(({ data: { session } }) => {
         supabase.from("conversion_logs").insert({
           from_format: ext,
@@ -70,16 +96,9 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
           file_size_kb: Math.round(file.size / 1024),
           user_email: session?.user?.email || "anonymous",
         }).then(({ error }) => {
-          if (error) console.warn("Failed to log conversion:", error.message);
+          if (error) console.warn("[BH KONVER] Failed to log conversion:", error.message);
         });
       });
-    } catch (error) {
-      console.error(error);
-      setStep("upload");
-      toast({ variant: "destructive", title: t('conversion.error'), description: String(error) });
-    } finally {
-      setIsConverting(false);
-      setProgress(null);
     }
   };
 

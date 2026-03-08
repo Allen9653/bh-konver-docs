@@ -251,6 +251,42 @@ export type Database = {
         }
         Relationships: []
       }
+      server_errors: {
+        Row: {
+          created_at: string
+          error_code: string | null
+          error_message: string
+          file_name: string | null
+          file_size_kb: number | null
+          from_format: string | null
+          id: string
+          to_format: string | null
+          user_email: string | null
+        }
+        Insert: {
+          created_at?: string
+          error_code?: string | null
+          error_message: string
+          file_name?: string | null
+          file_size_kb?: number | null
+          from_format?: string | null
+          id?: string
+          to_format?: string | null
+          user_email?: string | null
+        }
+        Update: {
+          created_at?: string
+          error_code?: string | null
+          error_message?: string
+          file_name?: string | null
+          file_size_kb?: number | null
+          from_format?: string | null
+          id?: string
+          to_format?: string | null
+          user_email?: string | null
+        }
+        Relationships: []
+      }
       transactions: {
         Row: {
           amount: number

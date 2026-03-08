@@ -12,6 +12,7 @@ import { AdminPagination } from "@/components/AdminPagination";
 import { AdminSearchInput } from "@/components/AdminSearchInput";
 import { AdminConversionStats } from "@/components/AdminConversionStats";
 import { AdminDangerZone } from "@/components/AdminDangerZone";
+import { AdminServerErrors } from "@/components/AdminServerErrors";
 import { AdminAdsManager } from "@/components/AdminAdsManager";
 import { 
   ArrowLeft, 
@@ -518,12 +519,15 @@ export default function Admin() {
 
         {/* Tabs for different sections */}
         <Tabs defaultValue="users" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="users">Korisnici</TabsTrigger>
             <TabsTrigger value="transactions">Transakcije</TabsTrigger>
             <TabsTrigger value="conversions">Konverzije</TabsTrigger>
             <TabsTrigger value="logs" className="flex items-center gap-1">
               <BarChart3 className="w-3 h-3" /> Logovi
+            </TabsTrigger>
+            <TabsTrigger value="errors" className="flex items-center gap-1">
+              <AlertTriangle className="w-3 h-3" /> Greške
             </TabsTrigger>
             <TabsTrigger value="ads">Reklame</TabsTrigger>
             <TabsTrigger value="audit" className="flex items-center gap-1">
@@ -801,6 +805,11 @@ export default function Admin() {
           {/* Conversion Logs Tab */}
           <TabsContent value="logs">
             <AdminConversionStats />
+          </TabsContent>
+
+          {/* Server Errors Tab */}
+          <TabsContent value="errors">
+            <AdminServerErrors />
           </TabsContent>
 
           {/* Ads Manager Tab */}

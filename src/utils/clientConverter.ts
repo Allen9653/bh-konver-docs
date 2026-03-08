@@ -4,16 +4,17 @@
  * Handles conversions directly in the browser using:
  * - Canvas API for image format conversions
  * - pdf-lib for PDF creation, merge, rotate, watermark
- * - pdfjs-dist for PDF rendering to image
- * - @ffmpeg/ffmpeg (WASM) for video/audio conversions
+ * - pdfjs-dist for PDF rendering to image (local worker)
+ * - @ffmpeg/ffmpeg (WASM) for video/audio conversions (local core)
  * - docx library for DOCX generation
  */
 
 import { PDFDocument, rgb, StandardFonts, degrees } from "pdf-lib";
 import * as pdfjsLib from "pdfjs-dist";
+// Local worker – bundled by Vite, no CDN
+import pdfjsWorkerURL from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
-// PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerURL;
 
 export type ConversionProgress = {
   stage: string;
@@ -31,7 +32,7 @@ const CLIENT_SIDE_MAP: Record<string, string[]> = {
   webp: ["png", "jpg"],
   jfif: ["png", "jpg"],
   // PDF to image via pdfjs
-  pdf: ["jpg", "jpeg", "png"],
+  pdf: ["jpg", "jpeg", "png", "txt"],
   // Video to GIF via ffmpeg WASM
   mp4: ["gif"],
   webm: ["gif"],
@@ -42,6 +43,17 @@ const CLIENT_SIDE_MAP: Record<string, string[]> = {
 export const canConvertClientSide = (inputExt: string, outputFormat: string): boolean => {
   const formats = CLIENT_SIDE_MAP[inputExt?.toLowerCase()];
   return formats?.includes(outputFormat?.toLowerCase()) ?? false;
+};
+
+// ─── Strict MIME mapping ───
+const STRICT_MIME: Record<string, string> = {
+  png: "image/png",
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  webp: "image/webp",
+  gif: "image/gif",
+  pdf: "application/pdf",
+  txt: "text/plain",
 };
 
 // ─── Main entry point ───
@@ -70,6 +82,12 @@ export const convertClientSide = async (
     return convertPDFToImage(file, target as "jpg" | "jpeg" | "png", onProgress);
   }
 
+  // PDF → TXT (pdfjs text extraction with progress)
+  if (ext === "pdf" && target === "txt") {
+    const text = await extractPDFText(file, onProgress);
+    return new Blob([text], { type: "text/plain" });
+  }
+
   // Video → GIF (ffmpeg WASM)
   if (isVideoExt(ext) && target === "gif") {
     return convertVideoToGif(file, onProgress);
@@ -82,7 +100,7 @@ export const convertClientSide = async (
 const isImageExt = (ext: string) => ["png", "jpg", "jpeg", "webp", "jfif"].includes(ext);
 const isVideoExt = (ext: string) => ["mp4", "webm", "mov", "avi"].includes(ext);
 
-// ─── Image → Image via Canvas ───
+// ─── Image → Image via Canvas (strict MIME) ───
 async function convertImageToImage(
   file: File,
   target: string,
@@ -99,21 +117,17 @@ async function convertImageToImage(
 
   onProgress?.({ stage: "Konvertovanje formata...", percent: 60 });
 
-  const mimeMap: Record<string, string> = {
-    png: "image/png",
-    jpg: "image/jpeg",
-    jpeg: "image/jpeg",
-    webp: "image/webp",
-  };
-
-  const mime = mimeMap[target] || "image/png";
+  const mime = STRICT_MIME[target] || "image/png";
   const quality = target === "png" ? undefined : 0.92;
 
   return new Promise((resolve, reject) => {
     canvas.toBlob(
       (blob) => {
         onProgress?.({ stage: "Završeno!", percent: 100 });
-        blob ? resolve(blob) : reject(new Error("Canvas blob kreiranje neuspješno"));
+        if (!blob) return reject(new Error("Canvas blob kreiranje neuspješno"));
+        // Force correct MIME type via re-wrapping
+        const strictBlob = new Blob([blob], { type: mime });
+        resolve(strictBlob);
       },
       mime,
       quality
@@ -199,7 +213,9 @@ async function convertPDFToImage(
     canvas.toBlob(
       (blob) => {
         onProgress?.({ stage: "Završeno!", percent: 100 });
-        blob ? resolve(blob) : reject(new Error("Greška pri kreiranju slike"));
+        if (!blob) return reject(new Error("Greška pri kreiranju slike"));
+        // Enforce strict MIME
+        resolve(new Blob([blob], { type: mime }));
       },
       mime,
       quality
@@ -207,7 +223,7 @@ async function convertPDFToImage(
   });
 }
 
-// ─── Video → GIF via @ffmpeg/ffmpeg WASM ───
+// ─── Video → GIF via @ffmpeg/ffmpeg WASM (locally bundled) ───
 async function convertVideoToGif(
   file: File,
   onProgress?: ProgressCallback
@@ -215,7 +231,7 @@ async function convertVideoToGif(
   onProgress?.({ stage: "Učitavanje video procesora (WASM)...", percent: 10 });
 
   const { FFmpeg } = await import("@ffmpeg/ffmpeg");
-  const { fetchFile } = await import("@ffmpeg/util");
+  const { toBlobURL } = await import("@ffmpeg/util");
 
   const ffmpeg = new FFmpeg();
 
@@ -224,11 +240,19 @@ async function convertVideoToGif(
     onProgress?.({ stage: "Konvertovanje u GIF...", percent: pct });
   });
 
-  await ffmpeg.load();
+  // Load ffmpeg core from local node_modules (bundled by Vite)
+  const coreURL = new URL("@ffmpeg/core/dist/umd/ffmpeg-core.js", import.meta.url).href;
+  const wasmURL = new URL("@ffmpeg/core/dist/umd/ffmpeg-core.wasm", import.meta.url).href;
+
+  await ffmpeg.load({
+    coreURL: await toBlobURL(coreURL, "text/javascript"),
+    wasmURL: await toBlobURL(wasmURL, "application/wasm"),
+  });
 
   onProgress?.({ stage: "Priprema videa...", percent: 15 });
 
   const inputName = "input" + file.name.substring(file.name.lastIndexOf("."));
+  const { fetchFile } = await import("@ffmpeg/util");
   await ffmpeg.writeFile(inputName, await fetchFile(file));
 
   onProgress?.({ stage: "Konvertovanje u GIF...", percent: 20 });
@@ -319,19 +343,30 @@ export const extractPDFText = async (
   file: File,
   onProgress?: ProgressCallback
 ): Promise<string> => {
-  onProgress?.({ stage: "Čitanje PDF teksta...", percent: 20 });
+  onProgress?.({ stage: "Čitanje PDF teksta...", percent: 10 });
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-  let fullText = "";
+  const totalPages = pdf.numPages;
+  const pageTexts: string[] = new Array(totalPages);
 
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const content = await page.getTextContent();
-    const pageText = content.items.map((item: any) => item.str).join(" ");
-    fullText += pageText + "\n\n";
-    onProgress?.({ stage: `Stranica ${i}/${pdf.numPages}...`, percent: 20 + (70 * i) / pdf.numPages });
+  // Process pages in batches of 4 for speed
+  const BATCH_SIZE = 4;
+  for (let start = 0; start < totalPages; start += BATCH_SIZE) {
+    const end = Math.min(start + BATCH_SIZE, totalPages);
+    const promises = [];
+    for (let i = start; i < end; i++) {
+      promises.push(
+        pdf.getPage(i + 1).then(async (page) => {
+          const content = await page.getTextContent();
+          pageTexts[i] = content.items.map((item: any) => item.str).join(" ");
+        })
+      );
+    }
+    await Promise.all(promises);
+    const pct = Math.round(10 + (85 * end) / totalPages);
+    onProgress?.({ stage: `Stranica ${end}/${totalPages}...`, percent: pct });
   }
 
   onProgress?.({ stage: "Završeno!", percent: 100 });
-  return fullText;
+  return pageTexts.join("\n\n");
 };
