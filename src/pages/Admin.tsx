@@ -12,6 +12,7 @@ import { AdminPagination } from "@/components/AdminPagination";
 import { AdminSearchInput } from "@/components/AdminSearchInput";
 import { AdminConversionStats } from "@/components/AdminConversionStats";
 import { AdminDangerZone } from "@/components/AdminDangerZone";
+import { AdminServerErrors } from "@/components/AdminServerErrors";
 import { AdminAdsManager } from "@/components/AdminAdsManager";
 import { 
   ArrowLeft, 
