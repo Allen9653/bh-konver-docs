@@ -59,7 +59,7 @@ export const PremiumDropzone = ({ onFilesSelected, acceptedFormats }: PremiumDro
         setIsDragging(true);
       }}
       onDragLeave={() => setIsDragging(false)}
-      className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-200 cursor-pointer group ${
+      className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-200 cursor-pointer group min-h-[204px] ${
         isDragging
           ? "border-primary bg-primary/5 scale-[1.01]"
           : "border-border hover:border-primary/40 bg-card"

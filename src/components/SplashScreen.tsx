@@ -37,7 +37,10 @@ const SplashScreen = ({ onComplete, duration = 2000 }: SplashScreenProps) => {
             <motion.img
               src={logo}
               alt="BH Konver"
-              className="w-64 h-auto"
+              width={500}
+              height={500}
+              fetchPriority="high"
+              className="w-64 h-64 object-contain"
               animate={{
                 scale: [1, 1.02, 1],
               }}
