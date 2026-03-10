@@ -21,7 +21,7 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
     <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 max-w-5xl flex items-center justify-between h-16">
         <div className="flex items-center gap-3">
-          <img src={logo} alt="BH Konver" className="h-8 w-auto" />
+          <img src={logo} alt="BH Konver" width={32} height={32} className="h-8 w-8 object-contain" />
           <div className="hidden sm:block">
             <h1 className="text-sm font-bold font-display tracking-tight text-foreground leading-none">
               BH <span className="text-primary">KONVER</span>
