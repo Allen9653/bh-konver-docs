@@ -214,7 +214,7 @@ const Auth = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <img src={logo} alt="BH Konver Logo" className="max-w-xs w-full h-auto" />
+            <img src={logo} alt="BH Konver Logo" width={320} height={320} className="max-w-xs w-full h-auto" />
           </div>
           <CardTitle>{isLogin ? "Prijava" : "Registracija"}</CardTitle>
           <CardDescription>
