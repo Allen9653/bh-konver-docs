@@ -55,7 +55,10 @@ serve(async (req) => {
     // PayPal API credentials
     const PAYPAL_CLIENT_ID = Deno.env.get("PAYPAL_CLIENT_ID");
     const PAYPAL_SECRET = Deno.env.get("PAYPAL_SECRET");
-    const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // Use api-m.paypal.com for production
+    const PAYPAL_MODE = Deno.env.get("PAYPAL_MODE") || "sandbox";
+    const PAYPAL_API = PAYPAL_MODE === "production"
+      ? "https://api-m.paypal.com"
+      : "https://api-m.sandbox.paypal.com";
 
     // Supabase admin client for database operations
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
