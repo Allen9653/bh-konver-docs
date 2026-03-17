@@ -98,9 +98,8 @@ serve(async (req) => {
   } catch (error) {
     console.error("Error creating checkout session:", error);
     const corsHeaders = getCorsHeaders(req);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return new Response(
-      JSON.stringify({ error: errorMessage }),
+      JSON.stringify({ error: "Problem sa procesuiranjem uplate. Molimo pokušajte ponovo." }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,

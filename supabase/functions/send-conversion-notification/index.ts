@@ -194,9 +194,8 @@ serve(async (req: Request): Promise<Response> => {
   } catch (error: unknown) {
     console.error("Notification error:", error);
     const corsHeaders = getCorsHeaders(req);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return new Response(
-      JSON.stringify({ error: errorMessage }),
+      JSON.stringify({ error: "Greška pri slanju notifikacije. Molimo pokušajte ponovo." }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,
