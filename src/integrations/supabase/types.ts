@@ -393,13 +393,11 @@ export type Database = {
           amount: number | null
           created_at: string | null
           currency: string | null
-          expires_at: string | null
           id: string | null
           paypal_order_id: string | null
           paypal_payer_id: string | null
           plan_id: string | null
           status: string | null
-          updated_at: string | null
           user_email: string | null
           user_id: string | null
         }
@@ -407,28 +405,24 @@ export type Database = {
           amount?: number | null
           created_at?: string | null
           currency?: string | null
-          expires_at?: string | null
           id?: string | null
-          paypal_order_id?: never
-          paypal_payer_id?: never
+          paypal_order_id?: string | null
+          paypal_payer_id?: string | null
           plan_id?: string | null
           status?: string | null
-          updated_at?: string | null
-          user_email?: never
+          user_email?: string | null
           user_id?: string | null
         }
         Update: {
           amount?: number | null
           created_at?: string | null
           currency?: string | null
-          expires_at?: string | null
           id?: string | null
-          paypal_order_id?: never
-          paypal_payer_id?: never
+          paypal_order_id?: string | null
+          paypal_payer_id?: string | null
           plan_id?: string | null
           status?: string | null
-          updated_at?: string | null
-          user_email?: never
+          user_email?: string | null
           user_id?: string | null
         }
         Relationships: []
