@@ -64,15 +64,15 @@ const History = () => {
   }, [user?.id]);
 
   const fetchUserData = async () => {
-    if (!user?.email) return;
+    if (!user?.id) return;
     
     setLoading(true);
     try {
-      // Fetch documents
+      // Fetch documents by user_id (UUID)
       const { data: docs, error: docsError } = await supabase
         .from("documents")
         .select("*")
-        .eq("user_email", user.email)
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false });
 
       if (docsError) throw docsError;
