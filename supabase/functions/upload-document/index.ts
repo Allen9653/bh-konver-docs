@@ -138,6 +138,7 @@ Deno.serve(async (req) => {
     const { data: documentRecord, error: dbError } = await supabaseAdmin
       .from("documents")
       .insert({
+        user_id: user.id,
         user_email: user.email,
         filename: file.name,
         file_type: fileExtension,
