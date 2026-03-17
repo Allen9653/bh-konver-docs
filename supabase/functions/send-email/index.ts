@@ -325,7 +325,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.error("Error in send-email function:", error);
     const corsHeaders = getCorsHeaders(req);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Greška pri slanju emaila. Molimo pokušajte ponovo." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
