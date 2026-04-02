@@ -1,7 +1,8 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PremiumHeader } from "@/components/PremiumHeader";
+import { useToast } from "@/hooks/use-toast";
 import { PremiumFooter } from "@/components/PremiumFooter";
 import { PremiumDropzone } from "@/components/PremiumDropzone";
 import { PremiumConversionCard } from "@/components/PremiumConversionCard";
@@ -26,6 +27,7 @@ import type { PDFOperation } from "@/types/pdfOperations";
 const Index = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [files, setFiles] = useState<File[]>([]);
   const [selectedModule, setSelectedModule] = useState<ConversionModule>("image");
   const [selectedPDFTool, setSelectedPDFTool] = useState<PDFOperation | null>(null);
@@ -33,6 +35,22 @@ const Index = () => {
   const [selectedPlanId, setSelectedPlanId] = useState("24h");
   const { user, isAdmin, loading, signOut } = useAdminAuth();
   const { hasActiveSubscription, expiresAt } = useSubscription(user?.id);
+  const welcomeShown = useRef(false);
+
+  // Show welcome toast when user logs in
+  useEffect(() => {
+    if (user && !welcomeShown.current) {
+      welcomeShown.current = true;
+      const name = user.email?.split("@")[0] || "";
+      toast({
+        title: `👋 ${t('dashboard.welcome', { name })}`,
+        description: t('dashboard.welcomeDescription'),
+      });
+    }
+    if (!user) {
+      welcomeShown.current = false;
+    }
+  }, [user, t, toast]);
 
   const canAccessModules = !!user;
   const isPremiumUser = isAdmin || hasActiveSubscription;

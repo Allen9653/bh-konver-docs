@@ -314,5 +314,9 @@
     "completed": "Tamamlandı",
     "transparencyNotice": "Tüm belgeler güvenliğiniz ve gizliliğiniz için her gün saat 10:00'da otomatik olarak silinir.",
     "timeUntilDeletion": "Bir sonraki silme süresine kadar"
+  },
+  "dashboard": {
+    "welcome": "Hoş geldiniz, {{name}}!",
+    "welcomeDescription": "Dosya dönüştürmeye hazırsınız. Bir modül seçin ve başlayın."
   }
 }

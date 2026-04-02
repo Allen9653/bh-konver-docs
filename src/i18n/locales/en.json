@@ -314,5 +314,9 @@
     "completed": "Completed",
     "transparencyNotice": "All documents are automatically deleted every day at 10:00 AM for your security and privacy.",
     "timeUntilDeletion": "Time until next deletion"
+  },
+  "dashboard": {
+    "welcome": "Welcome, {{name}}!",
+    "welcomeDescription": "You're ready to convert files. Select a module and get started."
   }
 }

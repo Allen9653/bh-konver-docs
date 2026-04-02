@@ -314,5 +314,9 @@
     "completed": "Završeno",
     "transparencyNotice": "Svi dokumenti se automatski brišu svaki dan u 10:00h radi vaše sigurnosti i privatnosti.",
     "timeUntilDeletion": "Vrijeme do sljedećeg brisanja"
+  },
+  "dashboard": {
+    "welcome": "Dobrodošli, {{name}}!",
+    "welcomeDescription": "Spremni ste za konverziju fajlova. Odaberite modul i počnite."
   }
 }

@@ -314,5 +314,9 @@
     "completed": "Abgeschlossen",
     "transparencyNotice": "Alle Dokumente werden täglich um 10:00 Uhr für Ihre Sicherheit und Privatsphäre automatisch gelöscht.",
     "timeUntilDeletion": "Zeit bis zur nächsten Löschung"
+  },
+  "dashboard": {
+    "welcome": "Willkommen, {{name}}!",
+    "welcomeDescription": "Sie sind bereit, Dateien zu konvertieren. Wählen Sie ein Modul und legen Sie los."
   }
 }
