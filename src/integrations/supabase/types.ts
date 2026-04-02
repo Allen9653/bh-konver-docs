@@ -113,6 +113,7 @@ export type Database = {
           target_format: string
           transaction_id: string | null
           user_email: string | null
+          user_id: string | null
         }
         Insert: {
           converted_url?: string | null
@@ -125,6 +126,7 @@ export type Database = {
           target_format: string
           transaction_id?: string | null
           user_email?: string | null
+          user_id?: string | null
         }
         Update: {
           converted_url?: string | null
@@ -137,6 +139,7 @@ export type Database = {
           target_format?: string
           transaction_id?: string | null
           user_email?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
