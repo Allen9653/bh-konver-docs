@@ -82,7 +82,7 @@ const History = () => {
       const { data: convs, error: convsError } = await supabase
         .from("conversions")
         .select("*")
-        .eq("user_email", user.email)
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false });
 
       if (convsError) throw convsError;
