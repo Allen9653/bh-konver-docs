@@ -1,7 +1,8 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PremiumHeader } from "@/components/PremiumHeader";
+import { useToast } from "@/hooks/use-toast";
 import { PremiumFooter } from "@/components/PremiumFooter";
 import { PremiumDropzone } from "@/components/PremiumDropzone";
 import { PremiumConversionCard } from "@/components/PremiumConversionCard";
