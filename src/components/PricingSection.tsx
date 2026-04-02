@@ -55,7 +55,7 @@ export const PricingSection = ({ onSelectPlan }: PricingSectionProps) => {
     {
       id: "monthly",
       name: t('pricing.monthly.title'),
-      price: "50.00 BAM",
+      price: "20.00 BAM",
       duration: t('pricing.monthly.duration'),
       description: t('pricing.monthly.description'),
       features: [

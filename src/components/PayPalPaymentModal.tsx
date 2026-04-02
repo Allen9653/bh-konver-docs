@@ -23,7 +23,7 @@ interface PayPalPaymentModalProps {
 const PRICING_PLANS = [
   { id: "24h", label: "24 sata", price: "2.00", duration: "1 dan" },
   { id: "48h", label: "48 sati", price: "10.00", duration: "2 dana" },
-  { id: "monthly", label: "Mjesečna pretplata", price: "50.00", duration: "30 dana" },
+  { id: "monthly", label: "Mjesečna pretplata", price: "20.00", duration: "30 dana" },
 ];
 
 export function PayPalPaymentModal({ open, onOpenChange, initialPlanId }: PayPalPaymentModalProps) {
