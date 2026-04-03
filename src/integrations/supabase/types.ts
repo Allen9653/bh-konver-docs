@@ -306,7 +306,7 @@ export type Database = {
           status: string
           updated_at: string
           user_email: string
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           amount: number
@@ -320,7 +320,7 @@ export type Database = {
           status?: string
           updated_at?: string
           user_email: string
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           amount?: number
@@ -334,7 +334,7 @@ export type Database = {
           status?: string
           updated_at?: string
           user_email?: string
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -435,6 +435,13 @@ export type Database = {
       }
     }
     Functions: {
+      check_user_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       get_my_transactions: {
         Args: never
         Returns: {
@@ -449,10 +456,7 @@ export type Database = {
         }[]
       }
       has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
+        Args: { _role: Database["public"]["Enums"]["app_role"] }
         Returns: boolean
       }
       manual_purge_all_logs: { Args: never; Returns: undefined }
