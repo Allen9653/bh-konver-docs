@@ -40,7 +40,7 @@ serve(async (req: Request): Promise<Response> => {
     // Verify user has admin role
     const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
     const { data: roleData, error: roleError } = await supabaseAdmin
-      .rpc("has_role", { _role: "admin", _user_id: user.id });
+      .rpc("check_user_role", { _role: "admin", _user_id: user.id });
 
     if (roleError || !roleData) {
       console.error("Admin role check failed:", roleError);
