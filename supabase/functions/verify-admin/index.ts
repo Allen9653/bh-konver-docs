@@ -37,8 +37,8 @@ serve(async (req) => {
       );
     }
 
-    // Server-side admin role verification using has_role function
-    const { data, error } = await supabaseAdmin.rpc('has_role', {
+    // Server-side admin role verification using check_user_role (service-only function)
+    const { data, error } = await supabaseAdmin.rpc('check_user_role', {
       _user_id: user.id,
       _role: 'admin'
     });
