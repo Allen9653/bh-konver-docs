@@ -382,7 +382,27 @@ serve(async (req) => {
       );
     }
 
-    console.log(`Conversion initiated by user: ${user.email}`);
+    console.log(`Conversion initiated by user: ${user.id}`);
+
+    // --- PAYWALL CHECK: Verify active subscription before consuming API credits ---
+    const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
+    const now = new Date().toISOString();
+    const { data: activeSub } = await supabaseService
+      .from('transactions')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('status', 'completed')
+      .gte('expires_at', now)
+      .limit(1)
+      .maybeSingle();
+
+    if (!activeSub) {
+      console.warn(`Paywall blocked: user ${user.id} has no active subscription`);
+      return new Response(
+        JSON.stringify({ error: 'Potrebna je aktivna pretplata za korištenje konverzija. Nadogradite svoj plan.' }),
+        { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
     
     // Parse form data
     let formData;
