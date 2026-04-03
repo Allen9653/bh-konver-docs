@@ -37,7 +37,28 @@ serve(async (req) => {
       );
     }
 
-    console.log(`PDF operation requested by user: ${user.email}`);
+    console.log(`PDF operation requested by user: ${user.id}`);
+
+    // --- PAYWALL CHECK: Verify active subscription before consuming API credits ---
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
+    const now = new Date().toISOString();
+    const { data: activeSub } = await supabaseService
+      .from('transactions')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('status', 'completed')
+      .gte('expires_at', now)
+      .limit(1)
+      .maybeSingle();
+
+    if (!activeSub) {
+      console.warn(`Paywall blocked: user ${user.id} has no active subscription`);
+      return new Response(
+        JSON.stringify({ error: 'Potrebna je aktivna pretplata za korištenje PDF alata. Nadogradite svoj plan.' }),
+        { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
     if (!CLOUDMERSIVE_API_KEY) {
       console.error("CLOUDMERSIVE_API_KEY not configured");

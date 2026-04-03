@@ -435,6 +435,19 @@ export type Database = {
       }
     }
     Functions: {
+      get_my_transactions: {
+        Args: never
+        Returns: {
+          amount: number
+          created_at: string
+          currency: string
+          id: string
+          plan_id: string
+          status: string
+          user_email: string
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
