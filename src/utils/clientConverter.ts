@@ -306,6 +306,83 @@ async function convertVideoToGif(
   return new Blob([data as BlobPart], { type: "image/gif" });
 }
 
+// ─── GIF → Video via @ffmpeg/ffmpeg WASM ───
+async function convertGifToVideo(
+  file: File,
+  target: string,
+  onProgress?: ProgressCallback
+): Promise<Blob> {
+  if (typeof SharedArrayBuffer === "undefined") {
+    throw new ClientConversionUnsupportedError(
+      "SharedArrayBuffer nije dostupan. GIF→video konverzija će biti obavljena na serveru."
+    );
+  }
+
+  onProgress?.({ stage: "Učitavanje video procesora (WASM)...", percent: 10 });
+
+  let FFmpeg: any;
+  let toBlobURL: any;
+  try {
+    ({ FFmpeg } = await import("@ffmpeg/ffmpeg"));
+    ({ toBlobURL } = await import("@ffmpeg/util"));
+  } catch (e) {
+    throw new ClientConversionUnsupportedError(
+      "FFmpeg WASM biblioteka se ne može učitati. Prelazim na serversku konverziju."
+    );
+  }
+
+  const ffmpeg = new FFmpeg();
+
+  ffmpeg.on("progress", ({ progress }: { progress: number }) => {
+    const pct = Math.min(Math.round(progress * 80) + 15, 95);
+    onProgress?.({ stage: `Konvertovanje u ${target.toUpperCase()}...`, percent: pct });
+  });
+
+  const CORE_BASE = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd";
+  try {
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.js`, "text/javascript"),
+      wasmURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.wasm`, "application/wasm"),
+    });
+  } catch (e) {
+    throw new ClientConversionUnsupportedError(
+      "FFmpeg WASM engine se nije mogao inicijalizirati. Prelazim na serversku konverziju."
+    );
+  }
+
+  onProgress?.({ stage: "Priprema GIF-a...", percent: 15 });
+
+  const { fetchFile } = await import("@ffmpeg/util");
+  await ffmpeg.writeFile("input.gif", await fetchFile(file));
+
+  onProgress?.({ stage: `Konvertovanje u ${target.toUpperCase()}...`, percent: 20 });
+
+  const outputName = `output.${target}`;
+
+  if (target === "mp4") {
+    await ffmpeg.exec([
+      "-i", "input.gif",
+      "-movflags", "+faststart",
+      "-pix_fmt", "yuv420p",
+      "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",
+      "-f", "mp4",
+      outputName,
+    ]);
+  } else {
+    await ffmpeg.exec([
+      "-i", "input.gif",
+      "-f", target,
+      outputName,
+    ]);
+  }
+
+  const data = await ffmpeg.readFile(outputName);
+  onProgress?.({ stage: "Završeno!", percent: 100 });
+
+  const mime = target === "mp4" ? "video/mp4" : target === "webm" ? "video/webm" : `video/${target}`;
+  return new Blob([data as BlobPart], { type: mime });
+}
+
 // ─── PDF Tools (client-side) ───
 
 export const rotatePDFClientSide = async (
