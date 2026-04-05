@@ -103,6 +103,11 @@ export const convertClientSide = async (
     return convertVideoToGif(file, onProgress);
   }
 
+  // GIF → Video (ffmpeg WASM)
+  if (ext === "gif" && isVideoExt(target)) {
+    return convertGifToVideo(file, target, onProgress);
+  }
+
   throw new Error(`Client-side konverzija ${ext} → ${target} nije podržana`);
 };
 
