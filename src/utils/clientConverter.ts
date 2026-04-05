@@ -41,9 +41,12 @@ const CLIENT_SIDE_MAP: Record<string, string[]> = {
   jfif: ["png", "jpg"],
   // PDF to image via pdfjs
   pdf: ["jpg", "jpeg", "png", "txt"],
-  // Video to GIF via ffmpeg WASM (only if SharedArrayBuffer available)
+  // Video/GIF via ffmpeg WASM (only if SharedArrayBuffer available)
   ...(typeof SharedArrayBuffer !== "undefined"
-    ? { mp4: ["gif"], webm: ["gif"], mov: ["gif"], avi: ["gif"] }
+    ? {
+        mp4: ["gif"], webm: ["gif"], mov: ["gif"], avi: ["gif"],
+        gif: ["mp4", "webm"],
+      }
     : {}),
 };
 
