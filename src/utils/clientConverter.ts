@@ -23,6 +23,14 @@ export type ConversionProgress = {
 
 type ProgressCallback = (progress: ConversionProgress) => void;
 
+// ─── Custom error for fallback signaling ───
+export class ClientConversionUnsupportedError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ClientConversionUnsupportedError";
+  }
+}
+
 // ─── Which conversions can run client-side ───
 const CLIENT_SIDE_MAP: Record<string, string[]> = {
   // Image conversions via Canvas
@@ -33,11 +41,10 @@ const CLIENT_SIDE_MAP: Record<string, string[]> = {
   jfif: ["png", "jpg"],
   // PDF to image via pdfjs
   pdf: ["jpg", "jpeg", "png", "txt"],
-  // Video to GIF via ffmpeg WASM
-  mp4: ["gif"],
-  webm: ["gif"],
-  mov: ["gif"],
-  avi: ["gif"],
+  // Video to GIF via ffmpeg WASM (only if SharedArrayBuffer available)
+  ...(typeof SharedArrayBuffer !== "undefined"
+    ? { mp4: ["gif"], webm: ["gif"], mov: ["gif"], avi: ["gif"] }
+    : {}),
 };
 
 export const canConvertClientSide = (inputExt: string, outputFormat: string): boolean => {
