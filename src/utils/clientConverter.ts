@@ -264,10 +264,16 @@ async function convertVideoToGif(
 
   // Load ffmpeg core – use toBlobURL to fetch from CDN (avoids CORP/bundling issues)
   const CORE_BASE = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd";
-  await ffmpeg.load({
-    coreURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.js`, "text/javascript"),
-    wasmURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.wasm`, "application/wasm"),
-  });
+  try {
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.js`, "text/javascript"),
+      wasmURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.wasm`, "application/wasm"),
+    });
+  } catch (e) {
+    throw new ClientConversionUnsupportedError(
+      "FFmpeg WASM engine se nije mogao inicijalizirati. Prelazim na serversku konverziju."
+    );
+  }
 
   onProgress?.({ stage: "Priprema videa...", percent: 15 });
 
