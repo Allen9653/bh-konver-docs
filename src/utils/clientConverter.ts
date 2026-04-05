@@ -235,10 +235,25 @@ async function convertVideoToGif(
   file: File,
   onProgress?: ProgressCallback
 ): Promise<Blob> {
+  // Guard: SharedArrayBuffer is required for FFmpeg WASM
+  if (typeof SharedArrayBuffer === "undefined") {
+    throw new ClientConversionUnsupportedError(
+      "SharedArrayBuffer nije dostupan u ovom browseru. Video konverzija će biti obavljena na serveru."
+    );
+  }
+
   onProgress?.({ stage: "Učitavanje video procesora (WASM)...", percent: 10 });
 
-  const { FFmpeg } = await import("@ffmpeg/ffmpeg");
-  const { toBlobURL } = await import("@ffmpeg/util");
+  let FFmpeg: any;
+  let toBlobURL: any;
+  try {
+    ({ FFmpeg } = await import("@ffmpeg/ffmpeg"));
+    ({ toBlobURL } = await import("@ffmpeg/util"));
+  } catch (e) {
+    throw new ClientConversionUnsupportedError(
+      "FFmpeg WASM biblioteka se ne može učitati. Prelazim na serversku konverziju."
+    );
+  }
 
   const ffmpeg = new FFmpeg();
 
