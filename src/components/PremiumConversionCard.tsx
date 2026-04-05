@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Image, Video, Music, Download, Loader2, Zap, X, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { convertClientSide, canConvertClientSide, type ConversionProgress } from "@/utils/clientConverter";
+import { convertClientSide, canConvertClientSide, ClientConversionUnsupportedError, type ConversionProgress } from "@/utils/clientConverter";
 import { ConversionProgress as ProgressBar } from "@/components/ConversionProgress";
 import { StepProgress, type ConversionStep } from "@/components/StepProgress";
 import { FormatGrid } from "@/components/FormatGrid";
@@ -53,7 +53,17 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
     try {
       let blob: Blob;
       if (isClientSide) {
-        blob = await convertClientSide(file, format, setProgress);
+        try {
+          blob = await convertClientSide(file, format, setProgress);
+        } catch (clientErr) {
+          // If client-side is unsupported (e.g. no SharedArrayBuffer), fall back to backend
+          if (clientErr instanceof ClientConversionUnsupportedError && onConvert) {
+            console.warn("[BH KONVER] Client-side fallback:", clientErr.message);
+            blob = await onConvert(file, format, true, setProgress);
+          } else {
+            throw clientErr;
+          }
+        }
       } else if (onConvert) {
         blob = await onConvert(file, format, true, setProgress);
       } else {

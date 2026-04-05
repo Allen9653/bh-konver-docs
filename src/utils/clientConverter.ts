@@ -23,6 +23,14 @@ export type ConversionProgress = {
 
 type ProgressCallback = (progress: ConversionProgress) => void;
 
+// ─── Custom error for fallback signaling ───
+export class ClientConversionUnsupportedError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ClientConversionUnsupportedError";
+  }
+}
+
 // ─── Which conversions can run client-side ───
 const CLIENT_SIDE_MAP: Record<string, string[]> = {
   // Image conversions via Canvas
@@ -33,11 +41,10 @@ const CLIENT_SIDE_MAP: Record<string, string[]> = {
   jfif: ["png", "jpg"],
   // PDF to image via pdfjs
   pdf: ["jpg", "jpeg", "png", "txt"],
-  // Video to GIF via ffmpeg WASM
-  mp4: ["gif"],
-  webm: ["gif"],
-  mov: ["gif"],
-  avi: ["gif"],
+  // Video to GIF via ffmpeg WASM (only if SharedArrayBuffer available)
+  ...(typeof SharedArrayBuffer !== "undefined"
+    ? { mp4: ["gif"], webm: ["gif"], mov: ["gif"], avi: ["gif"] }
+    : {}),
 };
 
 export const canConvertClientSide = (inputExt: string, outputFormat: string): boolean => {
@@ -228,10 +235,25 @@ async function convertVideoToGif(
   file: File,
   onProgress?: ProgressCallback
 ): Promise<Blob> {
+  // Guard: SharedArrayBuffer is required for FFmpeg WASM
+  if (typeof SharedArrayBuffer === "undefined") {
+    throw new ClientConversionUnsupportedError(
+      "SharedArrayBuffer nije dostupan u ovom browseru. Video konverzija će biti obavljena na serveru."
+    );
+  }
+
   onProgress?.({ stage: "Učitavanje video procesora (WASM)...", percent: 10 });
 
-  const { FFmpeg } = await import("@ffmpeg/ffmpeg");
-  const { toBlobURL } = await import("@ffmpeg/util");
+  let FFmpeg: any;
+  let toBlobURL: any;
+  try {
+    ({ FFmpeg } = await import("@ffmpeg/ffmpeg"));
+    ({ toBlobURL } = await import("@ffmpeg/util"));
+  } catch (e) {
+    throw new ClientConversionUnsupportedError(
+      "FFmpeg WASM biblioteka se ne može učitati. Prelazim na serversku konverziju."
+    );
+  }
 
   const ffmpeg = new FFmpeg();
 
@@ -242,10 +264,16 @@ async function convertVideoToGif(
 
   // Load ffmpeg core – use toBlobURL to fetch from CDN (avoids CORP/bundling issues)
   const CORE_BASE = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd";
-  await ffmpeg.load({
-    coreURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.js`, "text/javascript"),
-    wasmURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.wasm`, "application/wasm"),
-  });
+  try {
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.js`, "text/javascript"),
+      wasmURL: await toBlobURL(`${CORE_BASE}/ffmpeg-core.wasm`, "application/wasm"),
+    });
+  } catch (e) {
+    throw new ClientConversionUnsupportedError(
+      "FFmpeg WASM engine se nije mogao inicijalizirati. Prelazim na serversku konverziju."
+    );
+  }
 
   onProgress?.({ stage: "Priprema videa...", percent: 15 });
 
