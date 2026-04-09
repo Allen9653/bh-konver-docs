@@ -94,17 +94,19 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
 
       // Log failure to server_errors (fire-and-forget)
       supabase.auth.getSession().then(({ data: { session } }) => {
-        supabase.from("server_errors" as any).insert({
-          error_message: String(error),
-          error_code: "CLIENT_CONVERSION_FAILED",
-          file_name: file.name,
-          from_format: ext,
-          to_format: format,
-          file_size_kb: Math.round(file.size / 1024),
-          user_email: session?.user?.email || "anonymous",
-        }).then(({ error: dbErr }) => {
-          if (dbErr) console.warn("[BH KONVER] Failed to log error:", dbErr.message);
-        });
+        if (session?.user?.email) {
+          supabase.from("server_errors" as any).insert({
+            error_message: String(error),
+            error_code: "CLIENT_CONVERSION_FAILED",
+            file_name: file.name,
+            from_format: ext,
+            to_format: format,
+            file_size_kb: Math.round(file.size / 1024),
+            user_email: session.user.email,
+          }).then(({ error: dbErr }) => {
+            if (dbErr) console.warn("[BH KONVER] Failed to log error:", dbErr.message);
+          });
+        }
       });
     } finally {
       setIsConverting(false);
@@ -114,14 +116,17 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
     // ONLY log to conversion_logs on SUCCESS
     if (conversionSucceeded) {
       supabase.auth.getSession().then(({ data: { session } }) => {
-        supabase.from("conversion_logs").insert({
-          from_format: ext,
-          to_format: format,
-          file_size_kb: Math.round(file.size / 1024),
-          user_email: session?.user?.email || "anonymous",
-        }).then(({ error }) => {
-          if (error) console.warn("[BH KONVER] Failed to log conversion:", error.message);
-        });
+        if (session?.user?.id) {
+          supabase.from("conversion_logs").insert({
+            from_format: ext,
+            to_format: format,
+            file_size_kb: Math.round(file.size / 1024),
+            user_email: session.user.email || "anonymous",
+            user_id: session.user.id,
+          } as any).then(({ error }) => {
+            if (error) console.warn("[BH KONVER] Failed to log conversion:", error.message);
+          });
+        }
       });
     }
   };
