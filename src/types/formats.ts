@@ -43,13 +43,13 @@ export const FORMAT_CONVERSIONS: Record<InputFormat, OutputFormat[]> = {
   mkv: ["mp4", "mp3"],
   flv: ["mp4", "mp3"],
   
-  // AUDIO
-  mp3: ["ogg", "wav"],
-  ogg: ["mp3", "wav"],
-  wav: ["mp3", "ogg"],
-  m4a: ["mp3"],
-  aac: ["mp3"],
-  flac: ["mp3"],
+  // AUDIO (includes audio→video)
+  mp3: ["ogg", "wav", "mp4"],
+  ogg: ["mp3", "wav", "mp4"],
+  wav: ["mp3", "ogg", "mp4"],
+  m4a: ["mp3", "mp4"],
+  aac: ["mp3", "mp4"],
+  flac: ["mp3", "mp4"],
   
   // IMAGE
   webp: ["png", "jpg"],

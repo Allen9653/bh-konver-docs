@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { FileText, Image, Video, Music, Download, Loader2, Zap, X, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { convertClientSide, canConvertClientSide, ClientConversionUnsupportedError, type ConversionProgress } from "@/utils/clientConverter";
+import { convertAudioToVideo, canConvertAudioToVideo } from "@/utils/audioToVideo";
 import { ConversionProgress as ProgressBar } from "@/components/ConversionProgress";
 import { StepProgress, type ConversionStep } from "@/components/StepProgress";
 import { FormatGrid } from "@/components/FormatGrid";
+import { VideoEffectsPanel, defaultVideoEffects, type VideoEffectOptions } from "@/components/VideoEffectsPanel";
 import { getAvailableFormats } from "@/types/formats";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -41,8 +43,10 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [progress, setProgress] = useState<ConversionProgress | null>(null);
   const [step, setStep] = useState<ConversionStep>("upload");
+  const [videoEffects, setVideoEffects] = useState<VideoEffectOptions>(defaultVideoEffects);
 
-  const isClientSide = canConvertClientSide(ext, format);
+  const isAudioToVideo = ["mp3", "ogg", "wav", "m4a", "aac", "flac"].includes(ext) && format === "mp4";
+  const isClientSide = isAudioToVideo ? canConvertAudioToVideo() : canConvertClientSide(ext, format);
   const Icon = getFileIcon(file.type);
 
   const handleConversion = async () => {
@@ -52,11 +56,21 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
     let conversionSucceeded = false;
     try {
       let blob: Blob;
-      if (isClientSide) {
+      if (isAudioToVideo) {
+        try {
+          blob = await convertAudioToVideo(file, videoEffects, setProgress);
+        } catch (clientErr) {
+          if (clientErr instanceof ClientConversionUnsupportedError && onConvert) {
+            console.warn("[BH KONVER] Audio→Video fallback to backend:", clientErr.message);
+            blob = await onConvert(file, format, true, setProgress);
+          } else {
+            throw clientErr;
+          }
+        }
+      } else if (isClientSide) {
         try {
           blob = await convertClientSide(file, format, setProgress);
         } catch (clientErr) {
-          // If client-side is unsupported (e.g. no SharedArrayBuffer), fall back to backend
           if (clientErr instanceof ClientConversionUnsupportedError && onConvert) {
             console.warn("[BH KONVER] Client-side fallback:", clientErr.message);
             blob = await onConvert(file, format, true, setProgress);
@@ -155,6 +169,9 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
             <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">{t('conversion.selectFormat')}</p>
             <FormatGrid formats={availableFormats} selected={format} onSelect={(f) => setFormat(f as typeof format)} />
           </div>
+          {isAudioToVideo && (
+            <VideoEffectsPanel options={videoEffects} onChange={setVideoEffects} />
+          )}
           <Button
             onClick={handleConversion}
             disabled={isConverting || availableFormats.length === 0}
