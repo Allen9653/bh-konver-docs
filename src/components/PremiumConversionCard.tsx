@@ -43,8 +43,10 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [progress, setProgress] = useState<ConversionProgress | null>(null);
   const [step, setStep] = useState<ConversionStep>("upload");
+  const [videoEffects, setVideoEffects] = useState<VideoEffectOptions>(defaultVideoEffects);
 
-  const isClientSide = canConvertClientSide(ext, format);
+  const isAudioToVideo = ["mp3", "ogg", "wav", "m4a", "aac", "flac"].includes(ext) && format === "mp4";
+  const isClientSide = isAudioToVideo ? canConvertAudioToVideo() : canConvertClientSide(ext, format);
   const Icon = getFileIcon(file.type);
 
   const handleConversion = async () => {
