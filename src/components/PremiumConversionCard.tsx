@@ -56,11 +56,21 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
     let conversionSucceeded = false;
     try {
       let blob: Blob;
-      if (isClientSide) {
+      if (isAudioToVideo) {
+        try {
+          blob = await convertAudioToVideo(file, videoEffects, setProgress);
+        } catch (clientErr) {
+          if (clientErr instanceof ClientConversionUnsupportedError && onConvert) {
+            console.warn("[BH KONVER] Audio→Video fallback to backend:", clientErr.message);
+            blob = await onConvert(file, format, true, setProgress);
+          } else {
+            throw clientErr;
+          }
+        }
+      } else if (isClientSide) {
         try {
           blob = await convertClientSide(file, format, setProgress);
         } catch (clientErr) {
-          // If client-side is unsupported (e.g. no SharedArrayBuffer), fall back to backend
           if (clientErr instanceof ClientConversionUnsupportedError && onConvert) {
             console.warn("[BH KONVER] Client-side fallback:", clientErr.message);
             blob = await onConvert(file, format, true, setProgress);
