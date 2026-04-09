@@ -169,6 +169,9 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
             <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">{t('conversion.selectFormat')}</p>
             <FormatGrid formats={availableFormats} selected={format} onSelect={(f) => setFormat(f as typeof format)} />
           </div>
+          {isAudioToVideo && (
+            <VideoEffectsPanel options={videoEffects} onChange={setVideoEffects} />
+          )}
           <Button
             onClick={handleConversion}
             disabled={isConverting || availableFormats.length === 0}
