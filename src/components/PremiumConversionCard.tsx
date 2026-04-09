@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { FileText, Image, Video, Music, Download, Loader2, Zap, X, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { convertClientSide, canConvertClientSide, ClientConversionUnsupportedError, type ConversionProgress } from "@/utils/clientConverter";
+import { convertAudioToVideo, canConvertAudioToVideo } from "@/utils/audioToVideo";
 import { ConversionProgress as ProgressBar } from "@/components/ConversionProgress";
 import { StepProgress, type ConversionStep } from "@/components/StepProgress";
 import { FormatGrid } from "@/components/FormatGrid";
+import { VideoEffectsPanel, defaultVideoEffects, type VideoEffectOptions } from "@/components/VideoEffectsPanel";
 import { getAvailableFormats } from "@/types/formats";
 import { supabase } from "@/integrations/supabase/client";
 
