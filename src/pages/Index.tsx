@@ -95,30 +95,47 @@ const Index = () => {
       return await convertClientSide(file, targetFormat, onProgress);
     }
     if (needsBackend) {
-      onProgress?.({ stage: "Uploading to server...", percent: 10 });
+      onProgress?.({ stage: "Uploading na server...", percent: 10 });
       const formData = new FormData();
       formData.append("file", file);
       formData.append("targetFormat", targetFormat);
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.access_token) throw new Error("Please sign in to convert files");
+      if (!session?.access_token) throw new Error("Morate biti prijavljeni za konverziju fajlova.");
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
       const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-      onProgress?.({ stage: "Converting on server...", percent: 30 });
-      const response = await fetch(`${supabaseUrl}/functions/v1/convert-document`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${session.access_token}`, apikey: apikey },
-        body: formData,
-      });
+      onProgress?.({ stage: "Konvertovanje na serveru...", percent: 30 });
+
+      // Use AbortController with 120s timeout for large file uploads
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 120000);
+
+      let response: Response;
+      try {
+        response = await fetch(`${supabaseUrl}/functions/v1/convert-document`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${session.access_token}`, apikey: apikey },
+          body: formData,
+          signal: controller.signal,
+        });
+      } catch (fetchErr) {
+        clearTimeout(timeoutId);
+        if (fetchErr instanceof DOMException && fetchErr.name === "AbortError") {
+          throw new Error("Upload je istekao. Fajl je možda prevelik za serversku obradu. Pokušajte sa manjim fajlom.");
+        }
+        throw new Error("Greška pri povezivanju sa serverom. Provjerite internet konekciju.");
+      }
+      clearTimeout(timeoutId);
+
       if (response.status === 202) {
         const asyncData = await response.json();
-        onProgress?.({ stage: "Waiting for result...", percent: 50 });
+        onProgress?.({ stage: "Čekanje rezultata...", percent: 50 });
         if (asyncData.job_id) return await pollForJobCompletion(asyncData.job_id);
       }
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || "Backend conversion failed");
+        throw new Error(errorData.error || "Konverzija na serveru nije uspjela.");
       }
-      onProgress?.({ stage: "Done!", percent: 100 });
+      onProgress?.({ stage: "Završeno!", percent: 100 });
       return await response.blob();
     }
     return await convertFile(file, targetFormat);
