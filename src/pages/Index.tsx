@@ -5,11 +5,8 @@ import { PremiumHeader } from "@/components/PremiumHeader";
 import { useToast } from "@/hooks/use-toast";
 import { PremiumFooter } from "@/components/PremiumFooter";
 import { PremiumDropzone } from "@/components/PremiumDropzone";
-import { PremiumConversionCard } from "@/components/PremiumConversionCard";
 import { ModuleTabs } from "@/components/ModuleTabs";
 import { LazyRenderOnView } from "@/components/LazyRenderOnView";
-import { canConvertClientSide, convertClientSide, type ConversionProgress } from "@/utils/clientConverter";
-import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,7 +14,9 @@ import { Button } from "@/components/ui/button";
 import { LogIn, Sparkles, Shield, Zap } from "lucide-react";
 import type { ConversionModule } from "@/types/formats";
 import type { PDFOperation } from "@/types/pdfOperations";
+import type { ConversionProgress } from "@/utils/clientConverter";
 
+const PremiumConversionCard = lazy(() => import("@/components/PremiumConversionCard").then((module) => ({ default: module.PremiumConversionCard })));
 const UnitConverter = lazy(() => import("@/components/UnitConverter").then((module) => ({ default: module.UnitConverter })));
 const PDFToolsSelector = lazy(() => import("@/components/PDFToolsSelector").then((module) => ({ default: module.PDFToolsSelector })));
 const PDFToolsInterface = lazy(() => import("@/components/PDFToolsInterface").then((module) => ({ default: module.PDFToolsInterface })));
@@ -92,6 +91,10 @@ const Index = () => {
     needsBackend: boolean,
     onProgress?: (p: ConversionProgress) => void
   ): Promise<Blob> => {
+    const [{ canConvertClientSide, convertClientSide }, { convertFile }] = await Promise.all([
+      import("@/utils/clientConverter"),
+      import("@/utils/pdfConverter"),
+    ]);
     const ext = file.name.split(".").pop()?.toLowerCase() || "";
     if (canConvertClientSide(ext, targetFormat)) {
       return await convertClientSide(file, targetFormat, onProgress);
@@ -226,17 +229,19 @@ const Index = () => {
               {files.length === 0 ? (
                 <PremiumDropzone onFilesSelected={handleFilesSelected} acceptedFormats={getAcceptedFormats()} />
               ) : (
-                <div className="space-y-4">
-                  {files.map((file, index) => (
-                    <PremiumConversionCard
-                      key={`${file.name}-${index}`}
-                      file={file}
-                      onConvert={handleConvert}
-                      onRemove={() => handleRemove(index)}
-                      onConvertAnother={() => setFiles([])}
-                    />
-                  ))}
-                </div>
+                <Suspense fallback={<div className="min-h-[20rem]" aria-hidden="true" />}>
+                  <div className="space-y-4">
+                    {files.map((file, index) => (
+                      <PremiumConversionCard
+                        key={`${file.name}-${index}`}
+                        file={file}
+                        onConvert={handleConvert}
+                        onRemove={() => handleRemove(index)}
+                        onConvertAnother={() => setFiles([])}
+                      />
+                    ))}
+                  </div>
+                </Suspense>
               )}
             </div>
           )}
