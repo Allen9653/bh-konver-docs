@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { lazy, Suspense, useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PremiumHeader } from "@/components/PremiumHeader";
@@ -9,11 +9,7 @@ import { PremiumConversionCard } from "@/components/PremiumConversionCard";
 import { ModuleTabs } from "@/components/ModuleTabs";
 import { UnitConverter } from "@/components/UnitConverter";
 import { PDFToolsSelector } from "@/components/PDFToolsSelector";
-import { SponsorBanners } from "@/components/SponsorBanners";
 import { PDFToolsInterface } from "@/components/PDFToolsInterface";
-import { PricingSection } from "@/components/PricingSection";
-import { CurrencyConverter } from "@/components/CurrencyConverter";
-import { PayPalPaymentModal } from "@/components/PayPalPaymentModal";
 import { canConvertClientSide, convertClientSide, type ConversionProgress } from "@/utils/clientConverter";
 import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -23,6 +19,11 @@ import { Button } from "@/components/ui/button";
 import { LogIn, Sparkles, Shield, Zap } from "lucide-react";
 import type { ConversionModule } from "@/types/formats";
 import type { PDFOperation } from "@/types/pdfOperations";
+
+const PricingSection = lazy(() => import("@/components/PricingSection").then((module) => ({ default: module.PricingSection })));
+const SponsorBanners = lazy(() => import("@/components/SponsorBanners").then((module) => ({ default: module.SponsorBanners })));
+const CurrencyConverter = lazy(() => import("@/components/CurrencyConverter").then((module) => ({ default: module.CurrencyConverter })));
+const PayPalPaymentModal = lazy(() => import("@/components/PayPalPaymentModal").then((module) => ({ default: module.PayPalPaymentModal })));
 
 const Index = () => {
   const { t } = useTranslation();
@@ -235,20 +236,28 @@ const Index = () => {
 
           {/* Pricing */}
           <div className="mt-16" id="pricing">
-            <PricingSection onSelectPlan={(tier) => {
-              setSelectedPlanId(tier.id);
-              setPaymentModalOpen(true);
-            }} />
+            <Suspense fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
+              <PricingSection onSelectPlan={(tier) => {
+                setSelectedPlanId(tier.id);
+                setPaymentModalOpen(true);
+              }} />
+            </Suspense>
           </div>
 
-          <PayPalPaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} initialPlanId={selectedPlanId} />
+          {paymentModalOpen ? (
+            <Suspense fallback={null}>
+              <PayPalPaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} initialPlanId={selectedPlanId} />
+            </Suspense>
+          ) : null}
         </div>
 
         {/* Currency Converter with Sponsor Banners - wider container */}
         <div className="mt-12 max-w-6xl mx-auto px-4 pb-10">
-          <SponsorBanners>
-            <CurrencyConverter />
-          </SponsorBanners>
+          <Suspense fallback={<div className="min-h-[24rem]" aria-hidden="true" />}>
+            <SponsorBanners>
+              <CurrencyConverter />
+            </SponsorBanners>
+          </Suspense>
         </div>
       </main>
 
