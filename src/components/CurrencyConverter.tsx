@@ -155,6 +155,7 @@ export function CurrencyConverter() {
             size="icon"
             onClick={swapCurrencies}
             disabled={loading}
+            aria-label={t('currencyConverter.swap')}
           >
             <ArrowLeftRight className="h-4 w-4" />
           </Button>

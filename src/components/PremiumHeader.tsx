@@ -36,7 +36,7 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
             <>
               <span className="text-xs text-muted-foreground hidden md:inline">{user.email}</span>
               {isAdmin && (
-                <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="h-8 px-2">
+                <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="h-8 px-2" aria-label="Otvori admin panel">
                   <Shield className="h-3.5 w-3.5" />
                 </Button>
               )}
@@ -45,10 +45,10 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
                   <Crown className="w-3 h-3" /> PRO
                 </span>
               )}
-              <Button variant="ghost" size="sm" onClick={() => navigate("/history")} className="h-8 px-2">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/history")} className="h-8 px-2" aria-label="Otvori historiju dokumenata">
                 <History className="h-3.5 w-3.5" />
               </Button>
-              <Button variant="ghost" size="sm" onClick={onSignOut} className="h-8 px-2">
+              <Button variant="ghost" size="sm" onClick={onSignOut} className="h-8 px-2" aria-label="Odjavi se">
                 <LogOut className="h-3.5 w-3.5" />
               </Button>
             </>

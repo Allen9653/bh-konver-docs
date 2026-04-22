@@ -171,7 +171,7 @@ const History = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
+            <Button variant="ghost" size="icon" onClick={() => navigate("/")} aria-label="Nazad na početnu stranicu">
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <h1 className="text-2xl font-bold text-foreground">Moji dokumenti</h1>
@@ -244,6 +244,7 @@ const History = () => {
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label={`Pregledaj dokument ${doc.filename}`}
                             onClick={() => setPreviewDoc(doc)}
                           >
                             <Eye className="w-4 h-4" />
@@ -252,6 +253,7 @@ const History = () => {
                             variant="ghost"
                             size="icon"
                             className="text-destructive hover:text-destructive"
+                            aria-label={`Obriši dokument ${doc.filename}`}
                             onClick={() => handleDeleteDocument(doc.id)}
                           >
                             <Trash2 className="w-4 h-4" />
@@ -304,6 +306,7 @@ const History = () => {
                             <Button
                               variant="ghost"
                               size="icon"
+                              aria-label={`Preuzmi konverziju ${conv.original_filename}`}
                               asChild
                             >
                               <a href={conv.converted_url} download>

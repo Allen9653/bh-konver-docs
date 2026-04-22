@@ -160,7 +160,7 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
           </div>
         </div>
         {!resultUrl && (
-          <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={onRemove}>
+          <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={onRemove} aria-label={`Ukloni fajl ${file.name}`}>
             <X className="w-4 h-4" />
           </Button>
         )}
