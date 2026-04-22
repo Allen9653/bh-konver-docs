@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/bh-konver-logo.png";
+import logo from "@/assets/bh-konver-logo-320.webp";
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -37,8 +37,8 @@ const SplashScreen = ({ onComplete, duration = 2000 }: SplashScreenProps) => {
             <motion.img
               src={logo}
               alt="BH Konver"
-              width={500}
-              height={500}
+              width={320}
+              height={320}
               fetchPriority="high"
               className="w-64 h-64 object-contain"
               animate={{
