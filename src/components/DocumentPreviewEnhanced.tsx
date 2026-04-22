@@ -295,6 +295,7 @@ export const DocumentPreviewEnhanced = ({
               variant="ghost" 
               size="icon"
               onClick={() => setShowEmailInput(false)}
+              aria-label="Zatvori unos email adrese"
             >
               <X className="w-4 h-4" />
             </Button>

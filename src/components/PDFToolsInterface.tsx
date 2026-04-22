@@ -203,7 +203,7 @@ export const PDFToolsInterface = ({ operation, onBack }: PDFToolsInterfaceProps)
 
         {resultUrl && (
           <div className="flex gap-2 pt-4">
-            <Button onClick={() => setPreviewOpen(true)} variant="outline" size="icon">
+            <Button onClick={() => setPreviewOpen(true)} variant="outline" size="icon" aria-label="Pregledaj PDF rezultat">
               <Eye className="h-4 w-4" />
             </Button>
             <Button onClick={handleDownload} className="flex-1">

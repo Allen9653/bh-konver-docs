@@ -122,12 +122,12 @@ export function AdminAdsManager() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <Button variant="ghost" size="icon" onClick={() => handleToggle(ad)} title={ad.is_active ? "Deaktiviraj" : "Aktiviraj"}>
+                  <Button variant="ghost" size="icon" onClick={() => handleToggle(ad)} title={ad.is_active ? "Deaktiviraj" : "Aktiviraj"} aria-label={ad.is_active ? `Deaktiviraj oglas ${ad.name}` : `Aktiviraj oglas ${ad.name}`}>
                     {ad.is_active
                       ? <ToggleRight className="w-5 h-5 text-green-600" />
                       : <ToggleLeft className="w-5 h-5 text-muted-foreground" />}
                   </Button>
-                  <Button variant="ghost" size="icon" onClick={() => handleDelete(ad.id)}>
+                  <Button variant="ghost" size="icon" onClick={() => handleDelete(ad.id)} aria-label={`Obriši oglas ${ad.name}`}>
                     <Trash2 className="w-4 h-4 text-destructive" />
                   </Button>
                 </div>

@@ -141,6 +141,7 @@ export const VideoEffectsPanel = ({ options, onChange }: VideoEffectsPanelProps)
                 size="icon"
                 className="absolute top-1 right-1 h-6 w-6 bg-background/80"
                 onClick={clearImage}
+                aria-label="Ukloni pozadinsku sliku"
               >
                 <X className="w-3 h-3" />
               </Button>
