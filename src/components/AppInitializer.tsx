@@ -16,8 +16,12 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
     const onboardingComplete = localStorage.getItem("bh-konver-onboarding-complete");
     
     if (!onboardingComplete) {
-      // First time user - show onboarding after splash
+      // First time user - show onboarding immediately to avoid redundant blocking screen
+      setShowSplash(false);
       setShowOnboarding(true);
+      setIsReady(false);
+    } else {
+      setIsReady(true);
     }
   }, []);
 
