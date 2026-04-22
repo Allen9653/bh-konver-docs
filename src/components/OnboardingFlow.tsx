@@ -183,12 +183,17 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
               onClick={() => setCurrentStep(i)}
               aria-label={`Idi na korak ${i + 1}`}
               aria-current={i === currentStep ? "step" : undefined}
-              className={`w-2 h-2 rounded-full transition-all ${
-                i === currentStep 
-                  ? "bg-primary w-6" 
-                  : "bg-muted-foreground/30"
-              }`}
-            />
+              className="-m-2 flex h-6 w-6 items-center justify-center p-2"
+            >
+              <span
+                aria-hidden="true"
+                className={`block h-2 rounded-full transition-all ${
+                  i === currentStep
+                    ? "bg-primary w-6"
+                    : "bg-muted-foreground/30 w-2"
+                }`}
+              />
+            </button>
           ))}
         </div>
 
