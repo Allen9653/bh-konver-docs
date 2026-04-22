@@ -175,7 +175,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
       {/* Footer */}
       <div className="p-6 pb-8">
         {/* Progress dots */}
-        <div className="flex justify-center gap-2 mb-6">
+        <div className="flex justify-center mb-6">
           {onboardingSteps.map((_, i) => (
             <button
               key={i}
@@ -183,7 +183,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
               onClick={() => setCurrentStep(i)}
               aria-label={`Idi na korak ${i + 1}`}
               aria-current={i === currentStep ? "step" : undefined}
-              className="-m-2 flex h-6 w-6 items-center justify-center p-2"
+              className="flex h-8 w-8 items-center justify-center"
             >
               <span
                 aria-hidden="true"
