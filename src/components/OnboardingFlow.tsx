@@ -179,7 +179,10 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
           {onboardingSteps.map((_, i) => (
             <button
               key={i}
+              type="button"
               onClick={() => setCurrentStep(i)}
+              aria-label={`Idi na korak ${i + 1}`}
+              aria-current={i === currentStep ? "step" : undefined}
               className={`w-2 h-2 rounded-full transition-all ${
                 i === currentStep 
                   ? "bg-primary w-6" 
