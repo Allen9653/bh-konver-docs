@@ -10,6 +10,7 @@ import { ModuleTabs } from "@/components/ModuleTabs";
 import { UnitConverter } from "@/components/UnitConverter";
 import { PDFToolsSelector } from "@/components/PDFToolsSelector";
 import { PDFToolsInterface } from "@/components/PDFToolsInterface";
+import { LazyRenderOnView } from "@/components/LazyRenderOnView";
 import { canConvertClientSide, convertClientSide, type ConversionProgress } from "@/utils/clientConverter";
 import { convertFile } from "@/utils/pdfConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -20,6 +21,9 @@ import { LogIn, Sparkles, Shield, Zap } from "lucide-react";
 import type { ConversionModule } from "@/types/formats";
 import type { PDFOperation } from "@/types/pdfOperations";
 
+const UnitConverter = lazy(() => import("@/components/UnitConverter").then((module) => ({ default: module.UnitConverter })));
+const PDFToolsSelector = lazy(() => import("@/components/PDFToolsSelector").then((module) => ({ default: module.PDFToolsSelector })));
+const PDFToolsInterface = lazy(() => import("@/components/PDFToolsInterface").then((module) => ({ default: module.PDFToolsInterface })));
 const PricingSection = lazy(() => import("@/components/PricingSection").then((module) => ({ default: module.PricingSection })));
 const SponsorBanners = lazy(() => import("@/components/SponsorBanners").then((module) => ({ default: module.SponsorBanners })));
 const CurrencyConverter = lazy(() => import("@/components/CurrencyConverter").then((module) => ({ default: module.CurrencyConverter })));
@@ -202,7 +206,9 @@ const Index = () => {
 
           {/* Content */}
           {selectedModule === "unit" ? (
-            <UnitConverter />
+            <Suspense fallback={<div className="min-h-[16rem]" aria-hidden="true" />}>
+              <UnitConverter />
+            </Suspense>
           ) : !canAccessModules ? (
             <div className="text-center py-16 space-y-4">
               <p className="text-sm text-muted-foreground">{t('quickActions.guestDescription')}</p>
@@ -211,9 +217,13 @@ const Index = () => {
               </Button>
             </div>
           ) : selectedPDFTool ? (
-            <PDFToolsInterface operation={selectedPDFTool} onBack={() => setSelectedPDFTool(null)} />
+            <Suspense fallback={<div className="min-h-[20rem]" aria-hidden="true" />}>
+              <PDFToolsInterface operation={selectedPDFTool} onBack={() => setSelectedPDFTool(null)} />
+            </Suspense>
           ) : selectedModule === "pdf-tools" ? (
-            <PDFToolsSelector onSelectTool={(tool) => setSelectedPDFTool(tool)} />
+            <Suspense fallback={<div className="min-h-[20rem]" aria-hidden="true" />}>
+              <PDFToolsSelector onSelectTool={(tool) => setSelectedPDFTool(tool)} />
+            </Suspense>
           ) : (
             <div className="space-y-6">
               {files.length === 0 ? (
@@ -236,12 +246,14 @@ const Index = () => {
 
           {/* Pricing */}
           <div className="mt-16" id="pricing">
-            <Suspense fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
-              <PricingSection onSelectPlan={(tier) => {
-                setSelectedPlanId(tier.id);
-                setPaymentModalOpen(true);
-              }} />
-            </Suspense>
+            <LazyRenderOnView fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
+              <Suspense fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
+                <PricingSection onSelectPlan={(tier) => {
+                  setSelectedPlanId(tier.id);
+                  setPaymentModalOpen(true);
+                }} />
+              </Suspense>
+            </LazyRenderOnView>
           </div>
 
           {paymentModalOpen ? (
@@ -253,11 +265,13 @@ const Index = () => {
 
         {/* Currency Converter with Sponsor Banners - wider container */}
         <div className="mt-12 max-w-6xl mx-auto px-4 pb-10">
-          <Suspense fallback={<div className="min-h-[24rem]" aria-hidden="true" />}>
-            <SponsorBanners>
-              <CurrencyConverter />
-            </SponsorBanners>
-          </Suspense>
+          <LazyRenderOnView fallback={<div className="min-h-[24rem]" aria-hidden="true" />}>
+            <Suspense fallback={<div className="min-h-[24rem]" aria-hidden="true" />}>
+              <SponsorBanners>
+                <CurrencyConverter />
+              </SponsorBanners>
+            </Suspense>
+          </LazyRenderOnView>
         </div>
       </main>
 
