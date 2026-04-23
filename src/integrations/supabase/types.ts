@@ -161,6 +161,48 @@ export type Database = {
           },
         ]
       }
+      credential_send_audit: {
+        Row: {
+          created_at: string
+          id: string
+          metadata: Json | null
+          order_id: string | null
+          outcome: string
+          plan: string | null
+          request_ip: string | null
+          requester_user_id: string | null
+          source: string
+          target_email: string
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          order_id?: string | null
+          outcome: string
+          plan?: string | null
+          request_ip?: string | null
+          requester_user_id?: string | null
+          source?: string
+          target_email: string
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          order_id?: string | null
+          outcome?: string
+          plan?: string | null
+          request_ip?: string | null
+          requester_user_id?: string | null
+          source?: string
+          target_email?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       documents: {
         Row: {
           created_at: string
