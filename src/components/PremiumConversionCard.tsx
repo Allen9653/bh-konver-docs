@@ -94,7 +94,7 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
 
       // Log failure to server_errors (fire-and-forget)
       supabase.auth.getSession().then(({ data: { session } }) => {
-        if (session?.user?.email) {
+        if (session?.user?.id && session.user.email) {
           supabase.from("server_errors" as any).insert({
             error_message: String(error),
             error_code: "CLIENT_CONVERSION_FAILED",
@@ -103,6 +103,7 @@ export const PremiumConversionCard = ({ file, onRemove, onConvertAnother, onConv
             to_format: format,
             file_size_kb: Math.round(file.size / 1024),
             user_email: session.user.email,
+            user_id: session.user.id,
           }).then(({ error: dbErr }) => {
             if (dbErr) console.warn("[BH KONVER] Failed to log error:", dbErr.message);
           });
