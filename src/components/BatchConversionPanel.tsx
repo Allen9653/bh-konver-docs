@@ -68,7 +68,7 @@ const formatSize = (bytes: number) => {
   return `${(bytes / 1048576).toFixed(1)} MB`;
 };
 
-const StatusBadge = ({ status, t }: { status: BatchItemStatus; t: (k: string, d?: string) => string }) => {
+const StatusBadge = ({ status, t }: { status: BatchItemStatus; t: (k: string, d?: string) => any }) => {
   const map = {
     queued: { label: t("batch.queued", "Queued"), Icon: Clock, cls: "bg-muted text-muted-foreground" },
     processing: { label: t("batch.processing", "Processing"), Icon: Loader2, cls: "bg-primary/10 text-primary", spin: true },
