@@ -16,7 +16,7 @@ import type { ConversionModule } from "@/types/formats";
 import type { PDFOperation } from "@/types/pdfOperations";
 import type { ConversionProgress } from "@/utils/clientConverter";
 
-const PremiumConversionCard = lazy(() => import("@/components/PremiumConversionCard").then((module) => ({ default: module.PremiumConversionCard })));
+const BatchConversionPanel = lazy(() => import("@/components/BatchConversionPanel").then((module) => ({ default: module.BatchConversionPanel })));
 const UnitConverter = lazy(() => import("@/components/UnitConverter").then((module) => ({ default: module.UnitConverter })));
 const PDFToolsSelector = lazy(() => import("@/components/PDFToolsSelector").then((module) => ({ default: module.PDFToolsSelector })));
 const PDFToolsInterface = lazy(() => import("@/components/PDFToolsInterface").then((module) => ({ default: module.PDFToolsInterface })));
@@ -230,17 +230,12 @@ const Index = () => {
                 <PremiumDropzone onFilesSelected={handleFilesSelected} acceptedFormats={getAcceptedFormats()} />
               ) : (
                 <Suspense fallback={<div className="min-h-[20rem]" aria-hidden="true" />}>
-                  <div className="space-y-4">
-                    {files.map((file, index) => (
-                      <PremiumConversionCard
-                        key={`${file.name}-${index}`}
-                        file={file}
-                        onConvert={handleConvert}
-                        onRemove={() => handleRemove(index)}
-                        onConvertAnother={() => setFiles([])}
-                      />
-                    ))}
-                  </div>
+                  <BatchConversionPanel
+                    files={files}
+                    onConvert={handleConvert}
+                    onRemove={handleRemove}
+                    onConvertAnother={() => setFiles([])}
+                  />
                 </Suspense>
               )}
             </div>
