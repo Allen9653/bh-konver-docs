@@ -318,5 +318,40 @@
   "dashboard": {
     "welcome": "Dobrodošli, {{name}}!",
     "welcomeDescription": "Spremni ste za konverziju fajlova. Odaberite modul i počnite."
+  },
+  "batch": {
+    "title": "Batch konverzija",
+    "summary": "{{done}} od {{total}} završeno",
+    "queued": "U redu",
+    "processing": "U obradi",
+    "done": "Završeno",
+    "failed": "Greška",
+    "starting": "Pokretanje...",
+    "runAll": "Konvertuj sve",
+    "running": "Konvertujem...",
+    "downloadAll": "Preuzmi sve",
+    "downloadOne": "Preuzmi ovaj fajl",
+    "startOver": "Počni iznova",
+    "removeFile": "Ukloni fajl",
+    "showPreview": "Prikaži pregled",
+    "hidePreview": "Sakrij pregled",
+    "noFormats": "Nema dostupnih ciljnih formata",
+    "completed": "Batch završen",
+    "completedDesc": "Sve konverzije su gotove. Preuzmite fajlove ispod.",
+    "itemsList": "Fajlovi u batch-u"
+  },
+  "preview": {
+    "title": "Vizualni pregled",
+    "before": "Prije",
+    "after": "Poslije",
+    "loading": "Učitavanje pregleda...",
+    "unavailable": "Pregled nije dostupan",
+    "noPreview": "Nema vizualnog pregleda za ovaj format",
+    "pendingConversion": "Konvertujte da vidite rezultat"
+  },
+  "formatDetection": {
+    "detecting": "Detekcija formata...",
+    "detected": "Detektovano",
+    "mismatchWarning": "Ekstenzija fajla ne odgovara stvarnom sadržaju. Konverzija će koristiti detektovani format."
   }
 }

@@ -318,5 +318,40 @@
   "dashboard": {
     "welcome": "Welcome, {{name}}!",
     "welcomeDescription": "You're ready to convert files. Select a module and get started."
+  },
+  "batch": {
+    "title": "Batch conversion",
+    "summary": "{{done}} of {{total}} done",
+    "queued": "Queued",
+    "processing": "Processing",
+    "done": "Done",
+    "failed": "Failed",
+    "starting": "Starting...",
+    "runAll": "Convert all",
+    "running": "Converting...",
+    "downloadAll": "Download all",
+    "downloadOne": "Download this file",
+    "startOver": "Start over",
+    "removeFile": "Remove file",
+    "showPreview": "Show preview",
+    "hidePreview": "Hide preview",
+    "noFormats": "No conversion targets available",
+    "completed": "Batch completed",
+    "completedDesc": "All conversions finished. Download your files below.",
+    "itemsList": "Files in batch"
+  },
+  "preview": {
+    "title": "Visual preview",
+    "before": "Before",
+    "after": "After",
+    "loading": "Loading preview...",
+    "unavailable": "Preview unavailable",
+    "noPreview": "No visual preview for this format",
+    "pendingConversion": "Convert to see result"
+  },
+  "formatDetection": {
+    "detecting": "Detecting format...",
+    "detected": "Detected",
+    "mismatchWarning": "File extension does not match content. Conversion will use detected format."
   }
 }
