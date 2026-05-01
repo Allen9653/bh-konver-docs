@@ -318,5 +318,40 @@
   "dashboard": {
     "welcome": "Hoş geldiniz, {{name}}!",
     "welcomeDescription": "Dosya dönüştürmeye hazırsınız. Bir modül seçin ve başlayın."
+  },
+  "batch": {
+    "title": "Toplu dönüştürme",
+    "summary": "{{total}} dosyadan {{done}} tamamlandı",
+    "queued": "Sırada",
+    "processing": "İşleniyor",
+    "done": "Tamamlandı",
+    "failed": "Başarısız",
+    "starting": "Başlatılıyor...",
+    "runAll": "Tümünü dönüştür",
+    "running": "Dönüştürülüyor...",
+    "downloadAll": "Tümünü indir",
+    "downloadOne": "Bu dosyayı indir",
+    "startOver": "Yeniden başla",
+    "removeFile": "Dosyayı kaldır",
+    "showPreview": "Önizlemeyi göster",
+    "hidePreview": "Önizlemeyi gizle",
+    "noFormats": "Hedef format bulunamadı",
+    "completed": "Toplu işlem tamamlandı",
+    "completedDesc": "Tüm dönüştürmeler tamamlandı.",
+    "itemsList": "Toplu işlemdeki dosyalar"
+  },
+  "preview": {
+    "title": "Görsel önizleme",
+    "before": "Önce",
+    "after": "Sonra",
+    "loading": "Önizleme yükleniyor...",
+    "unavailable": "Önizleme mevcut değil",
+    "noPreview": "Bu format için görsel önizleme yok",
+    "pendingConversion": "Sonucu görmek için dönüştürün"
+  },
+  "formatDetection": {
+    "detecting": "Format algılanıyor...",
+    "detected": "Algılanan",
+    "mismatchWarning": "Dosya uzantısı içeriğiyle eşleşmiyor. Dönüştürme algılanan formatı kullanacak."
   }
 }

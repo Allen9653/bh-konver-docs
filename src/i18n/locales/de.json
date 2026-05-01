@@ -318,5 +318,40 @@
   "dashboard": {
     "welcome": "Willkommen, {{name}}!",
     "welcomeDescription": "Sie sind bereit, Dateien zu konvertieren. Wählen Sie ein Modul und legen Sie los."
+  },
+  "batch": {
+    "title": "Batch-Konvertierung",
+    "summary": "{{done}} von {{total}} fertig",
+    "queued": "In Warteschlange",
+    "processing": "Verarbeitung",
+    "done": "Fertig",
+    "failed": "Fehlgeschlagen",
+    "starting": "Wird gestartet...",
+    "runAll": "Alle konvertieren",
+    "running": "Konvertiere...",
+    "downloadAll": "Alle herunterladen",
+    "downloadOne": "Diese Datei herunterladen",
+    "startOver": "Neu starten",
+    "removeFile": "Datei entfernen",
+    "showPreview": "Vorschau anzeigen",
+    "hidePreview": "Vorschau ausblenden",
+    "noFormats": "Keine Zielformate verfügbar",
+    "completed": "Batch abgeschlossen",
+    "completedDesc": "Alle Konvertierungen sind fertig.",
+    "itemsList": "Dateien im Batch"
+  },
+  "preview": {
+    "title": "Visuelle Vorschau",
+    "before": "Vorher",
+    "after": "Nachher",
+    "loading": "Vorschau wird geladen...",
+    "unavailable": "Vorschau nicht verfügbar",
+    "noPreview": "Keine visuelle Vorschau für dieses Format",
+    "pendingConversion": "Konvertieren, um Ergebnis zu sehen"
+  },
+  "formatDetection": {
+    "detecting": "Format wird erkannt...",
+    "detected": "Erkannt",
+    "mismatchWarning": "Dateierweiterung stimmt nicht mit Inhalt überein. Konvertierung verwendet erkanntes Format."
   }
 }
