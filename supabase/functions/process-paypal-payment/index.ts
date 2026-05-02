@@ -39,7 +39,22 @@ serve(async (req) => {
 
     console.log(`Payment processing initiated by user: ${user.email}`);
 
-    const { email, plan, amount, duration } = await req.json();
+    const { email, plan, duration } = await req.json();
+
+    // SECURITY: Enforce server-side pricing — never trust client-supplied amount
+    const PLAN_PRICES: Record<string, string> = {
+      "24h": "2.00",
+      "48h": "10.00",
+      "monthly": "50.00",
+    };
+    const amount = PLAN_PRICES[plan as string];
+    if (!amount) {
+      console.error(`Invalid plan requested: ${plan}`);
+      return new Response(
+        JSON.stringify({ error: "Invalid plan" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
     // Validate that the authenticated user matches the payment email
     if (user.email !== email) {

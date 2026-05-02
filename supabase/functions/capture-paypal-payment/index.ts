@@ -103,6 +103,23 @@ serve(async (req) => {
     const captureData = await captureResponse.json();
     console.log("Capture response status:", captureData.status);
 
+    // SECURITY: Verify captured amount matches expected server-side plan price
+    const PLAN_PRICES: Record<string, string> = {
+      "24h": "2.00",
+      "48h": "10.00",
+      "monthly": "50.00",
+    };
+    const expectedAmount = PLAN_PRICES[plan as string];
+    const capturedAmount = captureData?.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value;
+    const capturedCurrency = captureData?.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.currency_code;
+    if (!expectedAmount || capturedAmount !== expectedAmount || capturedCurrency !== "EUR") {
+      console.error(`Amount tampering detected: expected=${expectedAmount} EUR, captured=${capturedAmount} ${capturedCurrency}, plan=${plan}, user=${user.email}`);
+      return new Response(
+        JSON.stringify({ error: "Greška pri potvrdi plaćanja. Molimo kontaktirajte podršku." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     if (captureData.status === "COMPLETED") {
       const payerId = captureData.payer?.payer_id;
 
