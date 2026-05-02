@@ -202,9 +202,38 @@ const handler = async (req: Request): Promise<Response> => {
 
       case "document_share": {
         const { recipientEmail, senderName, documentName, documentUrl } = body;
-        
-        console.log(`Sharing document "${documentName}" from ${senderName} to ${recipientEmail}`);
-        
+
+        // Validate that documentUrl (when present) is a Supabase Storage signed URL on this project
+        let safeDocUrl = "";
+        if (documentUrl) {
+          try {
+            const u = new URL(documentUrl);
+            const expectedHost = new URL(supabaseUrl).host;
+            const isSupabaseHost = u.host === expectedHost;
+            const isSigned = u.pathname.includes("/storage/v1/object/sign/") &&
+              u.searchParams.has("token");
+            if (!isSupabaseHost || !isSigned) {
+              return new Response(
+                JSON.stringify({ error: "documentUrl must be a signed Supabase Storage URL" }),
+                { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+              );
+            }
+            safeDocUrl = u.toString();
+          } catch {
+            return new Response(
+              JSON.stringify({ error: "Invalid documentUrl" }),
+              { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+            );
+          }
+        }
+
+        const safeSender = escapeHtml(senderName);
+        const safeDocName = escapeHtml(documentName);
+        const safeRecipient = escapeHtml(recipientEmail);
+        const escapedHref = escapeHtml(safeDocUrl);
+
+        console.log(`Sharing document from user ${user.id} to ${recipientEmail}`);
+
         emailResponse = await sendEmail(
           [recipientEmail],
           `${senderName} vam je poslao dokument: ${documentName}`,
@@ -215,11 +244,11 @@ const handler = async (req: Request): Promise<Response> => {
               </div>
               
               <h2>Novi dokument za vas!</h2>
-              <p><strong>${senderName}</strong> vam je poslao konvertirani dokument:</p>
+              <p><strong>${safeSender}</strong> vam je poslao konvertirani dokument:</p>
               
               <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <p><strong>Naziv dokumenta:</strong> ${documentName}</p>
-                ${documentUrl ? `<a href="${documentUrl}" style="display: inline-block; background: #1e3a8a; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Preuzmi dokument</a>` : ''}
+                <p><strong>Naziv dokumenta:</strong> ${safeDocName}</p>
+                ${safeDocUrl ? `<a href="${escapedHref}" style="display: inline-block; background: #1e3a8a; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Preuzmi dokument</a>` : ''}
               </div>
               
               <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align: center;">
@@ -238,9 +267,9 @@ const handler = async (req: Request): Promise<Response> => {
           `Dokument podijeljen - ${documentName}`,
           `
             <h2>Dokument podijeljen</h2>
-            <p><strong>Od:</strong> ${senderName}</p>
-            <p><strong>Prima:</strong> ${recipientEmail}</p>
-            <p><strong>Dokument:</strong> ${documentName}</p>
+            <p><strong>Od:</strong> ${safeSender}</p>
+            <p><strong>Prima:</strong> ${safeRecipient}</p>
+            <p><strong>Dokument:</strong> ${safeDocName}</p>
           `
         );
 
@@ -249,10 +278,19 @@ const handler = async (req: Request): Promise<Response> => {
       }
 
       case "custom": {
+        // Restrict custom email sending to admins or internal service-role calls only
+        if (!isServiceRole && !isAdmin) {
+          console.error(`Forbidden 'custom' email attempt by user ${user.id} (${user.email})`);
+          return new Response(
+            JSON.stringify({ error: "Forbidden - admin role required" }),
+            { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
         const { to, subject, html, from, replyTo } = body;
-        
-        console.log(`Sending custom email to ${to} (subject: ${subject})`);
-        
+
+        console.log(`Sending custom email to ${to} (subject: ${subject}) by ${isServiceRole ? 'service-role' : `admin ${user.id}`}`);
+
         emailResponse = await sendEmail([to], subject, html, from, replyTo);
 
         console.log("Custom email sent successfully");
