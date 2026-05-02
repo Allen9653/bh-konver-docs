@@ -116,6 +116,18 @@ const handler = async (req: Request): Promise<Response> => {
     );
   }
 
+  // Check if caller is service role (internal call) — bypasses user-level restrictions
+  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  const isServiceRole = !!serviceKey && token === serviceKey;
+
+  // Check admin role for restricted email types
+  const supabaseAdmin = createClient(supabaseUrl, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+  const { data: isAdminData } = await supabaseAdmin.rpc("check_user_role", {
+    _user_id: user.id,
+    _role: "admin",
+  });
+  const isAdmin = isAdminData === true;
+
   if (!RESEND_API_KEY) {
     console.error("RESEND_API_KEY is not set");
     return new Response(
