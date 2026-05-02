@@ -142,11 +142,47 @@ const handler = async (req: Request): Promise<Response> => {
 
     switch (body.type) {
       case "magic_link": {
+        // Restrict magic_link sending to service-role or admin callers
+        if (!isServiceRole && !isAdmin) {
+          console.error(`Forbidden 'magic_link' email attempt by user ${user.id} (${user.email})`);
+          return new Response(
+            JSON.stringify({ error: "Forbidden - admin role required" }),
+            { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
         const { email, magicLink, expiresAt } = body;
+
+        // Validate magicLink is a safe http(s) URL pointing at our Supabase project
+        const safeMagicLink = safeUrl(magicLink);
+        if (!safeMagicLink) {
+          return new Response(
+            JSON.stringify({ error: "Invalid magicLink URL" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+        try {
+          const u = new URL(magicLink);
+          const expectedHost = new URL(supabaseUrl).host;
+          if (u.host !== expectedHost) {
+            return new Response(
+              JSON.stringify({ error: "magicLink must point to the project's auth host" }),
+              { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+            );
+          }
+        } catch {
+          return new Response(
+            JSON.stringify({ error: "Invalid magicLink URL" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const safeEmail = escapeHtml(email);
+        const safeExpiresAt = escapeHtml(expiresAt);
+
         // SECURITY: Magic link is never logged - only non-sensitive metadata
-        
         console.log(`Sending magic link to user (email: ${email}, expiresAt: ${expiresAt})`);
-        
+
         emailResponse = await sendEmail(
           [email],
           "Vaš link za pristup BH Konver",
@@ -161,14 +197,14 @@ const handler = async (req: Request): Promise<Response> => {
               <p>Hvala vam na kupovini. Kliknite na dugme ispod da se prijavite:</p>
               
               <div style="text-align: center; margin: 30px 0;">
-                <a href="${magicLink}" style="display: inline-block; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">
+                <a href="${safeMagicLink}" style="display: inline-block; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">
                   Prijavite se
                 </a>
               </div>
               
               <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Važi do:</strong> ${expiresAt}</p>
+                <p><strong>Email:</strong> ${safeEmail}</p>
+                <p><strong>Važi do:</strong> ${safeExpiresAt}</p>
               </div>
               
               <p style="color: #ef4444; font-weight: bold;">Važno: Ovaj link je validan samo 1 sat i može se koristiti samo jednom!</p>
@@ -190,8 +226,8 @@ const handler = async (req: Request): Promise<Response> => {
           `Nova uplata - ${email}`,
           `
             <h2>Nova uplata primljena</h2>
-            <p><strong>Korisnik:</strong> ${escapeHtml(email)}</p>
-            <p><strong>Važi do:</strong> ${escapeHtml(expiresAt)}</p>
+            <p><strong>Korisnik:</strong> ${safeEmail}</p>
+            <p><strong>Važi do:</strong> ${safeExpiresAt}</p>
             <p>Magic link za pristup je poslan korisniku.</p>
           `
         );
