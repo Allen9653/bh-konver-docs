@@ -97,6 +97,24 @@ serve(async (req: Request): Promise<Response> => {
     console.log(`Sending conversion notification to ${userEmail}...`);
 
     const isSuccess = status === "completed";
+
+    const escapeHtml = (s: unknown) =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    const safeFileName = escapeHtml(fileName);
+    const safeOriginal = escapeHtml(originalFormat);
+    const safeTarget = escapeHtml(targetFormat);
+    const safeUserEmail = escapeHtml(userEmail);
+    let safeDownloadHref = "";
+    if (downloadUrl) {
+      try {
+        const u = new URL(downloadUrl);
+        if (u.protocol === "https:" || u.protocol === "http:") {
+          safeDownloadHref = escapeHtml(u.toString());
+        }
+      } catch { /* ignore invalid url */ }
+    }
     
     const emailHtml = `
       <!DOCTYPE html>
