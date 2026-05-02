@@ -97,6 +97,24 @@ serve(async (req: Request): Promise<Response> => {
     console.log(`Sending conversion notification to ${userEmail}...`);
 
     const isSuccess = status === "completed";
+
+    const escapeHtml = (s: unknown) =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    const safeFileName = escapeHtml(fileName);
+    const safeOriginal = escapeHtml(originalFormat);
+    const safeTarget = escapeHtml(targetFormat);
+    const safeUserEmail = escapeHtml(userEmail);
+    let safeDownloadHref = "";
+    if (downloadUrl) {
+      try {
+        const u = new URL(downloadUrl);
+        if (u.protocol === "https:" || u.protocol === "http:") {
+          safeDownloadHref = escapeHtml(u.toString());
+        }
+      } catch { /* ignore invalid url */ }
+    }
     
     const emailHtml = `
       <!DOCTYPE html>
@@ -131,13 +149,13 @@ serve(async (req: Request): Promise<Response> => {
             </span>
             
             <div class="details">
-              <p><strong>Fajl:</strong> ${fileName}</p>
-              <p><strong>Konverzija:</strong> ${originalFormat.toUpperCase()} → ${targetFormat.toUpperCase()}</p>
+              <p><strong>Fajl:</strong> ${safeFileName}</p>
+              <p><strong>Konverzija:</strong> ${safeOriginal.toUpperCase()} → ${safeTarget.toUpperCase()}</p>
               <p><strong>Vrijeme:</strong> ${new Date().toLocaleString('bs-BA')}</p>
             </div>
             
-            ${isSuccess && downloadUrl ? `
-              <a href="${downloadUrl}" class="button">📥 Preuzmi konvertovani fajl</a>
+            ${isSuccess && safeDownloadHref ? `
+              <a href="${safeDownloadHref}" class="button">📥 Preuzmi konvertovani fajl</a>
             ` : ''}
             
             ${!isSuccess ? `
@@ -174,10 +192,10 @@ serve(async (req: Request): Promise<Response> => {
       `[BH Konver] Nova konverzija: ${fileName}`,
       `
         <h2>Nova konverzija</h2>
-        <p><strong>Korisnik:</strong> ${userEmail}</p>
-        <p><strong>Fajl:</strong> ${fileName}</p>
-        <p><strong>Konverzija:</strong> ${originalFormat} → ${targetFormat}</p>
-        <p><strong>Status:</strong> ${status}</p>
+        <p><strong>Korisnik:</strong> ${safeUserEmail}</p>
+        <p><strong>Fajl:</strong> ${safeFileName}</p>
+        <p><strong>Konverzija:</strong> ${safeOriginal} → ${safeTarget}</p>
+        <p><strong>Status:</strong> ${escapeHtml(status)}</p>
         <p><strong>Vrijeme:</strong> ${new Date().toISOString()}</p>
       `
     );
