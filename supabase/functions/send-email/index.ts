@@ -423,8 +423,8 @@ const handler = async (req: Request): Promise<Response> => {
           `Nova registracija - ${email}`,
           `
             <h2>Novi korisnik registrovan</h2>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Vrijeme:</strong> ${new Date().toLocaleString('bs-BA')}</p>
+            <p><strong>Email:</strong> ${safeEmail}</p>
+            <p><strong>Vrijeme:</strong> ${escapeHtml(new Date().toLocaleString('bs-BA'))}</p>
           `
         );
 
