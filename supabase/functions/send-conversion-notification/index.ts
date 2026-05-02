@@ -192,10 +192,10 @@ serve(async (req: Request): Promise<Response> => {
       `[BH Konver] Nova konverzija: ${fileName}`,
       `
         <h2>Nova konverzija</h2>
-        <p><strong>Korisnik:</strong> ${userEmail}</p>
-        <p><strong>Fajl:</strong> ${fileName}</p>
-        <p><strong>Konverzija:</strong> ${originalFormat} → ${targetFormat}</p>
-        <p><strong>Status:</strong> ${status}</p>
+        <p><strong>Korisnik:</strong> ${safeUserEmail}</p>
+        <p><strong>Fajl:</strong> ${safeFileName}</p>
+        <p><strong>Konverzija:</strong> ${safeOriginal} → ${safeTarget}</p>
+        <p><strong>Status:</strong> ${escapeHtml(status)}</p>
         <p><strong>Vrijeme:</strong> ${new Date().toISOString()}</p>
       `
     );
