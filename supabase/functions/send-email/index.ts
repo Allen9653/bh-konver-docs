@@ -35,6 +35,29 @@ interface WelcomeEmailRequest {
 
 type EmailRequest = MagicLinkRequest | DocumentShareRequest | CustomEmailRequest | WelcomeEmailRequest;
 
+// HTML-escape user-supplied values before interpolating into email templates
+function escapeHtml(input: unknown): string {
+  if (input === null || input === undefined) return "";
+  return String(input)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Validate URL is http(s) before embedding in href to avoid javascript: schemes
+function safeUrl(url: string | undefined): string {
+  if (!url) return "";
+  try {
+    const u = new URL(url);
+    if (u.protocol !== "https:" && u.protocol !== "http:") return "";
+    return escapeHtml(u.toString());
+  } catch {
+    return "";
+  }
+}
+
 async function sendEmail(to: string[], subject: string, html: string, from?: string, replyTo?: string) {
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
