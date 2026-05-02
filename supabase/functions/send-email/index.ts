@@ -190,8 +190,8 @@ const handler = async (req: Request): Promise<Response> => {
           `Nova uplata - ${email}`,
           `
             <h2>Nova uplata primljena</h2>
-            <p><strong>Korisnik:</strong> ${email}</p>
-            <p><strong>Važi do:</strong> ${expiresAt}</p>
+            <p><strong>Korisnik:</strong> ${escapeHtml(email)}</p>
+            <p><strong>Važi do:</strong> ${escapeHtml(expiresAt)}</p>
             <p>Magic link za pristup je poslan korisniku.</p>
           `
         );
