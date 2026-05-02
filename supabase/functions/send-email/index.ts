@@ -334,8 +334,18 @@ const handler = async (req: Request): Promise<Response> => {
       }
 
       case "welcome": {
+        // Restrict welcome email sending to service-role or admin callers (prevents branded email relay abuse)
+        if (!isServiceRole && !isAdmin) {
+          console.error(`Forbidden 'welcome' email attempt by user ${user.id} (${user.email})`);
+          return new Response(
+            JSON.stringify({ error: "Forbidden - admin role required" }),
+            { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
         const { email } = body;
-        
+        const safeEmail = escapeHtml(email);
+
         console.log(`Sending welcome email to ${email}`);
         
         emailResponse = await sendEmail(
