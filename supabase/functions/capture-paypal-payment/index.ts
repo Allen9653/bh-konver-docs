@@ -158,6 +158,10 @@ serve(async (req) => {
       }
 
       // Notify admin about the payment (no sensitive data)
+      const escapeHtml = (s: unknown) =>
+        String(s ?? "")
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
       await fetch(`${supabaseUrl}/functions/v1/send-email`, {
         method: "POST",
         headers: {
@@ -170,9 +174,9 @@ serve(async (req) => {
           subject: `Nova uplata - ${plan}`,
           html: `
             <h2>Nova uplata primljena!</h2>
-            <p><strong>Korisnik:</strong> ${email}</p>
-            <p><strong>Paket:</strong> ${plan}</p>
-            <p><strong>PayPal Order ID:</strong> ${orderId}</p>
+            <p><strong>Korisnik:</strong> ${escapeHtml(email)}</p>
+            <p><strong>Paket:</strong> ${escapeHtml(plan)}</p>
+            <p><strong>PayPal Order ID:</strong> ${escapeHtml(orderId)}</p>
             <p><strong>Datum:</strong> ${new Date().toLocaleString("bs-BA")}</p>
           `,
         }),
