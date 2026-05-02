@@ -149,13 +149,13 @@ serve(async (req: Request): Promise<Response> => {
             </span>
             
             <div class="details">
-              <p><strong>Fajl:</strong> ${fileName}</p>
-              <p><strong>Konverzija:</strong> ${originalFormat.toUpperCase()} → ${targetFormat.toUpperCase()}</p>
+              <p><strong>Fajl:</strong> ${safeFileName}</p>
+              <p><strong>Konverzija:</strong> ${safeOriginal.toUpperCase()} → ${safeTarget.toUpperCase()}</p>
               <p><strong>Vrijeme:</strong> ${new Date().toLocaleString('bs-BA')}</p>
             </div>
             
-            ${isSuccess && downloadUrl ? `
-              <a href="${downloadUrl}" class="button">📥 Preuzmi konvertovani fajl</a>
+            ${isSuccess && safeDownloadHref ? `
+              <a href="${safeDownloadHref}" class="button">📥 Preuzmi konvertovani fajl</a>
             ` : ''}
             
             ${!isSuccess ? `
