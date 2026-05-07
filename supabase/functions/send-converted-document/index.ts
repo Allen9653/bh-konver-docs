@@ -39,20 +39,54 @@ serve(async (req) => {
     console.log(`Send document initiated by user: ${user.email}`);
     const { recipientEmail, documentUrl, fileName } = await req.json();
 
-    console.log("Sending document to:", recipientEmail);
+    // Restrict recipient to the authenticated user's own email (anti-relay)
+    if (!recipientEmail || typeof recipientEmail !== "string" || recipientEmail.toLowerCase() !== (user.email ?? "").toLowerCase()) {
+      return new Response(
+        JSON.stringify({ error: "Recipient email must match authenticated user" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
-    // Here you would integrate with your email service (Resend, SendGrid, etc.)
-    // For now, we'll just log it
+    // Validate documentUrl is a safe http(s) URL on our Supabase project host
+    const safeUrl = (() => {
+      try {
+        const u = new URL(String(documentUrl ?? ""));
+        if (u.protocol !== "https:" && u.protocol !== "http:") return null;
+        const expectedHost = new URL(supabaseUrl).host;
+        if (u.host !== expectedHost) return null;
+        return u.toString();
+      } catch {
+        return null;
+      }
+    })();
+    if (!safeUrl) {
+      return new Response(
+        JSON.stringify({ error: "Invalid document URL" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const escapeHtml = (s: unknown) =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
+    const safeFileName = escapeHtml(fileName);
+    const safeRecipient = escapeHtml(recipientEmail);
+    const safeHref = escapeHtml(safeUrl);
+
+    console.log("Sending document to:", safeRecipient);
+
     const emailBody = {
       to: recipientEmail,
-      subject: `BH KONVER - Konvertirani dokument: ${fileName}`,
+      subject: `BH KONVER - Konvertirani dokument: ${safeFileName}`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
           <h2 style="color: #333;">Vaš konvertirani dokument je spreman</h2>
           <p>Pozdrav,</p>
-          <p>Vaš dokument <strong>${fileName}</strong> je uspješno konvertiran i spreman za preuzimanje.</p>
+          <p>Vaš dokument <strong>${safeFileName}</strong> je uspješno konvertiran i spreman za preuzimanje.</p>
           <p style="margin: 30px 0;">
-            <a href="${documentUrl}" 
+            <a href="${safeHref}" 
                style="background-color: #0066cc; color: white; padding: 12px 24px; 
                       text-decoration: none; border-radius: 5px; display: inline-block;">
               Preuzmi dokument
