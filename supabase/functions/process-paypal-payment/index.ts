@@ -130,11 +130,20 @@ serve(async (req) => {
             email_address: "alenjusufovic@yahoo.com", // Payment receiver
           },
         }],
-        application_context: {
-          brand_name: "BH KONVER",
-          return_url: `${req.headers.get("origin")}/payment-success?email=${encodeURIComponent(email)}&plan=${plan}&token={TOKEN}`,
-          cancel_url: `${req.headers.get("origin")}/payment-canceled`,
-        },
+        application_context: (() => {
+          const ALLOWED_ORIGINS = [
+            "https://bh-konver.lovable.app",
+            "https://bhkonver.ba",
+            "https://id-preview--2bb502b3-f541-4731-a607-bafa037ec71a.lovable.app",
+          ];
+          const reqOrigin = req.headers.get("origin") ?? "";
+          const safeOrigin = ALLOWED_ORIGINS.includes(reqOrigin) ? reqOrigin : "https://bh-konver.lovable.app";
+          return {
+            brand_name: "BH KONVER",
+            return_url: `${safeOrigin}/payment-success?email=${encodeURIComponent(email)}&plan=${plan}&token={TOKEN}`,
+            cancel_url: `${safeOrigin}/payment-canceled`,
+          };
+        })(),
       }),
     });
 
