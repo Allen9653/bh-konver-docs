@@ -79,8 +79,26 @@ serve(async (req) => {
         },
       ],
       mode: "payment",
-      success_url: `${req.headers.get("origin")}/success`,
-      cancel_url: `${req.headers.get("origin")}/`,
+      success_url: (() => {
+        const ALLOWED_ORIGINS = [
+          "https://bh-konver.lovable.app",
+          "https://bhkonver.ba",
+          "https://id-preview--2bb502b3-f541-4731-a607-bafa037ec71a.lovable.app",
+        ];
+        const reqOrigin = req.headers.get("origin") ?? "";
+        const safeOrigin = ALLOWED_ORIGINS.includes(reqOrigin) ? reqOrigin : "https://bh-konver.lovable.app";
+        return `${safeOrigin}/success`;
+      })(),
+      cancel_url: (() => {
+        const ALLOWED_ORIGINS = [
+          "https://bh-konver.lovable.app",
+          "https://bhkonver.ba",
+          "https://id-preview--2bb502b3-f541-4731-a607-bafa037ec71a.lovable.app",
+        ];
+        const reqOrigin = req.headers.get("origin") ?? "";
+        const safeOrigin = ALLOWED_ORIGINS.includes(reqOrigin) ? reqOrigin : "https://bh-konver.lovable.app";
+        return `${safeOrigin}/`;
+      })(),
       metadata: {
         email: email,
       },
