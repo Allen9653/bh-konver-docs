@@ -7,7 +7,7 @@ interface SplashScreenProps {
   duration?: number;
 }
 
-const SplashScreen = ({ onComplete, duration = 2000 }: SplashScreenProps) => {
+const SplashScreen = ({ onComplete, duration = 600 }: SplashScreenProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
 
