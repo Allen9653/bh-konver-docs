@@ -228,9 +228,14 @@ export const BatchConversionPanel = ({
       updateItem(item.id, { status: "done", progress: 100, stage: t("batch.done", "Done"), result: blob });
       logConversion(item.file, ext, format);
     } catch (err) {
-      const msg = String(err);
+      const msg = err instanceof Error ? err.message : String(err);
       console.error("[BH KONVER] Batch item failed:", item.file.name, err);
       updateItem(item.id, { status: "error", error: msg, stage: t("batch.failed", "Failed") });
+      toast({
+        variant: "destructive",
+        title: t("conversion.error", "Conversion failed"),
+        description: `${item.file.name}: ${msg}`,
+      });
       logError(item.file, ext, format, msg);
     }
   };
