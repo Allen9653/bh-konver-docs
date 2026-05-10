@@ -64,25 +64,38 @@ const Index = () => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
   }, []);
 
-  const pollForJobCompletion = async (jobId: string): Promise<Blob> => {
+  const pollForJobCompletion = async (
+    jobId: string,
+    onProgress?: (p: ConversionProgress) => void
+  ): Promise<Blob> => {
     let attempts = 0;
-    while (attempts < 90) {
+    const MAX_ATTEMPTS = 60; // 60 × 2s = 2 minutes
+    while (attempts < MAX_ATTEMPTS) {
       const { data: job, error } = await supabase
         .from("processing_jobs")
         .select("status, progress, result_url, error")
         .eq("id", jobId)
         .single();
       if (error) throw new Error("Error checking conversion status");
+      if (typeof job.progress === "number") {
+        onProgress?.({
+          stage: "Konvertovanje na serveru...",
+          percent: Math.min(95, 50 + Math.round(job.progress * 0.45)),
+        });
+      }
       if (job.status === "completed" && job.result_url) {
+        onProgress?.({ stage: "Preuzimanje rezultata...", percent: 98 });
         const response = await fetch(job.result_url);
-        if (!response.ok) throw new Error("Download link expired");
+        if (!response.ok) throw new Error("Link za preuzimanje je istekao. Pokušajte ponovo.");
         return await response.blob();
       }
-      if (job.status === "failed") throw new Error(job.error || "Conversion failed");
+      if (job.status === "failed") throw new Error(job.error || "Konverzija nije uspjela na serveru.");
       await new Promise((r) => setTimeout(r, 2000));
       attempts++;
     }
-    throw new Error("Conversion timed out");
+    throw new Error(
+      "Konverzija je istekla nakon 2 minute. Fajl je možda prevelik ili je server preopterećen — pokušajte ponovo ili sa manjim fajlom."
+    );
   };
 
   const handleConvert = async (
@@ -91,6 +104,12 @@ const Index = () => {
     needsBackend: boolean,
     onProgress?: (p: ConversionProgress) => void
   ): Promise<Blob> => {
+    // Paywall: only premium users (admin or active subscription) can convert
+    if (!isPremiumUser) {
+      setPaymentModalOpen(true);
+      throw new Error("Potrebna je aktivna pretplata za konverziju fajlova.");
+    }
+
     const [{ canConvertClientSide, convertClientSide }, { convertFile }] = await Promise.all([
       import("@/utils/clientConverter"),
       import("@/utils/pdfConverter"),
