@@ -153,7 +153,7 @@ const Index = () => {
       if (response.status === 202) {
         const asyncData = await response.json();
         onProgress?.({ stage: "Čekanje rezultata...", percent: 50 });
-        if (asyncData.job_id) return await pollForJobCompletion(asyncData.job_id);
+        if (asyncData.job_id) return await pollForJobCompletion(asyncData.job_id, onProgress);
       }
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
