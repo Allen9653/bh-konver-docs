@@ -128,6 +128,7 @@ export const BatchConversionPanel = ({
   const isRunningRef = useRef(false);
   isRunningRef.current = isRunning;
   const cancelRequestedRef = useRef(false);
+  const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
 
   // Track the file-id signature to detect a *real* file-set change
   // (different files were added/removed), as opposed to the parent simply
