@@ -401,6 +401,18 @@ export const BatchConversionPanel = ({
                 : t("batch.runAll", "Convert all")}
             </Button>
           )}
+          {isRunning && (
+            <Button
+              onClick={handleCancelBatch}
+              variant="outline"
+              className="h-9 border-destructive/30 text-destructive hover:bg-destructive/10"
+              disabled={cancelRequestedRef.current}
+              aria-label={t("batch.cancel", "Cancel batch")}
+            >
+              <StopCircle className="mr-2 w-4 h-4" />
+              {t("batch.cancel", "Cancel")}
+            </Button>
+          )}
           {hasResults && (
             <Button
               onClick={handleDownloadAll}
