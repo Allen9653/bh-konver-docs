@@ -414,7 +414,7 @@ export const BatchConversionPanel = ({
           )}
           {isRunning && (
             <Button
-              onClick={handleCancelBatch}
+              onClick={() => setCancelDialogOpen(true)}
               variant="outline"
               className="h-9 border-destructive/30 text-destructive hover:bg-destructive/10"
               disabled={cancelRequestedRef.current}
