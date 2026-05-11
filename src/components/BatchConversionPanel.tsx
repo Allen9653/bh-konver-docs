@@ -565,6 +565,36 @@ export const BatchConversionPanel = ({
           );
         })}
       </ul>
+
+      <AlertDialog open={cancelDialogOpen} onOpenChange={setCancelDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {t("batch.cancelConfirmTitle", "Cancel batch conversion?")}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {t(
+                "batch.cancelConfirmDesc",
+                "The file currently being processed will finish, but no further files will be converted. Already completed files keep their results, and you can resume by clicking Convert all again."
+              )}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>
+              {t("batch.cancelConfirmKeep", "Keep converting")}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                handleCancelBatch();
+                setCancelDialogOpen(false);
+              }}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {t("batch.cancelConfirmStop", "Stop batch")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Card>
   );
 };
