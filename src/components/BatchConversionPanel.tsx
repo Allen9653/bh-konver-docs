@@ -25,7 +25,7 @@ import { getAvailableFormats, type OutputFormat } from "@/types/formats";
 import type { DetectedFormat } from "@/utils/formatDetector";
 import { supabase } from "@/integrations/supabase/client";
 
-export type BatchItemStatus = "queued" | "processing" | "done" | "error";
+export type BatchItemStatus = "queued" | "processing" | "done" | "error" | "cancelled";
 
 interface BatchItem {
   id: string;
