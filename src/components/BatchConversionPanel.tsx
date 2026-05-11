@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -94,8 +94,10 @@ export const BatchConversionPanel = ({
   const { t } = useTranslation();
   const { toast } = useToast();
 
-  const initialItems: BatchItem[] = useMemo(() => {
-    return files.map((file, idx) => {
+  // Build initial items from incoming files. Used only as a seed and for
+  // detecting when the set of files actually changes (by stable ids).
+  const buildItems = (srcFiles: File[]): BatchItem[] =>
+    srcFiles.map((file, idx) => {
       const ext = file.name.split(".").pop()?.toLowerCase() || "";
       const formats = getAvailableFormats(ext);
       return {
@@ -108,15 +110,32 @@ export const BatchConversionPanel = ({
         showPreview: false,
       };
     });
-  }, [files]);
 
-  const [items, setItems] = useState<BatchItem[]>(initialItems);
+  // Lazy initializer so we don't rebuild items on every parent re-render.
+  const [items, setItems] = useState<BatchItem[]>(() => buildItems(files));
   const [isRunning, setIsRunning] = useState(false);
+  const isRunningRef = useRef(false);
+  isRunningRef.current = isRunning;
+
+  // Track the file-id signature to detect a *real* file-set change
+  // (different files were added/removed), as opposed to the parent simply
+  // re-rendering with a new array reference. This prevents resetting an
+  // in-flight batch.
+  const filesSignature = useMemo(
+    () => files.map((f) => `${f.name}-${f.size}-${f.lastModified}`).join("|"),
+    [files]
+  );
+  const lastSignatureRef = useRef(filesSignature);
 
   useEffect(() => {
-    setItems(initialItems);
+    if (lastSignatureRef.current === filesSignature) return;
+    // Never wipe an active batch — wait until it finishes.
+    if (isRunningRef.current) return;
+    lastSignatureRef.current = filesSignature;
+    setItems(buildItems(files));
     setIsRunning(false);
-  }, [initialItems]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filesSignature]);
 
   const overallStep: ConversionStep = useMemo(() => {
     if (items.every((i) => i.status === "done" || i.status === "error") && items.some((i) => i.status === "done")) return "download";
@@ -151,47 +170,50 @@ export const BatchConversionPanel = ({
     []
   );
 
-  const logConversion = (file: File, ext: string, format: string) => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user?.id) {
-        supabase
-          .from("conversion_logs")
-          .insert({
-            from_format: ext,
-            to_format: format,
-            file_size_kb: Math.round(file.size / 1024),
-            user_email: session.user.email || "anonymous",
-            user_id: session.user.id,
-          } as any)
-          .then(({ error }) => {
-            if (error) console.warn("[BH KONVER] Failed to log conversion:", error.message);
-          });
+  const logConversion = async (file: File, ext: string, format: string) => {
+    try {
+      const { data: { session }, error: sessionErr } = await supabase.auth.getSession();
+      if (sessionErr) {
+        console.warn("[BH KONVER] getSession failed for logConversion:", sessionErr.message);
+        return;
       }
-    });
+      if (!session?.user?.id) return;
+      const { error } = await supabase.from("conversion_logs").insert({
+        from_format: ext,
+        to_format: format,
+        file_size_kb: Math.round(file.size / 1024),
+        user_email: session.user.email || "anonymous",
+        user_id: session.user.id,
+      } as any);
+      if (error) console.warn("[BH KONVER] Failed to log conversion:", error.message);
+    } catch (e) {
+      console.warn("[BH KONVER] logConversion threw:", e);
+    }
   };
 
-  const logError = (file: File, ext: string, format: string, err: string) => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user?.id && session.user.email) {
-        supabase
-          .from("server_errors" as any)
-          .insert({
-            error_message: err,
-            error_code: "BATCH_CONVERSION_FAILED",
-            file_name: file.name,
-            from_format: ext,
-            to_format: format,
-            file_size_kb: Math.round(file.size / 1024),
-            user_email: session.user.email,
-            user_id: session.user.id,
-          })
-          .then(({ error: dbErr }) => {
-            if (dbErr) console.warn("[BH KONVER] Failed to log error:", dbErr.message);
-          });
+  const logError = async (file: File, ext: string, format: string, err: string) => {
+    try {
+      const { data: { session }, error: sessionErr } = await supabase.auth.getSession();
+      if (sessionErr) {
+        console.warn("[BH KONVER] getSession failed for logError:", sessionErr.message);
+        return;
       }
-    });
+      if (!session?.user?.id || !session.user.email) return;
+      const { error: dbErr } = await supabase.from("server_errors" as any).insert({
+        error_message: err,
+        error_code: "BATCH_CONVERSION_FAILED",
+        file_name: file.name,
+        from_format: ext,
+        to_format: format,
+        file_size_kb: Math.round(file.size / 1024),
+        user_email: session.user.email,
+        user_id: session.user.id,
+      });
+      if (dbErr) console.warn("[BH KONVER] Failed to log error:", dbErr.message);
+    } catch (e) {
+      console.warn("[BH KONVER] logError threw:", e);
+    }
   };
-
   const processOne = async (item: BatchItem): Promise<void> => {
     const ext = item.detectedExt || item.file.name.split(".").pop()?.toLowerCase() || "";
     const format = item.targetFormat;
