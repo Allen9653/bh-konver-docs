@@ -24,6 +24,16 @@ import { PreviewPanel } from "@/components/PreviewPanel";
 import { getAvailableFormats, type OutputFormat } from "@/types/formats";
 import type { DetectedFormat } from "@/utils/formatDetector";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export type BatchItemStatus = "queued" | "processing" | "done" | "error" | "cancelled";
 
@@ -118,6 +128,7 @@ export const BatchConversionPanel = ({
   const isRunningRef = useRef(false);
   isRunningRef.current = isRunning;
   const cancelRequestedRef = useRef(false);
+  const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
 
   // Track the file-id signature to detect a *real* file-set change
   // (different files were added/removed), as opposed to the parent simply
@@ -403,7 +414,7 @@ export const BatchConversionPanel = ({
           )}
           {isRunning && (
             <Button
-              onClick={handleCancelBatch}
+              onClick={() => setCancelDialogOpen(true)}
               variant="outline"
               className="h-9 border-destructive/30 text-destructive hover:bg-destructive/10"
               disabled={cancelRequestedRef.current}
@@ -554,6 +565,36 @@ export const BatchConversionPanel = ({
           );
         })}
       </ul>
+
+      <AlertDialog open={cancelDialogOpen} onOpenChange={setCancelDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {t("batch.cancelConfirmTitle", "Cancel batch conversion?")}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {t(
+                "batch.cancelConfirmDesc",
+                "The file currently being processed will finish, but no further files will be converted. Already completed files keep their results, and you can resume by clicking Convert all again."
+              )}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>
+              {t("batch.cancelConfirmKeep", "Keep converting")}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                handleCancelBatch();
+                setCancelDialogOpen(false);
+              }}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {t("batch.cancelConfirmStop", "Stop batch")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Card>
   );
 };
