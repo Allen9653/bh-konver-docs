@@ -266,15 +266,21 @@ export const BatchConversionPanel = ({
 
   const handleRunBatch = async () => {
     if (isRunning) return;
+    cancelRequestedRef.current = false;
     setIsRunning(true);
 
-    const queueIds = items.filter((it) => it.status === "queued" || it.status === "error").map((it) => it.id);
+    const queueIds = items.filter((it) => it.status === "queued" || it.status === "error" || it.status === "cancelled").map((it) => it.id);
 
-    setItems((prev) => prev.map((it) => (it.status === "error" ? { ...it, status: "queued", error: undefined, progress: 0 } : it)));
+    setItems((prev) => prev.map((it) =>
+      (it.status === "error" || it.status === "cancelled")
+        ? { ...it, status: "queued", error: undefined, progress: 0, stage: "" }
+        : it
+    ));
 
     let cursor = 0;
     const next = async (): Promise<void> => {
       while (cursor < queueIds.length) {
+        if (cancelRequestedRef.current) return;
         const id = queueIds[cursor++];
         const current = await new Promise<BatchItem | undefined>((resolve) => {
           setItems((prev) => {
@@ -283,6 +289,7 @@ export const BatchConversionPanel = ({
           });
         });
         if (!current) continue;
+        if (cancelRequestedRef.current) return;
         await processOne(current);
       }
     };
@@ -290,13 +297,35 @@ export const BatchConversionPanel = ({
     const workers = Array.from({ length: Math.min(MAX_PARALLEL, queueIds.length) }, () => next());
     await Promise.all(workers);
 
+    const wasCancelled = cancelRequestedRef.current;
+    cancelRequestedRef.current = false;
     setIsRunning(false);
+
+    if (wasCancelled) {
+      // Mark every still-queued or still-processing item as cancelled.
+      setItems((prev) => prev.map((it) =>
+        (it.status === "queued" || it.status === "processing")
+          ? { ...it, status: "cancelled", stage: t("batch.cancelled", "Cancelled") }
+          : it
+      ));
+      toast({
+        variant: "destructive",
+        title: t("batch.cancelled", "Cancelled"),
+        description: t("batch.cancelledDesc", "Batch conversion was cancelled. You can resume by clicking Convert all again."),
+      });
+      return;
+    }
+
     toast({
       title: t("batch.completed", "Batch completed"),
       description: t("batch.completedDesc", "All conversions finished. Download your files below."),
     });
   };
 
+  const handleCancelBatch = () => {
+    if (!isRunningRef.current) return;
+    cancelRequestedRef.current = true;
+  };
   const handleDownloadAll = async () => {
     const done = items.filter((i) => i.status === "done" && i.result);
     if (done.length === 0) return;
