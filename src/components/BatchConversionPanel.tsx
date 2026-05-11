@@ -24,6 +24,16 @@ import { PreviewPanel } from "@/components/PreviewPanel";
 import { getAvailableFormats, type OutputFormat } from "@/types/formats";
 import type { DetectedFormat } from "@/utils/formatDetector";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export type BatchItemStatus = "queued" | "processing" | "done" | "error" | "cancelled";
 
