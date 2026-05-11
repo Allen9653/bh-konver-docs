@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   FileText, Image as ImageIcon, Video, Music,
   Download, Loader2, X, RotateCcw, Eye, EyeOff, CheckCircle2,
-  Clock, AlertCircle, Archive, Play
+  Clock, AlertCircle, Archive, Play, Ban, StopCircle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -25,7 +25,7 @@ import { getAvailableFormats, type OutputFormat } from "@/types/formats";
 import type { DetectedFormat } from "@/utils/formatDetector";
 import { supabase } from "@/integrations/supabase/client";
 
-export type BatchItemStatus = "queued" | "processing" | "done" | "error";
+export type BatchItemStatus = "queued" | "processing" | "done" | "error" | "cancelled";
 
 interface BatchItem {
   id: string;
@@ -74,6 +74,7 @@ const StatusBadge = ({ status, t }: { status: BatchItemStatus; t: any }) => {
     processing: { label: t("batch.processing", "Processing"), Icon: Loader2, cls: "bg-primary/10 text-primary", spin: true },
     done: { label: t("batch.done", "Done"), Icon: CheckCircle2, cls: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" },
     error: { label: t("batch.failed", "Failed"), Icon: AlertCircle, cls: "bg-destructive/10 text-destructive" },
+    cancelled: { label: t("batch.cancelled", "Cancelled"), Icon: Ban, cls: "bg-muted text-muted-foreground" },
   } as const;
   const cfg = map[status];
   const Icon = cfg.Icon;
@@ -116,6 +117,7 @@ export const BatchConversionPanel = ({
   const [isRunning, setIsRunning] = useState(false);
   const isRunningRef = useRef(false);
   isRunningRef.current = isRunning;
+  const cancelRequestedRef = useRef(false);
 
   // Track the file-id signature to detect a *real* file-set change
   // (different files were added/removed), as opposed to the parent simply
@@ -264,15 +266,21 @@ export const BatchConversionPanel = ({
 
   const handleRunBatch = async () => {
     if (isRunning) return;
+    cancelRequestedRef.current = false;
     setIsRunning(true);
 
-    const queueIds = items.filter((it) => it.status === "queued" || it.status === "error").map((it) => it.id);
+    const queueIds = items.filter((it) => it.status === "queued" || it.status === "error" || it.status === "cancelled").map((it) => it.id);
 
-    setItems((prev) => prev.map((it) => (it.status === "error" ? { ...it, status: "queued", error: undefined, progress: 0 } : it)));
+    setItems((prev) => prev.map((it) =>
+      (it.status === "error" || it.status === "cancelled")
+        ? { ...it, status: "queued", error: undefined, progress: 0, stage: "" }
+        : it
+    ));
 
     let cursor = 0;
     const next = async (): Promise<void> => {
       while (cursor < queueIds.length) {
+        if (cancelRequestedRef.current) return;
         const id = queueIds[cursor++];
         const current = await new Promise<BatchItem | undefined>((resolve) => {
           setItems((prev) => {
@@ -281,6 +289,7 @@ export const BatchConversionPanel = ({
           });
         });
         if (!current) continue;
+        if (cancelRequestedRef.current) return;
         await processOne(current);
       }
     };
@@ -288,13 +297,35 @@ export const BatchConversionPanel = ({
     const workers = Array.from({ length: Math.min(MAX_PARALLEL, queueIds.length) }, () => next());
     await Promise.all(workers);
 
+    const wasCancelled = cancelRequestedRef.current;
+    cancelRequestedRef.current = false;
     setIsRunning(false);
+
+    if (wasCancelled) {
+      // Mark every still-queued or still-processing item as cancelled.
+      setItems((prev) => prev.map((it) =>
+        (it.status === "queued" || it.status === "processing")
+          ? { ...it, status: "cancelled", stage: t("batch.cancelled", "Cancelled") }
+          : it
+      ));
+      toast({
+        variant: "destructive",
+        title: t("batch.cancelled", "Cancelled"),
+        description: t("batch.cancelledDesc", "Batch conversion was cancelled. You can resume by clicking Convert all again."),
+      });
+      return;
+    }
+
     toast({
       title: t("batch.completed", "Batch completed"),
       description: t("batch.completedDesc", "All conversions finished. Download your files below."),
     });
   };
 
+  const handleCancelBatch = () => {
+    if (!isRunningRef.current) return;
+    cancelRequestedRef.current = true;
+  };
   const handleDownloadAll = async () => {
     const done = items.filter((i) => i.status === "done" && i.result);
     if (done.length === 0) return;
@@ -368,6 +399,18 @@ export const BatchConversionPanel = ({
               {isRunning
                 ? t("batch.running", "Converting...")
                 : t("batch.runAll", "Convert all")}
+            </Button>
+          )}
+          {isRunning && (
+            <Button
+              onClick={handleCancelBatch}
+              variant="outline"
+              className="h-9 border-destructive/30 text-destructive hover:bg-destructive/10"
+              disabled={cancelRequestedRef.current}
+              aria-label={t("batch.cancel", "Cancel batch")}
+            >
+              <StopCircle className="mr-2 w-4 h-4" />
+              {t("batch.cancel", "Cancel")}
             </Button>
           )}
           {hasResults && (
