@@ -74,6 +74,7 @@ const StatusBadge = ({ status, t }: { status: BatchItemStatus; t: any }) => {
     processing: { label: t("batch.processing", "Processing"), Icon: Loader2, cls: "bg-primary/10 text-primary", spin: true },
     done: { label: t("batch.done", "Done"), Icon: CheckCircle2, cls: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" },
     error: { label: t("batch.failed", "Failed"), Icon: AlertCircle, cls: "bg-destructive/10 text-destructive" },
+    cancelled: { label: t("batch.cancelled", "Cancelled"), Icon: Ban, cls: "bg-muted text-muted-foreground" },
   } as const;
   const cfg = map[status];
   const Icon = cfg.Icon;
