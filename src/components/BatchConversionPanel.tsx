@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   FileText, Image as ImageIcon, Video, Music,
   Download, Loader2, X, RotateCcw, Eye, EyeOff, CheckCircle2,
-  Clock, AlertCircle, Archive, Play
+  Clock, AlertCircle, Archive, Play, Ban, StopCircle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
