@@ -1,0 +1,17 @@
+# BH Konver
+
+> Brza i sigurna konverzija PDF, slika, dokumenata, audio i video fajlova. Lokalna obrada u pretraživaču bez slanja na server.
+
+BH Konver je all-in-one alat za konverziju fajlova razvijen u Bosni i Hercegovini. Podržava PDF ↔ JPEG, dokumente, slike, audio, video, GIF i konverziju valuta i jedinica.
+
+## Pages
+
+- [Home](/): Glavna stranica sa svim modulima za konverziju.
+- [Privacy Policy](/privacy): Pravila privatnosti i politika čuvanja podataka.
+- [Terms](/terms): Uslovi korištenja servisa.
+- [Support](/support): Korisnička podrška i kontakt.
+- [Sign in](/auth): Prijava i registracija korisnika.
+
+## Optional
+
+- [Reset password](/reset-password): Obnova zaboravljene lozinke.
