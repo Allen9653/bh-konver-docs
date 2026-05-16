@@ -21,7 +21,7 @@ const ALLOWED_MIME_TYPES = [
   "image/png",
   "image/webp",
   "image/gif",
-  "image/svg+xml",
+  // image/svg+xml intentionally excluded — SVG can embed scripts (stored XSS risk)
   "image/heic",
   "image/heif",
   // Audio
