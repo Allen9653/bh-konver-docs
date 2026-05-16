@@ -10,6 +10,7 @@ import { Loader2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import PasswordStrengthIndicator from "@/components/PasswordStrengthIndicator";
 import logo from "@/assets/bh-konver-logo.png";
+import { SEO } from "@/components/SEO";
 
 // Email validation regex
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -211,6 +212,11 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <SEO
+        title="Prijava i registracija — BH Konver"
+        description="Prijavite se ili kreirajte besplatan BH Konver račun za pristup svim alatima za konverziju."
+        path="/auth"
+      />
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">

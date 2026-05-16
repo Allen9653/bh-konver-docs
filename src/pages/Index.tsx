@@ -2,6 +2,7 @@ import { lazy, Suspense, useState, useCallback, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PremiumHeader } from "@/components/PremiumHeader";
+import { SEO } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { PremiumFooter } from "@/components/PremiumFooter";
 import { PremiumDropzone } from "@/components/PremiumDropzone";
@@ -178,6 +179,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEO
+        title="BH Konver — Konverzija PDF, JPEG, dokumenata i medija"
+        description="Brza i sigurna konverzija PDF u JPEG, dokumenata, slika, audia i videa. Lokalna obrada u pretraživaču bez slanja na server."
+        path="/"
+      />
       <PremiumHeader
         user={user}
         isAdmin={isAdmin}
