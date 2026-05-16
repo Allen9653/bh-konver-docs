@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "lucide-react";
 import { Footer } from "@/components/Footer";
+import { SEO } from "@/components/SEO";
 
 export default function Terms() {
   const navigate = useNavigate();
@@ -10,6 +11,11 @@ export default function Terms() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEO
+        title="Uslovi korištenja — BH Konver"
+        description="Uslovi korištenja servisa BH Konver: prava, obaveze i pravila korištenja platforme za konverziju fajlova."
+        path="/terms"
+      />
       <div className="container mx-auto px-4 py-8 max-w-4xl flex-1">
         <Button variant="ghost" onClick={() => navigate("/")} className="mb-6">
           <ArrowLeft className="w-4 h-4 mr-2" />
