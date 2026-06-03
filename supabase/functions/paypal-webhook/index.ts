@@ -6,10 +6,11 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, paypal-transmission-id, paypal-transmission-time, paypal-transmission-sig, paypal-cert-url, paypal-auth-algo",
 };
 
+// Only mark transactions as completed AFTER payment is actually captured.
+// CHECKOUT.ORDER.APPROVED fires before capture and must NOT activate subscriptions.
 const SUPPORTED_EVENTS = [
   "PAYMENT.SALE.COMPLETED",
   "PAYMENT.CAPTURE.COMPLETED",
-  "CHECKOUT.ORDER.APPROVED"
 ];
 
 // Replay protection - in-memory cache (per instance)
