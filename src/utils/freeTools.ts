@@ -36,7 +36,7 @@ export async function imagesToPdf(files: File[], onProgress?: ToolProgress): Pro
   onProgress?.("Generišem PDF...", 95);
   const out = await pdf.save();
   onProgress?.("Završeno!", 100);
-  return new Blob([out], { type: "application/pdf" });
+  return new Blob([out as BlobPart], { type: "application/pdf" });
 }
 
 // ────────────────────────────────────────────────────────────
@@ -239,7 +239,7 @@ export async function mergePdfs(files: File[], onProgress?: ToolProgress): Promi
   }
   const out = await merged.save();
   onProgress?.("Završeno!", 100);
-  return new Blob([out], { type: "application/pdf" });
+  return new Blob([out as BlobPart], { type: "application/pdf" });
 }
 
 // ────────────────────────────────────────────────────────────
