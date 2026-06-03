@@ -474,7 +474,35 @@ serve(async (req) => {
       );
     }
 
+    // Enforce size limit BEFORE reading into memory / forwarding to Cloudmersive
+    if (file.size > MAX_FILE_SIZE) {
+      console.warn(`File too large: ${file.size} bytes from user ${user.id}`);
+      return new Response(
+        JSON.stringify({ error: 'Fajl je prevelik. Maksimalna veličina je 50MB.' }),
+        { status: 413, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const fileExtension = file.name.split('.').pop()?.toLowerCase() || '';
+
+    // Block SVG explicitly — script-bearing payloads must not reach upstream
+    if (fileExtension === 'svg' || file.type === 'image/svg+xml') {
+      return new Response(
+        JSON.stringify({ error: 'SVG fajlovi nisu podržani.' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Cross-check declared MIME type against the extension to prevent spoofed content
+    const allowedMimes = ALLOWED_MIME_BY_EXTENSION[fileExtension];
+    if (allowedMimes && file.type && !allowedMimes.includes(file.type)) {
+      console.warn(`MIME mismatch: extension=${fileExtension} type=${file.type} user=${user.id}`);
+      return new Response(
+        JSON.stringify({ error: 'Sadržaj fajla ne odgovara ekstenziji.' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     console.log(`Converting ${file.name} (${fileExtension}) to ${targetFormat}, size: ${file.size} bytes`);
 
     const apiEndpoint = conversionMap[fileExtension]?.[targetFormat];
