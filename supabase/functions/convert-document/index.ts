@@ -133,10 +133,7 @@ const conversionMap: Record<string, Record<string, string>> = {
     pdf: 'https://api.cloudmersive.com/convert/image/jpeg/to/pdf',
     webp: 'https://api.cloudmersive.com/image/convert/to/webp',
   },
-  svg: {
-    png: 'https://api.cloudmersive.com/convert/image/svg/to/png',
-    jpg: 'https://api.cloudmersive.com/convert/image/svg/to/jpg',
-  },
+  // SVG conversions intentionally removed — SVG can embed scripts (stored XSS risk).
   // PDF & Documents
   pdf: {
     docx: 'https://api.cloudmersive.com/convert/pdf/to/docx',
