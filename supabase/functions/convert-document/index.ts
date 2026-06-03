@@ -9,6 +9,48 @@ declare const EdgeRuntime: {
 
 const CLOUDMERSIVE_API_KEY = Deno.env.get('CLOUDMERSIVE_API_KEY');
 
+// Maximum file size: 50MB (matches upload-document limit)
+const MAX_FILE_SIZE = 50 * 1024 * 1024;
+
+// Allowed MIME types per source extension. Enforced to prevent users from
+// sending arbitrary binary content with a spoofed extension to Cloudmersive.
+const ALLOWED_MIME_BY_EXTENSION: Record<string, string[]> = {
+  // Video
+  mp4: ['video/mp4'],
+  mov: ['video/quicktime'],
+  avi: ['video/x-msvideo', 'video/avi'],
+  webm: ['video/webm'],
+  mkv: ['video/x-matroska'],
+  flv: ['video/x-flv'],
+  // Audio
+  mp3: ['audio/mpeg', 'audio/mp3'],
+  ogg: ['audio/ogg', 'application/ogg'],
+  wav: ['audio/wav', 'audio/x-wav', 'audio/wave'],
+  m4a: ['audio/mp4', 'audio/x-m4a'],
+  aac: ['audio/aac', 'audio/x-aac'],
+  flac: ['audio/flac', 'audio/x-flac'],
+  // Images
+  webp: ['image/webp'],
+  jfif: ['image/jpeg'],
+  heic: ['image/heic', 'image/heif'],
+  png: ['image/png'],
+  jpg: ['image/jpeg'],
+  jpeg: ['image/jpeg'],
+  // PDF & Documents
+  pdf: ['application/pdf'],
+  docx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+  doc: ['application/msword'],
+  epub: ['application/epub+zip'],
+  txt: ['text/plain'],
+  pptx: ['application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+  ppt: ['application/vnd.ms-powerpoint'],
+  xlsx: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+  xls: ['application/vnd.ms-excel'],
+  // GIF
+  gif: ['image/gif'],
+  apng: ['image/apng', 'image/png'],
+};
+
 // Conversion map for all supported formats
 const conversionMap: Record<string, Record<string, string>> = {
   // Video & Audio
