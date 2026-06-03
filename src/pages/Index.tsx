@@ -12,7 +12,8 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LogIn, Sparkles, Shield, Zap } from "lucide-react";
+import { LogIn, Sparkles, Shield, Zap, LockOpen, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { ConversionModule } from "@/types/formats";
 import type { PDFOperation } from "@/types/pdfOperations";
 import type { ConversionProgress } from "@/utils/clientConverter";
@@ -203,9 +204,20 @@ const Index = () => {
             <h1 className="text-4xl sm:text-5xl font-bold font-display tracking-tight mb-3">
               BH <span className="text-accent">KONVER</span>
             </h1>
-            <p className="text-base text-white/80 max-w-md mx-auto mb-8">
+            <p className="text-base text-white/80 max-w-md mx-auto mb-6">
               {t('hero.subtitle')}
             </p>
+            <div className="flex flex-wrap justify-center gap-2 mb-6">
+              <span className="inline-flex items-center gap-1 bg-accent text-accent-foreground rounded-full px-3 py-1 text-xs font-semibold">
+                <Sparkles className="w-3 h-3" /> 100% Besplatno
+              </span>
+              <span className="inline-flex items-center gap-1 bg-white/10 border border-white/20 rounded-full px-3 py-1 text-xs">
+                <LockOpen className="w-3 h-3" /> Bez registracije
+              </span>
+            </div>
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold mb-6">
+              <Link to="/alati">Otvori besplatne alate <ArrowRight className="w-4 h-4 ml-2" /></Link>
+            </Button>
             <div className="flex justify-center gap-6 text-sm text-white/60">
               <div className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-accent" /> {t('transparency.nosharing.title')}</div>
               <div className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-accent" /> {t('pricing.day.feature3')}</div>
