@@ -83,6 +83,18 @@ serve(async (req) => {
     const operation = formData.get("operation") as string;
     console.log(`PDF operation: ${operation}`);
 
+    // Enforce 50MB per-file size limit on every uploaded file before processing
+    const MAX_FILE_SIZE = 50 * 1024 * 1024;
+    for (const [key, value] of formData.entries()) {
+      if (value instanceof File && value.size > MAX_FILE_SIZE) {
+        console.warn(`PDF op ${operation}: file ${key} too large (${value.size} bytes)`);
+        return new Response(
+          JSON.stringify({ error: "Fajl je prevelik. Maksimalna veličina je 50MB." }),
+          { status: 413, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+    }
+
     const operationEndpoints: Record<string, string> = {
       "remove-watermark": "https://api.cloudmersive.com/convert/edit/pdf/watermark/remove/all-watermarks",
       "compress-pdf": "https://api.cloudmersive.com/convert/edit/pdf/optimize/reduce-file-size",
