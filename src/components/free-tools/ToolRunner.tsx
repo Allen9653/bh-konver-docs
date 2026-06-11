@@ -50,12 +50,19 @@ export const ToolRunner = ({
       return ext ? acceptedExtensions.includes(ext) : false;
     });
     if (arr.length === 0) {
-      toast.error("Nepodržan format. Dozvoljeno: " + acceptedExtensions.join(", "));
+      toast.error(t("freeTools.unsupportedFormat", { formats: acceptedExtensions.join(", ") }));
+      return;
+    }
+    const oversized = arr.filter((f) => f.size > MAX_FILE_SIZE);
+    if (oversized.length > 0) {
+      const sizeMb = (oversized[0].size / 1024 / 1024).toFixed(1);
+      const limitMb = (MAX_FILE_SIZE / 1024 / 1024).toString();
+      toast.error(t("freeTools.fileTooLarge", { size: sizeMb, limit: limitMb }));
       return;
     }
     setFiles((prev) => (multiple ? [...prev, ...arr] : arr));
     setResult(null);
-  }, [acceptedExtensions, multiple]);
+  }, [acceptedExtensions, multiple, t]);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
