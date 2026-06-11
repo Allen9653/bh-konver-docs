@@ -353,5 +353,11 @@
     "detecting": "Format wird erkannt...",
     "detected": "Erkannt",
     "mismatchWarning": "Dateierweiterung stimmt nicht mit Inhalt überein. Konvertierung verwendet erkanntes Format."
+  },
+  "freeTools": {
+    "unsupportedFormat": "Nicht unterstütztes Format. Nur erlaubt: {{formats}}",
+    "fileTooLarge": "Datei ist zu groß ({{size}} MB). Maximum erlaubt: {{limit}} MB. Versuchen Sie die Datei zu komprimieren oder upgraden Sie auf Premium.",
+    "serverBusy": "Server ist derzeit beschäftigt, bitte versuchen Sie es in Kürze erneut.",
+    "uploadBlocked": "Upload blockiert"
   }
 }

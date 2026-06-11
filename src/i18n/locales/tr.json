@@ -353,5 +353,11 @@
     "detecting": "Format algılanıyor...",
     "detected": "Algılanan",
     "mismatchWarning": "Dosya uzantısı içeriğiyle eşleşmiyor. Dönüştürme algılanan formatı kullanacak."
+  },
+  "freeTools": {
+    "unsupportedFormat": "Desteklenmeyen format. Sadece izin verilen: {{formats}}",
+    "fileTooLarge": "Dosya çok büyük ({{size}} MB). Maksimum izin verilen: {{limit}} MB. Dosyayı sıkıştırmayı deneyin veya Premium'a yükseltin.",
+    "serverBusy": "Sunucu şu an meşgul, lütfen kısa bir süre sonra tekrar deneyin.",
+    "uploadBlocked": "Yükleme engellendi"
   }
 }

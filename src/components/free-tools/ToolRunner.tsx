@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -6,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Download, Loader2, Upload, X, FileText, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { downloadBlob, type ToolProgress } from "@/utils/freeTools";
+
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
 type RunnerProps = {
   title: string;
@@ -30,6 +33,7 @@ export const ToolRunner = ({
   note,
   minFiles = 1,
 }: RunnerProps) => {
+  const { t } = useTranslation();
   const [files, setFiles] = useState<File[]>([]);
   const [busy, setBusy] = useState(false);
   const [stage, setStage] = useState("");
@@ -46,12 +50,19 @@ export const ToolRunner = ({
       return ext ? acceptedExtensions.includes(ext) : false;
     });
     if (arr.length === 0) {
-      toast.error("Nepodržan format. Dozvoljeno: " + acceptedExtensions.join(", "));
+      toast.error(t("freeTools.unsupportedFormat", { formats: acceptedExtensions.join(", ") }));
+      return;
+    }
+    const oversized = arr.filter((f) => f.size > MAX_FILE_SIZE);
+    if (oversized.length > 0) {
+      const sizeMb = (oversized[0].size / 1024 / 1024).toFixed(1);
+      const limitMb = (MAX_FILE_SIZE / 1024 / 1024).toString();
+      toast.error(t("freeTools.fileTooLarge", { size: sizeMb, limit: limitMb }));
       return;
     }
     setFiles((prev) => (multiple ? [...prev, ...arr] : arr));
     setResult(null);
-  }, [acceptedExtensions, multiple]);
+  }, [acceptedExtensions, multiple, t]);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -72,10 +83,10 @@ export const ToolRunner = ({
       });
       setResult(blob);
       setResultName(outputFilename(multiple ? files : files[0]));
-      toast.success("Konverzija završena!");
+      toast.success(t("conversion.success"));
     } catch (err) {
       console.error(err);
-      toast.error(err instanceof Error ? err.message : "Greška pri obradi");
+      toast.error(t("conversion.error"));
     } finally {
       setBusy(false);
     }
