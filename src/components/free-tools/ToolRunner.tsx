@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -6,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Download, Loader2, Upload, X, FileText, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { downloadBlob, type ToolProgress } from "@/utils/freeTools";
+
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
 type RunnerProps = {
   title: string;
