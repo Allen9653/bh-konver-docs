@@ -83,10 +83,10 @@ export const ToolRunner = ({
       });
       setResult(blob);
       setResultName(outputFilename(multiple ? files : files[0]));
-      toast.success("Konverzija završena!");
+      toast.success(t("conversion.success"));
     } catch (err) {
       console.error(err);
-      toast.error(err instanceof Error ? err.message : "Greška pri obradi");
+      toast.error(t("conversion.error"));
     } finally {
       setBusy(false);
     }
