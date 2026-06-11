@@ -129,6 +129,7 @@ export async function pdfToWord(file: File, onProgress?: ToolProgress): Promise<
 export async function excelToPdf(file: File, onProgress?: ToolProgress): Promise<Blob> {
   onProgress?.("Učitavanje Excel datoteke...", 10);
   const XLSX = await import("xlsx");
+  const DOMPurify = (await import("dompurify")).default;
   const data = new Uint8Array(await file.arrayBuffer());
   const workbook = XLSX.read(data, { type: "array" });
 
@@ -140,7 +141,9 @@ export async function excelToPdf(file: File, onProgress?: ToolProgress): Promise
   for (let s = 0; s < sheetNames.length; s++) {
     const name = sheetNames[s];
     const sheet = workbook.Sheets[name];
-    const html = XLSX.utils.sheet_to_html(sheet, { editable: false });
+    const rawHtml = XLSX.utils.sheet_to_html(sheet, { editable: false });
+    // Sanitize HTML from untrusted Excel file to prevent XSS
+    const safeHtml = DOMPurify.sanitize(rawHtml, { FORBID_TAGS: ["script", "style", "iframe", "object", "embed"], FORBID_ATTR: ["onerror", "onload", "onclick"] });
 
     const container = document.createElement("div");
     container.style.width = "800px";
@@ -148,7 +151,16 @@ export async function excelToPdf(file: File, onProgress?: ToolProgress): Promise
     container.style.fontFamily = "Helvetica, Arial, sans-serif";
     container.style.fontSize = "10px";
     container.style.color = "#000";
-    container.innerHTML = `<h3 style="font-size:14px;margin:0 0 10px 0">${name}</h3>${html}`;
+    // Safely set heading using textContent (escapes any HTML in sheet name)
+    const heading = document.createElement("h3");
+    heading.style.fontSize = "14px";
+    heading.style.margin = "0 0 10px 0";
+    heading.textContent = name;
+    container.appendChild(heading);
+    const htmlWrapper = document.createElement("div");
+    htmlWrapper.innerHTML = safeHtml;
+    container.appendChild(htmlWrapper);
+
     // Style tables
     container.querySelectorAll("table").forEach((t) => {
       (t as HTMLElement).style.borderCollapse = "collapse";
