@@ -353,5 +353,11 @@
     "detecting": "Detekcija formata...",
     "detected": "Detektovano",
     "mismatchWarning": "Ekstenzija fajla ne odgovara stvarnom sadržaju. Konverzija će koristiti detektovani format."
+  },
+  "freeTools": {
+    "unsupportedFormat": "Nepodržan format. Dozvoljeno samo: {{formats}}",
+    "fileTooLarge": "Datoteka je prevelika ({{size}} MB). Maksimalno dozvoljeno: {{limit}} MB. Pokušajte kompresovati datoteku ili nadogradite na Premium.",
+    "serverBusy": "Server je trenutno zauzet, pokušajte ponovo za trenutak.",
+    "uploadBlocked": "Upload blokiran"
   }
 }
