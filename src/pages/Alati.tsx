@@ -6,6 +6,7 @@ import { SEO } from "@/components/SEO";
 import { FreeToolCard } from "@/components/FreeToolCard";
 import { ToolRunner } from "@/components/free-tools/ToolRunner";
 import { ScriptConverter } from "@/components/free-tools/ScriptConverter";
+import { PptxConverter } from "@/components/free-tools/PptxConverter";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { Badge } from "@/components/ui/badge";
@@ -71,7 +72,7 @@ const Alati = () => {
                 <FreeToolCard icon={FileSpreadsheet} title="Excel → PDF" description="Pretvorite Excel (.xlsx, .xls) u PDF tabelu."
                   onClick={() => setActive("excel-to-pdf")} />
                 <FreeToolCard icon={Presentation} title="PPTX → PDF" description="Pretvorite PowerPoint prezentaciju u PDF."
-                  badge="Uskoro" onClick={() => setActive("pptx-to-pdf")} />
+                  badge="Beta · 3/h" onClick={() => setActive("pptx-to-pdf")} />
               </Section>
 
               <Section title="🔤 Konverzija pisma">
@@ -155,21 +156,7 @@ const Alati = () => {
               note="Vrijednosti ćelija i osnovno formatiranje. Grafikoni i složeni stilovi nisu uključeni."
             />
           )}
-          {active === "pptx-to-pdf" && (
-            <Card className="max-w-2xl mx-auto p-8 text-center space-y-4">
-              <Button variant="ghost" size="sm" onClick={back} className="self-start"><ArrowRight className="w-4 h-4 mr-2 rotate-180" /> Nazad</Button>
-              <Presentation className="w-12 h-12 mx-auto text-muted-foreground" />
-              <h3 className="text-xl font-semibold">PPTX → PDF</h3>
-              <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                Vjerodostojna konverzija PowerPoint prezentacija nije moguća u pretraživaču.
-                Za ovu konverziju koristimo server-side LibreOffice rendering, koji je trenutno
-                dostupan kroz premium konverzijski modul.
-              </p>
-              <Button asChild className="bg-primary hover:bg-primary/90">
-                <Link to="/">Otvori premium konverziju</Link>
-              </Button>
-            </Card>
-          )}
+          {active === "pptx-to-pdf" && <PptxConverter onBack={back} />}
           {active === "script" && <ScriptConverter onBack={back} />}
           {active === "merge-pdf" && (
             <ToolRunner
