@@ -33,6 +33,7 @@ export const ToolRunner = ({
   note,
   minFiles = 1,
 }: RunnerProps) => {
+  const { t } = useTranslation();
   const [files, setFiles] = useState<File[]>([]);
   const [busy, setBusy] = useState(false);
   const [stage, setStage] = useState("");
