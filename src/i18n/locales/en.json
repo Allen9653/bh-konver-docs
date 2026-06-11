@@ -353,5 +353,11 @@
     "detecting": "Detecting format...",
     "detected": "Detected",
     "mismatchWarning": "File extension does not match content. Conversion will use detected format."
+  },
+  "freeTools": {
+    "unsupportedFormat": "Unsupported format. Only allowed: {{formats}}",
+    "fileTooLarge": "File is too large ({{size}} MB). Maximum allowed: {{limit}} MB. Try compressing the file or upgrade to Premium.",
+    "serverBusy": "Server is currently busy, please try again shortly.",
+    "uploadBlocked": "Upload blocked"
   }
 }
