@@ -20,6 +20,10 @@ type RunnerProps = {
   onBack: () => void;
   note?: string; // optional fidelity disclaimer
   minFiles?: number;
+  /** Called right before conversion starts; return false to abort (e.g. paywall). */
+  onBeforeRun?: () => boolean;
+  /** Called after a successful conversion (used to consume a free quota token). */
+  onAfterSuccess?: () => void;
 };
 
 export const ToolRunner = ({
@@ -32,6 +36,8 @@ export const ToolRunner = ({
   onBack,
   note,
   minFiles = 1,
+  onBeforeRun,
+  onAfterSuccess,
 }: RunnerProps) => {
   const { t } = useTranslation();
   const [files, setFiles] = useState<File[]>([]);
@@ -74,6 +80,7 @@ export const ToolRunner = ({
       toast.error(`Potrebno najmanje ${minFiles} fajl(ova)`);
       return;
     }
+    if (onBeforeRun && onBeforeRun() === false) return;
     setBusy(true);
     setResult(null);
     try {
@@ -84,6 +91,7 @@ export const ToolRunner = ({
       setResult(blob);
       setResultName(outputFilename(multiple ? files : files[0]));
       toast.success(t("conversion.success"));
+      onAfterSuccess?.();
     } catch (err) {
       console.error(err);
       toast.error(t("conversion.error"));
