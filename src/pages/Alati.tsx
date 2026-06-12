@@ -64,7 +64,13 @@ const Alati = () => {
 
   const onAfterSuccess = useCallback(() => {
     if (!isPremium) consume();
-  }, [isPremium, consume]);
+    // Flag any server-side artifacts for daily purge (no-op for unauth users)
+    if (user?.id) {
+      supabase.functions
+        .invoke("flag-cleanup", { body: {} })
+        .catch((e) => console.warn("flag-cleanup failed", e));
+    }
+  }, [isPremium, consume, user?.id]);
 
   // Quota badge text for individual doc tool cards
   const quotaBadge = isPremium
