@@ -14,9 +14,11 @@ const PPTX_MIME = "application/vnd.openxmlformats-officedocument.presentationml.
 
 interface PptxConverterProps {
   onBack: () => void;
+  onBeforeRun?: () => boolean;
+  onAfterSuccess?: () => void;
 }
 
-export function PptxConverter({ onBack }: PptxConverterProps) {
+export function PptxConverter({ onBack, onBeforeRun, onAfterSuccess }: PptxConverterProps) {
   const { t } = useTranslation();
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<"idle" | "uploading" | "done" | "error">("idle");
@@ -60,6 +62,8 @@ export function PptxConverter({ onBack }: PptxConverterProps) {
       setFile(null);
       return;
     }
+
+    if (onBeforeRun && onBeforeRun() === false) return;
 
     setStatus("uploading");
     setProgress(20);
@@ -117,6 +121,7 @@ export function PptxConverter({ onBack }: PptxConverterProps) {
       setProgress(100);
       setStatus("done");
       toast.success(t("conversion.success"));
+      onAfterSuccess?.();
     } catch (e) {
       if (e instanceof TypeError && !navigator.onLine) {
         toast.error(t("freeTools.serverBusy"));
