@@ -102,6 +102,9 @@ serve(async (req) => {
       case "24h":
         expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
         break;
+      case "7d":
+        expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+        break;
       case "48h":
         expiresAt = new Date(Date.now() + 48 * 60 * 60 * 1000);
         break;
