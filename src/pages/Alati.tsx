@@ -10,7 +10,7 @@ import { PptxConverter } from "@/components/free-tools/PptxConverter";
 import { FreemiumPaywallModal } from "@/components/free-tools/FreemiumPaywallModal";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
-import { useFreeQuota, FREE_DOC_LIMIT } from "@/hooks/useFreeQuota";
+import { useFreeQuota } from "@/hooks/useFreeQuota";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
