@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +9,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Lock, Clock, CalendarDays, Crown, ShieldCheck, Zap, Sparkles, ArrowRight, Check } from "lucide-react";
+import { Lock, Clock, CalendarDays, Crown, ShieldCheck, Zap, Sparkles, ArrowRight, Check, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface FreemiumPaywallModalProps {
   open: boolean;
@@ -17,19 +20,30 @@ interface FreemiumPaywallModalProps {
   limit?: number;
 }
 
-const TIERS = [
+type PlanId = "24h" | "7d" | "monthly";
+
+const TIERS: {
+  id: PlanId;
+  name: string;
+  price: string;
+  duration: string;
+  icon: typeof Clock;
+  badge: string | null;
+  features: string[];
+  cta: string;
+}[] = [
   {
     id: "24h",
     name: "24-satni pristup",
     price: "2.00 BAM",
     duration: "24 sata",
     icon: Clock,
-    badge: null as string | null,
+    badge: null,
     features: ["Neograničene konverzije", "Vrhunsko očuvanje formata", "Bez reklama"],
     cta: "Otključaj na 24h",
   },
   {
-    id: "weekly",
+    id: "7d",
     name: "7-dnevni pristup",
     price: "7.00 BAM",
     duration: "7 dana",
@@ -56,10 +70,43 @@ export function FreemiumPaywallModal({
   used = 2,
   limit = 2,
 }: FreemiumPaywallModalProps) {
+  const navigate = useNavigate();
+  const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null);
+
+  const handlePurchase = async (plan: PlanId, durationLabel: string) => {
+    setLoadingPlan(plan);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user?.email) {
+        toast.info("Prijavite se kako bismo aktivirali Premium pristup nakon plaćanja.");
+        onOpenChange(false);
+        navigate("/auth?redirect=/alati");
+        return;
+      }
+
+      const { data, error } = await supabase.functions.invoke("process-paypal-payment", {
+        body: { email: session.user.email, plan, duration: durationLabel },
+      });
+
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+
+      const approvalUrl: string | undefined = data?.approvalUrl;
+      if (!approvalUrl) throw new Error("PayPal approval URL nije primljen.");
+
+      // Redirect to PayPal in same tab so return_url brings us back signed in
+      window.location.href = approvalUrl;
+    } catch (e) {
+      console.error("Paywall checkout error:", e);
+      toast.error("Greška pri pokretanju plaćanja. Pokušajte ponovo.");
+    } finally {
+      setLoadingPlan(null);
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-3xl p-0 overflow-hidden">
-        {/* Header */}
         <div className="gradient-hero text-white px-6 py-7 text-center relative">
           <div className="mx-auto w-14 h-14 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center mb-3">
             <Lock className="w-7 h-7 text-accent" />
@@ -74,7 +121,7 @@ export function FreemiumPaywallModal({
           </DialogHeader>
           <div className="flex flex-wrap justify-center gap-2 mt-4">
             <span className="inline-flex items-center gap-1 bg-white/10 border border-white/20 rounded-full px-3 py-1 text-xs">
-              <ShieldCheck className="w-3 h-3" /> Sigurno plaćanje
+              <ShieldCheck className="w-3 h-3" /> Sigurno plaćanje (PayPal)
             </span>
             <span className="inline-flex items-center gap-1 bg-white/10 border border-white/20 rounded-full px-3 py-1 text-xs">
               <Zap className="w-3 h-3" /> Trenutna aktivacija
@@ -85,12 +132,12 @@ export function FreemiumPaywallModal({
           </div>
         </div>
 
-        {/* Tiers */}
         <div className="p-6 bg-background">
           <div className="grid sm:grid-cols-3 gap-4">
             {TIERS.map((tier) => {
               const Icon = tier.icon;
-              const featured = tier.id === "weekly";
+              const featured = tier.id === "7d";
+              const isLoading = loadingPlan === tier.id;
               return (
                 <div
                   key={tier.id}
@@ -131,14 +178,16 @@ export function FreemiumPaywallModal({
                   </ul>
 
                   <Button
-                    asChild
                     variant={featured ? "default" : "outline"}
                     className={`w-full ${featured ? "bg-primary hover:bg-primary/90" : ""}`}
-                    onClick={() => onOpenChange(false)}
+                    disabled={isLoading || loadingPlan !== null}
+                    onClick={() => handlePurchase(tier.id, tier.duration)}
                   >
-                    <Link to={`/#pricing`}>
-                      {tier.cta} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                    </Link>
+                    {isLoading ? (
+                      <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Preusmjeravanje…</>
+                    ) : (
+                      <>{tier.cta} <ArrowRight className="w-3.5 h-3.5 ml-1.5" /></>
+                    )}
                   </Button>
                 </div>
               );
@@ -146,7 +195,7 @@ export function FreemiumPaywallModal({
           </div>
 
           <p className="text-center text-xs text-muted-foreground mt-5">
-            Besplatni alati za <strong>jedinice</strong> i <strong>valute</strong> ostaju neograničeni.
+            Plaćanje se obrađuje sigurno putem PayPal-a. Aktivacija je trenutna nakon potvrde.
           </p>
         </div>
       </DialogContent>
