@@ -13,6 +13,7 @@ import { useSubscription } from "@/hooks/useSubscription";
 import { useFreeQuota } from "@/hooks/useFreeQuota";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 import {
   FileText, FileImage, FileSpreadsheet, Presentation, Type,
   Combine, Scissors, Shield, Zap, LockOpen, ArrowRight, Crown, Ruler, DollarSign, Infinity as InfinityIcon,
