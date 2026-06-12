@@ -54,6 +54,13 @@ export async function wordToPdf(file: File, onProgress?: ToolProgress): Promise<
   const { jsPDF } = await import("jspdf");
   const pdf = new jsPDF({ unit: "pt", format: "a4" });
 
+  // Sanitize HTML from untrusted Word document to prevent XSS
+  const DOMPurify = (await import("dompurify")).default;
+  const safeHtml = DOMPurify.sanitize(html, {
+    FORBID_TAGS: ["script", "style", "iframe", "object", "embed"],
+    FORBID_ATTR: ["onerror", "onload", "onclick"],
+  });
+
   const container = document.createElement("div");
   container.style.width = "595px"; // A4 width in pt
   container.style.padding = "40px";
@@ -61,7 +68,7 @@ export async function wordToPdf(file: File, onProgress?: ToolProgress): Promise<
   container.style.fontSize = "12px";
   container.style.lineHeight = "1.5";
   container.style.color = "#000";
-  container.innerHTML = html;
+  container.innerHTML = safeHtml;
   document.body.appendChild(container);
 
   try {
