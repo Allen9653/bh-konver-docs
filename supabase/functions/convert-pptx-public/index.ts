@@ -6,7 +6,7 @@ import { getCorsHeaders } from "../_shared/cors.ts";
 const CLOUDMERSIVE_API_KEY = Deno.env.get("CLOUDMERSIVE_API_KEY");
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 const RATE_LIMIT = 3;
-const WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours (per day)
 const PPTX_MIME =
   "application/vnd.openxmlformats-officedocument.presentationml.presentation";
 
