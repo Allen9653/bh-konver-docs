@@ -180,7 +180,7 @@ const Alati = () => {
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <FreeToolCard icon={FileText} title="PDF → Word"
-                    description="Pretvorite PDF u uređivačku Word datoteku (.docx)."
+                    description="Tekstualna konverzija — kompleksno formatiranje i tabele mogu biti pojednostavljeni."
                     badge={quotaBadge} onClick={() => openDocTool("pdf-to-word")} />
                   <FreeToolCard icon={FileText} title="Word → PDF"
                     description="Pretvorite Word (.docx) u PDF uz čuvanje formatiranja."
@@ -192,8 +192,8 @@ const Alati = () => {
                     description="Pretvorite Excel (.xlsx, .xls) u PDF tabelu."
                     badge={quotaBadge} onClick={() => openDocTool("excel-to-pdf")} />
                   <FreeToolCard icon={Presentation} title="PPTX → PDF"
-                    description="Pretvorite PowerPoint prezentaciju u PDF."
-                    badge={quotaBadge} onClick={() => openDocTool("pptx-to-pdf")} />
+                    description="Beta — server-side konverzija PowerPoint prezentacija. Do 3 besplatne dnevno."
+                    badge="Beta" onClick={() => openDocTool("pptx-to-pdf")} />
                   <FreeToolCard icon={Combine} title="Spoji PDF (Merge)"
                     description="Spojite više PDF dokumenata u jedan fajl."
                     badge={quotaBadge} onClick={() => openDocTool("merge-pdf")} />
@@ -257,7 +257,7 @@ const Alati = () => {
           {active === "pdf-to-word" && (
             <ToolRunner
               title="PDF → Word"
-              description="Ekstrakcija teksta iz PDF-a u uređivački .docx fajl."
+              description="Tekstualna konverzija — kompleksno formatiranje i tabele mogu biti pojednostavljeni."
               acceptedExtensions={["pdf"]}
               outputFilename={(f) => (f as File).name.replace(/\.pdf$/i, ".docx")}
               run={(files, p) => pdfToWord(files[0], p)}
