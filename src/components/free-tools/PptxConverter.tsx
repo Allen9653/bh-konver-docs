@@ -150,7 +150,7 @@ export function PptxConverter({ onBack, onBeforeRun, onAfterSuccess }: PptxConve
           <div>
             <h3 className="font-semibold">PPTX → PDF</h3>
             <p className="text-xs text-muted-foreground">
-              Besplatno do 3 konverzije po satu. Datoteke se ne čuvaju.
+              Beta · Besplatno do 3 konverzije dnevno. Datoteke se ne čuvaju.
             </p>
           </div>
         </div>
