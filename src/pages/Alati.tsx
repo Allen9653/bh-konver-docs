@@ -257,7 +257,7 @@ const Alati = () => {
           {active === "pdf-to-word" && (
             <ToolRunner
               title="PDF → Word"
-              description="Ekstrakcija teksta iz PDF-a u uređivački .docx fajl."
+              description="Tekstualna konverzija — kompleksno formatiranje i tabele mogu biti pojednostavljeni."
               acceptedExtensions={["pdf"]}
               outputFilename={(f) => (f as File).name.replace(/\.pdf$/i, ".docx")}
               run={(files, p) => pdfToWord(files[0], p)}
