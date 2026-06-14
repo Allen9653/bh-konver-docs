@@ -71,7 +71,7 @@ serve(async (req) => {
         JSON.stringify({
           error: "rate_limited",
           message:
-            "Dostigli ste besplatni limit od 3 PPTX konverzije po satu. Nadogradite na Premium za neograničenu obradu.",
+            "Dostigli ste besplatni limit od 3 PPTX konverzije dnevno. Nadogradite na Premium za neograničenu obradu.",
           retry_after_seconds: rl.retryAfter,
           limit: RATE_LIMIT,
           window_seconds: WINDOW_MS / 1000,
