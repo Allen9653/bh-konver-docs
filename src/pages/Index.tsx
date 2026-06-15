@@ -209,7 +209,7 @@ const Index = () => {
               <h1 className="text-4xl sm:text-6xl font-bold font-display tracking-tight mb-3 drop-shadow-lg">
                 BH <span className="text-accent">KONVER</span>
               </h1>
-              <p className="text-base sm:text-lg text-white/90 max-w-md mx-auto mb-6 drop-shadow">
+              <p className="text-lg sm:text-xl font-semibold text-white max-w-lg mx-auto mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {t('hero.subtitle')}
               </p>
               <div className="flex flex-wrap justify-center gap-2 mb-6">
