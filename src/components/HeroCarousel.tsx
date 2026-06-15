@@ -16,7 +16,7 @@ import bihac from "@/assets/cities/bihac.jpg";
 
 const slides = [
   { src: sarajevo.url, city: "Sarajevo" },
-  { src: banjaLuka, city: "Banja Luka" },
+  { src: banjaLuka.url, city: "Banja Luka" },
   { src: tuzla.url, city: "Tuzla" },
   { src: zenica.url, city: "Zenica" },
   { src: bihac, city: "Bihać" },
