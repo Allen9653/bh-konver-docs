@@ -11,12 +11,12 @@ import sarajevo from "@/assets/cities/sarajevo.png.asset.json";
 import trebinje from "@/assets/cities/trebinje.png.asset.json";
 import tuzla from "@/assets/cities/tuzla.png.asset.json";
 import zenica from "@/assets/cities/zenica.png.asset.json";
-import banjaLuka from "@/assets/cities/banja-luka.jpg";
+import banjaLuka from "@/assets/cities/banja-luka.png.asset.json";
 import bihac from "@/assets/cities/bihac.jpg";
 
 const slides = [
   { src: sarajevo.url, city: "Sarajevo" },
-  { src: banjaLuka, city: "Banja Luka" },
+  { src: banjaLuka.url, city: "Banja Luka" },
   { src: tuzla.url, city: "Tuzla" },
   { src: zenica.url, city: "Zenica" },
   { src: bihac, city: "Bihać" },
