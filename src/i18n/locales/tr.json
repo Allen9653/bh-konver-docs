@@ -257,12 +257,13 @@
     "cyrillic": "Kiril"
   },
   "adSpace": {
-    "title": "Reklamınız Burada Olabilir",
-    "description": "Şirketler, uygulamayı reklamlarıyla süslemek için BH Konver'in tüm ön sayfasını kiralayabilir - bu bizim için ek bir gelir kaynağıdır.",
+    "title": "Reklamınız Burada",
+    "description": "BH KONVER'da işinizi tanıtın",
     "contact": "Kiralama için iletişim:",
     "benefit1": "Binlerce kullanıcıya ulaşın",
     "benefit2": "İş kitlesinizi hedefleyin",
-    "benefit3": "Esnek reklam paketleri"
+    "benefit3": "Esnek reklam paketleri",
+    "cta": "Reklam Verin"
   },
   "currencyConverter": {
     "title": "Döviz Çevirici (BAM)",

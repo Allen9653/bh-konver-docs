@@ -257,12 +257,13 @@
     "cyrillic": "Cyrillic"
   },
   "adSpace": {
-    "title": "Your Ad Could Be Here",
-    "description": "Companies can rent the entire BH Konver front page to decorate the app with their ads - this is an additional source of income for us.",
+    "title": "Your Ad Here",
+    "description": "Promote your business on BH KONVER",
     "contact": "Contact for rental:",
     "benefit1": "Reach thousands of users",
     "benefit2": "Target business audience",
-    "benefit3": "Flexible advertising packages"
+    "benefit3": "Flexible advertising packages",
+    "cta": "Advertise Here"
   },
   "currencyConverter": {
     "title": "Currency Converter (BAM)",

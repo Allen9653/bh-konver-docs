@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Megaphone, CheckCircle2, ArrowUpRight } from "lucide-react";
 
 interface Ad {
   id: string;
@@ -11,7 +12,7 @@ interface Ad {
   position: string;
 }
 
-// ── Placeholder banner when no ads are configured ──
+// ── High-converting "Advertise with Us" placeholder banner ──
 const PlaceholderBanner = ({ position }: { position: "left" | "right" }) => {
   const { t } = useTranslation();
   return (
@@ -19,19 +20,65 @@ const PlaceholderBanner = ({ position }: { position: "left" | "right" }) => {
       href="mailto:alenjusufovic@yahoo.com?subject=Sponzorstvo%20BH%20KONVER"
       target="_blank"
       rel="noopener noreferrer"
-      className="block w-[160px] h-[600px] max-lg:w-full max-lg:h-auto max-lg:min-h-[100px] rounded-xl border-2 border-dashed border-accent/40 bg-gradient-to-b from-accent/5 to-background flex-shrink-0 overflow-hidden group hover:border-accent transition-colors"
+      className="group block w-[160px] h-[600px] max-lg:w-full max-lg:h-auto max-lg:min-h-[140px] rounded-xl border border-border/60 bg-gradient-to-br from-card via-background to-muted/30 flex-shrink-0 overflow-hidden hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/40 transition-all duration-300"
     >
-      <div className="flex flex-col items-center justify-center h-full p-4 text-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-          <span className="text-accent text-lg font-bold">AD</span>
+      {/* Desktop: vertical layout */}
+      <div className="hidden lg:flex flex-col items-center justify-between h-full p-5 text-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+            <Megaphone className="w-6 h-6 text-primary" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-sm font-bold text-foreground leading-tight">
+              {t("adSpace.title")}
+            </p>
+            <p className="text-[11px] text-muted-foreground leading-snug">
+              {t("adSpace.description")}
+            </p>
+          </div>
         </div>
-        <p className="text-xs font-semibold text-foreground leading-tight">
-          {t("adSpace.title")}
-        </p>
-        <p className="text-[10px] text-muted-foreground leading-snug">
-          {t("adSpace.contact")}
-          <br />alenjusufovic@yahoo.com
-        </p>
+
+        <div className="w-full space-y-3">
+          <ul className="space-y-1.5 text-left">
+            <li className="flex items-start gap-1.5 text-[10px] text-muted-foreground">
+              <CheckCircle2 className="w-3 h-3 text-success mt-0.5 shrink-0" />
+              <span>{t("adSpace.benefit1")}</span>
+            </li>
+            <li className="flex items-start gap-1.5 text-[10px] text-muted-foreground">
+              <CheckCircle2 className="w-3 h-3 text-success mt-0.5 shrink-0" />
+              <span>{t("adSpace.benefit2")}</span>
+            </li>
+            <li className="flex items-start gap-1.5 text-[10px] text-muted-foreground">
+              <CheckCircle2 className="w-3 h-3 text-success mt-0.5 shrink-0" />
+              <span>{t("adSpace.benefit3")}</span>
+            </li>
+          </ul>
+
+          <div className="inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground rounded-full px-4 py-2 text-xs font-semibold shadow-sm group-hover:bg-primary/90 transition-colors">
+            <Megaphone className="w-3.5 h-3.5" />
+            {t("adSpace.cta")}
+            <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile: horizontal layout */}
+      <div className="flex lg:hidden items-center gap-4 p-4 h-full">
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+          <Megaphone className="w-5 h-5 text-primary" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-foreground leading-tight">
+            {t("adSpace.title")}
+          </p>
+          <p className="text-xs text-muted-foreground leading-snug mt-0.5">
+            {t("adSpace.description")}
+          </p>
+        </div>
+        <div className="shrink-0 inline-flex items-center gap-1 bg-primary text-primary-foreground rounded-full px-3 py-1.5 text-xs font-semibold shadow-sm group-hover:bg-primary/90 transition-colors">
+          <Megaphone className="w-3 h-3" />
+          {t("adSpace.cta")}
+        </div>
       </div>
     </a>
   );
