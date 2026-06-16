@@ -213,7 +213,7 @@ const Index = () => {
                 {t('hero.subtitle')}
               </p>
               <div className="flex flex-wrap justify-center gap-2 mb-6">
-                <span className="inline-flex items-center gap-1. 이미지 추가가 필요해 보입니다만 현재는 text-sm font-semibold bg-accent text-accent-foreground rounded-full px-4 py-2">
+                <span className="inline-flex items-center gap-1.5 bg-accent text-accent-foreground rounded-full px-4 py-2 text-sm font-semibold">
                   <Sparkles className="w-4 h-4" /> 100% Besplatno
                 </span>
                 <span className="inline-flex items-center gap-1 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-sm">
