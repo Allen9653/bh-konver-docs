@@ -45,7 +45,7 @@ export const HeroCarousel = ({ className = "" }: { className?: string }) => {
             className="w-full h-full object-cover"
             loading="eager"
           />
-          <div className="absolute bottom-4 right-4 z-10 bg-black/40 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full">
+          <div className="absolute bottom-4 right-4 z-10 bg-black/60 backdrop-blur-md text-white text-sm font-medium px-4 py-1.5 rounded-full">
             {s.city}
           </div>
         </SwiperSlide>

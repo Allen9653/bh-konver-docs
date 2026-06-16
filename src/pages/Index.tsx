@@ -202,28 +202,28 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 z-[1]" />
           <div className="relative z-[2] py-20 px-4 min-h-[inherit] flex items-center" style={{ minHeight: "min(80vh, 640px)" }}>
             <div className="container mx-auto max-w-3xl text-center">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm mb-6">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-base mb-6">
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span>{t('hero.version')}</span>
               </div>
               <h1 className="text-4xl sm:text-6xl font-bold font-display tracking-tight mb-3 drop-shadow-lg">
                 BH <span className="text-accent">KONVER</span>
               </h1>
-              <p className="text-lg sm:text-xl font-semibold text-white max-w-lg mx-auto mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              <p className="text-xl sm:text-2xl font-semibold text-white max-w-2xl mx-auto mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {t('hero.subtitle')}
               </p>
               <div className="flex flex-wrap justify-center gap-2 mb-6">
-                <span className="inline-flex items-center gap-1 bg-accent text-accent-foreground rounded-full px-3 py-1 text-xs font-semibold">
-                  <Sparkles className="w-3 h-3" /> 100% Besplatno
+                <span className="inline-flex items-center gap-1.5 bg-accent text-accent-foreground rounded-full px-4 py-2 text-sm font-semibold">
+                  <Sparkles className="w-4 h-4" /> 100% Besplatno
                 </span>
-                <span className="inline-flex items-center gap-1 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs">
-                  <LockOpen className="w-3 h-3" /> Bez registracije
+                <span className="inline-flex items-center gap-1 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-sm">
+                  <LockOpen className="w-4 h-4" /> Bez registracije
                 </span>
               </div>
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold mb-6">
-                <Link to="/alati">Otvori besplatne alate <ArrowRight className="w-4 h-4 ml-2" /></Link>
+              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 py-3 h-auto mb-6">
+                <Link to="/alati">Otvori besplatne alate <ArrowRight className="w-5 h-5 ml-2" /></Link>
               </Button>
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-white/80">
+              <div className="flex flex-wrap justify-center gap-6 text-base text-white/90">
                 <div className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-accent" /> {t('transparency.nosharing.title')}</div>
                 <div className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-accent" /> {t('pricing.day.feature3')}</div>
               </div>
