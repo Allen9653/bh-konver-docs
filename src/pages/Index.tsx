@@ -202,7 +202,7 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 z-[1]" />
           <div className="relative z-[2] py-20 px-4 min-h-[inherit] flex items-center" style={{ minHeight: "min(80vh, 640px)" }}>
             <div className="container mx-auto max-w-3xl text-center">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm mb-6">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-base mb-6">
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span>{t('hero.version')}</span>
               </div>
