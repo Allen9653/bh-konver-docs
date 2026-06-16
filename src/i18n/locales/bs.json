@@ -257,12 +257,13 @@
     "cyrillic": "Ćirilica"
   },
   "adSpace": {
-    "title": "Ovdje može biti Vaša Reklama?",
-    "description": "Firme koje žele mogu zakupiti cijelu front page od BH Konver da ukrase app svojim reklamama to nam je dodatni izvor zarade.",
+    "title": "Vaša reklama ovdje",
+    "description": "Promovišite vaš biznis na BH KONVER",
     "contact": "Kontakt za zakup:",
     "benefit1": "Dosegnite hiljade korisnika",
     "benefit2": "Ciljajte biznis audijenciju",
-    "benefit3": "Fleksibilni paketi oglašavanja"
+    "benefit3": "Fleksibilni paketi oglašavanja",
+    "cta": "Reklamirajte se"
   },
   "currencyConverter": {
     "title": "Konverter valuta (BAM)",
