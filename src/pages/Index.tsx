@@ -284,6 +284,35 @@ const Index = () => {
             </div>
           )}
 
+          {/* Legal documents section card */}
+          <div className="mt-12">
+            <Link
+              to="/pravni-dokumenti"
+              className="group block rounded-xl border border-border bg-gradient-to-br from-primary/10 via-card to-accent/5 p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg bg-primary/15 flex items-center justify-center flex-shrink-0">
+                  <ScrollText className="w-6 h-6 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h3 className="text-lg font-bold font-display">Pravni dokumenti i ovjerene izjave</h3>
+                    <span className="inline-flex items-center gap-1 text-[10px] bg-accent text-accent-foreground px-1.5 py-0.5 rounded font-semibold">
+                      <Crown className="w-3 h-3" /> NOVO
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Generišite izjave date pod materijalnom i kaznenom odgovornošću, usklađene sa propisima BiH (FBiH, RS, Brčko Distrikt). Privatno, u vašem pretraživaču.
+                  </p>
+                  <span className="inline-flex items-center gap-1 text-sm text-primary font-medium mt-2 group-hover:gap-2 transition-all">
+                    Otvori pravne dokumente <ArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+
           {/* Pricing */}
           <div className="mt-16" id="pricing">
             <LazyRenderOnView fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
