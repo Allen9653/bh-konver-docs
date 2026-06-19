@@ -13,7 +13,7 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LogIn, Sparkles, Shield, Zap, LockOpen, ArrowRight } from "lucide-react";
+import { LogIn, Sparkles, Shield, Zap, LockOpen, ArrowRight, ScrollText, Crown } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ConversionModule } from "@/types/formats";
 import type { PDFOperation } from "@/types/pdfOperations";
