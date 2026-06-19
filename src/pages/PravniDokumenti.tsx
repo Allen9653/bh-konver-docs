@@ -47,7 +47,7 @@ const PravniDokumenti = () => {
       <SEO
         title="Pravni dokumenti i izjave BiH | BH KONVER"
         description="Generišite ovjerene izjave i pravne dokumente u skladu sa zakonodavstvom Bosne i Hercegovine (FBiH, RS, Brčko Distrikt)."
-        canonical="/pravni-dokumenti"
+        canonical="https://bh-konver.lovable.app/pravni-dokumenti"
       />
       <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} />
 
