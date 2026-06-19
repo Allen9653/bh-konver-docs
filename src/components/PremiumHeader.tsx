@@ -31,6 +31,9 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
         </div>
 
         <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/pravni-dokumenti")} className="h-8 px-2 text-xs hidden sm:inline-flex">
+            Pravni dokumenti
+          </Button>
           <LanguageSwitcher />
           {user ? (
             <>
