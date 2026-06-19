@@ -19,6 +19,7 @@ const Support = lazy(() => import("./pages/Support"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Alati = lazy(() => import("./pages/Alati"));
+const PravniDokumenti = lazy(() => import("./pages/PravniDokumenti"));
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const App = () => (
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/support" element={<Support />} />
               <Route path="/alati" element={<Alati />} />
+              <Route path="/pravni-dokumenti" element={<PravniDokumenti />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
