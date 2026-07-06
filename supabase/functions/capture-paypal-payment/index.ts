@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { getCorsHeaders } from "../_shared/cors.ts";
+import { PLAN_PRICES } from "../_shared/plans.ts";
 
 serve(async (req) => {
   const corsHeaders = getCorsHeaders(req);
@@ -104,11 +105,7 @@ serve(async (req) => {
     console.log("Capture response status:", captureData.status);
 
     // SECURITY: Verify captured amount matches expected server-side plan price
-    const PLAN_PRICES: Record<string, string> = {
-      "24h": "2.00",
-      "48h": "10.00",
-      "monthly": "50.00",
-    };
+    // (shared PLAN_PRICES keeps process/capture in sync — never redefine here).
     const expectedAmount = PLAN_PRICES[plan as string];
     const capturedAmount = captureData?.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value;
     const capturedCurrency = captureData?.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.currency_code;
