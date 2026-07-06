@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "bh-konver-mcp",
+      "version": "0.1.0",
+      "title": "BH KONVER MCP"
+    },
+    "tools": [
+      {
+        "name": "list_supported_formats",
+        "title": "List supported conversion formats",
+        "description": "Returns the categories of files BH KONVER can convert (documents, spreadsheets, presentations, images, audio, video) and the file extensions each category supports.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "module": {
+              "type": "string",
+              "enum": [
+                "documents",
+                "spreadsheets",
+                "presentations",
+                "images",
+                "audio",
+                "video"
+              ],
+              "description": "Optional. Restrict result to a single module."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_pricing_plans",
+        "title": "Get BH KONVER pricing plans",
+        "description": "Returns available BH KONVER premium subscription plans with duration and price in BAM (billed in EUR via PayPal).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_legal_documents",
+        "title": "List available legal documents",
+        "description": "Returns the BiH-compliant legal statement templates available in the 'Pravni dokumenti' section, grouped by category. All PDFs are generated client-side (privacy-first).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "enum": [
+                "standard",
+                "business",
+                "personal",
+                "commercial"
+              ],
+              "description": "Optional. Restrict to a single category."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
