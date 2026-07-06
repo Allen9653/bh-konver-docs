@@ -14,11 +14,12 @@ const PPTX_MIME =
 const ipHits = new Map<string, number[]>();
 
 function getClientIp(req: Request): string {
-  const fwd = req.headers.get("x-forwarded-for");
-  if (fwd) return fwd.split(",")[0].trim();
-  return req.headers.get("cf-connecting-ip") ||
-    req.headers.get("x-real-ip") ||
-    "unknown";
+  // Prefer Cloudflare's cf-connecting-ip (set by CDN, not user-settable).
+  // Only fall back to x-forwarded-for / x-real-ip when the trusted header is absent.
+  return req.headers.get("cf-connecting-ip")
+    || req.headers.get("x-forwarded-for")?.split(",")[0].trim()
+    || req.headers.get("x-real-ip")
+    || "unknown";
 }
 
 function checkRateLimit(ip: string): { allowed: boolean; retryAfter: number; remaining: number } {

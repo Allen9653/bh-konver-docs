@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { getCorsHeaders } from "../_shared/cors.ts";
+import { PLAN_PRICES } from "../_shared/plans.ts";
 
 serve(async (req) => {
   const corsHeaders = getCorsHeaders(req);
@@ -41,13 +42,8 @@ serve(async (req) => {
 
     const { email, plan, duration } = await req.json();
 
-    // SECURITY: Enforce server-side pricing — never trust client-supplied amount
-    const PLAN_PRICES: Record<string, string> = {
-      "24h": "2.00",
-      "7d": "7.00",
-      "48h": "10.00",
-      "monthly": "20.00",
-    };
+    // SECURITY: Enforce server-side pricing — never trust client-supplied amount.
+    // PLAN_PRICES is imported from _shared/plans.ts so process/capture stay in sync.
     const amount = PLAN_PRICES[plan as string];
     if (!amount) {
       console.error(`Invalid plan requested: ${plan}`);
