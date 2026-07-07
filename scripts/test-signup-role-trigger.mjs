@@ -52,9 +52,12 @@ async function main() {
         `regression of guard_user_roles_writes / handle_new_user trigger?`
     );
   }
-  const userId = signupBody?.user?.id;
-  if (!userId) fail(`Signup response missing user.id: ${JSON.stringify(signupBody)}`);
+  // When email confirmation is required, Supabase returns the user object directly;
+  // when auto-confirm is on, it returns { user, access_token, ... }.
+  const userId = signupBody?.user?.id ?? signupBody?.id;
+  if (!userId) fail(`Signup response missing user id: ${JSON.stringify(signupBody)}`);
   ok(`Signup succeeded (user_id=${userId})`);
+  if (signupBody?.confirmation_sent_at) ok("Verification email dispatched (email confirmation required)");
 
   // Obtain a session token to query PostgREST. If email confirmation is required,
   // signInWithPassword will fail — fall back to whatever token we have.
