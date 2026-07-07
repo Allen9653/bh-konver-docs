@@ -122,8 +122,8 @@ const Auth = () => {
         navigate("/");
       } else {
         const redirectUrl = `${window.location.origin}/`;
-        
-        const { error } = await supabase.auth.signUp({
+
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -133,29 +133,60 @@ const Auth = () => {
 
         if (error) throw error;
 
-        // Send welcome email with subscription info
+        // Email verification required — user must confirm before logging in
+        const needsVerification = !data.session;
+
+        // Send welcome email with subscription info (non-blocking)
         try {
           await supabase.functions.invoke("send-email", {
-            body: {
-              type: "welcome",
-              email,
-            },
+            body: { type: "welcome", email },
           });
         } catch (emailError) {
           console.error("Failed to send welcome email:", emailError);
-          // Don't block registration if email fails
         }
 
         toast({
-          title: "Uspješna registracija",
-          description: "Provjerite email za informacije o pretplatama!",
+          title: "Registracija uspješna",
+          description: needsVerification
+            ? "Poslali smo vam verifikacioni email. Kliknite na link u emailu da potvrdite adresu prije prijave."
+            : "Račun je kreiran. Možete se prijaviti.",
         });
+        setPassword("");
         setIsLogin(true);
       }
     } catch (error: any) {
+      // Capture exact Supabase details for debugging
+      console.error("[Auth] Signup/Login error", {
+        message: error?.message,
+        name: error?.name,
+        status: error?.status,
+        code: error?.code,
+        details: error,
+      });
+
+      const rawMsg: string = error?.message || "";
+      const status: number | undefined = error?.status;
+      const code: string | undefined = error?.code;
+
+      // Map to a friendly Bosnian message
+      let friendly = "Došlo je do neočekivane greške. Pokušajte ponovo za nekoliko trenutaka.";
+      if (/already registered|already exists|user_already_exists/i.test(rawMsg) || code === "user_already_exists") {
+        friendly = "Ova email adresa je već registrovana. Pokušajte se prijaviti ili resetujte lozinku.";
+      } else if (/email not confirmed|email_not_confirmed/i.test(rawMsg) || code === "email_not_confirmed") {
+        friendly = "Email adresa nije potvrđena. Provjerite inbox i kliknite na verifikacioni link.";
+      } else if (/invalid login|invalid_credentials/i.test(rawMsg) || code === "invalid_credentials") {
+        friendly = "Neispravan email ili lozinka.";
+      } else if (/password/i.test(rawMsg) && /weak|short|pwned|leaked/i.test(rawMsg)) {
+        friendly = "Lozinka je preslaba ili je pronađena u poznatim curjenjima podataka. Odaberite jaču lozinku.";
+      } else if (/rate limit|too many/i.test(rawMsg) || status === 429) {
+        friendly = "Previše pokušaja. Sačekajte nekoliko minuta pa pokušajte ponovo.";
+      } else if (/database error|unexpected_failure/i.test(rawMsg) || status === 500) {
+        friendly = "Trenutno imamo tehničku poteškoću sa registracijom. Naš tim je obaviješten — pokušajte ponovo za par minuta.";
+      }
+
       toast({
-        title: "Greška",
-        description: error.message || "Pokušajte ponovo",
+        title: "Greška pri registraciji",
+        description: `${friendly}${rawMsg ? ` (Detalji: ${rawMsg})` : ""}`,
         variant: "destructive",
       });
     } finally {
