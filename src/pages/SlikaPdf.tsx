@@ -206,8 +206,15 @@ const SlikaPdf = () => {
       <SEO
         title="Slika ↔ PDF konverter – BH KONVER"
         description="Lokalna JPEG/PNG u PDF i PDF u JPEG konverzija u pregledniku. Bez slanja fajlova na server."
+        path="/slika-pdf"
       />
-      <PremiumHeader />
+      <PremiumHeader
+        user={user}
+        isAdmin={isAdmin}
+        isPremium={isPremium}
+        expiresAt={expiresAt}
+        onSignOut={signOut}
+      />
 
       <main className="flex-1 container max-w-5xl mx-auto px-4 py-10">
         <div className="mb-8">
@@ -303,7 +310,7 @@ const SlikaPdf = () => {
                           </p>
                           {e.detected && (
                             <div className="mt-2">
-                              <FormatDetectionBadge file={e.file} detected={e.detected} />
+                              <FormatDetectionBadge file={e.file} />
                             </div>
                           )}
                         </div>
