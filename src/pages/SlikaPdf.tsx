@@ -11,6 +11,8 @@ import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { useSubscription } from "@/hooks/useSubscription";
 import { detectFormat, type DetectedFormat } from "@/utils/formatDetector";
 import {
   convertImageToPDF,
@@ -57,6 +59,9 @@ const makePdfFirstPageThumb = async (file: File): Promise<string> => {
 
 const SlikaPdf = () => {
   const { toast } = useToast();
+  const { user, isAdmin, signOut } = useAdminAuth();
+  const { hasActiveSubscription, expiresAt } = useSubscription(user?.id);
+  const isPremium = isAdmin || hasActiveSubscription;
   const [entries, setEntries] = useState<FileEntry[]>([]);
   const [running, setRunning] = useState(false);
   const [combineToOnePdf, setCombineToOnePdf] = useState(true);
