@@ -20,6 +20,7 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Alati = lazy(() => import("./pages/Alati"));
 const PravniDokumenti = lazy(() => import("./pages/PravniDokumenti"));
+const SlikaPdf = lazy(() => import("./pages/SlikaPdf"));
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ const App = () => (
               <Route path="/support" element={<Support />} />
               <Route path="/alati" element={<Alati />} />
               <Route path="/pravni-dokumenti" element={<PravniDokumenti />} />
+              <Route path="/slika-pdf" element={<SlikaPdf />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
