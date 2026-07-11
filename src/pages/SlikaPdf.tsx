@@ -67,6 +67,7 @@ const SlikaPdf = () => {
   const [entries, setEntries] = useState<FileEntry[]>([]);
   const [running, setRunning] = useState(false);
   const [combineToOnePdf, setCombineToOnePdf] = useState(true);
+  const [pdfOutputFormat, setPdfOutputFormat] = useState<"jpeg" | "png">("jpeg");
   const [combinedPdf, setCombinedPdf] = useState<{ name: string; blob: Blob; url: string } | null>(null);
 
   const direction: Direction = useMemo(() => {
