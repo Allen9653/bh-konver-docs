@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import JSZip from "jszip";
-import { FileImage, FileText, Download, RotateCcw, CheckCircle2, XCircle, Loader2 } from "lucide-react";
+import { FileImage, FileText, Download, RotateCcw, CheckCircle2, XCircle, Loader2, History } from "lucide-react";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { PremiumFooter } from "@/components/PremiumFooter";
 import { SEO } from "@/components/SEO";
@@ -19,6 +20,7 @@ import {
   convertImagesToSinglePDF,
   convertPDFToImages,
 } from "@/utils/pdfConverter";
+import { saveHistoryEntry } from "@/utils/conversionHistory";
 
 type Direction = "img2pdf" | "pdf2img" | null;
 type Status = "pending" | "processing" | "done" | "error";
