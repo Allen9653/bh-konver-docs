@@ -423,24 +423,32 @@ serve(async (req) => {
 
     console.log(`Conversion initiated by user: ${user.id}`);
 
-    // --- PAYWALL CHECK: Verify active subscription before consuming API credits ---
+    // --- PAYWALL CHECK: Admins bypass; otherwise require active subscription ---
     const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
-    const now = new Date().toISOString();
-    const { data: activeSub } = await supabaseService
-      .from('transactions')
-      .select('id')
-      .eq('user_id', user.id)
-      .eq('status', 'completed')
-      .gte('expires_at', now)
-      .limit(1)
-      .maybeSingle();
+    const { data: isAdminData } = await supabaseService.rpc('check_user_role', {
+      _user_id: user.id,
+      _role: 'admin',
+    });
+    if (isAdminData !== true) {
+      const now = new Date().toISOString();
+      const { data: activeSub } = await supabaseService
+        .from('transactions')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('status', 'completed')
+        .gte('expires_at', now)
+        .limit(1)
+        .maybeSingle();
 
-    if (!activeSub) {
-      console.warn(`Paywall blocked: user ${user.id} has no active subscription`);
-      return new Response(
-        JSON.stringify({ error: 'Potrebna je aktivna pretplata za korištenje konverzija. Nadogradite svoj plan.' }),
-        { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      if (!activeSub) {
+        console.warn(`Paywall blocked: user ${user.id} has no active subscription`);
+        return new Response(
+          JSON.stringify({ error: 'Potrebna je aktivna pretplata za korištenje konverzija. Nadogradite svoj plan.' }),
+          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+    } else {
+      console.log(`Admin bypass: user ${user.id}`);
     }
     
     // Parse form data
