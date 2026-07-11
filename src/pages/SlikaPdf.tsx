@@ -145,6 +145,21 @@ const SlikaPdf = () => {
         entries.forEach((e) =>
           setEntry(e.id, { status: "done", progress: 100, outputs: [] }),
         );
+        // history: one combined entry using first source as preview
+        try {
+          const first = entries[0];
+          await saveHistoryEntry({
+            direction: "img2pdf",
+            sourceName: `${entries.length} slika → ${name}`,
+            sourceSize: entries.reduce((s, e) => s + e.file.size, 0),
+            sourceType: first.file.type,
+            sourceBlob: first.file,
+            outputs: [{ name, type: "application/pdf", size: blob.size, blob }],
+            combined: true,
+          });
+        } catch (e) {
+          console.warn("history save failed", e);
+        }
       } else {
         for (const entry of entries) {
           setEntry(entry.id, { status: "processing", progress: 10 });
@@ -152,17 +167,36 @@ const SlikaPdf = () => {
             const ext = entry.detected?.ext ?? entry.file.name.split(".").pop()?.toLowerCase();
             const outputs: FileEntry["outputs"] = [];
             if (ext === "pdf") {
-              const blobs = await convertPDFToImages(entry.file, "jpeg", (done, total) => {
+              const outExt = pdfOutputFormat === "png" ? "png" : "jpg";
+              const outMime = pdfOutputFormat === "png" ? "image/png" : "image/jpeg";
+              const blobs = await convertPDFToImages(entry.file, pdfOutputFormat, (done, total) => {
                 setEntry(entry.id, { progress: Math.round((done / total) * 100) });
               });
               const base = entry.file.name.replace(/\.pdf$/i, "");
               blobs.forEach((b, i) => {
                 outputs.push({
-                  name: blobs.length === 1 ? `${base}.jpg` : `${base}-str-${i + 1}.jpg`,
+                  name: blobs.length === 1 ? `${base}.${outExt}` : `${base}-str-${i + 1}.${outExt}`,
                   blob: b,
                   url: URL.createObjectURL(b),
                 });
               });
+              try {
+                await saveHistoryEntry({
+                  direction: "pdf2img",
+                  sourceName: entry.file.name,
+                  sourceSize: entry.file.size,
+                  sourceType: entry.file.type || "application/pdf",
+                  sourceBlob: entry.file,
+                  outputs: outputs.map((o) => ({
+                    name: o.name,
+                    type: outMime,
+                    size: o.blob.size,
+                    blob: o.blob,
+                  })),
+                });
+              } catch (e) {
+                console.warn("history save failed", e);
+              }
             } else if (ext && IMG_EXTS.has(ext)) {
               const blob = await convertImageToPDF(entry.file);
               const base = entry.file.name.replace(/\.(jpe?g|png)$/i, "");
@@ -171,6 +205,18 @@ const SlikaPdf = () => {
                 blob,
                 url: URL.createObjectURL(blob),
               });
+              try {
+                await saveHistoryEntry({
+                  direction: "img2pdf",
+                  sourceName: entry.file.name,
+                  sourceSize: entry.file.size,
+                  sourceType: entry.file.type,
+                  sourceBlob: entry.file,
+                  outputs: [{ name: `${base}.pdf`, type: "application/pdf", size: blob.size, blob }],
+                });
+              } catch (e) {
+                console.warn("history save failed", e);
+              }
             } else {
               throw new Error("Format nije podržan u ovom alatu.");
             }
