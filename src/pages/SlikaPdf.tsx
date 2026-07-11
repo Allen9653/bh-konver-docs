@@ -266,13 +266,20 @@ const SlikaPdf = () => {
       />
 
       <main className="flex-1 container max-w-5xl mx-auto px-4 py-10">
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-            Slika ↔ PDF konverter
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            Prevucite fajlove — format se prepoznaje automatski. Sva obrada je lokalna u vašem pregledniku.
-          </p>
+        <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+              Slika ↔ PDF konverter
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              Prevucite fajlove — format se prepoznaje automatski. Sva obrada je lokalna u vašem pregledniku.
+            </p>
+          </div>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/slika-pdf/istorija">
+              <History className="w-4 h-4 mr-1.5" /> Historija konverzija
+            </Link>
+          </Button>
         </div>
 
         {entries.length === 0 ? (
