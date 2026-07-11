@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import JSZip from "jszip";
-import { FileImage, FileText, Download, RotateCcw, CheckCircle2, XCircle, Loader2 } from "lucide-react";
+import { FileImage, FileText, Download, RotateCcw, CheckCircle2, XCircle, Loader2, History } from "lucide-react";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { PremiumFooter } from "@/components/PremiumFooter";
 import { SEO } from "@/components/SEO";
@@ -19,6 +20,7 @@ import {
   convertImagesToSinglePDF,
   convertPDFToImages,
 } from "@/utils/pdfConverter";
+import { saveHistoryEntry } from "@/utils/conversionHistory";
 
 type Direction = "img2pdf" | "pdf2img" | null;
 type Status = "pending" | "processing" | "done" | "error";
@@ -65,6 +67,7 @@ const SlikaPdf = () => {
   const [entries, setEntries] = useState<FileEntry[]>([]);
   const [running, setRunning] = useState(false);
   const [combineToOnePdf, setCombineToOnePdf] = useState(true);
+  const [pdfOutputFormat, setPdfOutputFormat] = useState<"jpeg" | "png">("jpeg");
   const [combinedPdf, setCombinedPdf] = useState<{ name: string; blob: Blob; url: string } | null>(null);
 
   const direction: Direction = useMemo(() => {
@@ -142,6 +145,21 @@ const SlikaPdf = () => {
         entries.forEach((e) =>
           setEntry(e.id, { status: "done", progress: 100, outputs: [] }),
         );
+        // history: one combined entry using first source as preview
+        try {
+          const first = entries[0];
+          await saveHistoryEntry({
+            direction: "img2pdf",
+            sourceName: `${entries.length} slika → ${name}`,
+            sourceSize: entries.reduce((s, e) => s + e.file.size, 0),
+            sourceType: first.file.type,
+            sourceBlob: first.file,
+            outputs: [{ name, type: "application/pdf", size: blob.size, blob }],
+            combined: true,
+          });
+        } catch (e) {
+          console.warn("history save failed", e);
+        }
       } else {
         for (const entry of entries) {
           setEntry(entry.id, { status: "processing", progress: 10 });
@@ -149,17 +167,36 @@ const SlikaPdf = () => {
             const ext = entry.detected?.ext ?? entry.file.name.split(".").pop()?.toLowerCase();
             const outputs: FileEntry["outputs"] = [];
             if (ext === "pdf") {
-              const blobs = await convertPDFToImages(entry.file, "jpeg", (done, total) => {
+              const outExt = pdfOutputFormat === "png" ? "png" : "jpg";
+              const outMime = pdfOutputFormat === "png" ? "image/png" : "image/jpeg";
+              const blobs = await convertPDFToImages(entry.file, pdfOutputFormat, (done, total) => {
                 setEntry(entry.id, { progress: Math.round((done / total) * 100) });
               });
               const base = entry.file.name.replace(/\.pdf$/i, "");
               blobs.forEach((b, i) => {
                 outputs.push({
-                  name: blobs.length === 1 ? `${base}.jpg` : `${base}-str-${i + 1}.jpg`,
+                  name: blobs.length === 1 ? `${base}.${outExt}` : `${base}-str-${i + 1}.${outExt}`,
                   blob: b,
                   url: URL.createObjectURL(b),
                 });
               });
+              try {
+                await saveHistoryEntry({
+                  direction: "pdf2img",
+                  sourceName: entry.file.name,
+                  sourceSize: entry.file.size,
+                  sourceType: entry.file.type || "application/pdf",
+                  sourceBlob: entry.file,
+                  outputs: outputs.map((o) => ({
+                    name: o.name,
+                    type: outMime,
+                    size: o.blob.size,
+                    blob: o.blob,
+                  })),
+                });
+              } catch (e) {
+                console.warn("history save failed", e);
+              }
             } else if (ext && IMG_EXTS.has(ext)) {
               const blob = await convertImageToPDF(entry.file);
               const base = entry.file.name.replace(/\.(jpe?g|png)$/i, "");
@@ -168,6 +205,18 @@ const SlikaPdf = () => {
                 blob,
                 url: URL.createObjectURL(blob),
               });
+              try {
+                await saveHistoryEntry({
+                  direction: "img2pdf",
+                  sourceName: entry.file.name,
+                  sourceSize: entry.file.size,
+                  sourceType: entry.file.type,
+                  sourceBlob: entry.file,
+                  outputs: [{ name: `${base}.pdf`, type: "application/pdf", size: blob.size, blob }],
+                });
+              } catch (e) {
+                console.warn("history save failed", e);
+              }
             } else {
               throw new Error("Format nije podržan u ovom alatu.");
             }
@@ -217,13 +266,20 @@ const SlikaPdf = () => {
       />
 
       <main className="flex-1 container max-w-5xl mx-auto px-4 py-10">
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-            Slika ↔ PDF konverter
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            Prevucite fajlove — format se prepoznaje automatski. Sva obrada je lokalna u vašem pregledniku.
-          </p>
+        <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+              Slika ↔ PDF konverter
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              Prevucite fajlove — format se prepoznaje automatski. Sva obrada je lokalna u vašem pregledniku.
+            </p>
+          </div>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/slika-pdf/istorija">
+              <History className="w-4 h-4 mr-1.5" /> Historija konverzija
+            </Link>
+          </Button>
         </div>
 
         {entries.length === 0 ? (
@@ -239,7 +295,7 @@ const SlikaPdf = () => {
                     </>
                   ) : direction === "pdf2img" ? (
                     <>
-                      <FileText className="w-3.5 h-3.5" /> PDF → JPEG
+                      <FileText className="w-3.5 h-3.5" /> PDF → {pdfOutputFormat.toUpperCase()}
                     </>
                   ) : (
                     "Mješoviti fajlovi"
@@ -262,6 +318,25 @@ const SlikaPdf = () => {
                     />
                     Spoji u jedan PDF
                   </label>
+                )}
+                {direction === "pdf2img" && (
+                  <div className="flex items-center gap-1 rounded-md border border-border p-0.5 text-xs">
+                    {(["jpeg", "png"] as const).map((f) => (
+                      <button
+                        key={f}
+                        type="button"
+                        disabled={running}
+                        onClick={() => setPdfOutputFormat(f)}
+                        className={`px-2 py-1 rounded ${
+                          pdfOutputFormat === f
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {f.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
                 )}
                 <Button variant="outline" size="sm" onClick={reset} disabled={running}>
                   <RotateCcw className="w-4 h-4 mr-1.5" /> Poništi

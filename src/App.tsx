@@ -21,6 +21,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const Alati = lazy(() => import("./pages/Alati"));
 const PravniDokumenti = lazy(() => import("./pages/PravniDokumenti"));
 const SlikaPdf = lazy(() => import("./pages/SlikaPdf"));
+const SlikaPdfHistory = lazy(() => import("./pages/SlikaPdfHistory"));
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => (
               <Route path="/alati" element={<Alati />} />
               <Route path="/pravni-dokumenti" element={<PravniDokumenti />} />
               <Route path="/slika-pdf" element={<SlikaPdf />} />
+              <Route path="/slika-pdf/istorija" element={<SlikaPdfHistory />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
