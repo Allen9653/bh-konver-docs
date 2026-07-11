@@ -319,6 +319,25 @@ const SlikaPdf = () => {
                     Spoji u jedan PDF
                   </label>
                 )}
+                {direction === "pdf2img" && (
+                  <div className="flex items-center gap-1 rounded-md border border-border p-0.5 text-xs">
+                    {(["jpeg", "png"] as const).map((f) => (
+                      <button
+                        key={f}
+                        type="button"
+                        disabled={running}
+                        onClick={() => setPdfOutputFormat(f)}
+                        className={`px-2 py-1 rounded ${
+                          pdfOutputFormat === f
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {f.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 <Button variant="outline" size="sm" onClick={reset} disabled={running}>
                   <RotateCcw className="w-4 h-4 mr-1.5" /> Poništi
                 </Button>
