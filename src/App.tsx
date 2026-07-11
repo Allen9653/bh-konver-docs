@@ -21,6 +21,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const Alati = lazy(() => import("./pages/Alati"));
 const PravniDokumenti = lazy(() => import("./pages/PravniDokumenti"));
 const SlikaPdf = lazy(() => import("./pages/SlikaPdf"));
+const SlikaPdfHistory = lazy(() => import("./pages/SlikaPdfHistory"));
 
 const queryClient = new QueryClient();
 
