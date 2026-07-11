@@ -295,7 +295,7 @@ const SlikaPdf = () => {
                     </>
                   ) : direction === "pdf2img" ? (
                     <>
-                      <FileText className="w-3.5 h-3.5" /> PDF → JPEG
+                      <FileText className="w-3.5 h-3.5" /> PDF → {pdfOutputFormat.toUpperCase()}
                     </>
                   ) : (
                     "Mješoviti fajlovi"
