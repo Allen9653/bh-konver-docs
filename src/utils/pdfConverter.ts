@@ -1,8 +1,10 @@
 import { PDFDocument } from "pdf-lib";
 import * as pdfjsLib from "pdfjs-dist";
+// Lokalni worker (bundle-ovan preko Vite-a) — ne zavisi od CDN linka
+// koji za novije verzije pdf.js često ne postoji na staroj .js putanji.
+import pdfjsWorkerURL from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
-// Set up PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerURL;
 
 export const convertPDFToImage = async (file: File, format: "jpeg" | "png"): Promise<Blob> => {
   const arrayBuffer = await file.arrayBuffer();
