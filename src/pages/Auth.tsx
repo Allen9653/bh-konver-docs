@@ -25,7 +25,13 @@ const Auth = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { toast } = useToast();
+
+  // Preserve safe same-origin relative redirect target (e.g. OAuth consent URL)
+  const rawNext = searchParams.get("next") ?? "";
+  const nextPath = rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/";
+  const nextQuery = rawNext ? `?next=${encodeURIComponent(nextPath)}` : "";
 
   const validateEmail = (value: string) => {
     if (!value) {
