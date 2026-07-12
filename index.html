@@ -74,6 +74,9 @@
 
   <body>
     <div id="root"></div>
+    <!-- Mora se učitati PRIJE main.tsx — omogućava SharedArrayBuffer (ffmpeg.wasm)
+         čak i kad hosting ne dozvoljava podešavanje COOP/COEP zaglavlja. -->
+    <script src="/coi-serviceworker.js"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
