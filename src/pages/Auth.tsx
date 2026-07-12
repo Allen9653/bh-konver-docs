@@ -93,7 +93,7 @@ const Auth = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/`,
+          redirectTo: `${window.location.origin}${nextPath}`,
         },
       });
 
@@ -125,9 +125,10 @@ const Auth = () => {
           title: "Uspješna prijava",
           description: "Dobrodošli nazad!",
         });
-        navigate("/");
+        window.location.href = nextPath;
+        return;
       } else {
-        const redirectUrl = `${window.location.origin}/`;
+        const redirectUrl = `${window.location.origin}${nextPath}`;
 
         const { data, error } = await supabase.auth.signUp({
           email,
