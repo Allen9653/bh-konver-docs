@@ -22,6 +22,7 @@ const Alati = lazy(() => import("./pages/Alati"));
 const PravniDokumenti = lazy(() => import("./pages/PravniDokumenti"));
 const SlikaPdf = lazy(() => import("./pages/SlikaPdf"));
 const SlikaPdfHistory = lazy(() => import("./pages/SlikaPdfHistory"));
+const Connect = lazy(() => import("./pages/Connect"));
 
 const queryClient = new QueryClient();
 
