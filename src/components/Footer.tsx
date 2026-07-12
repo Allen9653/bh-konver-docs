@@ -47,6 +47,13 @@ export const Footer = () => {
             >
               {t('footer.support')}
             </Link>
+            <span className="opacity-60">|</span>
+            <Link 
+              to="/connect" 
+              className="hover:opacity-80 transition-opacity"
+            >
+              Poveži AI
+            </Link>
           </div>
           <a 
             href="https://www.bh-assistant.ba" 
