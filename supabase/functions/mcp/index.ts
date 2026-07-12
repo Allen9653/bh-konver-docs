@@ -3,7 +3,7 @@
 // supabase function: mcp
 // Bundled from src/lib/mcp/index.ts by @lovable.dev/mcp-js.
 // src/lib/mcp/index.ts
-import { defineMcp } from "npm:@lovable.dev/mcp-js@0.20.1";
+import { auth, defineMcp } from "npm:@lovable.dev/mcp-js@0.20.1";
 
 // src/lib/mcp/tools/list-supported-formats.ts
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.20.1";
@@ -128,11 +128,16 @@ var list_legal_documents_default = defineTool3({
 });
 
 // src/lib/mcp/index.ts
+var projectRef = "kvuiqexsovexuyfgztwk";
 var mcp_default = defineMcp({
   name: "bh-konver-mcp",
   title: "BH KONVER MCP",
   version: "0.1.0",
-  instructions: "Read-only tools for BH KONVER, a Bosnia & Herzegovina file-conversion and legal-document platform. Use `list_supported_formats` to discover which file types can be converted, `get_pricing_plans` for premium plan pricing in BAM, and `list_legal_documents` for available BiH-compliant legal statement templates.",
+  instructions: "Authenticated tools for BH KONVER, a Bosnia & Herzegovina file-conversion and legal-document platform. Sign in with your BH KONVER account to use them. Use `list_supported_formats` to discover which file types can be converted, `get_pricing_plans` for premium plan pricing in BAM, and `list_legal_documents` for available BiH-compliant legal statement templates.",
+  auth: auth.oauth.issuer({
+    issuer: `https://${projectRef}.supabase.co/auth/v1`,
+    acceptedAudiences: "authenticated"
+  }),
   tools: [list_supported_formats_default, get_pricing_plans_default, list_legal_documents_default]
 });
 
