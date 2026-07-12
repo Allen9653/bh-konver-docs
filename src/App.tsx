@@ -23,6 +23,7 @@ const PravniDokumenti = lazy(() => import("./pages/PravniDokumenti"));
 const SlikaPdf = lazy(() => import("./pages/SlikaPdf"));
 const SlikaPdfHistory = lazy(() => import("./pages/SlikaPdfHistory"));
 const Connect = lazy(() => import("./pages/Connect"));
+const OAuthConsent = lazy(() => import("./pages/OAuthConsent"));
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
               <Route path="/slika-pdf" element={<SlikaPdf />} />
               <Route path="/slika-pdf/istorija" element={<SlikaPdfHistory />} />
               <Route path="/connect" element={<Connect />} />
+              <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,7 +25,13 @@ const Auth = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { toast } = useToast();
+
+  // Preserve safe same-origin relative redirect target (e.g. OAuth consent URL)
+  const rawNext = searchParams.get("next") ?? "";
+  const nextPath = rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/";
+  const nextQuery = rawNext ? `?next=${encodeURIComponent(nextPath)}` : "";
 
   const validateEmail = (value: string) => {
     if (!value) {
@@ -87,7 +93,7 @@ const Auth = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/`,
+          redirectTo: `${window.location.origin}${nextPath}`,
         },
       });
 
@@ -119,9 +125,10 @@ const Auth = () => {
           title: "Uspješna prijava",
           description: "Dobrodošli nazad!",
         });
-        navigate("/");
+        window.location.href = nextPath;
+        return;
       } else {
-        const redirectUrl = `${window.location.origin}/`;
+        const redirectUrl = `${window.location.origin}${nextPath}`;
 
         const { data, error } = await supabase.auth.signUp({
           email,
