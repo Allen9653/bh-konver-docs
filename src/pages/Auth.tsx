@@ -193,7 +193,7 @@ const Auth = () => {
 
       toast({
         title: "Greška pri registraciji",
-        description: `${friendly}${rawMsg ? ` (Detalji: ${rawMsg})` : ""}`,
+        description: friendly,
         variant: "destructive",
       });
     } finally {
