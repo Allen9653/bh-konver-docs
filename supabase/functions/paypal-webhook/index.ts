@@ -158,7 +158,7 @@ serve(async (req) => {
   }
 
   const supabase = getSupabaseClient();
-  const clientIp = req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "unknown";
+  const clientIp = req.headers.get("cf-connecting-ip") || req.headers.get("x-forwarded-for") || "unknown";
 
   try {
     const body = await req.text();
