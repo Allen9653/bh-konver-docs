@@ -58,10 +58,18 @@ export const PDFToolsInterface = ({ operation, onBack }: PDFToolsInterfaceProps)
         formData.append("angle", rotationAngle);
       }
 
-      // Get session token for authentication
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.access_token) {
-        throw new Error("Morate biti prijavljeni za korištenje PDF alata");
+      // Ensure a valid session (refresh if expired), then get token
+      let { data: { session } } = await supabase.auth.getSession();
+      if (session?.expires_at && session.expires_at * 1000 < Date.now() + 30_000) {
+        const { data: refreshed } = await supabase.auth.refreshSession();
+        session = refreshed.session ?? session;
+      }
+      const { data: userCheck, error: userErr } = await supabase.auth.getUser();
+      if (userErr || !userCheck?.user || !session?.access_token) {
+        toast.error("Sesija je istekla. Molimo prijavite se ponovo.");
+        await supabase.auth.signOut();
+        window.location.href = "/auth";
+        return;
       }
 
       // Use fetch directly for proper FormData handling
