@@ -22,7 +22,7 @@ import type { ConversionProgress } from "@/utils/clientConverter";
 const BatchConversionPanel = lazy(() => import("@/components/BatchConversionPanel").then((module) => ({ default: module.BatchConversionPanel })));
 const UnitConverter = lazy(() => import("@/components/UnitConverter").then((module) => ({ default: module.UnitConverter })));
 const PDFToolsSelector = lazy(() => import("@/components/PDFToolsSelector").then((module) => ({ default: module.PDFToolsSelector })));
-const PDFToolsInterface = lazy(() => import("@/components/PDFToolsInterface").then((module) => ({ default: module.PDFToolsInterface } at "@/components/PDFToolsInterface").then((module) => ({ default: module.PDFToolsInterface })));
+const PDFToolsInterface = lazy(() => import("@/components/PDFToolsInterface").then((module) => ({ default: module.PDFToolsInterface })));
 const PricingSection = lazy(() => import("@/components/PricingSection").then((module) => ({ default: module.PricingSection })));
 const SponsorBanners = lazy(() => import("@/components/SponsorBanners").then((module) => ({ default: module.SponsorBanners })));
 const CurrencyConverter = lazy(() => import("@/components/CurrencyConverter").then((module) => ({ default: module.CurrencyConverter })));
