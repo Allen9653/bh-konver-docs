@@ -22,7 +22,7 @@ import type { ConversionProgress } from "@/utils/clientConverter";
 const BatchConversionPanel = lazy(() => import("@/components/BatchConversionPanel").then((module) => ({ default: module.BatchConversionPanel })));
 const UnitConverter = lazy(() => import("@/components/UnitConverter").then((module) => ({ default: module.UnitConverter })));
 const PDFToolsSelector = lazy(() => import("@/components/PDFToolsSelector").then((module) => ({ default: module.PDFToolsSelector })));
-const PDFToolsInterface = lazy(() => import("@/components/PDFToolsInterface").then((module) => ({ default: module.PDFToolsInterface })));
+const PDFToolsInterface = lazy(() => import("@/components/PDFToolsInterface").then((module) => ({ default: module.PDFToolsInterface } at "@/components/PDFToolsInterface").then((module) => ({ default: module.PDFToolsInterface })));
 const PricingSection = lazy(() => import("@/components/PricingSection").then((module) => ({ default: module.PricingSection })));
 const SponsorBanners = lazy(() => import("@/components/SponsorBanners").then((module) => ({ default: module.SponsorBanners })));
 const CurrencyConverter = lazy(() => import("@/components/CurrencyConverter").then((module) => ({ default: module.CurrencyConverter })));
@@ -126,8 +126,29 @@ const Index = () => {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("targetFormat", targetFormat);
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.access_token) throw new Error("Morate biti prijavljeni za konverziju fajlova.");
+
+      // Provjeri sesiju SA obradom greške I vremenskim ograničenjem —
+      // ako je sesija istekla, provjera ne uspije, ili se zaglavi
+      // (nikad ne razriješi), korisnik dobija jasnu poruku umjesto da
+      // se aplikacija zaglavi zauvijek na "Uploading na server...".
+      let session;
+      try {
+        const sessionResult = await Promise.race([
+          supabase.auth.getSession(),
+          new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error("TIMEOUT_SESSION_CHECK")), 10000)
+          ),
+        ]);
+        if (sessionResult.error) throw sessionResult.error;
+        session = sessionResult.data.session;
+      } catch (sessionErr) {
+        console.error("Greška pri provjeri sesije:", sessionErr);
+        throw new Error("Sesija je istekla. Molimo odjavite se i ponovo prijavite, pa pokušajte opet.");
+      }
+      if (!session?.access_token) {
+        throw new Error("Morate biti prijavljeni za konverziju fajlova. Molimo prijavite se ponovo.");
+      }
+
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
       const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
       onProgress?.({ stage: "Konvertovanje na serveru...", percent: 30 });
