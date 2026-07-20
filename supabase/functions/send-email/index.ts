@@ -239,28 +239,71 @@ const handler = async (req: Request): Promise<Response> => {
       case "document_share": {
         const { recipientEmail, senderName, documentName, documentUrl } = body;
 
-        // Validate that documentUrl (when present) is a Supabase Storage signed URL on this project
+        // Require a documentUrl so we can bind the send to a real document owned by the caller
+        if (!documentUrl) {
+          return new Response(
+            JSON.stringify({ error: "documentUrl is required for document_share" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Validate that documentUrl is a Supabase Storage signed URL on this project
         let safeDocUrl = "";
-        if (documentUrl) {
-          try {
-            const u = new URL(documentUrl);
-            const expectedHost = new URL(supabaseUrl).host;
-            const isSupabaseHost = u.host === expectedHost;
-            const isSigned = u.pathname.includes("/storage/v1/object/sign/") &&
-              u.searchParams.has("token");
-            if (!isSupabaseHost || !isSigned) {
-              return new Response(
-                JSON.stringify({ error: "documentUrl must be a signed Supabase Storage URL" }),
-                { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-              );
-            }
-            safeDocUrl = u.toString();
-          } catch {
+        let storagePath = "";
+        try {
+          const u = new URL(documentUrl);
+          const expectedHost = new URL(supabaseUrl).host;
+          const signIdx = u.pathname.indexOf("/storage/v1/object/sign/");
+          const isSupabaseHost = u.host === expectedHost;
+          const isSigned = signIdx !== -1 && u.searchParams.has("token");
+          if (!isSupabaseHost || !isSigned) {
             return new Response(
-              JSON.stringify({ error: "Invalid documentUrl" }),
+              JSON.stringify({ error: "documentUrl must be a signed Supabase Storage URL" }),
               { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
             );
           }
+          safeDocUrl = u.toString();
+          // Storage path is everything after "/storage/v1/object/sign/<bucket>/"
+          const afterSign = u.pathname.substring(signIdx + "/storage/v1/object/sign/".length);
+          const firstSlash = afterSign.indexOf("/");
+          storagePath = firstSlash === -1 ? "" : afterSign.substring(firstSlash + 1);
+        } catch {
+          return new Response(
+            JSON.stringify({ error: "Invalid documentUrl" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Ownership check: caller must own a document with this storage_path
+        if (!isServiceRole && !isAdmin) {
+          const { data: ownedDoc, error: ownErr } = await supabaseAdmin
+            .from("documents")
+            .select("id")
+            .eq("user_id", user.id)
+            .eq("storage_path", storagePath)
+            .maybeSingle();
+          if (ownErr || !ownedDoc) {
+            console.error(`Forbidden 'document_share' by ${user.id}: not owner of ${storagePath}`, ownErr);
+            return new Response(
+              JSON.stringify({ error: "Forbidden - you do not own this document" }),
+              { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+            );
+          }
+
+          // Per-user daily rate limit (best-effort in-memory counter)
+          const DAILY_LIMIT = 10;
+          const today = new Date().toISOString().slice(0, 10);
+          const key = `${user.id}:${today}`;
+          const bucket = (globalThis as any).__docShareCounts ??= new Map<string, number>();
+          const current = bucket.get(key) ?? 0;
+          if (current >= DAILY_LIMIT) {
+            console.error(`Rate limit exceeded for document_share by ${user.id}`);
+            return new Response(
+              JSON.stringify({ error: "Daily document share limit reached" }),
+              { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+            );
+          }
+          bucket.set(key, current + 1);
         }
 
         const safeSender = escapeHtml(senderName);
@@ -269,6 +312,7 @@ const handler = async (req: Request): Promise<Response> => {
         const escapedHref = escapeHtml(safeDocUrl);
 
         console.log(`Sharing document from user ${user.id} to ${recipientEmail}`);
+
 
         emailResponse = await sendEmail(
           [recipientEmail],
