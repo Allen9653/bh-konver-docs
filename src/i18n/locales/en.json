@@ -360,5 +360,179 @@
     "fileTooLarge": "File is too large ({{size}} MB). Maximum allowed: {{limit}} MB. Try compressing the file or upgrade to Premium.",
     "serverBusy": "Server is currently busy, please try again shortly.",
     "uploadBlocked": "Upload blocked"
+  },
+  "auth": {
+    "signOut": "Sign Out",
+    "signedOut": "Successfully logged out"
+  },
+  "alati": {
+    "seoTitle": "Free Tools — PDF, Word, Excel, Cyrillic | BH Konver",
+    "seoDescription": "Free online tools: units and currency without limits, up to 2 free high-quality document conversions, premium access for unlimited use.",
+    "badgeFreemium": "Freemium",
+    "badgeNoRegistration": "No registration",
+    "badgePrivate": "Private",
+    "heroTitlePrefix": "Free",
+    "heroTitleAccent": "Tools",
+    "heroSubtitle": "Units and currency — always free and unlimited. High-quality document conversion — 2 free, then Premium.",
+    "alwaysFree": "Always free",
+    "dailyToolsTitle": "🌍 Everyday tools",
+    "dailyToolsSubtitle": "Unlimited use — no registration, no limits.",
+    "freeBadge": "∞ Free",
+    "premiumQuality": "Premium quality",
+    "remainingFree": "Free remaining: {{remaining}}/{{limit}}",
+    "unlimited": "Unlimited",
+    "viewPackages": "View plans",
+    "docSectionTitle": "📄 Document conversion",
+    "docSectionSubtitle": "Excellent format preservation. Free up to {{limit}} conversions, then choose a plan.",
+    "quotaPremium": "Premium · ∞",
+    "quotaFree": "Free {{remaining}}/{{limit}}",
+    "quotaLocked": "Premium",
+    "tools": {
+      "units": {
+        "title": "Unit converter",
+        "description": "Length, weight, volume, temperature — instant conversion."
+      },
+      "currency": {
+        "title": "Currency converter",
+        "description": "Real-time exchange rates for all major world currencies."
+      },
+      "script": {
+        "title": "Latin ↔ Cyrillic",
+        "description": "Instant text conversion. Supports Bosnian, Serbian and Croatian."
+      },
+      "pdfToWord": {
+        "title": "PDF → Word",
+        "description": "Text-only conversion — complex formatting and tables may be simplified.",
+        "runnerDescription": "Text-only conversion — complex formatting and tables may be simplified."
+      },
+      "wordToPdf": {
+        "title": "Word → PDF",
+        "description": "Convert Word (.docx) to PDF while preserving formatting.",
+        "runnerDescription": "Convert a .docx document to PDF (keeps text, headings, italic, bold, lists)."
+      },
+      "imgToPdf": {
+        "title": "Images → PDF",
+        "description": "Combine JPG, JPEG and PNG images into a single PDF.",
+        "runnerDescription": "Select one or more images (.jpg, .jpeg, .png) — each becomes a page."
+      },
+      "excelToPdf": {
+        "title": "Excel → PDF",
+        "description": "Convert Excel (.xlsx, .xls) into a PDF table.",
+        "runnerDescription": "Convert .xlsx or .xls to PDF — each sheet becomes a page."
+      },
+      "pptxToPdf": {
+        "title": "PPTX → PDF",
+        "description": "Beta — server-side PowerPoint conversion. Up to 3 free per day."
+      },
+      "mergePdf": {
+        "title": "Merge PDF",
+        "description": "Merge multiple PDF documents into one file.",
+        "runnerDescription": "Select 2 or more PDF files — they will be merged into one PDF."
+      },
+      "splitPdf": {
+        "title": "Split PDF",
+        "description": "Split a PDF into individual pages (ZIP).",
+        "runnerDescription": "The PDF will be split into individual pages and packed into a ZIP archive."
+      }
+    },
+    "trust": {
+      "privateTitle": "Private",
+      "privateText": "Processed in your browser — files stay off the server whenever possible.",
+      "fastTitle": "Fast",
+      "fastText": "No waiting, no upload for most conversions.",
+      "noRegTitle": "No registration",
+      "noRegText": "Try it now — an account is only needed for Premium."
+    },
+    "upsell": {
+      "title": "Premium = unlimited processing",
+      "text": "24h from 2 BAM · 7 days · monthly subscription. Batch conversions + priority processing."
+    }
+  },
+  "toolRunner": {
+    "back": "Back",
+    "freeBadge": "Free",
+    "dropHint": "Drag a file here or click",
+    "allowed": "Allowed: {{formats}}",
+    "removeFile": "Remove",
+    "processing": "Processing...",
+    "run": "Start conversion",
+    "ready": "Your file is ready to download",
+    "download": "Download",
+    "newFile": "New file",
+    "minFiles": "At least {{count}} file(s) required"
+  },
+  "scriptConverter": {
+    "badge": "Free · Real-time",
+    "title": "Latin ↔ Cyrillic",
+    "description": "Instant script conversion for Bosnian, Serbian and Croatian. Supports digraphs: lj → љ, nj → њ, dž → џ.",
+    "latin": "Latin",
+    "cyrillic": "Cyrillic",
+    "swap": "Swap direction",
+    "inputLabel": "{{script}} (input)",
+    "outputLabel": "{{script}} (result)",
+    "placeholderLatin": "Enter Latin text...",
+    "placeholderCyrillic": "Enter Cyrillic text...",
+    "resultPlaceholder": "The result appears here...",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "download": "Download .txt"
+  },
+  "pptxTool": {
+    "note": "Beta · Free up to 3 conversions per day. Files are not stored.",
+    "converting": "Conversion in progress...",
+    "run": "Start conversion",
+    "downloadPdf": "Download PDF",
+    "newFile": "Convert another file"
+  },
+  "paywall": {
+    "title": "You have used all free conversions",
+    "description": "({{used}}/{{limit}}) — choose a plan below and continue with unlimited high-quality document conversion.",
+    "securePayment": "Secure payment (PayPal)",
+    "instantActivation": "Instant activation",
+    "topFormatting": "Top-tier formatting",
+    "for": "for {{duration}}",
+    "redirecting": "Redirecting…",
+    "footnote": "Payment is processed securely via PayPal. Activation is instant after confirmation.",
+    "loginNotice": "Please sign in so we can activate Premium access after payment.",
+    "checkoutError": "Error starting the payment. Please try again.",
+    "popular": "Most popular",
+    "bestValue": "Best value",
+    "tier24h": {
+      "name": "24-hour access",
+      "duration": "24 hours",
+      "cta": "Unlock for 24h",
+      "f1": "Unlimited conversions",
+      "f2": "Top format preservation",
+      "f3": "No ads"
+    },
+    "tier7d": {
+      "name": "7-day access",
+      "duration": "7 days",
+      "cta": "Unlock for 7 days",
+      "f1": "Everything in the 24h plan",
+      "f2": "Batch processing (multiple files)",
+      "f3": "Ideal for students and projects"
+    },
+    "tierMonthly": {
+      "name": "Monthly subscription",
+      "duration": "30 days",
+      "cta": "Subscribe monthly",
+      "f1": "Everything in the weekly plan",
+      "f2": "Priority processing and support",
+      "f3": "Audio / video tools"
+    }
+  },
+  "premiumUpsell": {
+    "title": "You have reached the free limit",
+    "message": "You have used all free PPTX conversions for this hour. Upgrade to Premium for unlimited processing, batch conversion and advanced formats.",
+    "b1": "Unlimited conversions",
+    "b1text": "— no hourly or daily limits.",
+    "b2": "Batch processing",
+    "b2text": "— multiple files at once.",
+    "b3": "Priority support",
+    "b3text": "and advanced audio/video tools.",
+    "retry": "Or wait about {{time}} and try again for free.",
+    "viewPackages": "View Premium plans",
+    "later": "Maybe later"
   }
 }

@@ -360,5 +360,179 @@
     "fileTooLarge": "Dosya çok büyük ({{size}} MB). Maksimum izin verilen: {{limit}} MB. Dosyayı sıkıştırmayı deneyin veya Premium'a yükseltin.",
     "serverBusy": "Sunucu şu an meşgul, lütfen kısa bir süre sonra tekrar deneyin.",
     "uploadBlocked": "Yükleme engellendi"
+  },
+  "auth": {
+    "signOut": "Çıkış yap",
+    "signedOut": "Başarıyla çıkış yapıldı"
+  },
+  "alati": {
+    "seoTitle": "Ücretsiz Araçlar — PDF, Word, Excel, Kiril | BH Konver",
+    "seoDescription": "Ücretsiz çevrimiçi araçlar: sınırsız birim ve döviz çevirici, 2 ücretsiz yüksek kaliteli belge dönüşümü, sınırsız kullanım için premium.",
+    "badgeFreemium": "Freemium",
+    "badgeNoRegistration": "Kayıt gerekmez",
+    "badgePrivate": "Gizli",
+    "heroTitlePrefix": "Ücretsiz",
+    "heroTitleAccent": "Araçlar",
+    "heroSubtitle": "Birimler ve dövizler — her zaman ücretsiz ve sınırsız. Yüksek kaliteli belge dönüşümü — 2 ücretsiz, sonra Premium.",
+    "alwaysFree": "Her zaman ücretsiz",
+    "dailyToolsTitle": "🌍 Günlük araçlar",
+    "dailyToolsSubtitle": "Sınırsız kullanım — kayıt yok, limit yok.",
+    "freeBadge": "∞ Ücretsiz",
+    "premiumQuality": "Premium kalite",
+    "remainingFree": "Kalan ücretsiz: {{remaining}}/{{limit}}",
+    "unlimited": "Sınırsız",
+    "viewPackages": "Paketleri gör",
+    "docSectionTitle": "📄 Belge dönüşümü",
+    "docSectionSubtitle": "Mükemmel biçim korunması. {{limit}} dönüşüme kadar ücretsiz, sonra bir paket seçin.",
+    "quotaPremium": "Premium · ∞",
+    "quotaFree": "Ücretsiz {{remaining}}/{{limit}}",
+    "quotaLocked": "Premium",
+    "tools": {
+      "units": {
+        "title": "Birim çevirici",
+        "description": "Uzunluk, ağırlık, hacim, sıcaklık — anında dönüşüm."
+      },
+      "currency": {
+        "title": "Döviz çevirici",
+        "description": "Tüm büyük dünya para birimleri için gerçek zamanlı kurlar."
+      },
+      "script": {
+        "title": "Latin ↔ Kiril",
+        "description": "Anında metin dönüşümü. Boşnakça, Sırpça ve Hırvatça destekler."
+      },
+      "pdfToWord": {
+        "title": "PDF → Word",
+        "description": "Yalnızca metin dönüşümü — karmaşık biçimlendirme ve tablolar basitleştirilebilir.",
+        "runnerDescription": "Yalnızca metin dönüşümü — karmaşık biçimlendirme ve tablolar basitleştirilebilir."
+      },
+      "wordToPdf": {
+        "title": "Word → PDF",
+        "description": "Word (.docx) dosyasını biçimlendirmeyi koruyarak PDF'e dönüştürün.",
+        "runnerDescription": ".docx belgesini PDF'e dönüştürün (metin, başlıklar, italik, kalın, listeler korunur)."
+      },
+      "imgToPdf": {
+        "title": "Görseller → PDF",
+        "description": "JPG, JPEG ve PNG görsellerini tek bir PDF'te birleştirin.",
+        "runnerDescription": "Bir veya daha fazla görsel seçin (.jpg, .jpeg, .png) — her biri bir sayfa olur."
+      },
+      "excelToPdf": {
+        "title": "Excel → PDF",
+        "description": "Excel (.xlsx, .xls) dosyasını PDF tabloya dönüştürün.",
+        "runnerDescription": ".xlsx veya .xls dosyasını PDF'e dönüştürün — her sayfa bir sayfa olur."
+      },
+      "pptxToPdf": {
+        "title": "PPTX → PDF",
+        "description": "Beta — sunucu tarafı PowerPoint dönüşümü. Günde 3 ücretsiz."
+      },
+      "mergePdf": {
+        "title": "PDF birleştir",
+        "description": "Birden fazla PDF belgesini tek dosyada birleştirin.",
+        "runnerDescription": "2 veya daha fazla PDF dosyası seçin — tek bir PDF'te birleştirilir."
+      },
+      "splitPdf": {
+        "title": "PDF böl",
+        "description": "PDF'i tek tek sayfalara bölün (ZIP).",
+        "runnerDescription": "PDF tek tek sayfalara bölünüp ZIP arşivine paketlenecek."
+      }
+    },
+    "trust": {
+      "privateTitle": "Gizli",
+      "privateText": "Tarayıcıda işlenir — mümkün olduğunda dosyalar sunucuya gitmez.",
+      "fastTitle": "Hızlı",
+      "fastText": "Çoğu dönüşüm için bekleme ve yükleme yok.",
+      "noRegTitle": "Kayıt gerekmez",
+      "noRegText": "Hemen deneyin — hesap yalnızca Premium için gerekir."
+    },
+    "upsell": {
+      "title": "Premium = sınırsız işleme",
+      "text": "24 saat 2 BAM'dan · 7 gün · aylık abonelik. Toplu dönüşüm + öncelikli işleme."
+    }
+  },
+  "toolRunner": {
+    "back": "Geri",
+    "freeBadge": "Ücretsiz",
+    "dropHint": "Dosyayı buraya sürükleyin veya tıklayın",
+    "allowed": "İzin verilen: {{formats}}",
+    "removeFile": "Kaldır",
+    "processing": "İşleniyor...",
+    "run": "Dönüşümü başlat",
+    "ready": "Dosyanız indirmeye hazır",
+    "download": "İndir",
+    "newFile": "Yeni dosya",
+    "minFiles": "En az {{count}} dosya gerekli"
+  },
+  "scriptConverter": {
+    "badge": "Ücretsiz · Gerçek zamanlı",
+    "title": "Latin ↔ Kiril",
+    "description": "Boşnakça, Sırpça ve Hırvatça için anında alfabe dönüşümü. Digrafları destekler: lj → љ, nj → њ, dž → џ.",
+    "latin": "Latin",
+    "cyrillic": "Kiril",
+    "swap": "Yönü değiştir",
+    "inputLabel": "{{script}} (giriş)",
+    "outputLabel": "{{script}} (sonuç)",
+    "placeholderLatin": "Latin harfleriyle metin girin...",
+    "placeholderCyrillic": "Kiril harfleriyle metin girin...",
+    "resultPlaceholder": "Sonuç burada görünecek...",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı!",
+    "download": ".txt indir"
+  },
+  "pptxTool": {
+    "note": "Beta · Günde 3 dönüşüme kadar ücretsiz. Dosyalar saklanmaz.",
+    "converting": "Dönüşüm sürüyor...",
+    "run": "Dönüşümü başlat",
+    "downloadPdf": "PDF indir",
+    "newFile": "Başka dosya dönüştür"
+  },
+  "paywall": {
+    "title": "Tüm ücretsiz dönüşümleri kullandınız",
+    "description": "({{used}}/{{limit}}) — aşağıdan bir paket seçin ve sınırsız yüksek kaliteli belge dönüşümüne devam edin.",
+    "securePayment": "Güvenli ödeme (PayPal)",
+    "instantActivation": "Anında etkinleştirme",
+    "topFormatting": "Üstün biçimlendirme",
+    "for": "{{duration}} için",
+    "redirecting": "Yönlendiriliyor…",
+    "footnote": "Ödeme PayPal üzerinden güvenle işlenir. Onaydan sonra etkinleştirme anındadır.",
+    "loginNotice": "Ödeme sonrası Premium erişimi etkinleştirebilmemiz için lütfen giriş yapın.",
+    "checkoutError": "Ödeme başlatılırken hata oluştu. Lütfen tekrar deneyin.",
+    "popular": "En popüler",
+    "bestValue": "En iyi değer",
+    "tier24h": {
+      "name": "24 saatlik erişim",
+      "duration": "24 saat",
+      "cta": "24 saat için aç",
+      "f1": "Sınırsız dönüşüm",
+      "f2": "Üstün biçim korunması",
+      "f3": "Reklamsız"
+    },
+    "tier7d": {
+      "name": "7 günlük erişim",
+      "duration": "7 gün",
+      "cta": "7 gün için aç",
+      "f1": "24 saatlik paketteki her şey",
+      "f2": "Toplu işleme (çoklu dosya)",
+      "f3": "Öğrenciler ve projeler için ideal"
+    },
+    "tierMonthly": {
+      "name": "Aylık abonelik",
+      "duration": "30 gün",
+      "cta": "Aylık abone ol",
+      "f1": "Haftalık paketteki her şey",
+      "f2": "Öncelikli işleme ve destek",
+      "f3": "Ses / video araçları"
+    }
+  },
+  "premiumUpsell": {
+    "title": "Ücretsiz limite ulaştınız",
+    "message": "Bu saat için tüm ücretsiz PPTX dönüşümlerini kullandınız. Sınırsız işleme, toplu dönüşüm ve gelişmiş formatlar için Premium'a geçin.",
+    "b1": "Sınırsız dönüşüm",
+    "b1text": "— saatlik veya günlük limit yok.",
+    "b2": "Toplu işleme",
+    "b2text": "— aynı anda birden fazla dosya.",
+    "b3": "Öncelikli destek",
+    "b3text": "ve gelişmiş ses/video araçları.",
+    "retry": "Ya da yaklaşık {{time}} bekleyip ücretsiz tekrar deneyin.",
+    "viewPackages": "Premium paketleri gör",
+    "later": "Belki sonra"
   }
 }

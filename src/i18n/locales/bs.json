@@ -360,5 +360,179 @@
     "fileTooLarge": "Datoteka je prevelika ({{size}} MB). Maksimalno dozvoljeno: {{limit}} MB. Pokušajte kompresovati datoteku ili nadogradite na Premium.",
     "serverBusy": "Server je trenutno zauzet, pokušajte ponovo za trenutak.",
     "uploadBlocked": "Upload blokiran"
+  },
+  "auth": {
+    "signOut": "Odjava",
+    "signedOut": "Uspješno ste se odjavili"
+  },
+  "alati": {
+    "seoTitle": "Besplatni Alati — PDF, Word, Excel, Ćirilica | BH Konver",
+    "seoDescription": "Besplatni online alati: jedinice i valute bez limita, do 2 besplatne high-quality konverzije dokumenata, premium pristup za neograničeno.",
+    "badgeFreemium": "Freemium",
+    "badgeNoRegistration": "Bez registracije",
+    "badgePrivate": "Privatno",
+    "heroTitlePrefix": "Besplatni",
+    "heroTitleAccent": "Alati",
+    "heroSubtitle": "Jedinice i valute — uvijek besplatno i bez limita. Konverzija dokumenata u vrhunskom kvalitetu — 2 besplatne, zatim Premium.",
+    "alwaysFree": "Uvijek besplatno",
+    "dailyToolsTitle": "🌍 Svakodnevni alati",
+    "dailyToolsSubtitle": "Neograničeno korištenje — bez registracije, bez limita.",
+    "freeBadge": "∞ Besplatno",
+    "premiumQuality": "Premium kvalitet",
+    "remainingFree": "Preostalo besplatno: {{remaining}}/{{limit}}",
+    "unlimited": "Neograničeno",
+    "viewPackages": "Pogledaj pakete",
+    "docSectionTitle": "📄 Konverzija dokumenata",
+    "docSectionSubtitle": "Vrhunsko očuvanje formata. Besplatno do {{limit}} konverzije, zatim odaberite paket.",
+    "quotaPremium": "Premium · ∞",
+    "quotaFree": "Besplatno {{remaining}}/{{limit}}",
+    "quotaLocked": "Premium",
+    "tools": {
+      "units": {
+        "title": "Konverter jedinica",
+        "description": "Dužina, težina, zapremina, temperatura — trenutna konverzija."
+      },
+      "currency": {
+        "title": "Konverter valuta",
+        "description": "Real-time devizni kursevi za sve glavne svjetske valute."
+      },
+      "script": {
+        "title": "Latinica ↔ Ćirilica",
+        "description": "Trenutna konverzija teksta. Podržava bosanski, srpski i hrvatski."
+      },
+      "pdfToWord": {
+        "title": "PDF → Word",
+        "description": "Tekstualna konverzija — kompleksno formatiranje i tabele mogu biti pojednostavljeni.",
+        "runnerDescription": "Tekstualna konverzija — kompleksno formatiranje i tabele mogu biti pojednostavljeni."
+      },
+      "wordToPdf": {
+        "title": "Word → PDF",
+        "description": "Pretvorite Word (.docx) u PDF uz čuvanje formatiranja.",
+        "runnerDescription": "Pretvorite .docx dokument u PDF (čuva tekst, naslove, italik, bold, liste)."
+      },
+      "imgToPdf": {
+        "title": "Slike → PDF",
+        "description": "Spojite JPG, JPEG i PNG slike u jedan PDF.",
+        "runnerDescription": "Odaberite jednu ili više slika (.jpg, .jpeg, .png) — svaka postaje stranica."
+      },
+      "excelToPdf": {
+        "title": "Excel → PDF",
+        "description": "Pretvorite Excel (.xlsx, .xls) u PDF tabelu.",
+        "runnerDescription": "Pretvorite .xlsx ili .xls u PDF — svaki sheet postaje stranica."
+      },
+      "pptxToPdf": {
+        "title": "PPTX → PDF",
+        "description": "Beta — server-side konverzija PowerPoint prezentacija. Do 3 besplatne dnevno."
+      },
+      "mergePdf": {
+        "title": "Spoji PDF (Merge)",
+        "description": "Spojite više PDF dokumenata u jedan fajl.",
+        "runnerDescription": "Odaberite 2 ili više PDF datoteka — bit će spojeni u jedan PDF."
+      },
+      "splitPdf": {
+        "title": "Razdvoji PDF (Split)",
+        "description": "Razdvojite PDF na pojedinačne stranice (ZIP).",
+        "runnerDescription": "PDF će biti razdvojen u pojedinačne stranice i pakovan u ZIP arhivu."
+      }
+    },
+    "trust": {
+      "privateTitle": "Privatno",
+      "privateText": "Obrada u pretraživaču — fajl ne ide na server kad god je moguće.",
+      "fastTitle": "Brzo",
+      "fastText": "Bez čekanja, bez upload-a za većinu konverzija.",
+      "noRegTitle": "Bez registracije",
+      "noRegText": "Probajte odmah — račun je potreban samo za Premium."
+    },
+    "upsell": {
+      "title": "Premium = neograničena obrada",
+      "text": "24h od 2 BAM · 7 dana · mjesečna pretplata. Batch konverzije + prioritetna obrada."
+    }
+  },
+  "toolRunner": {
+    "back": "Nazad",
+    "freeBadge": "Besplatno",
+    "dropHint": "Prevucite fajl ovdje ili kliknite",
+    "allowed": "Dozvoljeno: {{formats}}",
+    "removeFile": "Ukloni",
+    "processing": "Obrada...",
+    "run": "Pokreni konverziju",
+    "ready": "Vaš fajl je spreman za preuzimanje",
+    "download": "Preuzmi",
+    "newFile": "Novi fajl",
+    "minFiles": "Potrebno najmanje {{count}} fajl(ova)"
+  },
+  "scriptConverter": {
+    "badge": "Besplatno · Real-time",
+    "title": "Latinica ↔ Ćirilica",
+    "description": "Trenutna konverzija pisma za bosanski, srpski i hrvatski jezik. Podržava digrafe: lj → љ, nj → њ, dž → џ.",
+    "latin": "Latinica",
+    "cyrillic": "Ćirilica",
+    "swap": "Zamijeni smjer",
+    "inputLabel": "{{script}} (unos)",
+    "outputLabel": "{{script}} (rezultat)",
+    "placeholderLatin": "Unesite tekst na latinici...",
+    "placeholderCyrillic": "Unesite tekst na ćirilici...",
+    "resultPlaceholder": "Rezultat se prikazuje ovdje...",
+    "copy": "Kopiraj",
+    "copied": "Kopirano!",
+    "download": "Preuzmi .txt"
+  },
+  "pptxTool": {
+    "note": "Beta · Besplatno do 3 konverzije dnevno. Datoteke se ne čuvaju.",
+    "converting": "Konverzija u toku...",
+    "run": "Pokreni konverziju",
+    "downloadPdf": "Preuzmi PDF",
+    "newFile": "Konvertuj novu datoteku"
+  },
+  "paywall": {
+    "title": "Iskoristili ste sve besplatne konverzije",
+    "description": "({{used}}/{{limit}}) — odaberite paket ispod i nastavite s neograničenom konverzijom dokumenata visokog kvaliteta.",
+    "securePayment": "Sigurno plaćanje (PayPal)",
+    "instantActivation": "Trenutna aktivacija",
+    "topFormatting": "Vrhunsko formatiranje",
+    "for": "za {{duration}}",
+    "redirecting": "Preusmjeravanje…",
+    "footnote": "Plaćanje se obrađuje sigurno putem PayPal-a. Aktivacija je trenutna nakon potvrde.",
+    "loginNotice": "Prijavite se kako bismo aktivirali Premium pristup nakon plaćanja.",
+    "checkoutError": "Greška pri pokretanju plaćanja. Pokušajte ponovo.",
+    "popular": "Najpopularnije",
+    "bestValue": "Najbolja vrijednost",
+    "tier24h": {
+      "name": "24-satni pristup",
+      "duration": "24 sata",
+      "cta": "Otključaj na 24h",
+      "f1": "Neograničene konverzije",
+      "f2": "Vrhunsko očuvanje formata",
+      "f3": "Bez reklama"
+    },
+    "tier7d": {
+      "name": "7-dnevni pristup",
+      "duration": "7 dana",
+      "cta": "Otključaj na 7 dana",
+      "f1": "Sve iz 24h paketa",
+      "f2": "Batch obrada (više fajlova)",
+      "f3": "Idealno za studente i projekte"
+    },
+    "tierMonthly": {
+      "name": "Mjesečna pretplata",
+      "duration": "30 dana",
+      "cta": "Pretplati se mjesečno",
+      "f1": "Sve iz nedjeljnog paketa",
+      "f2": "Prioritetna obrada i podrška",
+      "f3": "Audio / video alati"
+    }
+  },
+  "premiumUpsell": {
+    "title": "Dostigli ste besplatni limit",
+    "message": "Iskoristili ste sve besplatne PPTX konverzije za ovaj sat. Nadogradite na Premium za neograničenu obradu, batch konverziju i napredne formate.",
+    "b1": "Neograničene konverzije",
+    "b1text": "— bez limita po satu ili danu.",
+    "b2": "Batch obrada",
+    "b2text": "— više fajlova istovremeno.",
+    "b3": "Prioritetna podrška",
+    "b3text": "i napredni audio/video alati.",
+    "retry": "Ili sačekajte oko {{time}} pa probajte ponovo besplatno.",
+    "viewPackages": "Pogledaj Premium pakete",
+    "later": "Možda kasnije"
   }
 }

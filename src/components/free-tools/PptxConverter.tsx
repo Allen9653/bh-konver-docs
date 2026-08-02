@@ -150,7 +150,7 @@ export function PptxConverter({ onBack, onBeforeRun, onAfterSuccess }: PptxConve
           <div>
             <h3 className="font-semibold">PPTX → PDF</h3>
             <p className="text-xs text-muted-foreground">
-              Beta · Besplatno do 3 konverzije dnevno. Datoteke se ne čuvaju.
+              {t("pptxTool.note")}
             </p>
           </div>
         </div>
@@ -171,7 +171,7 @@ export function PptxConverter({ onBack, onBeforeRun, onAfterSuccess }: PptxConve
         {status === "uploading" && (
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Loader2 className="w-4 h-4 animate-spin" /> Konverzija u toku...
+              <Loader2 className="w-4 h-4 animate-spin" /> {t("pptxTool.converting")}
             </div>
             <Progress value={progress} />
           </div>
@@ -179,17 +179,17 @@ export function PptxConverter({ onBack, onBeforeRun, onAfterSuccess }: PptxConve
 
         {status === "idle" && file && (
           <Button onClick={run} className="w-full bg-primary hover:bg-primary/90">
-            Pokreni konverziju
+            {t("pptxTool.run")}
           </Button>
         )}
 
         {status === "done" && (
           <div className="space-y-3">
             <Button onClick={download} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Download className="w-4 h-4 mr-2" /> Preuzmi PDF
+              <Download className="w-4 h-4 mr-2" /> {t("pptxTool.downloadPdf")}
             </Button>
             <Button variant="outline" onClick={() => { setFile(null); setStatus("idle"); setResultBlob(null); }} className="w-full">
-              Konvertuj novu datoteku
+              {t("pptxTool.newFile")}
             </Button>
           </div>
         )}
