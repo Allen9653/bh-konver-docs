@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { PremiumFooter } from "@/components/PremiumFooter";
 import { SEO } from "@/components/SEO";
@@ -35,6 +35,8 @@ const DOC_TOOLS: ToolId[] = [
 ];
 
 const Alati = () => {
+  // `t` is bound to the active language and re-renders on language change
+  const { t } = useTranslation();
   const [active, setActive] = useState<ToolId | null>(null);
   const [paywallOpen, setPaywallOpen] = useState(false);
   const { user, isAdmin, signOut } = useAdminAuth();
@@ -75,16 +77,16 @@ const Alati = () => {
 
   // Quota badge text for individual doc tool cards
   const quotaBadge = isPremium
-    ? "Premium · ∞"
+    ? t("alati.quotaPremium")
     : remaining > 0
-      ? `Besplatno ${remaining}/${limit}`
-      : "Premium";
+      ? t("alati.quotaFree", { remaining, limit })
+      : t("alati.quotaLocked");
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEO
-        title="Besplatni Alati — PDF, Word, Excel, Ćirilica | BH Konver"
-        description="Besplatni online alati: jedinice i valute bez limita, do 2 besplatne high-quality konverzije dokumenata, premium pristup za neograničeno."
+        title={t("alati.seoTitle")}
+        description={t("alati.seoDescription")}
         path="/alati"
       />
       <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} />
@@ -94,15 +96,15 @@ const Alati = () => {
         <section className="gradient-hero text-white py-12 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <div className="flex justify-center gap-2 mb-4 flex-wrap">
-              <Badge className="bg-accent text-accent-foreground">Freemium</Badge>
-              <Badge variant="outline" className="border-white/30 text-white"><LockOpen className="w-3 h-3 mr-1" /> Bez registracije</Badge>
-              <Badge variant="outline" className="border-white/30 text-white"><Shield className="w-3 h-3 mr-1" /> Privatno</Badge>
+              <Badge className="bg-accent text-accent-foreground">{t("alati.badgeFreemium")}</Badge>
+              <Badge variant="outline" className="border-white/30 text-white"><LockOpen className="w-3 h-3 mr-1" /> {t("alati.badgeNoRegistration")}</Badge>
+              <Badge variant="outline" className="border-white/30 text-white"><Shield className="w-3 h-3 mr-1" /> {t("alati.badgePrivate")}</Badge>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold font-display mb-3">
-              Besplatni <span className="text-accent">Alati</span>
+              {t("alati.heroTitlePrefix")} <span className="text-accent">{t("alati.heroTitleAccent")}</span>
             </h1>
             <p className="text-white/80 max-w-xl mx-auto text-sm sm:text-base">
-              Jedinice i valute — uvijek besplatno i bez limita. Konverzija dokumenata u vrhunskom kvalitetu — 2 besplatne, zatim Premium.
+              {t("alati.heroSubtitle")}
             </p>
           </div>
         </section>
@@ -114,33 +116,33 @@ const Alati = () => {
               <section>
                 <div className="flex items-center gap-2 mb-1">
                   <Badge className="bg-accent/15 text-accent border-accent/30" variant="outline">
-                    <InfinityIcon className="w-3 h-3 mr-1" /> Uvijek besplatno
+                    <InfinityIcon className="w-3 h-3 mr-1" /> {t("alati.alwaysFree")}
                   </Badge>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-semibold mb-1 font-display">🌍 Svakodnevni alati</h2>
+                <h2 className="text-xl sm:text-2xl font-semibold mb-1 font-display">{t("alati.dailyToolsTitle")}</h2>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Neograničeno korištenje — bez registracije, bez limita.
+                  {t("alati.dailyToolsSubtitle")}
                 </p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <FreeToolCard
                     icon={Ruler}
-                    title="Konverter jedinica"
-                    description="Dužina, težina, zapremina, temperatura — trenutna konverzija."
-                    badge="∞ Besplatno"
+                    title={t("alati.tools.units.title")}
+                    description={t("alati.tools.units.description")}
+                    badge={t("alati.freeBadge")}
                     onClick={() => { window.location.href = "/#"; }}
                   />
                   <FreeToolCard
                     icon={DollarSign}
-                    title="Konverter valuta"
-                    description="Real-time devizni kursevi za sve glavne svjetske valute."
-                    badge="∞ Besplatno"
+                    title={t("alati.tools.currency.title")}
+                    description={t("alati.tools.currency.description")}
+                    badge={t("alati.freeBadge")}
                     onClick={() => { window.location.href = "/#"; }}
                   />
                   <FreeToolCard
                     icon={Type}
-                    title="Latinica ↔ Ćirilica"
-                    description="Trenutna konverzija teksta. Podržava bosanski, srpski i hrvatski."
-                    badge="∞ Besplatno"
+                    title={t("alati.tools.script.title")}
+                    description={t("alati.tools.script.description")}
+                    badge={t("alati.freeBadge")}
                     onClick={() => setActive("script")}
                   />
                 </div>
@@ -151,63 +153,63 @@ const Alati = () => {
                 <div className="flex items-center justify-between flex-wrap gap-2 mb-1">
                   <div className="flex items-center gap-2">
                     <Badge className="bg-primary/15 text-primary border-primary/30" variant="outline">
-                      <Crown className="w-3 h-3 mr-1" /> Premium kvalitet
+                      <Crown className="w-3 h-3 mr-1" /> {t("alati.premiumQuality")}
                     </Badge>
                     {!isPremium && (
                       <Badge
                         className={`${exhausted ? "bg-destructive/15 text-destructive border-destructive/30" : "bg-accent/15 text-accent border-accent/30"}`}
                         variant="outline"
                       >
-                        Preostalo besplatno: {remaining}/{limit}
+                        {t("alati.remainingFree", { remaining, limit })}
                       </Badge>
                     )}
                     {isPremium && (
                       <Badge className="bg-accent text-accent-foreground">
-                        <InfinityIcon className="w-3 h-3 mr-1" /> Neograničeno
+                        <InfinityIcon className="w-3 h-3 mr-1" /> {t("alati.unlimited")}
                       </Badge>
                     )}
                   </div>
                   {!isPremium && (
                     <Button size="sm" variant="outline" onClick={() => setPaywallOpen(true)}>
-                      Pogledaj pakete <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                      {t("alati.viewPackages")} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                     </Button>
                   )}
                 </div>
-                <h2 className="text-xl sm:text-2xl font-semibold mb-1 font-display">📄 Konverzija dokumenata</h2>
+                <h2 className="text-xl sm:text-2xl font-semibold mb-1 font-display">{t("alati.docSectionTitle")}</h2>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Vrhunsko očuvanje formata. Besplatno do <strong>{limit} konverzije</strong>, zatim odaberite paket.
+                  {t("alati.docSectionSubtitle", { limit })}
                 </p>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <FreeToolCard icon={FileText} title="PDF → Word"
-                    description="Tekstualna konverzija — kompleksno formatiranje i tabele mogu biti pojednostavljeni."
+                  <FreeToolCard icon={FileText} title={t("alati.tools.pdfToWord.title")}
+                    description={t("alati.tools.pdfToWord.description")}
                     badge={quotaBadge} onClick={() => openDocTool("pdf-to-word")} />
-                  <FreeToolCard icon={FileText} title="Word → PDF"
-                    description="Pretvorite Word (.docx) u PDF uz čuvanje formatiranja."
+                  <FreeToolCard icon={FileText} title={t("alati.tools.wordToPdf.title")}
+                    description={t("alati.tools.wordToPdf.description")}
                     badge={quotaBadge} onClick={() => openDocTool("word-to-pdf")} />
-                  <FreeToolCard icon={FileImage} title="Slike → PDF"
-                    description="Spojite JPG, JPEG i PNG slike u jedan PDF."
+                  <FreeToolCard icon={FileImage} title={t("alati.tools.imgToPdf.title")}
+                    description={t("alati.tools.imgToPdf.description")}
                     badge={quotaBadge} onClick={() => openDocTool("img-to-pdf")} />
-                  <FreeToolCard icon={FileSpreadsheet} title="Excel → PDF"
-                    description="Pretvorite Excel (.xlsx, .xls) u PDF tabelu."
+                  <FreeToolCard icon={FileSpreadsheet} title={t("alati.tools.excelToPdf.title")}
+                    description={t("alati.tools.excelToPdf.description")}
                     badge={quotaBadge} onClick={() => openDocTool("excel-to-pdf")} />
-                  <FreeToolCard icon={Presentation} title="PPTX → PDF"
-                    description="Beta — server-side konverzija PowerPoint prezentacija. Do 3 besplatne dnevno."
+                  <FreeToolCard icon={Presentation} title={t("alati.tools.pptxToPdf.title")}
+                    description={t("alati.tools.pptxToPdf.description")}
                     badge="Beta" onClick={() => openDocTool("pptx-to-pdf")} />
-                  <FreeToolCard icon={Combine} title="Spoji PDF (Merge)"
-                    description="Spojite više PDF dokumenata u jedan fajl."
+                  <FreeToolCard icon={Combine} title={t("alati.tools.mergePdf.title")}
+                    description={t("alati.tools.mergePdf.description")}
                     badge={quotaBadge} onClick={() => openDocTool("merge-pdf")} />
-                  <FreeToolCard icon={Scissors} title="Razdvoji PDF (Split)"
-                    description="Razdvojite PDF na pojedinačne stranice (ZIP)."
+                  <FreeToolCard icon={Scissors} title={t("alati.tools.splitPdf.title")}
+                    description={t("alati.tools.splitPdf.description")}
                     badge={quotaBadge} onClick={() => openDocTool("split-pdf")} />
                 </div>
               </section>
 
               {/* Trust strip */}
               <div className="border-t pt-8 grid sm:grid-cols-3 gap-4 text-sm">
-                <Trust icon={Shield} title="Privatno" text="Obrada u pretraživaču — fajl ne ide na server kad god je moguće." />
-                <Trust icon={Zap} title="Brzo" text="Bez čekanja, bez upload-a za većinu konverzija." />
-                <Trust icon={LockOpen} title="Bez registracije" text="Probajte odmah — račun je potreban samo za Premium." />
+                <Trust icon={Shield} title={t("alati.trust.privateTitle")} text={t("alati.trust.privateText")} />
+                <Trust icon={Zap} title={t("alati.trust.fastTitle")} text={t("alati.trust.fastText")} />
+                <Trust icon={LockOpen} title={t("alati.trust.noRegTitle")} text={t("alati.trust.noRegText")} />
               </div>
 
               {/* Upsell strip */}
@@ -215,14 +217,14 @@ const Alati = () => {
                 <div className="rounded-xl border bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
                   <div>
                     <h3 className="font-semibold flex items-center gap-2">
-                      <Crown className="w-4 h-4 text-accent" /> Premium = neograničena obrada
+                      <Crown className="w-4 h-4 text-accent" /> {t("alati.upsell.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground mt-1">
-                      24h od 2 BAM · 7 dana · mjesečna pretplata. Batch konverzije + prioritetna obrada.
+                      {t("alati.upsell.text")}
                     </p>
                   </div>
                   <Button onClick={() => setPaywallOpen(true)} className="bg-primary hover:bg-primary/90 shrink-0">
-                    Pogledaj pakete <ArrowRight className="w-4 h-4 ml-2" />
+                    {t("alati.viewPackages")} <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
               )}
@@ -231,8 +233,8 @@ const Alati = () => {
 
           {active === "img-to-pdf" && (
             <ToolRunner
-              title="Slike → PDF"
-              description="Odaberite jednu ili više slika (.jpg, .jpeg, .png) — svaka postaje stranica."
+              title={t("alati.tools.imgToPdf.title")}
+              description={t("alati.tools.imgToPdf.runnerDescription")}
               acceptedExtensions={["jpg", "jpeg", "png"]}
               multiple
               outputFilename={() => `slike_${Date.now()}.pdf`}
@@ -244,8 +246,8 @@ const Alati = () => {
           )}
           {active === "word-to-pdf" && (
             <ToolRunner
-              title="Word → PDF"
-              description="Pretvorite .docx dokument u PDF (čuva tekst, naslove, italik, bold, liste)."
+              title={t("alati.tools.wordToPdf.title")}
+              description={t("alati.tools.wordToPdf.runnerDescription")}
               acceptedExtensions={["docx"]}
               outputFilename={(f) => (f as File).name.replace(/\.docx$/i, ".pdf")}
               run={(files, p) => wordToPdf(files[0], p)}
@@ -256,8 +258,8 @@ const Alati = () => {
           )}
           {active === "pdf-to-word" && (
             <ToolRunner
-              title="PDF → Word"
-              description="Tekstualna konverzija — kompleksno formatiranje i tabele mogu biti pojednostavljeni."
+              title={t("alati.tools.pdfToWord.title")}
+              description={t("alati.tools.pdfToWord.runnerDescription")}
               acceptedExtensions={["pdf"]}
               outputFilename={(f) => (f as File).name.replace(/\.pdf$/i, ".docx")}
               run={(files, p) => pdfToWord(files[0], p)}
@@ -268,8 +270,8 @@ const Alati = () => {
           )}
           {active === "excel-to-pdf" && (
             <ToolRunner
-              title="Excel → PDF"
-              description="Pretvorite .xlsx ili .xls u PDF — svaki sheet postaje stranica."
+              title={t("alati.tools.excelToPdf.title")}
+              description={t("alati.tools.excelToPdf.runnerDescription")}
               acceptedExtensions={["xlsx", "xls"]}
               outputFilename={(f) => (f as File).name.replace(/\.xlsx?$/i, ".pdf")}
               run={(files, p) => excelToPdf(files[0], p)}
@@ -284,8 +286,8 @@ const Alati = () => {
           {active === "script" && <ScriptConverter onBack={back} />}
           {active === "merge-pdf" && (
             <ToolRunner
-              title="Spoji PDF (Merge)"
-              description="Odaberite 2 ili više PDF datoteka — bit će spojeni u jedan PDF."
+              title={t("alati.tools.mergePdf.title")}
+              description={t("alati.tools.mergePdf.runnerDescription")}
               acceptedExtensions={["pdf"]}
               multiple
               minFiles={2}
@@ -298,8 +300,8 @@ const Alati = () => {
           )}
           {active === "split-pdf" && (
             <ToolRunner
-              title="Razdvoji PDF (Split)"
-              description="PDF će biti razdvojen u pojedinačne stranice i pakovan u ZIP arhivu."
+              title={t("alati.tools.splitPdf.title")}
+              description={t("alati.tools.splitPdf.runnerDescription")}
               acceptedExtensions={["pdf"]}
               outputFilename={(f) => (f as File).name.replace(/\.pdf$/i, "_stranice.zip")}
               run={(files, p) => splitPdf(files[0], p)}

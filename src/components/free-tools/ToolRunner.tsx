@@ -77,7 +77,7 @@ export const ToolRunner = ({
 
   const handleRun = async () => {
     if (files.length < minFiles) {
-      toast.error(`Potrebno najmanje ${minFiles} fajl(ova)`);
+      toast.error(t("toolRunner.minFiles", { count: minFiles }));
       return;
     }
     if (onBeforeRun && onBeforeRun() === false) return;
@@ -112,10 +112,10 @@ export const ToolRunner = ({
       <CardHeader>
         <div className="flex items-center justify-between mb-2">
           <Button variant="ghost" size="sm" onClick={onBack}>
-            <ArrowLeft className="w-4 h-4 mr-2" /> Nazad
+            <ArrowLeft className="w-4 h-4 mr-2" /> {t("toolRunner.back")}
           </Button>
           <Badge className="bg-accent text-accent-foreground">
-            <Sparkles className="w-3 h-3 mr-1" /> Besplatno
+            <Sparkles className="w-3 h-3 mr-1" /> {t("toolRunner.freeBadge")}
           </Badge>
         </div>
         <CardTitle className="text-2xl">{title}</CardTitle>
@@ -137,9 +137,9 @@ export const ToolRunner = ({
               className="flex flex-col items-center justify-center border-2 border-dashed border-border rounded-lg p-8 cursor-pointer hover:bg-muted/40 transition-colors"
             >
               <Upload className="w-10 h-10 text-muted-foreground mb-3" />
-              <p className="text-sm font-medium">Prevucite fajl ovdje ili kliknite</p>
+              <p className="text-sm font-medium">{t("toolRunner.dropHint")}</p>
               <p className="text-xs text-muted-foreground mt-1">
-                Dozvoljeno: {acceptedExtensions.join(", ").toUpperCase()}
+                {t("toolRunner.allowed", { formats: acceptedExtensions.join(", ").toUpperCase() })}
               </p>
               <input
                 type="file"
@@ -166,7 +166,7 @@ export const ToolRunner = ({
                       <button
                         onClick={() => setFiles((prev) => prev.filter((_, idx) => idx !== i))}
                         className="text-muted-foreground hover:text-destructive"
-                        aria-label="Ukloni"
+                        aria-label={t("toolRunner.removeFile")}
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -192,9 +192,9 @@ export const ToolRunner = ({
               className="w-full bg-primary hover:bg-primary/90"
             >
               {busy ? (
-                <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Obrada...</>
+                <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("toolRunner.processing")}</>
               ) : (
-                "Pokreni konverziju"
+                t("toolRunner.run")
               )}
             </Button>
           </>
@@ -205,14 +205,14 @@ export const ToolRunner = ({
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 text-accent">
               <Download className="w-8 h-8" />
             </div>
-            <p className="text-sm">Vaš fajl je spreman za preuzimanje</p>
+            <p className="text-sm">{t("toolRunner.ready")}</p>
             <p className="text-xs text-muted-foreground truncate">{resultName}</p>
             <div className="flex gap-2 justify-center">
               <Button onClick={() => downloadBlob(result, resultName)} className="bg-primary hover:bg-primary/90">
-                <Download className="w-4 h-4 mr-2" /> Preuzmi
+                <Download className="w-4 h-4 mr-2" /> {t("toolRunner.download")}
               </Button>
               <Button variant="outline" onClick={reset}>
-                Novi fajl
+                {t("toolRunner.newFile")}
               </Button>
             </div>
           </div>

@@ -360,5 +360,179 @@
     "fileTooLarge": "Datei ist zu groß ({{size}} MB). Maximum erlaubt: {{limit}} MB. Versuchen Sie die Datei zu komprimieren oder upgraden Sie auf Premium.",
     "serverBusy": "Server ist derzeit beschäftigt, bitte versuchen Sie es in Kürze erneut.",
     "uploadBlocked": "Upload blockiert"
+  },
+  "auth": {
+    "signOut": "Abmelden",
+    "signedOut": "Erfolgreich abgemeldet"
+  },
+  "alati": {
+    "seoTitle": "Kostenlose Tools — PDF, Word, Excel, Kyrillisch | BH Konver",
+    "seoDescription": "Kostenlose Online-Tools: Einheiten und Währungen ohne Limit, bis zu 2 kostenlose hochwertige Dokumentkonvertierungen, Premium für unbegrenzte Nutzung.",
+    "badgeFreemium": "Freemium",
+    "badgeNoRegistration": "Ohne Registrierung",
+    "badgePrivate": "Privat",
+    "heroTitlePrefix": "Kostenlose",
+    "heroTitleAccent": "Tools",
+    "heroSubtitle": "Einheiten und Währungen — immer kostenlos und unbegrenzt. Hochwertige Dokumentkonvertierung — 2 kostenlos, danach Premium.",
+    "alwaysFree": "Immer kostenlos",
+    "dailyToolsTitle": "🌍 Alltags-Tools",
+    "dailyToolsSubtitle": "Unbegrenzte Nutzung — ohne Registrierung, ohne Limits.",
+    "freeBadge": "∞ Kostenlos",
+    "premiumQuality": "Premium-Qualität",
+    "remainingFree": "Kostenlos übrig: {{remaining}}/{{limit}}",
+    "unlimited": "Unbegrenzt",
+    "viewPackages": "Pakete ansehen",
+    "docSectionTitle": "📄 Dokumentkonvertierung",
+    "docSectionSubtitle": "Hervorragende Formaterhaltung. Kostenlos bis zu {{limit}} Konvertierungen, danach Paket wählen.",
+    "quotaPremium": "Premium · ∞",
+    "quotaFree": "Kostenlos {{remaining}}/{{limit}}",
+    "quotaLocked": "Premium",
+    "tools": {
+      "units": {
+        "title": "Einheitenrechner",
+        "description": "Länge, Gewicht, Volumen, Temperatur — sofortige Umrechnung."
+      },
+      "currency": {
+        "title": "Währungsrechner",
+        "description": "Echtzeit-Wechselkurse für alle wichtigen Weltwährungen."
+      },
+      "script": {
+        "title": "Latein ↔ Kyrillisch",
+        "description": "Sofortige Textkonvertierung. Unterstützt Bosnisch, Serbisch und Kroatisch."
+      },
+      "pdfToWord": {
+        "title": "PDF → Word",
+        "description": "Reine Textkonvertierung — komplexe Formatierung und Tabellen können vereinfacht werden.",
+        "runnerDescription": "Reine Textkonvertierung — komplexe Formatierung und Tabellen können vereinfacht werden."
+      },
+      "wordToPdf": {
+        "title": "Word → PDF",
+        "description": "Word (.docx) unter Beibehaltung der Formatierung in PDF umwandeln.",
+        "runnerDescription": "Wandeln Sie ein .docx-Dokument in PDF um (Text, Überschriften, Kursiv, Fett, Listen)."
+      },
+      "imgToPdf": {
+        "title": "Bilder → PDF",
+        "description": "JPG-, JPEG- und PNG-Bilder zu einem PDF zusammenfügen.",
+        "runnerDescription": "Wählen Sie ein oder mehrere Bilder (.jpg, .jpeg, .png) — jedes wird eine Seite."
+      },
+      "excelToPdf": {
+        "title": "Excel → PDF",
+        "description": "Excel (.xlsx, .xls) in eine PDF-Tabelle umwandeln.",
+        "runnerDescription": "Wandeln Sie .xlsx oder .xls in PDF um — jedes Blatt wird eine Seite."
+      },
+      "pptxToPdf": {
+        "title": "PPTX → PDF",
+        "description": "Beta — serverseitige PowerPoint-Konvertierung. Bis zu 3 kostenlos pro Tag."
+      },
+      "mergePdf": {
+        "title": "PDF zusammenführen",
+        "description": "Mehrere PDF-Dokumente zu einer Datei zusammenführen.",
+        "runnerDescription": "Wählen Sie 2 oder mehr PDF-Dateien — sie werden zu einem PDF zusammengeführt."
+      },
+      "splitPdf": {
+        "title": "PDF teilen",
+        "description": "PDF in einzelne Seiten aufteilen (ZIP).",
+        "runnerDescription": "Das PDF wird in einzelne Seiten aufgeteilt und als ZIP-Archiv gepackt."
+      }
+    },
+    "trust": {
+      "privateTitle": "Privat",
+      "privateText": "Verarbeitung im Browser — Dateien bleiben nach Möglichkeit lokal.",
+      "fastTitle": "Schnell",
+      "fastText": "Kein Warten, kein Upload für die meisten Konvertierungen.",
+      "noRegTitle": "Ohne Registrierung",
+      "noRegText": "Sofort ausprobieren — ein Konto wird nur für Premium benötigt."
+    },
+    "upsell": {
+      "title": "Premium = unbegrenzte Verarbeitung",
+      "text": "24 Std. ab 2 BAM · 7 Tage · Monatsabo. Batch-Konvertierungen + priorisierte Verarbeitung."
+    }
+  },
+  "toolRunner": {
+    "back": "Zurück",
+    "freeBadge": "Kostenlos",
+    "dropHint": "Datei hierher ziehen oder klicken",
+    "allowed": "Erlaubt: {{formats}}",
+    "removeFile": "Entfernen",
+    "processing": "Verarbeitung...",
+    "run": "Konvertierung starten",
+    "ready": "Ihre Datei steht zum Download bereit",
+    "download": "Herunterladen",
+    "newFile": "Neue Datei",
+    "minFiles": "Mindestens {{count}} Datei(en) erforderlich"
+  },
+  "scriptConverter": {
+    "badge": "Kostenlos · Echtzeit",
+    "title": "Latein ↔ Kyrillisch",
+    "description": "Sofortige Schriftkonvertierung für Bosnisch, Serbisch und Kroatisch. Unterstützt Digraphen: lj → љ, nj → њ, dž → џ.",
+    "latin": "Latein",
+    "cyrillic": "Kyrillisch",
+    "swap": "Richtung tauschen",
+    "inputLabel": "{{script}} (Eingabe)",
+    "outputLabel": "{{script}} (Ergebnis)",
+    "placeholderLatin": "Lateinischen Text eingeben...",
+    "placeholderCyrillic": "Kyrillischen Text eingeben...",
+    "resultPlaceholder": "Das Ergebnis erscheint hier...",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "download": ".txt herunterladen"
+  },
+  "pptxTool": {
+    "note": "Beta · Kostenlos bis zu 3 Konvertierungen pro Tag. Dateien werden nicht gespeichert.",
+    "converting": "Konvertierung läuft...",
+    "run": "Konvertierung starten",
+    "downloadPdf": "PDF herunterladen",
+    "newFile": "Weitere Datei konvertieren"
+  },
+  "paywall": {
+    "title": "Sie haben alle kostenlosen Konvertierungen verbraucht",
+    "description": "({{used}}/{{limit}}) — wählen Sie unten ein Paket und konvertieren Sie unbegrenzt in hoher Qualität.",
+    "securePayment": "Sichere Zahlung (PayPal)",
+    "instantActivation": "Sofortige Aktivierung",
+    "topFormatting": "Erstklassige Formatierung",
+    "for": "für {{duration}}",
+    "redirecting": "Weiterleitung…",
+    "footnote": "Die Zahlung wird sicher über PayPal abgewickelt. Die Aktivierung erfolgt sofort nach Bestätigung.",
+    "loginNotice": "Bitte melden Sie sich an, damit wir Premium nach der Zahlung aktivieren können.",
+    "checkoutError": "Fehler beim Starten der Zahlung. Bitte erneut versuchen.",
+    "popular": "Am beliebtesten",
+    "bestValue": "Bestes Preis-Leistungs-Verhältnis",
+    "tier24h": {
+      "name": "24-Stunden-Zugang",
+      "duration": "24 Stunden",
+      "cta": "Für 24 Std. freischalten",
+      "f1": "Unbegrenzte Konvertierungen",
+      "f2": "Beste Formaterhaltung",
+      "f3": "Keine Werbung"
+    },
+    "tier7d": {
+      "name": "7-Tage-Zugang",
+      "duration": "7 Tage",
+      "cta": "Für 7 Tage freischalten",
+      "f1": "Alles aus dem 24-Std.-Paket",
+      "f2": "Batch-Verarbeitung (mehrere Dateien)",
+      "f3": "Ideal für Studium und Projekte"
+    },
+    "tierMonthly": {
+      "name": "Monatsabo",
+      "duration": "30 Tage",
+      "cta": "Monatlich abonnieren",
+      "f1": "Alles aus dem Wochenpaket",
+      "f2": "Priorisierte Verarbeitung und Support",
+      "f3": "Audio-/Video-Tools"
+    }
+  },
+  "premiumUpsell": {
+    "title": "Sie haben das kostenlose Limit erreicht",
+    "message": "Sie haben alle kostenlosen PPTX-Konvertierungen dieser Stunde verbraucht. Upgraden Sie auf Premium für unbegrenzte Verarbeitung, Batch-Konvertierung und erweiterte Formate.",
+    "b1": "Unbegrenzte Konvertierungen",
+    "b1text": "— keine Stunden- oder Tageslimits.",
+    "b2": "Batch-Verarbeitung",
+    "b2text": "— mehrere Dateien gleichzeitig.",
+    "b3": "Prioritäts-Support",
+    "b3text": "und erweiterte Audio-/Video-Tools.",
+    "retry": "Oder warten Sie etwa {{time}} und versuchen Sie es kostenlos erneut.",
+    "viewPackages": "Premium-Pakete ansehen",
+    "later": "Vielleicht später"
   }
 }

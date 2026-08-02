@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogContent,
@@ -29,10 +30,11 @@ function formatRetry(seconds?: number): string | null {
 export function PremiumUpsellModal({
   open,
   onOpenChange,
-  title = "Dostigli ste besplatni limit",
-  message = "Iskoristili ste sve besplatne PPTX konverzije za ovaj sat. Nadogradite na Premium za neograničenu obradu, batch konverziju i napredne formate.",
+  title,
+  message,
   retryAfterSeconds,
 }: PremiumUpsellModalProps) {
+  const { t } = useTranslation();
   const retry = formatRetry(retryAfterSeconds);
 
   return (
@@ -42,41 +44,41 @@ export function PremiumUpsellModal({
           <Sparkles className="w-7 h-7 text-accent" />
         </div>
         <DialogHeader className="text-center">
-          <DialogTitle className="text-xl font-display">{title}</DialogTitle>
+          <DialogTitle className="text-xl font-display">{title ?? t("premiumUpsell.title")}</DialogTitle>
           <DialogDescription className="text-sm leading-relaxed">
-            {message}
+            {message ?? t("premiumUpsell.message")}
           </DialogDescription>
         </DialogHeader>
 
         <ul className="space-y-3 my-2 text-sm">
           <li className="flex gap-3">
             <InfinityIcon className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-            <span><strong>Neograničene konverzije</strong> — bez limita po satu ili danu.</span>
+            <span><strong>{t("premiumUpsell.b1")}</strong> {t("premiumUpsell.b1text")}</span>
           </li>
           <li className="flex gap-3">
             <Zap className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-            <span><strong>Batch obrada</strong> — više fajlova istovremeno.</span>
+            <span><strong>{t("premiumUpsell.b2")}</strong> {t("premiumUpsell.b2text")}</span>
           </li>
           <li className="flex gap-3">
             <ShieldCheck className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-            <span><strong>Prioritetna podrška</strong> i napredni audio/video alati.</span>
+            <span><strong>{t("premiumUpsell.b3")}</strong> {t("premiumUpsell.b3text")}</span>
           </li>
         </ul>
 
         {retry && (
           <p className="text-xs text-center text-muted-foreground">
-            Ili sačekajte oko <strong>{retry}</strong> pa probajte ponovo besplatno.
+            {t("premiumUpsell.retry", { time: retry })}
           </p>
         )}
 
         <DialogFooter className="flex-col sm:flex-col gap-2 mt-2">
           <Button asChild className="w-full bg-primary hover:bg-primary/90">
             <Link to="/#pricing" onClick={() => onOpenChange(false)}>
-              Pogledaj Premium pakete <ArrowRight className="w-4 h-4 ml-2" />
+              {t("premiumUpsell.viewPackages")} <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>
           <Button variant="ghost" className="w-full" onClick={() => onOpenChange(false)}>
-            Možda kasnije
+            {t("premiumUpsell.later")}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,6 +9,7 @@ import { toast } from "sonner";
 import { latinToCyrillic, cyrillicToLatin, downloadBlob } from "@/utils/freeTools";
 
 export const ScriptConverter = ({ onBack }: { onBack: () => void }) => {
+  const { t } = useTranslation();
   const [direction, setDirection] = useState<"lat2cyr" | "cyr2lat">("lat2cyr");
   const [input, setInput] = useState("");
 
@@ -18,7 +20,7 @@ export const ScriptConverter = ({ onBack }: { onBack: () => void }) => {
   const copyOut = async () => {
     if (!output) return;
     await navigator.clipboard.writeText(output);
-    toast.success("Kopirano!");
+    toast.success(t("scriptConverter.copied"));
   };
 
   const downloadTxt = () => {
@@ -26,31 +28,28 @@ export const ScriptConverter = ({ onBack }: { onBack: () => void }) => {
     downloadBlob(new Blob([output], { type: "text/plain;charset=utf-8" }), "konverzija.txt");
   };
 
-  const leftLabel = direction === "lat2cyr" ? "Latinica" : "Ćirilica";
-  const rightLabel = direction === "lat2cyr" ? "Ćirilica" : "Latinica";
+  const leftLabel = direction === "lat2cyr" ? t("scriptConverter.latin") : t("scriptConverter.cyrillic");
+  const rightLabel = direction === "lat2cyr" ? t("scriptConverter.cyrillic") : t("scriptConverter.latin");
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
         <div className="flex items-center justify-between mb-2">
           <Button variant="ghost" size="sm" onClick={onBack}>
-            <ArrowLeft className="w-4 h-4 mr-2" /> Nazad
+            <ArrowLeft className="w-4 h-4 mr-2" /> {t("toolRunner.back")}
           </Button>
           <Badge className="bg-accent text-accent-foreground">
-            <Sparkles className="w-3 h-3 mr-1" /> Besplatno · Real-time
+            <Sparkles className="w-3 h-3 mr-1" /> {t("scriptConverter.badge")}
           </Badge>
         </div>
-        <CardTitle className="text-2xl">Latinica ↔ Ćirilica</CardTitle>
-        <CardDescription>
-          Trenutna konverzija pisma za bosanski, srpski i hrvatski jezik.
-          Podržava digrafe: lj → љ, nj → њ, dž → џ.
-        </CardDescription>
+        <CardTitle className="text-2xl">{t("scriptConverter.title")}</CardTitle>
+        <CardDescription>{t("scriptConverter.description")}</CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-4">
         <div className="flex items-center justify-center gap-3">
           <span className="text-sm font-medium">{leftLabel}</span>
-          <Button variant="outline" size="icon" onClick={swap} aria-label="Zamijeni smjer">
+          <Button variant="outline" size="icon" onClick={swap} aria-label={t("scriptConverter.swap")}>
             <ArrowRightLeft className="w-4 h-4" />
           </Button>
           <span className="text-sm font-medium">{rightLabel}</span>
@@ -58,20 +57,24 @@ export const ScriptConverter = ({ onBack }: { onBack: () => void }) => {
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="text-xs text-muted-foreground mb-1 block">{leftLabel} (unos)</label>
+            <label className="text-xs text-muted-foreground mb-1 block">
+              {t("scriptConverter.inputLabel", { script: leftLabel })}
+            </label>
             <Textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={direction === "lat2cyr" ? "Unesite tekst na latinici..." : "Unesite tekst na ćirilici..."}
+              placeholder={direction === "lat2cyr" ? t("scriptConverter.placeholderLatin") : t("scriptConverter.placeholderCyrillic")}
               className="min-h-[260px] font-mono text-sm"
             />
           </div>
           <div>
-            <label className="text-xs text-muted-foreground mb-1 block">{rightLabel} (rezultat)</label>
+            <label className="text-xs text-muted-foreground mb-1 block">
+              {t("scriptConverter.outputLabel", { script: rightLabel })}
+            </label>
             <Textarea
               value={output}
               readOnly
-              placeholder="Rezultat se prikazuje ovdje..."
+              placeholder={t("scriptConverter.resultPlaceholder")}
               className="min-h-[260px] font-mono text-sm bg-muted/30"
             />
           </div>
@@ -79,10 +82,10 @@ export const ScriptConverter = ({ onBack }: { onBack: () => void }) => {
 
         <div className="flex gap-2 justify-end">
           <Button variant="outline" onClick={copyOut} disabled={!output}>
-            <Copy className="w-4 h-4 mr-2" /> Kopiraj
+            <Copy className="w-4 h-4 mr-2" /> {t("scriptConverter.copy")}
           </Button>
           <Button onClick={downloadTxt} disabled={!output} className="bg-primary hover:bg-primary/90">
-            <Download className="w-4 h-4 mr-2" /> Preuzmi .txt
+            <Download className="w-4 h-4 mr-2" /> {t("scriptConverter.download")}
           </Button>
         </div>
       </CardContent>

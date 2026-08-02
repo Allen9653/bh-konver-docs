@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { LogIn, LogOut, History, Shield, Crown } from "lucide-react";
@@ -10,12 +11,23 @@ interface PremiumHeaderProps {
   isAdmin: boolean;
   isPremium: boolean;
   expiresAt: Date | null;
-  onSignOut: () => void;
+  onSignOut: () => void | Promise<void>;
 }
 
 export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }: PremiumHeaderProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const handleSignOut = async () => {
+    try {
+      await onSignOut();
+    } catch (error) {
+      console.error("Sign out failed:", error);
+    }
+    toast.success(t("auth.signedOut"));
+    navigate("/");
+  };
+
 
   return (
     <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
@@ -51,9 +63,17 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
               <Button variant="ghost" size="sm" onClick={() => navigate("/history")} className="h-8 px-2" aria-label="Otvori historiju dokumenata">
                 <History className="h-3.5 w-3.5" />
               </Button>
-              <Button variant="ghost" size="sm" onClick={onSignOut} className="h-8 px-2" aria-label="Odjavi se">
-                <LogOut className="h-3.5 w-3.5" />
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleSignOut}
+                className="h-8 px-2 sm:px-3 text-xs"
+                aria-label={t("auth.signOut")}
+              >
+                <LogOut className="h-3.5 w-3.5 sm:mr-1.5" />
+                <span className="hidden sm:inline">{t("auth.signOut")}</span>
               </Button>
+
             </>
           ) : (
             <Button size="sm" onClick={() => navigate("/auth")} className="h-8 text-xs bg-primary hover:bg-primary/90 text-primary-foreground">
