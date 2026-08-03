@@ -47,8 +47,8 @@ const PravniDokumenti = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Pravni dokumenti i izjave BiH | BH KONVER"
-        description="Generišite ovjerene izjave i pravne dokumente u skladu sa zakonodavstvom Bosne i Hercegovine (FBiH, RS, Brčko Distrikt)."
+        title={t("pravni.seoTitle")}
+        description={t("pravni.seoDescription")}
         path="/pravni-dokumenti"
       />
       <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} loading={authLoading} />
