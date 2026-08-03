@@ -21,12 +21,15 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
   const handleSignOut = async () => {
     try {
       await onSignOut();
+      toast.success(t("auth.signedOut"));
     } catch (error) {
       console.error("Sign out failed:", error);
+      toast.success(t("auth.signedOut"));
     }
-    toast.success(t("auth.signedOut"));
-    navigate("/");
+    // Return to the public homepage; the login option stays available there.
+    navigate("/", { replace: true });
   };
+
 
 
   return (
