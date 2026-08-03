@@ -39,7 +39,7 @@ const Alati = () => {
   const { t } = useTranslation();
   const [active, setActive] = useState<ToolId | null>(null);
   const [paywallOpen, setPaywallOpen] = useState(false);
-  const { user, isAdmin, signOut } = useAdminAuth();
+  const { user, isAdmin, signOut, loading: authLoading } = useAdminAuth();
   const { hasActiveSubscription, expiresAt } = useSubscription(user?.id);
   const isPremium = isAdmin || hasActiveSubscription;
   const { used, remaining, exhausted, limit, consume } = useFreeQuota();
@@ -89,7 +89,7 @@ const Alati = () => {
         description={t("alati.seoDescription")}
         path="/alati"
       />
-      <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} />
+      <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} loading={authLoading} />
 
       <main className="flex-1">
         {/* Hero */}

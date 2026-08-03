@@ -22,10 +22,21 @@ i18n
   .init({
     resources,
     fallbackLng: 'bs',
+    // Persisted locale wins so the language survives login, logout and redirects
     lng: localStorage.getItem('language') || 'bs',
     interpolation: {
       escapeValue: false,
     },
   });
+
+// Persist every language change so the locale is restored after
+// authentication redirects and full page reloads.
+i18n.on('languageChanged', (lng) => {
+  try {
+    localStorage.setItem('language', lng);
+  } catch {
+    // Storage may be unavailable (private mode) — ignore.
+  }
+});
 
 export default i18n;

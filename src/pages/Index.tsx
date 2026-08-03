@@ -213,6 +213,7 @@ const Index = () => {
         isPremium={isPremiumUser}
         expiresAt={expiresAt}
         onSignOut={signOut}
+        loading={loading}
       />
 
       <main className="flex-1">

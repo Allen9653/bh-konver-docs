@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,6 +19,7 @@ interface Props {
 const STEP_SIZE = 4; // fields per step
 
 export const LegalDocWizard = ({ doc, onBack }: Props) => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const fields = doc.fields || [];
   const steps = useMemo(() => {
@@ -55,9 +57,9 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
         date,
       });
       downloadBlob(blob, `${doc.id}-${date}.pdf`);
-      toast({ title: "PDF generisan", description: "Dokument je spreman. Ovjera se vrši pred nadležnim organom u BiH." });
+      toast({ title: t("pravni.pdfReadyTitle"), description: t("pravni.pdfReadyDesc") });
     } catch (e) {
-      toast({ title: "Greška", description: "Generisanje PDF-a nije uspjelo.", variant: "destructive" });
+      toast({ title: t("pravni.errTitle"), description: t("pravni.errDesc"), variant: "destructive" });
     } finally {
       setGenerating(false);
     }
@@ -67,12 +69,13 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
     <Card className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={onBack} className="gap-1">
-          <ArrowLeft className="w-4 h-4" /> Nazad na izbor
+          <ArrowLeft className="w-4 h-4" /> {t("pravni.wizBack")}
         </Button>
         <span className="text-xs text-muted-foreground">
-          Korak {Math.min(step + 1, totalSteps)} / {totalSteps}
+          {t("pravni.wizStep", { s: Math.min(step + 1, totalSteps), total: totalSteps })}
         </span>
       </div>
+
 
       <div>
         <h2 className="text-2xl font-bold font-display flex items-center gap-2">
@@ -100,7 +103,7 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
                 <Textarea id={f.key} value={values[f.key] || ""} onChange={(e) => update(f.key, e.target.value)} placeholder={f.placeholder} rows={3} />
               ) : f.type === "select" && f.options ? (
                 <Select value={values[f.key] || ""} onValueChange={(v) => update(f.key, v)}>
-                  <SelectTrigger><SelectValue placeholder="Odaberite..." /></SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder={t("pravni.wizSelect")} /></SelectTrigger>
                   <SelectContent>
                     {f.options.map((o) => (<SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>))}
                   </SelectContent>
@@ -116,22 +119,22 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <Label htmlFor="place" className="mb-1.5 block">Mjesto izdavanja izjave <span className="text-destructive">*</span></Label>
-              <Input id="place" value={place} onChange={(e) => setPlace(e.target.value)} placeholder="npr. Sarajevo, Banja Luka, Tuzla" />
+              <Label htmlFor="place" className="mb-1.5 block">{t("pravni.wizPlace")} <span className="text-destructive">*</span></Label>
+              <Input id="place" value={place} onChange={(e) => setPlace(e.target.value)} placeholder={t("pravni.wizPlacePh")} />
             </div>
             <div>
-              <Label htmlFor="date" className="mb-1.5 block">Datum <span className="text-destructive">*</span></Label>
+              <Label htmlFor="date" className="mb-1.5 block">{t("pravni.wizDate")} <span className="text-destructive">*</span></Label>
               <Input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
           </div>
 
           <Card className="p-4 bg-muted/40 border-dashed">
-            <p className="text-xs font-semibold text-muted-foreground mb-2">PREGLED IZJAVE</p>
+            <p className="text-xs font-semibold text-muted-foreground mb-2">{t("pravni.wizPreview")}</p>
             <pre className="whitespace-pre-wrap font-serif text-sm leading-relaxed">{doc.body?.(values)}</pre>
             <div className="mt-4 pt-4 border-t border-border text-xs text-muted-foreground space-y-1">
-              <p><strong>Mjesto i datum:</strong> {place || "________"}, {date}</p>
-              <p><strong>Izjavu dao pred:</strong> nadležnim organom (općina / notar / sud) u BiH.</p>
-              <p><strong>Ovjera:</strong> potpis i službeni pečat nadležnog organa Bosne i Hercegovine (FBiH / RS / Brčko Distrikt).</p>
+              <p><strong>{t("pravni.wizPlaceDate")}</strong> {place || "________"}, {date}</p>
+              <p><strong>{t("pravni.wizGivenBefore")}</strong> {t("pravni.wizGivenBeforeText")}</p>
+              <p><strong>{t("pravni.wizCert")}</strong> {t("pravni.wizCertText")}</p>
             </div>
           </Card>
         </div>
@@ -139,16 +142,16 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
 
       <div className="flex justify-between pt-2">
         <Button variant="outline" onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0}>
-          Prethodni
+          {t("pravni.wizPrev")}
         </Button>
         {!isReviewStep ? (
           <Button onClick={() => setStep((s) => s + 1)} disabled={!currentStepValid()}>
-            Sljedeći
+            {t("pravni.wizNext")}
           </Button>
         ) : (
           <Button onClick={handleGenerate} disabled={!currentStepValid() || generating} className="bg-accent text-accent-foreground hover:bg-accent/90">
             {generating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />}
-            Generiši PDF
+            {t("pravni.wizGenerate")}
           </Button>
         )}
       </div>

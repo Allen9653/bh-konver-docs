@@ -49,10 +49,13 @@ export const LanguageSwitcher = () => {
   };
 
   useEffect(() => {
-    // Apply script on mount
-    if (script === "cyrillic") {
+    // Only apply the script preference to Bosnian; never override a stored
+    // non-Bosnian locale (en/de/tr) restored after login or reload.
+    const stored = localStorage.getItem("language");
+    if (stored && stored !== "bs" && stored !== "bs-Cyrl") return;
+    if (script === "cyrillic" && i18n.language !== "bs-Cyrl") {
       i18n.changeLanguage("bs-Cyrl");
-    } else if (i18n.language === "bs-Cyrl") {
+    } else if (script === "latin" && i18n.language === "bs-Cyrl") {
       i18n.changeLanguage("bs");
     }
   }, [script, i18n]);

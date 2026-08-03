@@ -12,11 +12,14 @@ interface PremiumHeaderProps {
   isPremium: boolean;
   expiresAt: Date | null;
   onSignOut: () => void | Promise<void>;
+  /** True while the auth session is still being rehydrated. */
+  loading?: boolean;
 }
 
-export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }: PremiumHeaderProps) => {
+export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut, loading = false }: PremiumHeaderProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
 
   const handleSignOut = async () => {
     try {
@@ -50,7 +53,12 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut }
             Pravni dokumenti
           </Button>
           <LanguageSwitcher />
-          {user ? (
+          {loading ? (
+            // Placeholder while the session rehydrates — prevents a flash of
+            // either the signed-in or signed-out UI.
+            <div className="h-8 w-24 rounded-md bg-muted animate-pulse" aria-hidden="true" />
+          ) : user ? (
+
             <>
               <span className="text-xs text-muted-foreground hidden md:inline">{user.email}</span>
               {isAdmin && (
