@@ -129,12 +129,12 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
           </div>
 
           <Card className="p-4 bg-muted/40 border-dashed">
-            <p className="text-xs font-semibold text-muted-foreground mb-2">PREGLED IZJAVE</p>
+            <p className="text-xs font-semibold text-muted-foreground mb-2">{t("pravni.wizPreview")}</p>
             <pre className="whitespace-pre-wrap font-serif text-sm leading-relaxed">{doc.body?.(values)}</pre>
             <div className="mt-4 pt-4 border-t border-border text-xs text-muted-foreground space-y-1">
-              <p><strong>Mjesto i datum:</strong> {place || "________"}, {date}</p>
-              <p><strong>Izjavu dao pred:</strong> nadležnim organom (općina / notar / sud) u BiH.</p>
-              <p><strong>Ovjera:</strong> potpis i službeni pečat nadležnog organa Bosne i Hercegovine (FBiH / RS / Brčko Distrikt).</p>
+              <p><strong>{t("pravni.wizPlaceDate")}</strong> {place || "________"}, {date}</p>
+              <p><strong>{t("pravni.wizGivenBefore")}</strong> {t("pravni.wizGivenBeforeText")}</p>
+              <p><strong>{t("pravni.wizCert")}</strong> {t("pravni.wizCertText")}</p>
             </div>
           </Card>
         </div>
