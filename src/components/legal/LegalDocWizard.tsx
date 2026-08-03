@@ -57,9 +57,9 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
         date,
       });
       downloadBlob(blob, `${doc.id}-${date}.pdf`);
-      toast({ title: "PDF generisan", description: "Dokument je spreman. Ovjera se vrši pred nadležnim organom u BiH." });
+      toast({ title: t("pravni.pdfReadyTitle"), description: t("pravni.pdfReadyDesc") });
     } catch (e) {
-      toast({ title: "Greška", description: "Generisanje PDF-a nije uspjelo.", variant: "destructive" });
+      toast({ title: t("pravni.errTitle"), description: t("pravni.errDesc"), variant: "destructive" });
     } finally {
       setGenerating(false);
     }
