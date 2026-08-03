@@ -28,15 +28,15 @@ const PravniDokumenti = () => {
   const handleOpen = (doc: LegalDoc) => {
     if (!doc.implemented) {
       toast({
-        title: "Uskoro dostupno",
-        description: `${doc.shortTitle} će biti dodan u sljedećoj verziji.`,
+        title: t("pravni.toastSoonTitle"),
+        description: t("pravni.toastSoonDesc", { doc: doc.shortTitle }),
       });
       return;
     }
     if (doc.premium && !isPremium) {
       toast({
-        title: "Premium dokument",
-        description: "Ovaj dokument zahtijeva aktivnu pretplatu. Pogledajte cijene na početnoj stranici.",
+        title: t("pravni.toastPremiumTitle"),
+        description: t("pravni.toastPremiumDesc"),
       });
       navigate("/#pricing");
       return;
