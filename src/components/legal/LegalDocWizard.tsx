@@ -142,16 +142,16 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
 
       <div className="flex justify-between pt-2">
         <Button variant="outline" onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0}>
-          Prethodni
+          {t("pravni.wizPrev")}
         </Button>
         {!isReviewStep ? (
           <Button onClick={() => setStep((s) => s + 1)} disabled={!currentStepValid()}>
-            Sljedeći
+            {t("pravni.wizNext")}
           </Button>
         ) : (
           <Button onClick={handleGenerate} disabled={!currentStepValid() || generating} className="bg-accent text-accent-foreground hover:bg-accent/90">
             {generating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />}
-            Generiši PDF
+            {t("pravni.wizGenerate")}
           </Button>
         )}
       </div>
