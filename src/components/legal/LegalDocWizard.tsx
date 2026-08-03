@@ -19,6 +19,7 @@ interface Props {
 const STEP_SIZE = 4; // fields per step
 
 export const LegalDocWizard = ({ doc, onBack }: Props) => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const fields = doc.fields || [];
   const steps = useMemo(() => {
