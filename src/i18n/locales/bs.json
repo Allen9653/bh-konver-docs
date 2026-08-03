@@ -459,7 +459,7 @@
     "ready": "Vaš fajl je spreman za preuzimanje",
     "download": "Preuzmi",
     "newFile": "Novi fajl",
-    "minFiles": "Potrebno najmanje {{count}} fajl(ova)"
+    "minFiles": "Potrebno najmanje {{n}} fajl(ova)"
   },
   "scriptConverter": {
     "badge": "Besplatno · Real-time",
@@ -549,7 +549,7 @@
     "dirImgToPdf": "Slika → PDF",
     "dirPdfToImg": "PDF → {{format}}",
     "mixed": "Mješoviti fajlovi",
-    "filesQueued": "{{count}} fajl(ova) u redu",
+    "filesQueued": "{{n}} fajl(ova) u redu",
     "combine": "Spoji u jedan PDF",
     "reset": "Poništi",
     "run": "Pokreni konverziju",
@@ -561,7 +561,7 @@
     "included": "Uključeno u spojeni PDF",
     "noResults": "Nema rezultata još",
     "results": "Rezultati",
-    "resultsCount": "Ukupno {{count}} fajl(ova) spremno za preuzimanje.",
+    "resultsCount": "Ukupno {{n}} fajl(ova) spremno za preuzimanje.",
     "downloadCombined": "Preuzmi spojeni PDF",
     "downloadZip": "Preuzmi sve (ZIP)",
     "toastDoneTitle": "Konverzija završena",
@@ -585,7 +585,7 @@
     "after": "Poslije",
     "cleared": "Historija obrisana",
     "notFound": "Zapis nije pronađen",
-    "resultsCount": "{{count}} rezultat(a)",
+    "resultsCount": "{{n}} rezultat(a)",
     "dirImg": "Slika → PDF",
     "dirPdf": "PDF → Slika"
   },

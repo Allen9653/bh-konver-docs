@@ -459,7 +459,7 @@
     "ready": "Your file is ready to download",
     "download": "Download",
     "newFile": "New file",
-    "minFiles": "At least {{count}} file(s) required"
+    "minFiles": "At least {{n}} file(s) required"
   },
   "scriptConverter": {
     "badge": "Free · Real-time",
@@ -549,7 +549,7 @@
     "dirImgToPdf": "Image → PDF",
     "dirPdfToImg": "PDF → {{format}}",
     "mixed": "Mixed files",
-    "filesQueued": "{{count}} file(s) queued",
+    "filesQueued": "{{n}} file(s) queued",
     "combine": "Merge into one PDF",
     "reset": "Reset",
     "run": "Start conversion",
@@ -561,7 +561,7 @@
     "included": "Included in the merged PDF",
     "noResults": "No results yet",
     "results": "Results",
-    "resultsCount": "{{count}} file(s) ready to download.",
+    "resultsCount": "{{n}} file(s) ready to download.",
     "downloadCombined": "Download merged PDF",
     "downloadZip": "Download all (ZIP)",
     "toastDoneTitle": "Conversion finished",
@@ -585,7 +585,7 @@
     "after": "After",
     "cleared": "History cleared",
     "notFound": "Entry not found",
-    "resultsCount": "{{count}} result(s)",
+    "resultsCount": "{{n}} result(s)",
     "dirImg": "Image → PDF",
     "dirPdf": "PDF → Image"
   },

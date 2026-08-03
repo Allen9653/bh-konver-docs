@@ -459,7 +459,7 @@
     "ready": "Ihre Datei steht zum Download bereit",
     "download": "Herunterladen",
     "newFile": "Neue Datei",
-    "minFiles": "Mindestens {{count}} Datei(en) erforderlich"
+    "minFiles": "Mindestens {{n}} Datei(en) erforderlich"
   },
   "scriptConverter": {
     "badge": "Kostenlos · Echtzeit",
@@ -549,7 +549,7 @@
     "dirImgToPdf": "Bild → PDF",
     "dirPdfToImg": "PDF → {{format}}",
     "mixed": "Gemischte Dateien",
-    "filesQueued": "{{count}} Datei(en) in der Warteschlange",
+    "filesQueued": "{{n}} Datei(en) in der Warteschlange",
     "combine": "Zu einer PDF zusammenführen",
     "reset": "Zurücksetzen",
     "run": "Konvertierung starten",
@@ -561,7 +561,7 @@
     "included": "In der zusammengeführten PDF enthalten",
     "noResults": "Noch keine Ergebnisse",
     "results": "Ergebnisse",
-    "resultsCount": "Insgesamt {{count}} Datei(en) zum Download bereit.",
+    "resultsCount": "Insgesamt {{n}} Datei(en) zum Download bereit.",
     "downloadCombined": "Zusammengeführte PDF herunterladen",
     "downloadZip": "Alle herunterladen (ZIP)",
     "toastDoneTitle": "Konvertierung abgeschlossen",
@@ -585,7 +585,7 @@
     "after": "Nachher",
     "cleared": "Verlauf gelöscht",
     "notFound": "Eintrag nicht gefunden",
-    "resultsCount": "{{count}} Ergebnis(se)",
+    "resultsCount": "{{n}} Ergebnis(se)",
     "dirImg": "Bild → PDF",
     "dirPdf": "PDF → Bild"
   },

@@ -459,7 +459,7 @@
     "ready": "Dosyanız indirmeye hazır",
     "download": "İndir",
     "newFile": "Yeni dosya",
-    "minFiles": "En az {{count}} dosya gerekli"
+    "minFiles": "En az {{n}} dosya gerekli"
   },
   "scriptConverter": {
     "badge": "Ücretsiz · Gerçek zamanlı",
@@ -549,7 +549,7 @@
     "dirImgToPdf": "Görsel → PDF",
     "dirPdfToImg": "PDF → {{format}}",
     "mixed": "Karışık dosyalar",
-    "filesQueued": "Sırada {{count}} dosya",
+    "filesQueued": "Sırada {{n}} dosya",
     "combine": "Tek PDF olarak birleştir",
     "reset": "Sıfırla",
     "run": "Dönüştürmeyi başlat",
@@ -561,7 +561,7 @@
     "included": "Birleştirilmiş PDF'e dahil",
     "noResults": "Henüz sonuç yok",
     "results": "Sonuçlar",
-    "resultsCount": "Toplam {{count}} dosya indirmeye hazır.",
+    "resultsCount": "Toplam {{n}} dosya indirmeye hazır.",
     "downloadCombined": "Birleştirilmiş PDF'i indir",
     "downloadZip": "Tümünü indir (ZIP)",
     "toastDoneTitle": "Dönüştürme tamamlandı",
@@ -585,7 +585,7 @@
     "after": "Sonra",
     "cleared": "Geçmiş silindi",
     "notFound": "Kayıt bulunamadı",
-    "resultsCount": "{{count}} sonuç",
+    "resultsCount": "{{n}} sonuç",
     "dirImg": "Görsel → PDF",
     "dirPdf": "PDF → Görsel"
   },
