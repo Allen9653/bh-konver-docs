@@ -63,8 +63,32 @@ export const useAdminAuth = () => {
   }, [verifyAdminServerSide]);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    // Always clear local app state first so the UI never keeps showing a
+    // signed-in interface, even if the network call fails.
+    try {
+      await supabase.auth.signOut({ scope: "global" });
+    } catch (error) {
+      console.error("Global sign out failed, falling back to local:", error);
+      try {
+        await supabase.auth.signOut({ scope: "local" });
+      } catch (localError) {
+        console.error("Local sign out failed:", localError);
+      }
+    } finally {
+      setSession(null);
+      setUser(null);
+      setIsAdmin(false);
+      // Remove any lingering Supabase auth tokens from browser storage.
+      try {
+        Object.keys(localStorage)
+          .filter((key) => key.startsWith("sb-") && key.includes("auth-token"))
+          .forEach((key) => localStorage.removeItem(key));
+      } catch (storageError) {
+        console.error("Failed to clear auth storage:", storageError);
+      }
+    }
   };
+
 
   return {
     user,
