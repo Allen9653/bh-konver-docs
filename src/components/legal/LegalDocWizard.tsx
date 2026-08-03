@@ -69,12 +69,13 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
     <Card className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={onBack} className="gap-1">
-          <ArrowLeft className="w-4 h-4" /> Nazad na izbor
+          <ArrowLeft className="w-4 h-4" /> {t("pravni.wizBack")}
         </Button>
         <span className="text-xs text-muted-foreground">
-          Korak {Math.min(step + 1, totalSteps)} / {totalSteps}
+          {t("pravni.wizStep", { s: Math.min(step + 1, totalSteps), total: totalSteps })}
         </span>
       </div>
+
 
       <div>
         <h2 className="text-2xl font-bold font-display flex items-center gap-2">
