@@ -611,6 +611,23 @@
     "toastPremiumTitle": "Premium document",
     "toastPremiumDesc": "This document requires an active subscription. See the pricing on the home page.",
     "pdfReadyTitle": "PDF generated",
-    "pdfReadyDesc": "Your document is ready. Certification is performed before a competent authority in BiH."
+    "pdfReadyDesc": "Your document is ready. Certification is performed before a competent authority in BiH.",
+    "wizBack": "Back to selection",
+    "wizStep": "Step {{s}} / {{total}}",
+    "wizSelect": "Select...",
+    "wizPlace": "Place of issue",
+    "wizPlacePh": "e.g. Sarajevo, Banja Luka, Tuzla",
+    "wizDate": "Date",
+    "wizPreview": "STATEMENT PREVIEW",
+    "wizPlaceDate": "Place and date:",
+    "wizGivenBefore": "Statement given before:",
+    "wizGivenBeforeText": "a competent authority (municipality / notary / court) in BiH.",
+    "wizCert": "Certification:",
+    "wizCertText": "signature and official stamp of the competent authority of Bosnia and Herzegovina (FBiH / RS / Brčko District).",
+    "wizPrev": "Previous",
+    "wizNext": "Next",
+    "wizGenerate": "Generate PDF",
+    "errTitle": "Error",
+    "errDesc": "PDF generation failed."
   }
 }

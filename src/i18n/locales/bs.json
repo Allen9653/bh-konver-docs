@@ -611,6 +611,23 @@
     "toastPremiumTitle": "Premium dokument",
     "toastPremiumDesc": "Ovaj dokument zahtijeva aktivnu pretplatu. Pogledajte cijene na početnoj stranici.",
     "pdfReadyTitle": "PDF generisan",
-    "pdfReadyDesc": "Dokument je spreman. Ovjera se vrši pred nadležnim organom u BiH."
+    "pdfReadyDesc": "Dokument je spreman. Ovjera se vrši pred nadležnim organom u BiH.",
+    "wizBack": "Nazad na izbor",
+    "wizStep": "Korak {{s}} / {{total}}",
+    "wizSelect": "Odaberite...",
+    "wizPlace": "Mjesto izdavanja izjave",
+    "wizPlacePh": "npr. Sarajevo, Banja Luka, Tuzla",
+    "wizDate": "Datum",
+    "wizPreview": "PREGLED IZJAVE",
+    "wizPlaceDate": "Mjesto i datum:",
+    "wizGivenBefore": "Izjavu dao pred:",
+    "wizGivenBeforeText": "nadležnim organom (općina / notar / sud) u BiH.",
+    "wizCert": "Ovjera:",
+    "wizCertText": "potpis i službeni pečat nadležnog organa Bosne i Hercegovine (FBiH / RS / Brčko Distrikt).",
+    "wizPrev": "Prethodni",
+    "wizNext": "Sljedeći",
+    "wizGenerate": "Generiši PDF",
+    "errTitle": "Greška",
+    "errDesc": "Generisanje PDF-a nije uspjelo."
   }
 }

@@ -611,6 +611,23 @@
     "toastPremiumTitle": "Premium belge",
     "toastPremiumDesc": "Bu belge etkin bir abonelik gerektirir. Fiyatları ana sayfada görebilirsiniz.",
     "pdfReadyTitle": "PDF oluşturuldu",
-    "pdfReadyDesc": "Belge hazır. Onay, BiH'deki yetkili makam önünde yapılır."
+    "pdfReadyDesc": "Belge hazır. Onay, BiH'deki yetkili makam önünde yapılır.",
+    "wizBack": "Seçime dön",
+    "wizStep": "Adım {{s}} / {{total}}",
+    "wizSelect": "Seçin...",
+    "wizPlace": "Beyanın düzenlendiği yer",
+    "wizPlacePh": "örn. Saraybosna, Banja Luka, Tuzla",
+    "wizDate": "Tarih",
+    "wizPreview": "BEYAN ÖNİZLEME",
+    "wizPlaceDate": "Yer ve tarih:",
+    "wizGivenBefore": "Beyanın verildiği makam:",
+    "wizGivenBeforeText": "BiH'deki yetkili makam (belediye / noter / mahkeme).",
+    "wizCert": "Onay:",
+    "wizCertText": "Bosna-Hersek yetkili makamının imzası ve resmi mührü (FBiH / RS / Brčko Bölgesi).",
+    "wizPrev": "Önceki",
+    "wizNext": "Sonraki",
+    "wizGenerate": "PDF oluştur",
+    "errTitle": "Hata",
+    "errDesc": "PDF oluşturulamadı."
   }
 }

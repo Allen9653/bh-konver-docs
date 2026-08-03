@@ -611,6 +611,23 @@
     "toastPremiumTitle": "Premium-Dokument",
     "toastPremiumDesc": "Dieses Dokument erfordert ein aktives Abonnement. Preise finden Sie auf der Startseite.",
     "pdfReadyTitle": "PDF erstellt",
-    "pdfReadyDesc": "Das Dokument ist fertig. Die Beglaubigung erfolgt vor einer zuständigen Stelle in BiH."
+    "pdfReadyDesc": "Das Dokument ist fertig. Die Beglaubigung erfolgt vor einer zuständigen Stelle in BiH.",
+    "wizBack": "Zurück zur Auswahl",
+    "wizStep": "Schritt {{s}} / {{total}}",
+    "wizSelect": "Auswählen...",
+    "wizPlace": "Ausstellungsort der Erklärung",
+    "wizPlacePh": "z. B. Sarajevo, Banja Luka, Tuzla",
+    "wizDate": "Datum",
+    "wizPreview": "VORSCHAU DER ERKLÄRUNG",
+    "wizPlaceDate": "Ort und Datum:",
+    "wizGivenBefore": "Erklärung abgegeben vor:",
+    "wizGivenBeforeText": "einer zuständigen Stelle (Gemeinde / Notar / Gericht) in BiH.",
+    "wizCert": "Beglaubigung:",
+    "wizCertText": "Unterschrift und Amtsstempel der zuständigen Stelle von Bosnien und Herzegowina (FBiH / RS / Brčko-Distrikt).",
+    "wizPrev": "Zurück",
+    "wizNext": "Weiter",
+    "wizGenerate": "PDF erstellen",
+    "errTitle": "Fehler",
+    "errDesc": "PDF-Erstellung fehlgeschlagen."
   }
 }
