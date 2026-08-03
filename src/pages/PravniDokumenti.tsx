@@ -16,7 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 const PravniDokumenti = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, isAdmin, signOut } = useAdminAuth();
+  const { user, isAdmin, signOut, loading: authLoading } = useAdminAuth();
   const { hasActiveSubscription, expiresAt } = useSubscription(user?.id);
   const isPremium = isAdmin || hasActiveSubscription;
 
@@ -49,7 +49,7 @@ const PravniDokumenti = () => {
         description="Generišite ovjerene izjave i pravne dokumente u skladu sa zakonodavstvom Bosne i Hercegovine (FBiH, RS, Brčko Distrikt)."
         path="/pravni-dokumenti"
       />
-      <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} />
+      <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} loading={authLoading} />
 
       <main>
         {/* Hero */}

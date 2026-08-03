@@ -42,7 +42,7 @@ interface Row {
 
 const SlikaPdfHistory = () => {
   const { toast } = useToast();
-  const { user, isAdmin, signOut } = useAdminAuth();
+  const { user, isAdmin, signOut, loading: authLoading } = useAdminAuth();
   const { hasActiveSubscription, expiresAt } = useSubscription(user?.id);
   const isPremium = isAdmin || hasActiveSubscription;
 
@@ -116,6 +116,7 @@ const SlikaPdfHistory = () => {
         isPremium={isPremium}
         expiresAt={expiresAt}
         onSignOut={signOut}
+        loading={authLoading}
       />
 
       <main className="flex-1 container max-w-5xl mx-auto px-4 py-10">
