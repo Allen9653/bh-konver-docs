@@ -103,7 +103,7 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
                 <Textarea id={f.key} value={values[f.key] || ""} onChange={(e) => update(f.key, e.target.value)} placeholder={f.placeholder} rows={3} />
               ) : f.type === "select" && f.options ? (
                 <Select value={values[f.key] || ""} onValueChange={(v) => update(f.key, v)}>
-                  <SelectTrigger><SelectValue placeholder="Odaberite..." /></SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder={t("pravni.wizSelect")} /></SelectTrigger>
                   <SelectContent>
                     {f.options.map((o) => (<SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>))}
                   </SelectContent>
