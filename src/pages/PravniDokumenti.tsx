@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const PravniDokumenti = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { user, isAdmin, signOut, loading: authLoading } = useAdminAuth();
   const { hasActiveSubscription, expiresAt } = useSubscription(user?.id);
