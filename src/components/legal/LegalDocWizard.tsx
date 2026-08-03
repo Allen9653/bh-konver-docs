@@ -119,11 +119,11 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <Label htmlFor="place" className="mb-1.5 block">Mjesto izdavanja izjave <span className="text-destructive">*</span></Label>
-              <Input id="place" value={place} onChange={(e) => setPlace(e.target.value)} placeholder="npr. Sarajevo, Banja Luka, Tuzla" />
+              <Label htmlFor="place" className="mb-1.5 block">{t("pravni.wizPlace")} <span className="text-destructive">*</span></Label>
+              <Input id="place" value={place} onChange={(e) => setPlace(e.target.value)} placeholder={t("pravni.wizPlacePh")} />
             </div>
             <div>
-              <Label htmlFor="date" className="mb-1.5 block">Datum <span className="text-destructive">*</span></Label>
+              <Label htmlFor="date" className="mb-1.5 block">{t("pravni.wizDate")} <span className="text-destructive">*</span></Label>
               <Input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
           </div>
