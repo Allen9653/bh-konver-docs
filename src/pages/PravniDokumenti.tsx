@@ -59,19 +59,18 @@ const PravniDokumenti = () => {
           <div className="container mx-auto px-4 max-w-5xl py-12">
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
               <ScrollText className="w-4 h-4" />
-              <span>Bosna i Hercegovina · FBiH · RS · Brčko Distrikt</span>
+              <span>{t("pravni.jurisdiction")}</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold font-display tracking-tight mb-3">
-              Pravni dokumenti i <span className="text-primary">ovjerene izjave</span>
+              {t("pravni.titlePrefix")} <span className="text-primary">{t("pravni.titleAccent")}</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-2xl">
-              Brzo i privatno generišite izjave date pod materijalnom i kaznenom odgovornošću,
-              prilagođene pravnom sistemu Bosne i Hercegovine. Sav sadržaj se obrađuje u vašem pretraživaču.
+              {t("pravni.subtitle")}
             </p>
             <div className="flex flex-wrap gap-2 mt-4 text-xs">
-              <Badge variant="secondary" className="gap-1"><ShieldCheck className="w-3 h-3" /> Privatno - bez slanja na server</Badge>
-              <Badge variant="secondary">Usklađeno sa propisima BiH</Badge>
-              <Badge variant="secondary">PDF spreman za ovjeru</Badge>
+              <Badge variant="secondary" className="gap-1"><ShieldCheck className="w-3 h-3" /> {t("pravni.badgePrivate")}</Badge>
+              <Badge variant="secondary">{t("pravni.badgeCompliant")}</Badge>
+              <Badge variant="secondary">{t("pravni.badgeReady")}</Badge>
             </div>
           </div>
         </section>
