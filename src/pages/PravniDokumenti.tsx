@@ -101,10 +101,10 @@ const PravniDokumenti = () => {
                             </div>
                             {doc.premium ? (
                               <Badge className="bg-accent text-accent-foreground gap-1 text-[10px]">
-                                <Crown className="w-3 h-3" /> PREMIUM
+                                <Crown className="w-3 h-3" /> {t("pravni.premiumBadge")}
                               </Badge>
                             ) : (
-                              <Badge variant="secondary" className="text-[10px]">BESPLATNO</Badge>
+                              <Badge variant="secondary" className="text-[10px]">{t("pravni.freeBadge")}</Badge>
                             )}
                           </div>
                           <h3 className="font-semibold text-base mb-1">{doc.shortTitle}</h3>
@@ -112,10 +112,10 @@ const PravniDokumenti = () => {
                           <div className="flex items-center justify-between text-xs">
                             {doc.implemented ? (
                               <span className="text-primary font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                                {locked ? <><Lock className="w-3 h-3" /> Otključaj</> : <>Otvori obrazac <ArrowRight className="w-3 h-3" /></>}
+                                {locked ? <><Lock className="w-3 h-3" /> {t("pravni.unlock")}</> : <>{t("pravni.openForm")} <ArrowRight className="w-3 h-3" /></>}
                               </span>
                             ) : (
-                              <span className="text-muted-foreground italic">Uskoro</span>
+                              <span className="text-muted-foreground italic">{t("pravni.soon")}</span>
                             )}
                           </div>
                           {locked && (
@@ -131,13 +131,10 @@ const PravniDokumenti = () => {
               {/* Legal compliance note */}
               <Card className="p-5 bg-muted/40 border-dashed">
                 <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-primary" /> Pravna napomena
+                  <ShieldCheck className="w-4 h-4 text-primary" /> {t("pravni.noteTitle")}
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Generisani dokumenti su predlošci usklađeni sa pravnim sistemom Bosne i Hercegovine
-                  (entiteti FBiH i Republika Srpska, te Brčko Distrikt BiH). Za pravnu valjanost,
-                  potrebna je ovjera pred nadležnim organom: notarom, službenikom općine/opštine
-                  ili nadležnim sudom. BH KONVER ne pruža pravne savjete i nije zamjena za advokata.
+                  {t("pravni.noteText")}
                 </p>
               </Card>
             </div>
