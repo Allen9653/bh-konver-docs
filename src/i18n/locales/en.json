@@ -446,6 +446,53 @@
     "upsell": {
       "title": "Premium = unlimited processing",
       "text": "24h from 2 BAM · 7 days · monthly subscription. Batch conversions + priority processing."
+    },
+    "html": {
+      "sectionTitle": "HTML conversions",
+      "sectionSubtitle": "Turn web pages into documents and images, or documents into clean HTML. Everything is processed locally in your browser.",
+      "groupATitle": "Group A — from HTML",
+      "groupBTitle": "Group B — to HTML",
+      "proBadge": "PRO",
+      "htmlToDocx": {
+        "title": "HTML → Word",
+        "description": "Convert an HTML page into an editable Word document.",
+        "runnerDescription": "Upload an .html file and download a .docx document. Text conversion — complex layout may be simplified."
+      },
+      "htmlToPdf": {
+        "title": "HTML → PDF",
+        "description": "Faithful PDF rendering of an HTML page with styles.",
+        "runnerDescription": "Upload an .html file and download a PDF that keeps the visual layout."
+      },
+      "htmlToJpg": {
+        "title": "HTML → JPG",
+        "description": "Capture an HTML page as a JPG image.",
+        "runnerDescription": "Upload an .html file and download a full-page JPG screenshot."
+      },
+      "htmlToPng": {
+        "title": "HTML → PNG",
+        "description": "Capture an HTML page as a PNG image.",
+        "runnerDescription": "Upload an .html file and download a full-page PNG screenshot."
+      },
+      "htmlToTxt": {
+        "title": "HTML → TXT",
+        "description": "Extract clean plain text from an HTML page.",
+        "runnerDescription": "Upload an .html file and download the plain text content."
+      },
+      "docxToHtml": {
+        "title": "Word → HTML",
+        "description": "Convert .docx into clean, semantic HTML.",
+        "runnerDescription": "Upload a .docx file and download a ready-to-use HTML page."
+      },
+      "pdfToHtml": {
+        "title": "PDF → HTML",
+        "description": "Extract PDF text into an HTML page, page by page.",
+        "runnerDescription": "Upload a PDF and download HTML. Text conversion — images and complex layout are not included."
+      },
+      "textToHtml": {
+        "title": "TXT / Markdown → HTML",
+        "description": "Convert text or Markdown into formatted HTML.",
+        "runnerDescription": "Upload a .txt, .md or .markdown file and download an HTML page."
+      }
     }
   },
   "toolRunner": {

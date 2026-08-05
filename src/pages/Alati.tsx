@@ -17,21 +17,37 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   FileText, FileImage, FileSpreadsheet, Presentation, Type,
   Combine, Scissors, Shield, Zap, LockOpen, ArrowRight, Crown, Ruler, DollarSign, Infinity as InfinityIcon,
+  Code2, Globe, Image as ImageIcon, FileCode,
 } from "lucide-react";
 import {
   imagesToPdf, wordToPdf, pdfToWord, excelToPdf,
   mergePdfs, splitPdf,
 } from "@/utils/freeTools";
+import {
+  htmlToPdf, htmlToDocx, htmlToJpg, htmlToPng, htmlToTxt,
+  docxToHtml, pdfToHtml, textToHtml,
+} from "@/utils/htmlTools";
 
 type ToolId =
   | "img-to-pdf" | "word-to-pdf" | "pdf-to-word"
   | "excel-to-pdf" | "pptx-to-pdf"
-  | "script" | "merge-pdf" | "split-pdf";
+  | "script" | "merge-pdf" | "split-pdf"
+  // Group A — HTML as source
+  | "html-to-docx" | "html-to-pdf" | "html-to-jpg" | "html-to-png" | "html-to-txt"
+  // Group B — HTML as target
+  | "docx-to-html" | "pdf-to-html" | "text-to-html";
 
 // Document conversion tools that count against the free quota
 const DOC_TOOLS: ToolId[] = [
   "img-to-pdf", "word-to-pdf", "pdf-to-word",
   "excel-to-pdf", "pptx-to-pdf", "merge-pdf", "split-pdf",
+  "html-to-docx",
+];
+
+// HTML tools reserved for active subscribers (server-grade fidelity output)
+const PRO_HTML_TOOLS: ToolId[] = [
+  "html-to-pdf", "html-to-jpg", "html-to-png", "html-to-txt",
+  "docx-to-html", "pdf-to-html", "text-to-html",
 ];
 
 const Alati = () => {
@@ -55,6 +71,15 @@ const Alati = () => {
     setActive(id);
   }, [isPremium, exhausted]);
 
+  // PRO-only tools — require an active subscription (or admin)
+  const openProTool = useCallback((id: ToolId) => {
+    if (!isPremium) {
+      setPaywallOpen(true);
+      return;
+    }
+    setActive(id);
+  }, [isPremium]);
+
   // Hook into ToolRunner / PptxConverter
   const onBeforeRun = useCallback((): boolean => {
     if (isPremium) return true;
@@ -64,6 +89,12 @@ const Alati = () => {
     }
     return true;
   }, [isPremium, exhausted]);
+
+  const onBeforeRunPro = useCallback((): boolean => {
+    if (isPremium) return true;
+    setPaywallOpen(true);
+    return false;
+  }, [isPremium]);
 
   const onAfterSuccess = useCallback(() => {
     if (!isPremium) consume();
@@ -205,6 +236,58 @@ const Alati = () => {
                 </div>
               </section>
 
+              {/* ====================== HTML CONVERSIONS ====================== */}
+              <section>
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <Badge className="bg-primary/15 text-primary border-primary/30" variant="outline">
+                    <Code2 className="w-3 h-3 mr-1" /> HTML
+                  </Badge>
+                  {!isPremium && (
+                    <Badge className="bg-accent/15 text-accent border-accent/30" variant="outline">
+                      <Crown className="w-3 h-3 mr-1" /> {t("alati.html.proBadge")}
+                    </Badge>
+                  )}
+                </div>
+                <h2 className="text-xl sm:text-2xl font-semibold mb-1 font-display">{t("alati.html.sectionTitle")}</h2>
+                <p className="text-sm text-muted-foreground mb-5">{t("alati.html.sectionSubtitle")}</p>
+
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+                  {t("alati.html.groupATitle")}
+                </h3>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                  <FreeToolCard icon={FileText} title={t("alati.html.htmlToDocx.title")}
+                    description={t("alati.html.htmlToDocx.description")}
+                    badge={quotaBadge} onClick={() => openDocTool("html-to-docx")} />
+                  <FreeToolCard icon={FileCode} title={t("alati.html.htmlToPdf.title")}
+                    description={t("alati.html.htmlToPdf.description")}
+                    badge={t("alati.html.proBadge")} onClick={() => openProTool("html-to-pdf")} />
+                  <FreeToolCard icon={ImageIcon} title={t("alati.html.htmlToJpg.title")}
+                    description={t("alati.html.htmlToJpg.description")}
+                    badge={t("alati.html.proBadge")} onClick={() => openProTool("html-to-jpg")} />
+                  <FreeToolCard icon={ImageIcon} title={t("alati.html.htmlToPng.title")}
+                    description={t("alati.html.htmlToPng.description")}
+                    badge={t("alati.html.proBadge")} onClick={() => openProTool("html-to-png")} />
+                  <FreeToolCard icon={Type} title={t("alati.html.htmlToTxt.title")}
+                    description={t("alati.html.htmlToTxt.description")}
+                    badge={t("alati.html.proBadge")} onClick={() => openProTool("html-to-txt")} />
+                </div>
+
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+                  {t("alati.html.groupBTitle")}
+                </h3>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <FreeToolCard icon={Globe} title={t("alati.html.docxToHtml.title")}
+                    description={t("alati.html.docxToHtml.description")}
+                    badge={t("alati.html.proBadge")} onClick={() => openProTool("docx-to-html")} />
+                  <FreeToolCard icon={Globe} title={t("alati.html.pdfToHtml.title")}
+                    description={t("alati.html.pdfToHtml.description")}
+                    badge={t("alati.html.proBadge")} onClick={() => openProTool("pdf-to-html")} />
+                  <FreeToolCard icon={Globe} title={t("alati.html.textToHtml.title")}
+                    description={t("alati.html.textToHtml.description")}
+                    badge={t("alati.html.proBadge")} onClick={() => openProTool("text-to-html")} />
+                </div>
+              </section>
+
               {/* Trust strip */}
               <div className="border-t pt-8 grid sm:grid-cols-3 gap-4 text-sm">
                 <Trust icon={Shield} title={t("alati.trust.privateTitle")} text={t("alati.trust.privateText")} />
@@ -307,6 +390,102 @@ const Alati = () => {
               run={(files, p) => splitPdf(files[0], p)}
               onBack={back}
               onBeforeRun={onBeforeRun}
+              onAfterSuccess={onAfterSuccess}
+            />
+          )}
+          {active === "html-to-docx" && (
+            <ToolRunner
+              title={t("alati.html.htmlToDocx.title")}
+              description={t("alati.html.htmlToDocx.runnerDescription")}
+              acceptedExtensions={["html", "htm"]}
+              outputFilename={(f) => (f as File).name.replace(/\.html?$/i, ".docx")}
+              run={(files, p) => htmlToDocx(files[0], p)}
+              onBack={back}
+              onBeforeRun={onBeforeRun}
+              onAfterSuccess={onAfterSuccess}
+            />
+          )}
+          {active === "html-to-pdf" && (
+            <ToolRunner
+              title={t("alati.html.htmlToPdf.title")}
+              description={t("alati.html.htmlToPdf.runnerDescription")}
+              acceptedExtensions={["html", "htm"]}
+              outputFilename={(f) => (f as File).name.replace(/\.html?$/i, ".pdf")}
+              run={(files, p) => htmlToPdf(files[0], p)}
+              onBack={back}
+              onBeforeRun={onBeforeRunPro}
+              onAfterSuccess={onAfterSuccess}
+            />
+          )}
+          {active === "html-to-jpg" && (
+            <ToolRunner
+              title={t("alati.html.htmlToJpg.title")}
+              description={t("alati.html.htmlToJpg.runnerDescription")}
+              acceptedExtensions={["html", "htm"]}
+              outputFilename={(f) => (f as File).name.replace(/\.html?$/i, ".jpg")}
+              run={(files, p) => htmlToJpg(files[0], p)}
+              onBack={back}
+              onBeforeRun={onBeforeRunPro}
+              onAfterSuccess={onAfterSuccess}
+            />
+          )}
+          {active === "html-to-png" && (
+            <ToolRunner
+              title={t("alati.html.htmlToPng.title")}
+              description={t("alati.html.htmlToPng.runnerDescription")}
+              acceptedExtensions={["html", "htm"]}
+              outputFilename={(f) => (f as File).name.replace(/\.html?$/i, ".png")}
+              run={(files, p) => htmlToPng(files[0], p)}
+              onBack={back}
+              onBeforeRun={onBeforeRunPro}
+              onAfterSuccess={onAfterSuccess}
+            />
+          )}
+          {active === "html-to-txt" && (
+            <ToolRunner
+              title={t("alati.html.htmlToTxt.title")}
+              description={t("alati.html.htmlToTxt.runnerDescription")}
+              acceptedExtensions={["html", "htm"]}
+              outputFilename={(f) => (f as File).name.replace(/\.html?$/i, ".txt")}
+              run={(files, p) => htmlToTxt(files[0], p)}
+              onBack={back}
+              onBeforeRun={onBeforeRunPro}
+              onAfterSuccess={onAfterSuccess}
+            />
+          )}
+          {active === "docx-to-html" && (
+            <ToolRunner
+              title={t("alati.html.docxToHtml.title")}
+              description={t("alati.html.docxToHtml.runnerDescription")}
+              acceptedExtensions={["docx"]}
+              outputFilename={(f) => (f as File).name.replace(/\.docx$/i, ".html")}
+              run={(files, p) => docxToHtml(files[0], p)}
+              onBack={back}
+              onBeforeRun={onBeforeRunPro}
+              onAfterSuccess={onAfterSuccess}
+            />
+          )}
+          {active === "pdf-to-html" && (
+            <ToolRunner
+              title={t("alati.html.pdfToHtml.title")}
+              description={t("alati.html.pdfToHtml.runnerDescription")}
+              acceptedExtensions={["pdf"]}
+              outputFilename={(f) => (f as File).name.replace(/\.pdf$/i, ".html")}
+              run={(files, p) => pdfToHtml(files[0], p)}
+              onBack={back}
+              onBeforeRun={onBeforeRunPro}
+              onAfterSuccess={onAfterSuccess}
+            />
+          )}
+          {active === "text-to-html" && (
+            <ToolRunner
+              title={t("alati.html.textToHtml.title")}
+              description={t("alati.html.textToHtml.runnerDescription")}
+              acceptedExtensions={["txt", "md", "markdown"]}
+              outputFilename={(f) => (f as File).name.replace(/\.(txt|md|markdown)$/i, ".html")}
+              run={(files, p) => textToHtml(files[0], p)}
+              onBack={back}
+              onBeforeRun={onBeforeRunPro}
               onAfterSuccess={onAfterSuccess}
             />
           )}

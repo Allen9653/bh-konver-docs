@@ -446,6 +446,53 @@
     "upsell": {
       "title": "Premium = sınırsız işleme",
       "text": "24 saat 2 BAM'dan · 7 gün · aylık abonelik. Toplu dönüşüm + öncelikli işleme."
+    },
+    "html": {
+      "sectionTitle": "HTML dönüştürmeleri",
+      "sectionSubtitle": "Web sayfalarını belgelere ve görsellere, belgeleri temiz HTML'e dönüştürün. Her şey tarayıcınızda yerel olarak işlenir.",
+      "groupATitle": "Grup A — HTML'den",
+      "groupBTitle": "Grup B — HTML'e",
+      "proBadge": "PRO",
+      "htmlToDocx": {
+        "title": "HTML → Word",
+        "description": "HTML sayfasını düzenlenebilir Word belgesine dönüştürün.",
+        "runnerDescription": ".html dosyası yükleyin ve .docx belgesini indirin. Metin dönüşümü — karmaşık düzen basitleştirilebilir."
+      },
+      "htmlToPdf": {
+        "title": "HTML → PDF",
+        "description": "HTML sayfasının stilleriyle birlikte sadık PDF çıktısı.",
+        "runnerDescription": ".html dosyası yükleyin ve görsel düzeni koruyan bir PDF indirin."
+      },
+      "htmlToJpg": {
+        "title": "HTML → JPG",
+        "description": "HTML sayfasını JPG görseli olarak yakalayın.",
+        "runnerDescription": ".html dosyası yükleyin ve tam sayfa JPG ekran görüntüsü indirin."
+      },
+      "htmlToPng": {
+        "title": "HTML → PNG",
+        "description": "HTML sayfasını PNG görseli olarak yakalayın.",
+        "runnerDescription": ".html dosyası yükleyin ve tam sayfa PNG ekran görüntüsü indirin."
+      },
+      "htmlToTxt": {
+        "title": "HTML → TXT",
+        "description": "HTML sayfasından temiz düz metin çıkarın.",
+        "runnerDescription": ".html dosyası yükleyin ve düz metin içeriğini indirin."
+      },
+      "docxToHtml": {
+        "title": "Word → HTML",
+        "description": ".docx dosyasını temiz, anlamsal HTML'e dönüştürün.",
+        "runnerDescription": ".docx dosyası yükleyin ve kullanıma hazır HTML sayfası indirin."
+      },
+      "pdfToHtml": {
+        "title": "PDF → HTML",
+        "description": "PDF metnini sayfa sayfa HTML sayfasına çıkarın.",
+        "runnerDescription": "PDF yükleyin ve HTML indirin. Metin dönüşümü — görseller ve karmaşık düzen dahil değildir."
+      },
+      "textToHtml": {
+        "title": "TXT / Markdown → HTML",
+        "description": "Metni veya Markdown'ı biçimlendirilmiş HTML'e dönüştürün.",
+        "runnerDescription": ".txt, .md veya .markdown dosyası yükleyin ve HTML sayfası indirin."
+      }
     }
   },
   "toolRunner": {
