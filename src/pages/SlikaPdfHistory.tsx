@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { FileImage, FileText, Download, Trash2, ArrowLeft, Loader2 } from "lucide-react";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { PremiumFooter } from "@/components/PremiumFooter";
@@ -41,6 +42,7 @@ interface Row {
 }
 
 const SlikaPdfHistory = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { user, isAdmin, signOut, loading: authLoading } = useAdminAuth();
   const { hasActiveSubscription, expiresAt } = useSubscription(user?.id);
@@ -70,7 +72,7 @@ const SlikaPdfHistory = () => {
     try {
       const entry = await loadHistoryEntry(id);
       if (!entry) {
-        toast({ title: "Zapis nije pronađen", variant: "destructive" });
+        toast({ title: t("slikaPdfHistory.notFound"), variant: "destructive" });
         return;
       }
       // revoke previous
@@ -100,14 +102,14 @@ const SlikaPdfHistory = () => {
     await clearHistory();
     setOpenEntry(null);
     await refresh();
-    toast({ title: "Historija obrisana" });
+    toast({ title: t("slikaPdfHistory.cleared") });
   };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEO
-        title="Historija konverzija – BH KONVER"
-        description="Pregledajte i ponovo preuzmite nedavne Slika ↔ PDF konverzije. Sve je pohranjeno lokalno u vašem pregledniku."
+        title={t("slikaPdfHistory.seoTitle")}
+        description={t("slikaPdfHistory.seoDescription")}
         path="/slika-pdf/istorija"
       />
       <PremiumHeader
@@ -122,18 +124,18 @@ const SlikaPdfHistory = () => {
       <main className="flex-1 container max-w-5xl mx-auto px-4 py-10">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">Historija konverzija</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-foreground">{t("slikaPdfHistory.title")}</h1>
             <p className="text-muted-foreground mt-1 text-sm">
-              Do 30 posljednjih Slika ↔ PDF konverzija — sve pohranjeno lokalno u pregledniku.
+              {t("slikaPdfHistory.subtitle")}
             </p>
           </div>
           <div className="flex gap-2">
             <Button asChild variant="outline" size="sm">
-              <Link to="/slika-pdf"><ArrowLeft className="w-4 h-4 mr-1.5" /> Nazad na konverter</Link>
+              <Link to="/slika-pdf"><ArrowLeft className="w-4 h-4 mr-1.5" /> {t("slikaPdfHistory.back")}</Link>
             </Button>
             {rows && rows.length > 0 && (
               <Button variant="destructive" size="sm" onClick={handleClear}>
-                <Trash2 className="w-4 h-4 mr-1.5" /> Obriši sve
+                <Trash2 className="w-4 h-4 mr-1.5" /> {t("slikaPdfHistory.clearAll")}
               </Button>
             )}
           </div>
@@ -145,7 +147,7 @@ const SlikaPdfHistory = () => {
           </div>
         ) : rows.length === 0 ? (
           <Card className="p-10 text-center text-muted-foreground">
-            Još nema zapisa. Pokrenite konverziju na <Link to="/slika-pdf" className="text-primary underline">Slika ↔ PDF</Link> — svaka konverzija se automatski spašava ovdje.
+            {t("slikaPdfHistory.emptyPrefix")} <Link to="/slika-pdf" className="text-primary underline">{t("slikaPdfHistory.emptyLink")}</Link> {t("slikaPdfHistory.emptySuffix")}
           </Card>
         ) : (
           <div className="grid gap-3">
@@ -164,13 +166,13 @@ const SlikaPdfHistory = () => {
                   <div className="min-w-0">
                     <p className="text-sm font-medium truncate">{r.sourceName}</p>
                     <p className="text-xs text-muted-foreground">
-                      {fmtDate(r.createdAt)} · {r.outputsCount} rezultat(a)
+                      {fmtDate(r.createdAt)} · {t("slikaPdfHistory.resultsCount", { n: r.outputsCount })}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge variant="secondary">
-                    {r.direction === "img2pdf" ? "Slika → PDF" : "PDF → Slika"}
+                    {r.direction === "img2pdf" ? t("slikaPdfHistory.dirImg") : t("slikaPdfHistory.dirPdf")}
                   </Badge>
                   <Button
                     size="sm"
@@ -178,7 +180,7 @@ const SlikaPdfHistory = () => {
                     onClick={() => openDetails(r.id)}
                     disabled={loadingId === r.id}
                   >
-                    {loadingId === r.id ? <Loader2 className="w-4 h-4 animate-spin" /> : "Otvori"}
+                    {loadingId === r.id ? <Loader2 className="w-4 h-4 animate-spin" /> : t("slikaPdfHistory.open")}
                   </Button>
                   <Button size="sm" variant="ghost" onClick={() => handleDelete(r.id)}>
                     <Trash2 className="w-4 h-4" />
@@ -196,11 +198,11 @@ const SlikaPdfHistory = () => {
                 <h2 className="text-lg font-semibold">{openEntry.sourceName}</h2>
                 <p className="text-xs text-muted-foreground">{fmtDate(openEntry.createdAt)}</p>
               </div>
-              <Button size="sm" variant="ghost" onClick={() => setOpenEntry(null)}>Zatvori</Button>
+              <Button size="sm" variant="ghost" onClick={() => setOpenEntry(null)}>{t("slikaPdfHistory.close")}</Button>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Prije</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">{t("slikaPdfHistory.before")}</div>
                 {beforeUrl ? (
                   <img src={beforeUrl} alt="Original" className="max-h-64 rounded-md border border-border bg-muted object-contain w-full" />
                 ) : (
@@ -213,7 +215,7 @@ const SlikaPdfHistory = () => {
                 </p>
               </div>
               <div>
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Poslije</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">{t("slikaPdfHistory.after")}</div>
                 <div className="space-y-2 max-h-72 overflow-auto pr-1">
                   {openEntry.outputs.map((o, i) => (
                     <div key={o.name} className="flex items-center gap-3 p-2 rounded-md border border-border">
