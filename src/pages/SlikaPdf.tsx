@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import JSZip from "jszip";
 import { FileImage, FileText, Download, RotateCcw, CheckCircle2, XCircle, Loader2, History } from "lucide-react";
 import { PremiumHeader } from "@/components/PremiumHeader";
@@ -60,6 +61,7 @@ const makePdfFirstPageThumb = async (file: File): Promise<string> => {
 };
 
 const SlikaPdf = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { user, isAdmin, signOut, loading: authLoading } = useAdminAuth();
   const { hasActiveSubscription, expiresAt } = useSubscription(user?.id);
@@ -218,20 +220,20 @@ const SlikaPdf = () => {
                 console.warn("history save failed", e);
               }
             } else {
-              throw new Error("Format nije podržan u ovom alatu.");
+              throw new Error(t("slikaPdf.errUnsupported"));
             }
             setEntry(entry.id, { status: "done", progress: 100, outputs });
           } catch (err) {
             setEntry(entry.id, {
               status: "error",
               progress: 100,
-              error: err instanceof Error ? err.message : "Greška pri konverziji",
+              error: err instanceof Error ? err.message : t("slikaPdf.errGeneric"),
             });
           }
         }
       }
 
-      toast({ title: "Konverzija završena", description: "Rezultati su spremni za preuzimanje." });
+      toast({ title: t("slikaPdf.toastDoneTitle"), description: t("slikaPdf.toastDoneDesc") });
     } finally {
       setRunning(false);
     }
@@ -253,8 +255,8 @@ const SlikaPdf = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEO
-        title="Slika ↔ PDF konverter – BH KONVER"
-        description="Lokalna JPEG/PNG u PDF i PDF u JPEG konverzija u pregledniku. Bez slanja fajlova na server."
+        title={t("slikaPdf.seoTitle")}
+        description={t("slikaPdf.seoDescription")}
         path="/slika-pdf"
       />
       <PremiumHeader
@@ -270,15 +272,15 @@ const SlikaPdf = () => {
         <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-              Slika ↔ PDF konverter
+              {t("slikaPdf.title")}
             </h1>
             <p className="text-muted-foreground mt-2">
-              Prevucite fajlove — format se prepoznaje automatski. Sva obrada je lokalna u vašem pregledniku.
+              {t("slikaPdf.subtitle")}
             </p>
           </div>
           <Button asChild variant="outline" size="sm">
             <Link to="/slika-pdf/istorija">
-              <History className="w-4 h-4 mr-1.5" /> Historija konverzija
+              <History className="w-4 h-4 mr-1.5" /> {t("slikaPdf.historyLink")}
             </Link>
           </Button>
         </div>
@@ -292,18 +294,18 @@ const SlikaPdf = () => {
                 <Badge variant="secondary" className="gap-1">
                   {direction === "img2pdf" ? (
                     <>
-                      <FileImage className="w-3.5 h-3.5" /> Slika → PDF
+                      <FileImage className="w-3.5 h-3.5" /> {t("slikaPdf.dirImgToPdf")}
                     </>
                   ) : direction === "pdf2img" ? (
                     <>
-                      <FileText className="w-3.5 h-3.5" /> PDF → {pdfOutputFormat.toUpperCase()}
+                      <FileText className="w-3.5 h-3.5" /> {t("slikaPdf.dirPdfToImg", { format: pdfOutputFormat.toUpperCase() })}
                     </>
                   ) : (
-                    "Mješoviti fajlovi"
+                    t("slikaPdf.mixed")
                   )}
                 </Badge>
                 <span className="text-sm text-muted-foreground">
-                  {entries.length} fajl(ova) u redu
+                  {t("slikaPdf.filesQueued", { n: entries.length })}
                 </span>
               </div>
 
@@ -317,7 +319,7 @@ const SlikaPdf = () => {
                       disabled={running}
                       className="accent-primary"
                     />
-                    Spoji u jedan PDF
+                    {t("slikaPdf.combine")}
                   </label>
                 )}
                 {direction === "pdf2img" && (
@@ -340,15 +342,15 @@ const SlikaPdf = () => {
                   </div>
                 )}
                 <Button variant="outline" size="sm" onClick={reset} disabled={running}>
-                  <RotateCcw className="w-4 h-4 mr-1.5" /> Poništi
+                  <RotateCcw className="w-4 h-4 mr-1.5" /> {t("slikaPdf.reset")}
                 </Button>
                 <Button size="sm" onClick={runBatch} disabled={running || !direction}>
                   {running ? (
                     <>
-                      <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Konvertujem…
+                      <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> {t("slikaPdf.running")}
                     </>
                   ) : (
-                    "Pokreni konverziju"
+                    t("slikaPdf.run")
                   )}
                 </Button>
               </div>
@@ -365,7 +367,7 @@ const SlikaPdf = () => {
                     {/* BEFORE */}
                     <div>
                       <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-                        Prije
+                        {t("slikaPdf.before")}
                       </div>
                       <div className="flex gap-3">
                         {e.beforeUrl ? (
@@ -396,7 +398,7 @@ const SlikaPdf = () => {
                     {/* STATUS */}
                     <div className="flex flex-col items-center justify-center min-w-[140px]">
                       {e.status === "pending" && (
-                        <span className="text-xs text-muted-foreground">Na čekanju</span>
+                        <span className="text-xs text-muted-foreground">{t("slikaPdf.pending")}</span>
                       )}
                       {e.status === "processing" && (
                         <div className="w-full">
@@ -422,7 +424,7 @@ const SlikaPdf = () => {
                           className="mt-2 text-xs h-7"
                           onClick={() => removeEntry(e.id)}
                         >
-                          Ukloni
+                          {t("slikaPdf.remove")}
                         </Button>
                       )}
                     </div>
@@ -430,13 +432,13 @@ const SlikaPdf = () => {
                     {/* AFTER */}
                     <div>
                       <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-                        Poslije
+                        {t("slikaPdf.after")}
                       </div>
                       {e.outputs.length === 0 ? (
                         <p className="text-sm text-muted-foreground">
                           {e.status === "done" && combinedPdf
-                            ? "Uključeno u spojeni PDF"
-                            : "Nema rezultata još"}
+                            ? t("slikaPdf.included")
+                            : t("slikaPdf.noResults")}
                         </p>
                       ) : (
                         <div className="space-y-2">
@@ -484,9 +486,9 @@ const SlikaPdf = () => {
               <Card className="p-5 border-primary/40 bg-primary/5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <h2 className="text-lg font-semibold text-foreground">Rezultati</h2>
+                    <h2 className="text-lg font-semibold text-foreground">{t("slikaPdf.results")}</h2>
                     <p className="text-sm text-muted-foreground">
-                      Ukupno {totalOutputs} fajl(ova) spremno za preuzimanje.
+                      {t("slikaPdf.resultsCount", { n: totalOutputs })}
                     </p>
                   </div>
                   <div className="flex gap-2">
@@ -496,13 +498,13 @@ const SlikaPdf = () => {
                         onClick={() => download(combinedPdf.blob, combinedPdf.name)}
                       >
                         <Download className="w-4 h-4 mr-1.5" />
-                        Preuzmi spojeni PDF
+                        {t("slikaPdf.downloadCombined")}
                       </Button>
                     )}
                     {totalOutputs > 1 && (
                       <Button onClick={downloadAll}>
                         <Download className="w-4 h-4 mr-1.5" />
-                        Preuzmi sve (ZIP)
+                        {t("slikaPdf.downloadZip")}
                       </Button>
                     )}
                   </div>
