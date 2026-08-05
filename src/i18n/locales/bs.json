@@ -446,6 +446,53 @@
     "upsell": {
       "title": "Premium = neograničena obrada",
       "text": "24h od 2 BAM · 7 dana · mjesečna pretplata. Batch konverzije + prioritetna obrada."
+    },
+    "html": {
+      "sectionTitle": "HTML konverzije",
+      "sectionSubtitle": "Pretvorite web stranice u dokumente i slike, ili dokumente u čist HTML. Sve se obrađuje lokalno u vašem pregledniku.",
+      "groupATitle": "Grupa A — iz HTML-a",
+      "groupBTitle": "Grupa B — u HTML",
+      "proBadge": "PRO",
+      "htmlToDocx": {
+        "title": "HTML → Word",
+        "description": "Pretvorite HTML stranicu u uređivi Word dokument.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite .docx dokument. Tekstualna konverzija — složeni raspored može biti pojednostavljen."
+      },
+      "htmlToPdf": {
+        "title": "HTML → PDF",
+        "description": "Vjeran PDF ispis HTML stranice sa stilovima.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite PDF sa zadržanim vizuelnim izgledom."
+      },
+      "htmlToJpg": {
+        "title": "HTML → JPG",
+        "description": "Snimak HTML stranice kao JPG slika.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite JPG snimak cijele stranice."
+      },
+      "htmlToPng": {
+        "title": "HTML → PNG",
+        "description": "Snimak HTML stranice kao PNG slika.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite PNG snimak cijele stranice."
+      },
+      "htmlToTxt": {
+        "title": "HTML → TXT",
+        "description": "Izdvojite čist tekst iz HTML stranice.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite čist tekstualni sadržaj."
+      },
+      "docxToHtml": {
+        "title": "Word → HTML",
+        "description": "Pretvorite .docx u čist, semantički HTML.",
+        "runnerDescription": "Učitajte .docx fajl i preuzmite spremnu HTML stranicu."
+      },
+      "pdfToHtml": {
+        "title": "PDF → HTML",
+        "description": "Izdvojite tekst PDF-a u HTML stranicu po stranicama.",
+        "runnerDescription": "Učitajte PDF i preuzmite HTML. Tekstualna konverzija — slike i složeni raspored nisu uključeni."
+      },
+      "textToHtml": {
+        "title": "TXT / Markdown → HTML",
+        "description": "Pretvorite tekst ili Markdown u formatiran HTML.",
+        "runnerDescription": "Učitajte .txt, .md ili .markdown fajl i preuzmite HTML stranicu."
+      }
     }
   },
   "toolRunner": {

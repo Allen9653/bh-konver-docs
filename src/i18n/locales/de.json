@@ -446,6 +446,53 @@
     "upsell": {
       "title": "Premium = unbegrenzte Verarbeitung",
       "text": "24 Std. ab 2 BAM · 7 Tage · Monatsabo. Batch-Konvertierungen + priorisierte Verarbeitung."
+    },
+    "html": {
+      "sectionTitle": "HTML-Konvertierungen",
+      "sectionSubtitle": "Verwandeln Sie Webseiten in Dokumente und Bilder oder Dokumente in sauberes HTML. Alles wird lokal in Ihrem Browser verarbeitet.",
+      "groupATitle": "Gruppe A — aus HTML",
+      "groupBTitle": "Gruppe B — zu HTML",
+      "proBadge": "PRO",
+      "htmlToDocx": {
+        "title": "HTML → Word",
+        "description": "HTML-Seite in ein bearbeitbares Word-Dokument umwandeln.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie ein .docx-Dokument. Textkonvertierung — komplexes Layout kann vereinfacht werden."
+      },
+      "htmlToPdf": {
+        "title": "HTML → PDF",
+        "description": "Originalgetreue PDF-Ausgabe einer HTML-Seite mit Stilen.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie ein PDF mit erhaltenem Layout."
+      },
+      "htmlToJpg": {
+        "title": "HTML → JPG",
+        "description": "HTML-Seite als JPG-Bild aufnehmen.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie einen JPG-Screenshot der ganzen Seite."
+      },
+      "htmlToPng": {
+        "title": "HTML → PNG",
+        "description": "HTML-Seite als PNG-Bild aufnehmen.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie einen PNG-Screenshot der ganzen Seite."
+      },
+      "htmlToTxt": {
+        "title": "HTML → TXT",
+        "description": "Reinen Text aus einer HTML-Seite extrahieren.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie den reinen Textinhalt."
+      },
+      "docxToHtml": {
+        "title": "Word → HTML",
+        "description": ".docx in sauberes, semantisches HTML umwandeln.",
+        "runnerDescription": "Laden Sie eine .docx-Datei hoch und erhalten Sie eine fertige HTML-Seite."
+      },
+      "pdfToHtml": {
+        "title": "PDF → HTML",
+        "description": "PDF-Text seitenweise in eine HTML-Seite extrahieren.",
+        "runnerDescription": "Laden Sie ein PDF hoch und erhalten Sie HTML. Textkonvertierung — Bilder und komplexes Layout sind nicht enthalten."
+      },
+      "textToHtml": {
+        "title": "TXT / Markdown → HTML",
+        "description": "Text oder Markdown in formatiertes HTML umwandeln.",
+        "runnerDescription": "Laden Sie eine .txt-, .md- oder .markdown-Datei hoch und erhalten Sie eine HTML-Seite."
+      }
     }
   },
   "toolRunner": {
