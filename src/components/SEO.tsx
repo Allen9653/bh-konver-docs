@@ -8,9 +8,11 @@ interface SEOProps {
   description: string;
   path: string;
   image?: string;
+  /** Optional route-level JSON-LD structured data */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-export const SEO = ({ title, description, path, image = DEFAULT_OG_IMAGE }: SEOProps) => {
+export const SEO = ({ title, description, path, image = DEFAULT_OG_IMAGE, jsonLd }: SEOProps) => {
   const url = `${SITE_URL}${path}`;
   const ogImage = image.startsWith("http") ? image : `${SITE_URL}${image}`;
   return (
@@ -27,6 +29,16 @@ export const SEO = ({ title, description, path, image = DEFAULT_OG_IMAGE }: SEOP
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
+      {jsonLd && (
+        <script type="application/ld+json">
+          {JSON.stringify(
+            Array.isArray(jsonLd)
+              ? { "@context": "https://schema.org", "@graph": jsonLd }
+              : { "@context": "https://schema.org", ...jsonLd },
+          )}
+        </script>
+      )}
     </Helmet>
   );
 };
+
