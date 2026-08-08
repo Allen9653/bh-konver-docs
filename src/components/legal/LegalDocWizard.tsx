@@ -50,7 +50,7 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
     setGenerating(true);
     try {
       const blob = await generateLegalPdf({
-        title: doc.title,
+        title: t(doc.titleKey),
         body: doc.body(values),
         signerName: values.fullName || values.donorName || "",
         place,
@@ -79,9 +79,9 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
 
       <div>
         <h2 className="text-2xl font-bold font-display flex items-center gap-2">
-          <FileText className="w-5 h-5 text-primary" /> {doc.title}
+          <FileText className="w-5 h-5 text-primary" /> {t(doc.titleKey)}
         </h2>
-        <p className="text-sm text-muted-foreground mt-1">{doc.description}</p>
+        <p className="text-sm text-muted-foreground mt-1">{t(doc.descriptionKey)}</p>
       </div>
 
       {/* Progress */}
@@ -97,21 +97,21 @@ export const LegalDocWizard = ({ doc, onBack }: Props) => {
           {steps[step].map((f) => (
             <div key={f.key} className={f.type === "textarea" ? "sm:col-span-2" : ""}>
               <Label htmlFor={f.key} className="mb-1.5 block">
-                {f.label}{f.required && <span className="text-destructive ml-0.5">*</span>}
+                {t(f.labelKey)}{f.required && <span className="text-destructive ml-0.5">*</span>}
               </Label>
               {f.type === "textarea" ? (
-                <Textarea id={f.key} value={values[f.key] || ""} onChange={(e) => update(f.key, e.target.value)} placeholder={f.placeholder} rows={3} />
+                <Textarea id={f.key} value={values[f.key] || ""} onChange={(e) => update(f.key, e.target.value)} placeholder={f.placeholderKey ? t(f.placeholderKey) : undefined} rows={3} />
               ) : f.type === "select" && f.options ? (
                 <Select value={values[f.key] || ""} onValueChange={(v) => update(f.key, v)}>
                   <SelectTrigger><SelectValue placeholder={t("pravni.wizSelect")} /></SelectTrigger>
                   <SelectContent>
-                    {f.options.map((o) => (<SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>))}
+                    {f.options.map((o) => (<SelectItem key={o.value} value={o.value}>{t(o.labelKey)}</SelectItem>))}
                   </SelectContent>
                 </Select>
               ) : (
-                <Input id={f.key} type={f.type === "date" ? "date" : f.type === "number" ? "number" : "text"} value={values[f.key] || ""} onChange={(e) => update(f.key, e.target.value)} placeholder={f.placeholder} />
+                <Input id={f.key} type={f.type === "date" ? "date" : f.type === "number" ? "number" : "text"} value={values[f.key] || ""} onChange={(e) => update(f.key, e.target.value)} placeholder={f.placeholderKey ? t(f.placeholderKey) : undefined} />
               )}
-              {f.help && <p className="text-xs text-muted-foreground mt-1">{f.help}</p>}
+              {f.helpKey && <p className="text-xs text-muted-foreground mt-1">{t(f.helpKey)}</p>}
             </div>
           ))}
         </div>

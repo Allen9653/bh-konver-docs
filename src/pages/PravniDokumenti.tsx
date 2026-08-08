@@ -29,7 +29,7 @@ const PravniDokumenti = () => {
     if (!doc.implemented) {
       toast({
         title: t("pravni.toastSoonTitle"),
-        description: t("pravni.toastSoonDesc", { doc: doc.shortTitle }),
+        description: t("pravni.toastSoonDesc", { doc: t(doc.shortTitleKey) }),
       });
       return;
     }
@@ -83,8 +83,8 @@ const PravniDokumenti = () => {
               {LEGAL_CATEGORIES.map((cat) => (
                 <section key={cat.id}>
                   <div className="mb-4">
-                    <h2 className="text-xl font-bold font-display">{cat.title}</h2>
-                    <p className="text-sm text-muted-foreground">{cat.description}</p>
+                    <h2 className="text-xl font-bold font-display">{t(cat.titleKey)}</h2>
+                    <p className="text-sm text-muted-foreground">{t(cat.descriptionKey)}</p>
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {cat.docs.map((doc) => {
@@ -107,8 +107,8 @@ const PravniDokumenti = () => {
                               <Badge variant="secondary" className="text-[10px]">{t("pravni.freeBadge")}</Badge>
                             )}
                           </div>
-                          <h3 className="font-semibold text-base mb-1">{doc.shortTitle}</h3>
-                          <p className="text-xs text-muted-foreground line-clamp-2 mb-4 flex-1">{doc.description}</p>
+                          <h3 className="font-semibold text-base mb-1">{t(doc.shortTitleKey)}</h3>
+                          <p className="text-xs text-muted-foreground line-clamp-2 mb-4 flex-1">{t(doc.descriptionKey)}</p>
                           <div className="flex items-center justify-between text-xs">
                             {doc.implemented ? (
                               <span className="text-primary font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
