@@ -306,15 +306,26 @@
   },
   "history": {
     "title": "Belgelerim",
-    "documents": "Yüklenen Belgeler",
-    "conversions": "Dönüşüm Geçmişi",
-    "noDocuments": "Yüklenen belgeniz yok",
-    "noConversions": "Dönüşümünüz yok",
+    "documents": "Yüklenen belgeler",
+    "conversions": "Dönüştürme geçmişi",
+    "noDocuments": "Yüklenmiş belgeniz yok",
+    "noConversions": "Dönüştürmeniz yok",
     "refresh": "Yenile",
     "delete": "Sil",
     "completed": "Tamamlandı",
     "transparencyNotice": "Tüm belgeler güvenliğiniz ve gizliliğiniz için her gün saat 10:00'da otomatik olarak silinir.",
-    "timeUntilDeletion": "Bir sonraki silme süresine kadar"
+    "timeUntilDeletion": "Sonraki silmeye kalan süre",
+    "back": "Ana sayfaya dön",
+    "transparencyTitle": "Veri şeffaflığı",
+    "transparencyExtra": "BH Konver belgelerinizi SAKLAMAZ. Verilerinizi asla üçüncü taraflarla paylaşmayız.",
+    "loadErrorTitle": "Hata",
+    "loadErrorDesc": "Veriler yüklenemedi.",
+    "deletedTitle": "Başarılı",
+    "deletedDesc": "Belge silindi.",
+    "deleteErrorDesc": "Belge silinemedi.",
+    "previewDoc": "{{name}} belgesini önizle",
+    "deleteDoc": "{{name}} belgesini sil",
+    "downloadConversion": "{{name}} dönüşümünü indir"
   },
   "dashboard": {
     "welcome": "Hoş geldiniz, {{name}}!",
@@ -634,7 +645,11 @@
     "notFound": "Kayıt bulunamadı",
     "resultsCount": "{{n}} sonuç",
     "dirImg": "Görsel → PDF",
-    "dirPdf": "PDF → Görsel"
+    "dirPdf": "PDF → Görsel",
+    "openDetails": "{{name}} ayrıntılarını aç",
+    "loading": "Yükleniyor...",
+    "deleteEntry": "{{name}} kaydını sil",
+    "downloadFile": "{{name}} dosyasını indir"
   },
   "pravni": {
     "seoTitle": "BiH hukuki belgeleri ve beyanları | BH KONVER",
@@ -675,6 +690,157 @@
     "wizNext": "Sonraki",
     "wizGenerate": "PDF oluştur",
     "errTitle": "Hata",
-    "errDesc": "PDF oluşturulamadı."
+    "errDesc": "PDF oluşturulamadı.",
+    "openCard": "Aç: {{doc}}"
+  },
+  "legal": {
+    "entities": {
+      "FBiH": "Bosna-Hersek Federasyonu (FBiH)",
+      "RS": "Sırp Cumhuriyeti (RS)",
+      "BD": "Brčko Bölgesi (BiH)"
+    },
+    "categories": {
+      "standard": {
+        "title": "Standart beyanlar",
+        "description": "Maddi ve cezai sorumluluk altında verilen onaylı beyanlar."
+      },
+      "businessEmployment": {
+        "title": "Ticari ve iş beyanları",
+        "description": "İşletme, faaliyet kaydı ve iş ilişkilerine dair beyanlar."
+      },
+      "personalFinance": {
+        "title": "Kişisel ve mali beyanlar",
+        "description": "Aile, mali ve BiH kurumlarına yönelik beyanlar."
+      },
+      "commercial": {
+        "title": "Ticari işlem beyanları",
+        "description": "Alım satım ve ticari işlemlere dair beyanlar."
+      }
+    },
+    "fields": {
+      "fullName": "Beyan sahibinin adı soyadı",
+      "jmbg": "Kimlik numarası (JMBG)",
+      "address": "İkamet adresi",
+      "entity": "Entite / Bölge",
+      "idNumber": "Kimlik kartı numarası",
+      "idIssuedBy": "Kimlik kartını veren makam",
+      "residenceSince": "İkamet başlangıcı (tarih)",
+      "purpose": "Beyanın amacı",
+      "dateOfBirth": "Doğum tarihi",
+      "placeOfBirth": "Doğum yeri",
+      "citizenship": "Vatandaşlık",
+      "donorName": "Bağışçı - ad soyad",
+      "donorJmbg": "Bağışçı - JMBG",
+      "donorAddress": "Bağışçı - adres",
+      "doneeName": "Alıcı - ad soyad",
+      "doneeJmbg": "Alıcı - JMBG",
+      "doneeAddress": "Alıcı - adres",
+      "relationship": "Akrabalık (varsa)",
+      "giftDescription": "Hediye konusunun açıklaması",
+      "giftValue": "Tahmini değer (KM)"
+    },
+    "placeholders": {
+      "fullName": "örn. Amir Hodžić",
+      "jmbg": "13 haneli JMBG",
+      "address": "Sokak ve numara, şehir",
+      "idIssuedBy": "örn. MUP KS Saraybosna",
+      "purpose": "örn. banka, mahkeme, okul için...",
+      "citizenship": "BiH",
+      "relationship": "örn. baba - oğul",
+      "giftDescription": "örn. ... marka araç, ... tutarında para, taşınmaz ..."
+    },
+    "docs": {
+      "domicile": {
+        "title": "Onaylı ikamet beyanı",
+        "shortTitle": "İkamet beyanı",
+        "description": "BiH'deki ikamet adresinizi doğrulayan beyan."
+      },
+      "identity": {
+        "title": "Onaylı kimlik beyanı",
+        "shortTitle": "Kimlik beyanı",
+        "description": "BiH mevzuatına uygun kişisel veri ve kimlik doğrulaması."
+      },
+      "gift": {
+        "title": "Bağış beyanı (bağış sözleşmesi)",
+        "shortTitle": "Bağış beyanı",
+        "description": "Bağışçının taşınır malı bedelsiz devrine dair beyanı."
+      },
+      "service": {
+        "title": "Onaylı teslim beyanı",
+        "shortTitle": "Teslim beyanı",
+        "description": "Belgelerin veya gönderinin bir kişiye teslim edildiğine dair onay."
+      },
+      "title": {
+        "title": "Onaylı mülkiyet beyanı",
+        "shortTitle": "Mülkiyet beyanı",
+        "description": "Taşınır veya taşınmaz mal mülkiyetine dair beyan."
+      },
+      "death": {
+        "title": "Ölüm beyanı (tanık ifadesi)",
+        "shortTitle": "Ölüm beyanı",
+        "description": "Gerçek veya tüzel kişinin ölümüne dair tanık beyanı."
+      },
+      "business": {
+        "title": "Ticari beyan",
+        "shortTitle": "Ticari beyan",
+        "description": "Kayıt, ortaklık ve ticari iş birliği için beyanlar."
+      },
+      "employment": {
+        "title": "İş ilişkisi beyanı",
+        "shortTitle": "İş beyanı",
+        "description": "İstihdam, ücret ve işveren/çalışan yükümlülüklerinin onayı."
+      },
+      "family": {
+        "title": "Aile beyanı",
+        "shortTitle": "Aile beyanı",
+        "description": "Aile ilişkileri, nafaka ve vesayete dair beyanlar."
+      },
+      "finance": {
+        "title": "Mali beyan",
+        "shortTitle": "Mali beyan",
+        "description": "Gelir, borç ve mali yeterliliğe dair beyanlar."
+      },
+      "government": {
+        "title": "Kamu kurumlarına beyan",
+        "shortTitle": "Beyan - kurumlar",
+        "description": "FBiH, RS ve Brčko Bölgesi kurumlarına yönelik beyanlar."
+      },
+      "purchaseSale": {
+        "title": "Alım satım beyanı",
+        "shortTitle": "Alım satım",
+        "description": "Taşınır malların satışına dair beyan (araç, ekipman vb.)."
+      }
+    },
+    "openDoc": "Belgeyi aç: {{doc}}"
+  },
+  "docPreview": {
+    "fallbackName": "Belge",
+    "download": "İndir",
+    "print": "Yazdır",
+    "share": "Paylaş",
+    "email": "E-posta",
+    "edit": "Düzenle",
+    "send": "Gönder",
+    "emailPlaceholder": "E-posta adresini girin",
+    "closeEmail": "E-posta girişini kapat",
+    "downloadStarted": "İndirme başladı",
+    "downloadStartedDesc": "{{name}} indiriliyor...",
+    "linkCopied": "Bağlantı kopyalandı",
+    "linkCopiedDesc": "Bağlantı panoya kopyalandı.",
+    "shareText": "Bu belgeye bakın: {{name}}",
+    "invalidEmail": "Geçersiz e-posta adresi",
+    "invalidEmailDesc": "Lütfen geçerli bir e-posta adresi girin.",
+    "emailSent": "E-posta gönderildi",
+    "emailSentDesc": "Belge {{email}} adresine gönderildi",
+    "errorTitle": "Hata",
+    "emailError": "E-posta gönderilemedi. Lütfen tekrar deneyin.",
+    "editTitle": "Düzenleme",
+    "editDesc": "Düzenlemek için belgeyi indirin ve yerel olarak düzenleyin.",
+    "size": "Boyut",
+    "type": "Tür",
+    "unknown": "Bilinmiyor",
+    "officeNote": "MS Office belgesi - görüntülemek için indirin",
+    "noVideo": "Tarayıcınız video etiketini desteklemiyor.",
+    "noAudio": "Tarayıcınız ses etiketini desteklemiyor."
   }
 }

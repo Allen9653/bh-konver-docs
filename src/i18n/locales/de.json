@@ -313,8 +313,19 @@
     "refresh": "Aktualisieren",
     "delete": "Löschen",
     "completed": "Abgeschlossen",
-    "transparencyNotice": "Alle Dokumente werden täglich um 10:00 Uhr für Ihre Sicherheit und Privatsphäre automatisch gelöscht.",
-    "timeUntilDeletion": "Zeit bis zur nächsten Löschung"
+    "transparencyNotice": "Alle Dokumente werden zu Ihrer Sicherheit täglich um 10:00 Uhr automatisch gelöscht.",
+    "timeUntilDeletion": "Zeit bis zur nächsten Löschung",
+    "back": "Zurück zur Startseite",
+    "transparencyTitle": "Datentransparenz",
+    "transparencyExtra": "BH Konver speichert Ihre Dokumente NICHT. Wir geben Ihre Daten niemals an Dritte weiter.",
+    "loadErrorTitle": "Fehler",
+    "loadErrorDesc": "Daten konnten nicht geladen werden.",
+    "deletedTitle": "Erfolgreich",
+    "deletedDesc": "Dokument gelöscht.",
+    "deleteErrorDesc": "Dokument konnte nicht gelöscht werden.",
+    "previewDoc": "Dokument {{name}} ansehen",
+    "deleteDoc": "Dokument {{name}} löschen",
+    "downloadConversion": "Konvertierung {{name}} herunterladen"
   },
   "dashboard": {
     "welcome": "Willkommen, {{name}}!",
@@ -634,7 +645,11 @@
     "notFound": "Eintrag nicht gefunden",
     "resultsCount": "{{n}} Ergebnis(se)",
     "dirImg": "Bild → PDF",
-    "dirPdf": "PDF → Bild"
+    "dirPdf": "PDF → Bild",
+    "openDetails": "Details für {{name}} öffnen",
+    "loading": "Wird geladen...",
+    "deleteEntry": "Eintrag {{name}} löschen",
+    "downloadFile": "Datei {{name}} herunterladen"
   },
   "pravni": {
     "seoTitle": "Rechtsdokumente und Erklärungen BiH | BH KONVER",
@@ -675,6 +690,157 @@
     "wizNext": "Weiter",
     "wizGenerate": "PDF erstellen",
     "errTitle": "Fehler",
-    "errDesc": "PDF-Erstellung fehlgeschlagen."
+    "errDesc": "PDF-Erstellung fehlgeschlagen.",
+    "openCard": "Öffnen: {{doc}}"
+  },
+  "legal": {
+    "entities": {
+      "FBiH": "Föderation Bosnien und Herzegowina (FBiH)",
+      "RS": "Republika Srpska (RS)",
+      "BD": "Brčko-Distrikt BuH"
+    },
+    "categories": {
+      "standard": {
+        "title": "Standarderklärungen",
+        "description": "Beglaubigte Erklärungen unter materieller und strafrechtlicher Haftung."
+      },
+      "businessEmployment": {
+        "title": "Geschäfts- und Arbeitserklärungen",
+        "description": "Erklärungen zu Geschäft, Gewerbeanmeldung und Arbeitsverhältnissen."
+      },
+      "personalFinance": {
+        "title": "Persönliche und finanzielle Erklärungen",
+        "description": "Familiäre, finanzielle Erklärungen und Erklärungen an Behörden in BuH."
+      },
+      "commercial": {
+        "title": "Handelserklärungen",
+        "description": "Erklärungen zu Kauf, Verkauf und kommerziellen Transaktionen."
+      }
+    },
+    "fields": {
+      "fullName": "Vor- und Nachname des Erklärenden",
+      "jmbg": "Personenkennziffer (JMBG)",
+      "address": "Wohnanschrift",
+      "entity": "Entität / Distrikt",
+      "idNumber": "Personalausweisnummer",
+      "idIssuedBy": "Personalausweis ausgestellt von",
+      "residenceSince": "Wohnhaft seit (Datum)",
+      "purpose": "Zweck der Erklärung",
+      "dateOfBirth": "Geburtsdatum",
+      "placeOfBirth": "Geburtsort",
+      "citizenship": "Staatsangehörigkeit",
+      "donorName": "Schenker - Vor- und Nachname",
+      "donorJmbg": "Schenker - JMBG",
+      "donorAddress": "Schenker - Adresse",
+      "doneeName": "Beschenkter - Vor- und Nachname",
+      "doneeJmbg": "Beschenkter - JMBG",
+      "doneeAddress": "Beschenkter - Adresse",
+      "relationship": "Verwandtschaft (falls vorhanden)",
+      "giftDescription": "Beschreibung des Geschenks",
+      "giftValue": "Geschätzter Wert (KM)"
+    },
+    "placeholders": {
+      "fullName": "z. B. Amir Hodžić",
+      "jmbg": "13-stellige JMBG",
+      "address": "Straße und Nummer, Ort",
+      "idIssuedBy": "z. B. MUP KS Sarajevo",
+      "purpose": "z. B. für Bank, Gericht, Schule...",
+      "citizenship": "BuH",
+      "relationship": "z. B. Vater - Sohn",
+      "giftDescription": "z. B. Fahrzeug der Marke ..., Geldbetrag ..., Immobilie ..."
+    },
+    "docs": {
+      "domicile": {
+        "title": "Beglaubigte Wohnsitzerklärung",
+        "shortTitle": "Wohnsitzerklärung",
+        "description": "Erklärung zur Bestätigung Ihrer Wohnanschrift in BuH."
+      },
+      "identity": {
+        "title": "Beglaubigte Identitätserklärung",
+        "shortTitle": "Identitätserklärung",
+        "description": "Bestätigung persönlicher Daten und der Identität nach BuH-Recht."
+      },
+      "gift": {
+        "title": "Schenkungserklärung (Schenkungsvertrag)",
+        "shortTitle": "Schenkungserklärung",
+        "description": "Erklärung des Schenkers über die unentgeltliche Übertragung beweglicher Sachen."
+      },
+      "service": {
+        "title": "Beglaubigte Zustellungserklärung",
+        "shortTitle": "Zustellungserklärung",
+        "description": "Bestätigung der Zustellung von Dokumenten oder einer Sendung."
+      },
+      "title": {
+        "title": "Beglaubigte Eigentumserklärung",
+        "shortTitle": "Eigentumserklärung",
+        "description": "Erklärung über das Eigentum an beweglichem oder unbeweglichem Vermögen."
+      },
+      "death": {
+        "title": "Sterbeerklärung (Zeugenaussage)",
+        "shortTitle": "Sterbeerklärung",
+        "description": "Zeugenerklärung über den Tod einer natürlichen oder juristischen Person."
+      },
+      "business": {
+        "title": "Geschäftserklärung",
+        "shortTitle": "Geschäftserklärung",
+        "description": "Erklärungen für Registrierung, Partnerschaft und Geschäftskooperation."
+      },
+      "employment": {
+        "title": "Arbeitsverhältniserklärung",
+        "shortTitle": "Arbeitserklärung",
+        "description": "Bestätigung von Beschäftigung, Vergütung und Pflichten."
+      },
+      "family": {
+        "title": "Familienerklärung",
+        "shortTitle": "Familienerklärung",
+        "description": "Erklärungen zu Familienverhältnissen, Unterhalt und Vormundschaft."
+      },
+      "finance": {
+        "title": "Finanzerklärung",
+        "shortTitle": "Finanzerklärung",
+        "description": "Erklärungen zu Einkommen, Schulden und finanzieller Leistungsfähigkeit."
+      },
+      "government": {
+        "title": "Erklärung gegenüber Behörden",
+        "shortTitle": "Erklärung - Behörden",
+        "description": "Erklärungen für Institutionen der FBiH, RS und des Brčko-Distrikts."
+      },
+      "purchaseSale": {
+        "title": "Kaufvertragserklärung",
+        "shortTitle": "Kauf und Verkauf",
+        "description": "Erklärung über den Verkauf beweglicher Sachen (Fahrzeuge, Geräte usw.)."
+      }
+    },
+    "openDoc": "Dokument öffnen: {{doc}}"
+  },
+  "docPreview": {
+    "fallbackName": "Dokument",
+    "download": "Herunterladen",
+    "print": "Drucken",
+    "share": "Teilen",
+    "email": "E-Mail",
+    "edit": "Bearbeiten",
+    "send": "Senden",
+    "emailPlaceholder": "E-Mail-Adresse eingeben",
+    "closeEmail": "E-Mail-Eingabe schließen",
+    "downloadStarted": "Download gestartet",
+    "downloadStartedDesc": "{{name}} wird heruntergeladen...",
+    "linkCopied": "Link kopiert",
+    "linkCopiedDesc": "Der Link wurde in die Zwischenablage kopiert.",
+    "shareText": "Sehen Sie sich dieses Dokument an: {{name}}",
+    "invalidEmail": "Ungültige E-Mail-Adresse",
+    "invalidEmailDesc": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "emailSent": "E-Mail gesendet",
+    "emailSentDesc": "Das Dokument wurde an {{email}} gesendet",
+    "errorTitle": "Fehler",
+    "emailError": "E-Mail konnte nicht gesendet werden. Bitte erneut versuchen.",
+    "editTitle": "Bearbeitung",
+    "editDesc": "Zum Bearbeiten laden Sie das Dokument herunter und bearbeiten es lokal.",
+    "size": "Größe",
+    "type": "Typ",
+    "unknown": "Unbekannt",
+    "officeNote": "MS-Office-Dokument - zum Ansehen herunterladen",
+    "noVideo": "Ihr Browser unterstützt das Video-Tag nicht.",
+    "noAudio": "Ihr Browser unterstützt das Audio-Tag nicht."
   }
 }
