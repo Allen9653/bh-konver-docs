@@ -92,8 +92,17 @@ const PravniDokumenti = () => {
                       return (
                         <Card
                           key={doc.id}
-                          className="p-5 group hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer relative flex flex-col"
+                          className="p-5 group hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer relative flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                          role="button"
+                          tabIndex={0}
+                          aria-label={t("pravni.openCard", { doc: t(doc.shortTitleKey) })}
                           onClick={() => handleOpen(doc)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              handleOpen(doc);
+                            }
+                          }}
                         >
                           <div className="flex items-start justify-between mb-3">
                             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
