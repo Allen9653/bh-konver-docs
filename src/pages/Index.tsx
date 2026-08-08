@@ -320,7 +320,9 @@ const Index = () => {
           )}
 
           {/* Legal documents section card */}
-          <div className="mt-12">
+          <section className="mt-12">
+            <h2 className="text-2xl font-bold font-display mb-4">Pravni dokumenti i ovjerene izjave</h2>
+
             <Link
               to="/pravni-dokumenti"
               className="group block rounded-xl border border-border bg-gradient-to-br from-primary/10 via-card to-accent/5 p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all"
