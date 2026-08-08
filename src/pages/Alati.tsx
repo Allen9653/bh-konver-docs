@@ -119,7 +119,17 @@ const Alati = () => {
         title={t("alati.seoTitle")}
         description={t("alati.seoDescription")}
         path="/alati"
+        jsonLd={{
+          "@type": "SoftwareApplication",
+          name: "BH Konver Alati",
+          applicationCategory: "UtilitiesApplication",
+          operatingSystem: "Any",
+          url: "https://bh-konver.lovable.app/alati",
+          description: t("alati.seoDescription"),
+          offers: { "@type": "Offer", price: "0", priceCurrency: "BAM" },
+        }}
       />
+
       <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} loading={authLoading} />
 
       <main className="flex-1">

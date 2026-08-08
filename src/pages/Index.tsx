@@ -206,7 +206,16 @@ const Index = () => {
         title="BH Konver — Konverzija PDF, JPEG, dokumenata i medija"
         description="Brza i sigurna konverzija PDF u JPEG, dokumenata, slika, audia i videa. Lokalna obrada u pretraživaču bez slanja na server."
         path="/"
+        jsonLd={{
+          "@type": "WebPage",
+          name: "BH Konver — Premium sistem za konverziju fajlova",
+          url: "https://bh-konver.lovable.app/",
+          description:
+            "Konverzija PDF, slika, dokumenata, audia i videa uz lokalnu obradu u pretraživaču.",
+          isPartOf: { "@type": "WebSite", name: "BH Konver", url: "https://bh-konver.lovable.app" },
+        }}
       />
+
       <PremiumHeader
         user={user}
         isAdmin={isAdmin}
@@ -230,7 +239,11 @@ const Index = () => {
               </div>
               <h1 className="text-4xl sm:text-6xl font-bold font-display tracking-tight mb-3 drop-shadow-lg">
                 BH <span className="text-accent">KONVER</span>
+                <span className="block text-xl sm:text-3xl font-semibold mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                  Sistem za konverziju fajlova i dokumenata
+                </span>
               </h1>
+
               <p className="text-xl sm:text-2xl font-semibold text-white max-w-2xl mx-auto mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {t('hero.subtitle')}
               </p>
@@ -307,7 +320,9 @@ const Index = () => {
           )}
 
           {/* Legal documents section card */}
-          <div className="mt-12">
+          <section className="mt-12">
+            <h2 className="text-2xl font-bold font-display mb-4">Pravni dokumenti i ovjerene izjave</h2>
+
             <Link
               to="/pravni-dokumenti"
               className="group block rounded-xl border border-border bg-gradient-to-br from-primary/10 via-card to-accent/5 p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all"
@@ -332,7 +347,8 @@ const Index = () => {
                 </div>
               </div>
             </Link>
-          </div>
+          </section>
+
 
 
           {/* Pricing */}
