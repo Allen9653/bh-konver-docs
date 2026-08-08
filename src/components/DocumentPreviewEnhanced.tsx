@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,8 +39,9 @@ export const DocumentPreviewEnhanced = ({
   const [showEmailInput, setShowEmailInput] = useState(false);
   const [sending, setSending] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
-  const displayName = file?.name || fileName || "Dokument";
+  const displayName = file?.name || fileName || t("docPreview.fallbackName");
   const fileType = file?.type || "";
   const fileSize = file?.size || 0;
 
@@ -61,8 +63,8 @@ export const DocumentPreviewEnhanced = ({
     link.click();
     document.body.removeChild(link);
     toast({
-      title: "Preuzimanje započeto",
-      description: `${displayName} se preuzima...`,
+      title: t("docPreview.downloadStarted"),
+      description: t("docPreview.downloadStartedDesc", { name: displayName }),
     });
   };
 
@@ -80,7 +82,7 @@ export const DocumentPreviewEnhanced = ({
       try {
         await navigator.share({
           title: displayName,
-          text: `Pogledajte ovaj dokument: ${displayName}`,
+          text: t("docPreview.shareText", { name: displayName }),
           url: previewUrl,
         });
       } catch (error) {
@@ -90,8 +92,8 @@ export const DocumentPreviewEnhanced = ({
       // Copy link to clipboard
       await navigator.clipboard.writeText(previewUrl);
       toast({
-        title: "Link kopiran",
-        description: "Link je kopiran u clipboard.",
+        title: t("docPreview.linkCopied"),
+        description: t("docPreview.linkCopiedDesc"),
       });
     }
   };
@@ -99,8 +101,8 @@ export const DocumentPreviewEnhanced = ({
   const handleSendEmail = async () => {
     if (!emailTo || !emailTo.includes("@")) {
       toast({
-        title: "Nevažeća email adresa",
-        description: "Molimo unesite validnu email adresu.",
+        title: t("docPreview.invalidEmail"),
+        description: t("docPreview.invalidEmailDesc"),
         variant: "destructive",
       });
       return;
@@ -120,16 +122,16 @@ export const DocumentPreviewEnhanced = ({
       if (error) throw error;
 
       toast({
-        title: "Email poslan",
-        description: `Dokument je poslan na ${emailTo}`,
+        title: t("docPreview.emailSent"),
+        description: t("docPreview.emailSentDesc", { email: emailTo }),
       });
       setShowEmailInput(false);
       setEmailTo("");
     } catch (error) {
       console.error("Send email error:", error);
       toast({
-        title: "Greška",
-        description: "Nije moguće poslati email. Pokušajte ponovo.",
+        title: t("docPreview.errorTitle"),
+        description: t("docPreview.emailError"),
         variant: "destructive",
       });
     } finally {
@@ -140,8 +142,8 @@ export const DocumentPreviewEnhanced = ({
   const handleEdit = () => {
     // For now, just show a message - full editing would require additional libraries
     toast({
-      title: "Uređivanje",
-      description: "Za uređivanje preuzmite dokument i uredite ga lokalno.",
+      title: t("docPreview.editTitle"),
+      description: t("docPreview.editDesc"),
     });
   };
 
@@ -171,7 +173,7 @@ export const DocumentPreviewEnhanced = ({
       return (
         <div className="flex flex-col items-center justify-center gap-4 p-4">
           <video src={previewUrl} controls className="w-full max-h-[350px] rounded-lg">
-            Your browser does not support the video tag.
+            {t("docPreview.noVideo")}
           </video>
         </div>
       );
@@ -183,7 +185,7 @@ export const DocumentPreviewEnhanced = ({
         <div className="flex flex-col items-center justify-center gap-4 p-8">
           <Music className="w-16 h-16 text-muted-foreground" />
           <audio src={previewUrl} controls className="w-full">
-            Your browser does not support the audio tag.
+            {t("docPreview.noAudio")}
           </audio>
           <p className="text-sm text-muted-foreground">{displayName}</p>
         </div>
@@ -200,10 +202,10 @@ export const DocumentPreviewEnhanced = ({
           <div className="text-center space-y-2">
             <p className="font-medium text-lg">{displayName}</p>
             <p className="text-sm text-muted-foreground">
-              Veličina: {(fileSize / 1024 / 1024).toFixed(2)} MB
+              {t("docPreview.size")}: {(fileSize / 1024 / 1024).toFixed(2)} MB
             </p>
             <p className="text-sm text-primary font-medium">
-              MS Office dokument - preuzmite za pregled
+              {t("docPreview.officeNote")}
             </p>
           </div>
         </div>
@@ -217,10 +219,10 @@ export const DocumentPreviewEnhanced = ({
         <div className="text-center space-y-2">
           <p className="font-medium">{displayName}</p>
           <p className="text-sm text-muted-foreground">
-            Veličina: {(fileSize / 1024 / 1024).toFixed(2)} MB
+            {t("docPreview.size")}: {(fileSize / 1024 / 1024).toFixed(2)} MB
           </p>
           <p className="text-sm text-muted-foreground">
-            Tip: {fileType || "Nepoznat"}
+            {t("docPreview.type")}: {fileType || t("docPreview.unknown")}
           </p>
         </div>
       </div>
@@ -246,17 +248,17 @@ export const DocumentPreviewEnhanced = ({
         <div className="flex flex-wrap gap-2 justify-center border-t pt-4">
           <Button onClick={handleDownload} variant="default" size="sm">
             <Download className="w-4 h-4 mr-2" />
-            Preuzmi
+            {t("docPreview.download")}
           </Button>
           
           <Button onClick={handlePrint} variant="outline" size="sm">
             <Printer className="w-4 h-4 mr-2" />
-            Štampaj
+            {t("docPreview.print")}
           </Button>
           
           <Button onClick={handleShare} variant="outline" size="sm">
             <Share2 className="w-4 h-4 mr-2" />
-            Podijeli
+            {t("docPreview.share")}
           </Button>
           
           <Button 
@@ -265,12 +267,12 @@ export const DocumentPreviewEnhanced = ({
             size="sm"
           >
             <Mail className="w-4 h-4 mr-2" />
-            Email
+            {t("docPreview.email")}
           </Button>
           
           <Button onClick={handleEdit} variant="outline" size="sm">
             <Edit className="w-4 h-4 mr-2" />
-            Uredi
+            {t("docPreview.edit")}
           </Button>
         </div>
 
@@ -279,23 +281,24 @@ export const DocumentPreviewEnhanced = ({
           <div className="flex gap-2 mt-4 p-4 bg-muted/50 rounded-lg">
             <Input
               type="email"
-              placeholder="Unesite email adresu"
+              placeholder={t("docPreview.emailPlaceholder")}
+              aria-label={t("docPreview.emailPlaceholder")}
               value={emailTo}
               onChange={(e) => setEmailTo(e.target.value)}
               className="flex-1"
             />
-            <Button onClick={handleSendEmail} disabled={sending}>
+            <Button onClick={handleSendEmail} disabled={sending} aria-label={t("docPreview.send")} aria-busy={sending}>
               {sending ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
               ) : (
-                "Pošalji"
+                t("docPreview.send")
               )}
             </Button>
             <Button 
               variant="ghost" 
               size="icon"
               onClick={() => setShowEmailInput(false)}
-              aria-label="Zatvori unos email adrese"
+              aria-label={t("docPreview.closeEmail")}
             >
               <X className="w-4 h-4" />
             </Button>

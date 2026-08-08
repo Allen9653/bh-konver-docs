@@ -90,8 +90,8 @@ const History = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
       toast({
-        title: "Greška",
-        description: "Nije moguće učitati podatke.",
+        title: t("history.loadErrorTitle"),
+        description: t("history.loadErrorDesc"),
         variant: "destructive",
       });
     } finally {
@@ -110,14 +110,14 @@ const History = () => {
 
       setDocuments((prev) => prev.filter((doc) => doc.id !== id));
       toast({
-        title: "Uspješno",
-        description: "Dokument je obrisan.",
+        title: t("history.deletedTitle"),
+        description: t("history.deletedDesc"),
       });
     } catch (error) {
       console.error("Delete error:", error);
       toast({
-        title: "Greška",
-        description: "Nije moguće obrisati dokument.",
+        title: t("history.loadErrorTitle"),
+        description: t("history.deleteErrorDesc"),
         variant: "destructive",
       });
     }
@@ -171,14 +171,14 @@ const History = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/")} aria-label="Nazad na početnu stranicu">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/")} aria-label={t("history.back")}>
               <ArrowLeft className="w-5 h-5" />
             </Button>
-            <h1 className="text-2xl font-bold text-foreground">Moji dokumenti</h1>
+            <h1 className="text-2xl font-bold text-foreground">{t("history.title")}</h1>
           </div>
           <Button variant="outline" size="sm" onClick={fetchUserData}>
             <RefreshCw className="w-4 h-4 mr-2" />
-            Osvježi
+            {t("history.refresh")}
           </Button>
         </div>
 
@@ -188,15 +188,14 @@ const History = () => {
             <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
             <div>
               <h3 className="font-semibold text-amber-800 dark:text-amber-200 mb-1">
-                Transparentnost podataka
+                {t("history.transparencyTitle")}
               </h3>
               <p className="text-sm text-amber-700 dark:text-amber-300">
-                Svi dokumenti se automatski brišu svaki dan u <strong>10:00h</strong> radi 
-                vaše sigurnosti i privatnosti. Vrijeme do sljedećeg brisanja:{" "}
+                {t("history.transparencyNotice")} {t("history.timeUntilDeletion")}:{" "}
                 <strong>{getTimeUntilDeletion()}</strong>
               </p>
               <p className="text-xs text-amber-600 dark:text-amber-400 mt-2">
-                BH Konver NE zadržava vaše dokumente. Nikada ne dijelimo vaše podatke sa trećim stranama.
+                {t("history.transparencyExtra")}
               </p>
             </div>
           </div>
@@ -212,13 +211,13 @@ const History = () => {
             <section className="mb-8">
               <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                 <FileText className="w-5 h-5" />
-                Uploadovani dokumenti ({documents.length})
+                {t("history.documents")} ({documents.length})
               </h2>
               
               {documents.length === 0 ? (
                 <Card className="p-8 text-center">
                   <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-muted-foreground">Nemate uploadovanih dokumenata</p>
+                  <p className="text-muted-foreground">{t("history.noDocuments")}</p>
                 </Card>
               ) : (
                 <div className="space-y-3">
@@ -244,7 +243,7 @@ const History = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            aria-label={`Pregledaj dokument ${doc.filename}`}
+                            aria-label={t("history.previewDoc", { name: doc.filename })}
                             onClick={() => setPreviewDoc(doc)}
                           >
                             <Eye className="w-4 h-4" />
@@ -253,7 +252,7 @@ const History = () => {
                             variant="ghost"
                             size="icon"
                             className="text-destructive hover:text-destructive"
-                            aria-label={`Obriši dokument ${doc.filename}`}
+                            aria-label={t("history.deleteDoc", { name: doc.filename })}
                             onClick={() => handleDeleteDocument(doc.id)}
                           >
                             <Trash2 className="w-4 h-4" />
@@ -270,13 +269,13 @@ const History = () => {
             <section>
               <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                 <RefreshCw className="w-5 h-5" />
-                Historija konverzija ({conversions.length})
+                {t("history.conversions")} ({conversions.length})
               </h2>
               
               {conversions.length === 0 ? (
                 <Card className="p-8 text-center">
                   <RefreshCw className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-muted-foreground">Nemate konverzija</p>
+                  <p className="text-muted-foreground">{t("history.noConversions")}</p>
                 </Card>
               ) : (
                 <div className="space-y-3">
@@ -300,13 +299,13 @@ const History = () => {
                           <Badge 
                             variant={conv.status === "completed" ? "default" : "secondary"}
                           >
-                            {conv.status === "completed" ? "Završeno" : conv.status}
+                            {conv.status === "completed" ? t("history.completed") : conv.status}
                           </Badge>
                           {conv.converted_url && (
                             <Button
                               variant="ghost"
                               size="icon"
-                              aria-label={`Preuzmi konverziju ${conv.original_filename}`}
+                              aria-label={t("history.downloadConversion", { name: conv.original_filename })}
                               asChild
                             >
                               <a href={conv.converted_url} download>

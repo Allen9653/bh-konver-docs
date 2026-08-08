@@ -305,16 +305,27 @@
     "support": "Support"
   },
   "history": {
-    "title": "My Documents",
-    "documents": "Uploaded Documents",
-    "conversions": "Conversion History",
+    "title": "My documents",
+    "documents": "Uploaded documents",
+    "conversions": "Conversion history",
     "noDocuments": "You have no uploaded documents",
     "noConversions": "You have no conversions",
     "refresh": "Refresh",
     "delete": "Delete",
     "completed": "Completed",
-    "transparencyNotice": "All documents are automatically deleted every day at 10:00 AM for your security and privacy.",
-    "timeUntilDeletion": "Time until next deletion"
+    "transparencyNotice": "All documents are automatically deleted every day at 10:00 for your security and privacy.",
+    "timeUntilDeletion": "Time until next deletion",
+    "back": "Back to home page",
+    "transparencyTitle": "Data transparency",
+    "transparencyExtra": "BH Konver does NOT keep your documents. We never share your data with third parties.",
+    "loadErrorTitle": "Error",
+    "loadErrorDesc": "Unable to load data.",
+    "deletedTitle": "Success",
+    "deletedDesc": "Document deleted.",
+    "deleteErrorDesc": "Unable to delete the document.",
+    "previewDoc": "Preview document {{name}}",
+    "deleteDoc": "Delete document {{name}}",
+    "downloadConversion": "Download conversion {{name}}"
   },
   "dashboard": {
     "welcome": "Welcome, {{name}}!",
@@ -634,7 +645,11 @@
     "notFound": "Entry not found",
     "resultsCount": "{{n}} result(s)",
     "dirImg": "Image → PDF",
-    "dirPdf": "PDF → Image"
+    "dirPdf": "PDF → Image",
+    "openDetails": "Open details for {{name}}",
+    "loading": "Loading...",
+    "deleteEntry": "Delete entry {{name}}",
+    "downloadFile": "Download file {{name}}"
   },
   "pravni": {
     "seoTitle": "BiH legal documents and statements | BH KONVER",
@@ -675,6 +690,157 @@
     "wizNext": "Next",
     "wizGenerate": "Generate PDF",
     "errTitle": "Error",
-    "errDesc": "PDF generation failed."
+    "errDesc": "PDF generation failed.",
+    "openCard": "Open: {{doc}}"
+  },
+  "legal": {
+    "entities": {
+      "FBiH": "Federation of Bosnia and Herzegovina (FBiH)",
+      "RS": "Republika Srpska (RS)",
+      "BD": "Brčko District of BiH"
+    },
+    "categories": {
+      "standard": {
+        "title": "Standard statements",
+        "description": "Certified statements given under material and criminal liability."
+      },
+      "businessEmployment": {
+        "title": "Business and employment statements",
+        "description": "Statements related to business, company registration and employment."
+      },
+      "personalFinance": {
+        "title": "Personal and financial statements",
+        "description": "Family, financial and statements addressed to BiH authorities."
+      },
+      "commercial": {
+        "title": "Commercial statements",
+        "description": "Statements related to purchase, sale and commercial transactions."
+      }
+    },
+    "fields": {
+      "fullName": "Full name of the declarant",
+      "jmbg": "Personal ID number (JMBG)",
+      "address": "Residential address",
+      "entity": "Entity / District",
+      "idNumber": "ID card number",
+      "idIssuedBy": "ID card issued by",
+      "residenceSince": "Resident since (date)",
+      "purpose": "Purpose of the statement",
+      "dateOfBirth": "Date of birth",
+      "placeOfBirth": "Place of birth",
+      "citizenship": "Citizenship",
+      "donorName": "Donor - full name",
+      "donorJmbg": "Donor - JMBG",
+      "donorAddress": "Donor - address",
+      "doneeName": "Recipient - full name",
+      "doneeJmbg": "Recipient - JMBG",
+      "doneeAddress": "Recipient - address",
+      "relationship": "Relationship (if any)",
+      "giftDescription": "Description of the gift",
+      "giftValue": "Estimated value (BAM)"
+    },
+    "placeholders": {
+      "fullName": "e.g. Amir Hodžić",
+      "jmbg": "13-digit JMBG",
+      "address": "Street and number, city",
+      "idIssuedBy": "e.g. MUP KS Sarajevo",
+      "purpose": "e.g. for a bank, court, school...",
+      "citizenship": "BiH",
+      "relationship": "e.g. father - son",
+      "giftDescription": "e.g. vehicle make ..., amount of money ..., real estate ..."
+    },
+    "docs": {
+      "domicile": {
+        "title": "Certified statement of residence",
+        "shortTitle": "Statement of residence",
+        "description": "A statement confirming your residential address in BiH."
+      },
+      "identity": {
+        "title": "Certified statement of identity",
+        "shortTitle": "Statement of identity",
+        "description": "Confirmation of personal data and identity under BiH law."
+      },
+      "gift": {
+        "title": "Statement of gift (gift agreement)",
+        "shortTitle": "Statement of gift",
+        "description": "Donor's statement on transferring movable property free of charge."
+      },
+      "service": {
+        "title": "Certified statement of delivery",
+        "shortTitle": "Statement of delivery",
+        "description": "Confirmation that documents or a parcel were delivered to a person."
+      },
+      "title": {
+        "title": "Certified statement of ownership",
+        "shortTitle": "Statement of ownership",
+        "description": "Statement on ownership of movable or immovable property."
+      },
+      "death": {
+        "title": "Statement of death (witness testimony)",
+        "shortTitle": "Statement of death",
+        "description": "Witness statement on the death of a natural or legal person."
+      },
+      "business": {
+        "title": "Business statement",
+        "shortTitle": "Business statement",
+        "description": "Statements for registration, partnership and business cooperation."
+      },
+      "employment": {
+        "title": "Employment statement",
+        "shortTitle": "Employment statement",
+        "description": "Confirmation of employment, compensation and employer/employee duties."
+      },
+      "family": {
+        "title": "Family statement",
+        "shortTitle": "Family statement",
+        "description": "Statements on family relations, support and guardianship."
+      },
+      "finance": {
+        "title": "Financial statement",
+        "shortTitle": "Financial statement",
+        "description": "Statements on income, debts and financial capacity."
+      },
+      "government": {
+        "title": "Statement to government authorities",
+        "shortTitle": "Statement - authorities",
+        "description": "Statements for FBiH, RS and Brčko District institutions."
+      },
+      "purchaseSale": {
+        "title": "Purchase and sale statement",
+        "shortTitle": "Purchase and sale",
+        "description": "Statement on the sale of movable property (vehicles, equipment, etc.)."
+      }
+    },
+    "openDoc": "Open document: {{doc}}"
+  },
+  "docPreview": {
+    "fallbackName": "Document",
+    "download": "Download",
+    "print": "Print",
+    "share": "Share",
+    "email": "Email",
+    "edit": "Edit",
+    "send": "Send",
+    "emailPlaceholder": "Enter email address",
+    "closeEmail": "Close email input",
+    "downloadStarted": "Download started",
+    "downloadStartedDesc": "{{name}} is downloading...",
+    "linkCopied": "Link copied",
+    "linkCopiedDesc": "The link was copied to the clipboard.",
+    "shareText": "Take a look at this document: {{name}}",
+    "invalidEmail": "Invalid email address",
+    "invalidEmailDesc": "Please enter a valid email address.",
+    "emailSent": "Email sent",
+    "emailSentDesc": "The document was sent to {{email}}",
+    "errorTitle": "Error",
+    "emailError": "Unable to send the email. Please try again.",
+    "editTitle": "Editing",
+    "editDesc": "To edit, download the document and edit it locally.",
+    "size": "Size",
+    "type": "Type",
+    "unknown": "Unknown",
+    "officeNote": "MS Office document - download to view",
+    "noVideo": "Your browser does not support the video tag.",
+    "noAudio": "Your browser does not support the audio tag."
   }
 }

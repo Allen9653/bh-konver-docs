@@ -1,24 +1,30 @@
 // Catalog of BiH legal documents (Pravni dokumenti i izjave).
-// UI labels are in Bosnian; field keys/IDs are English for AI/code consistency.
+// All user-facing labels are i18n keys (namespace: `legal.*`) so the wizard is
+// fully localized (BS, BS-Cyrl, EN, DE, TR). Field keys/IDs stay English.
+// NOTE: `body()` renders the legally binding document text, which must remain in
+// Bosnian to stay valid before BiH authorities (notar / općina / sud).
 
 export type LegalFieldType = "text" | "textarea" | "date" | "select" | "number";
 
 export interface LegalField {
   key: string;
-  label: string;
+  /** i18n key for the field label */
+  labelKey: string;
   type: LegalFieldType;
-  placeholder?: string;
+  /** i18n key for the placeholder */
+  placeholderKey?: string;
   required?: boolean;
-  options?: { value: string; label: string }[];
-  help?: string;
+  options?: { value: string; labelKey: string }[];
+  /** i18n key for the helper text */
+  helpKey?: string;
 }
 
 export interface LegalDoc {
   id: string;
-  // Localized BiH terminology — prefer "Ovjerena izjava" over "Affidavit".
-  title: string;
-  shortTitle: string;
-  description: string;
+  /** i18n key — localized BiH terminology, prefer "Ovjerena izjava" over "Affidavit". */
+  titleKey: string;
+  shortTitleKey: string;
+  descriptionKey: string;
   premium: boolean;
   // When true, a wizard is implemented; otherwise we show a "coming soon" placeholder.
   implemented: boolean;
@@ -29,44 +35,44 @@ export interface LegalDoc {
 
 export interface LegalCategory {
   id: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   docs: LegalDoc[];
 }
 
 // BiH entities — used in the entity selector.
 export const BIH_ENTITIES = [
-  { value: "FBiH", label: "Federacija Bosne i Hercegovine (FBiH)" },
-  { value: "RS", label: "Republika Srpska (RS)" },
-  { value: "BD", label: "Brčko Distrikt BiH" },
+  { value: "FBiH", labelKey: "legal.entities.FBiH" },
+  { value: "RS", labelKey: "legal.entities.RS" },
+  { value: "BD", labelKey: "legal.entities.BD" },
 ];
 
 const commonIdentityFields: LegalField[] = [
-  { key: "fullName", label: "Ime i prezime davatelja izjave", type: "text", required: true, placeholder: "npr. Amir Hodžić" },
-  { key: "jmbg", label: "JMBG", type: "text", required: true, placeholder: "13-cifreni JMBG" },
-  { key: "address", label: "Adresa prebivališta", type: "text", required: true, placeholder: "Ulica i broj, mjesto" },
-  { key: "entity", label: "Entitet / Distrikt", type: "select", required: true, options: BIH_ENTITIES },
-  { key: "idNumber", label: "Broj lične karte", type: "text", required: true },
-  { key: "idIssuedBy", label: "Lična karta izdata od", type: "text", required: true, placeholder: "npr. MUP KS Sarajevo" },
+  { key: "fullName", labelKey: "legal.fields.fullName", type: "text", required: true, placeholderKey: "legal.placeholders.fullName" },
+  { key: "jmbg", labelKey: "legal.fields.jmbg", type: "text", required: true, placeholderKey: "legal.placeholders.jmbg" },
+  { key: "address", labelKey: "legal.fields.address", type: "text", required: true, placeholderKey: "legal.placeholders.address" },
+  { key: "entity", labelKey: "legal.fields.entity", type: "select", required: true, options: BIH_ENTITIES },
+  { key: "idNumber", labelKey: "legal.fields.idNumber", type: "text", required: true },
+  { key: "idIssuedBy", labelKey: "legal.fields.idIssuedBy", type: "text", required: true, placeholderKey: "legal.placeholders.idIssuedBy" },
 ];
 
 export const LEGAL_CATEGORIES: LegalCategory[] = [
   {
     id: "standard",
-    title: "Standardne izjave",
-    description: "Ovjerene izjave date pod materijalnom i kaznenom odgovornošću.",
+    titleKey: "legal.categories.standard.title",
+    descriptionKey: "legal.categories.standard.description",
     docs: [
       {
         id: "domicile",
-        title: "Ovjerena izjava o prebivalištu",
-        shortTitle: "Izjava o prebivalištu",
-        description: "Izjava kojom potvrđujete adresu prebivališta u BiH.",
+        titleKey: "legal.docs.domicile.title",
+        shortTitleKey: "legal.docs.domicile.shortTitle",
+        descriptionKey: "legal.docs.domicile.description",
         premium: false,
         implemented: true,
         fields: [
           ...commonIdentityFields,
-          { key: "residenceSince", label: "Prebivalište od (datum)", type: "date", required: true },
-          { key: "purpose", label: "Svrha izdavanja izjave", type: "textarea", required: true, placeholder: "npr. potrebe banke, suda, škole..." },
+          { key: "residenceSince", labelKey: "legal.fields.residenceSince", type: "date", required: true },
+          { key: "purpose", labelKey: "legal.fields.purpose", type: "textarea", required: true, placeholderKey: "legal.placeholders.purpose" },
         ],
         body: (v) =>
 `Ja, ${v.fullName || "_______________"}, JMBG ${v.jmbg || "_______________"}, sa prebivalištem na adresi ${v.address || "_______________"} (${v.entity || "_____"}), nosilac lične karte broj ${v.idNumber || "_______________"} izdate od strane ${v.idIssuedBy || "_______________"},
@@ -79,17 +85,17 @@ Izjava se izdaje u svrhu: ${v.purpose || "_______________"}.`,
       },
       {
         id: "identity",
-        title: "Ovjerena izjava o identitetu",
-        shortTitle: "Izjava o identitetu",
-        description: "Potvrda osobnih podataka i identiteta u skladu sa zakonima BiH.",
+        titleKey: "legal.docs.identity.title",
+        shortTitleKey: "legal.docs.identity.shortTitle",
+        descriptionKey: "legal.docs.identity.description",
         premium: false,
         implemented: true,
         fields: [
           ...commonIdentityFields,
-          { key: "dateOfBirth", label: "Datum rođenja", type: "date", required: true },
-          { key: "placeOfBirth", label: "Mjesto rođenja", type: "text", required: true },
-          { key: "citizenship", label: "Državljanstvo", type: "text", required: true, placeholder: "BiH" },
-          { key: "purpose", label: "Svrha izjave", type: "textarea", required: true },
+          { key: "dateOfBirth", labelKey: "legal.fields.dateOfBirth", type: "date", required: true },
+          { key: "placeOfBirth", labelKey: "legal.fields.placeOfBirth", type: "text", required: true },
+          { key: "citizenship", labelKey: "legal.fields.citizenship", type: "text", required: true, placeholderKey: "legal.placeholders.citizenship" },
+          { key: "purpose", labelKey: "legal.fields.purpose", type: "textarea", required: true, placeholderKey: "legal.placeholders.purpose" },
         ],
         body: (v) =>
 `Ja, ${v.fullName || "_______________"}, rođen/a ${v.dateOfBirth || "_______________"} u mjestu ${v.placeOfBirth || "_______________"}, državljanin/ka ${v.citizenship || "BiH"}, JMBG ${v.jmbg || "_______________"}, sa prebivalištem na adresi ${v.address || "_______________"} (${v.entity || "_____"}),
@@ -102,22 +108,22 @@ Izjava se izdaje u svrhu: ${v.purpose || "_______________"}.`,
       },
       {
         id: "gift",
-        title: "Izjava o poklonu (Ugovor o poklonu)",
-        shortTitle: "Izjava o poklonu",
-        description: "Izjava darodavca o prenosu pokretne imovine bez naknade.",
+        titleKey: "legal.docs.gift.title",
+        shortTitleKey: "legal.docs.gift.shortTitle",
+        descriptionKey: "legal.docs.gift.description",
         premium: false,
         implemented: true,
         fields: [
-          { key: "donorName", label: "Darodavac - ime i prezime", type: "text", required: true },
-          { key: "donorJmbg", label: "Darodavac - JMBG", type: "text", required: true },
-          { key: "donorAddress", label: "Darodavac - adresa", type: "text", required: true },
-          { key: "doneeName", label: "Obdarenik - ime i prezime", type: "text", required: true },
-          { key: "doneeJmbg", label: "Obdarenik - JMBG", type: "text", required: true },
-          { key: "doneeAddress", label: "Obdarenik - adresa", type: "text", required: true },
-          { key: "relationship", label: "Srodstvo (ako postoji)", type: "text", placeholder: "npr. otac - sin" },
-          { key: "giftDescription", label: "Opis predmeta poklona", type: "textarea", required: true, placeholder: "npr. vozilo marke ..., novčani iznos ..., nekretnina ..." },
-          { key: "giftValue", label: "Procijenjena vrijednost (KM)", type: "number", required: true },
-          { key: "entity", label: "Entitet / Distrikt", type: "select", required: true, options: BIH_ENTITIES },
+          { key: "donorName", labelKey: "legal.fields.donorName", type: "text", required: true },
+          { key: "donorJmbg", labelKey: "legal.fields.donorJmbg", type: "text", required: true },
+          { key: "donorAddress", labelKey: "legal.fields.donorAddress", type: "text", required: true },
+          { key: "doneeName", labelKey: "legal.fields.doneeName", type: "text", required: true },
+          { key: "doneeJmbg", labelKey: "legal.fields.doneeJmbg", type: "text", required: true },
+          { key: "doneeAddress", labelKey: "legal.fields.doneeAddress", type: "text", required: true },
+          { key: "relationship", labelKey: "legal.fields.relationship", type: "text", placeholderKey: "legal.placeholders.relationship" },
+          { key: "giftDescription", labelKey: "legal.fields.giftDescription", type: "textarea", required: true, placeholderKey: "legal.placeholders.giftDescription" },
+          { key: "giftValue", labelKey: "legal.fields.giftValue", type: "number", required: true },
+          { key: "entity", labelKey: "legal.fields.entity", type: "select", required: true, options: BIH_ENTITIES },
         ],
         body: (v) =>
 `Ja, ${v.donorName || "_______________"}, JMBG ${v.donorJmbg || "_______________"}, sa prebivalištem na adresi ${v.donorAddress || "_______________"}, kao DARODAVAC,
@@ -134,25 +140,25 @@ Ova izjava je sačinjena u skladu sa Zakonom o obligacionim odnosima koji se pri
       },
       {
         id: "service",
-        title: "Ovjerena izjava o uručenju",
-        shortTitle: "Izjava o uručenju",
-        description: "Potvrda o uručenju dokumenata ili pošiljke određenom licu.",
+        titleKey: "legal.docs.service.title",
+        shortTitleKey: "legal.docs.service.shortTitle",
+        descriptionKey: "legal.docs.service.description",
         premium: false,
         implemented: false,
       },
       {
         id: "title",
-        title: "Ovjerena izjava o vlasništvu",
-        shortTitle: "Izjava o vlasništvu",
-        description: "Izjava o pravu vlasništva nad pokretnom ili nepokretnom imovinom.",
+        titleKey: "legal.docs.title.title",
+        shortTitleKey: "legal.docs.title.shortTitle",
+        descriptionKey: "legal.docs.title.description",
         premium: true,
         implemented: false,
       },
       {
         id: "death",
-        title: "Izjava o smrti (svjedočanstvo)",
-        shortTitle: "Izjava o smrti",
-        description: "Izjava svjedoka o smrti pravnog ili fizičkog lica.",
+        titleKey: "legal.docs.death.title",
+        shortTitleKey: "legal.docs.death.shortTitle",
+        descriptionKey: "legal.docs.death.description",
         premium: true,
         implemented: false,
       },
@@ -160,22 +166,22 @@ Ova izjava je sačinjena u skladu sa Zakonom o obligacionim odnosima koji se pri
   },
   {
     id: "business-employment",
-    title: "Poslovne i radne izjave",
-    description: "Izjave vezane uz poslovanje, registraciju djelatnosti i radne odnose.",
+    titleKey: "legal.categories.businessEmployment.title",
+    descriptionKey: "legal.categories.businessEmployment.description",
     docs: [
       {
         id: "business",
-        title: "Poslovna izjava (Business)",
-        shortTitle: "Poslovna izjava",
-        description: "Izjave za potrebe registracije, partnerstva i poslovne saradnje.",
+        titleKey: "legal.docs.business.title",
+        shortTitleKey: "legal.docs.business.shortTitle",
+        descriptionKey: "legal.docs.business.description",
         premium: true,
         implemented: false,
       },
       {
         id: "employment",
-        title: "Izjava o radnom odnosu",
-        shortTitle: "Radna izjava",
-        description: "Potvrda o zaposlenju, naknadama i obavezama poslodavca/zaposlenika.",
+        titleKey: "legal.docs.employment.title",
+        shortTitleKey: "legal.docs.employment.shortTitle",
+        descriptionKey: "legal.docs.employment.description",
         premium: true,
         implemented: false,
       },
@@ -183,30 +189,30 @@ Ova izjava je sačinjena u skladu sa Zakonom o obligacionim odnosima koji se pri
   },
   {
     id: "personal-finance",
-    title: "Lične i finansijske izjave",
-    description: "Porodične, finansijske i izjave prema državnim organima u BiH.",
+    titleKey: "legal.categories.personalFinance.title",
+    descriptionKey: "legal.categories.personalFinance.description",
     docs: [
       {
         id: "family",
-        title: "Porodična izjava",
-        shortTitle: "Porodična izjava",
-        description: "Izjave o porodičnim odnosima, izdržavanju i starateljstvu.",
+        titleKey: "legal.docs.family.title",
+        shortTitleKey: "legal.docs.family.shortTitle",
+        descriptionKey: "legal.docs.family.description",
         premium: false,
         implemented: false,
       },
       {
         id: "finance",
-        title: "Finansijska izjava",
-        shortTitle: "Finansijska izjava",
-        description: "Izjave o prihodima, dugovanjima i finansijskoj sposobnosti.",
+        titleKey: "legal.docs.finance.title",
+        shortTitleKey: "legal.docs.finance.shortTitle",
+        descriptionKey: "legal.docs.finance.description",
         premium: true,
         implemented: false,
       },
       {
         id: "government",
-        title: "Izjava prema državnim organima",
-        shortTitle: "Izjava - državni organi",
-        description: "Izjave za potrebe institucija FBiH, RS i Brčko Distrikta.",
+        titleKey: "legal.docs.government.title",
+        shortTitleKey: "legal.docs.government.shortTitle",
+        descriptionKey: "legal.docs.government.description",
         premium: false,
         implemented: false,
       },
@@ -214,14 +220,14 @@ Ova izjava je sačinjena u skladu sa Zakonom o obligacionim odnosima koji se pri
   },
   {
     id: "commercial",
-    title: "Trgovačke izjave",
-    description: "Izjave vezane uz kupoprodaju i komercijalne transakcije.",
+    titleKey: "legal.categories.commercial.title",
+    descriptionKey: "legal.categories.commercial.description",
     docs: [
       {
         id: "purchase-sale",
-        title: "Izjava o kupoprodaji",
-        shortTitle: "Kupoprodaja",
-        description: "Izjava o kupoprodaji pokretne imovine (vozila, opreme, itd.).",
+        titleKey: "legal.docs.purchaseSale.title",
+        shortTitleKey: "legal.docs.purchaseSale.shortTitle",
+        descriptionKey: "legal.docs.purchaseSale.description",
         premium: true,
         implemented: false,
       },

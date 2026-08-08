@@ -179,11 +179,13 @@ const SlikaPdfHistory = () => {
                     variant="outline"
                     onClick={() => openDetails(r.id)}
                     disabled={loadingId === r.id}
+                    aria-label={loadingId === r.id ? t("slikaPdfHistory.loading") : t("slikaPdfHistory.openDetails", { name: r.sourceName })}
+                    aria-busy={loadingId === r.id}
                   >
-                    {loadingId === r.id ? <Loader2 className="w-4 h-4 animate-spin" /> : t("slikaPdfHistory.open")}
+                    {loadingId === r.id ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : t("slikaPdfHistory.open")}
                   </Button>
-                  <Button size="sm" variant="ghost" onClick={() => handleDelete(r.id)}>
-                    <Trash2 className="w-4 h-4" />
+                  <Button size="sm" variant="ghost" onClick={() => handleDelete(r.id)} aria-label={t("slikaPdfHistory.deleteEntry", { name: r.sourceName })}>
+                    <Trash2 className="w-4 h-4" aria-hidden="true" />
                   </Button>
                 </div>
               </Card>
@@ -230,8 +232,8 @@ const SlikaPdfHistory = () => {
                         <p className="text-xs font-medium truncate">{o.name}</p>
                         <p className="text-[11px] text-muted-foreground">{(o.size / 1024).toFixed(1)} KB</p>
                       </div>
-                      <Button size="sm" variant="ghost" onClick={() => downloadBlob(o.blob, o.name)}>
-                        <Download className="w-4 h-4" />
+                      <Button size="sm" variant="ghost" onClick={() => downloadBlob(o.blob, o.name)} aria-label={t("slikaPdfHistory.downloadFile", { name: o.name })}>
+                        <Download className="w-4 h-4" aria-hidden="true" />
                       </Button>
                     </div>
                   ))}

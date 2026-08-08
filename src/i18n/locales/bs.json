@@ -314,7 +314,18 @@
     "delete": "Obriši",
     "completed": "Završeno",
     "transparencyNotice": "Svi dokumenti se automatski brišu svaki dan u 10:00h radi vaše sigurnosti i privatnosti.",
-    "timeUntilDeletion": "Vrijeme do sljedećeg brisanja"
+    "timeUntilDeletion": "Vrijeme do sljedećeg brisanja",
+    "back": "Nazad na početnu stranicu",
+    "transparencyTitle": "Transparentnost podataka",
+    "transparencyExtra": "BH Konver NE zadržava vaše dokumente. Nikada ne dijelimo vaše podatke sa trećim stranama.",
+    "loadErrorTitle": "Greška",
+    "loadErrorDesc": "Nije moguće učitati podatke.",
+    "deletedTitle": "Uspješno",
+    "deletedDesc": "Dokument je obrisan.",
+    "deleteErrorDesc": "Nije moguće obrisati dokument.",
+    "previewDoc": "Pregledaj dokument {{name}}",
+    "deleteDoc": "Obriši dokument {{name}}",
+    "downloadConversion": "Preuzmi konverziju {{name}}"
   },
   "dashboard": {
     "welcome": "Dobrodošli, {{name}}!",
@@ -634,7 +645,11 @@
     "notFound": "Zapis nije pronađen",
     "resultsCount": "{{n}} rezultat(a)",
     "dirImg": "Slika → PDF",
-    "dirPdf": "PDF → Slika"
+    "dirPdf": "PDF → Slika",
+    "openDetails": "Otvori detalje za {{name}}",
+    "loading": "Učitavanje...",
+    "deleteEntry": "Obriši zapis {{name}}",
+    "downloadFile": "Preuzmi fajl {{name}}"
   },
   "pravni": {
     "seoTitle": "Pravni dokumenti i izjave BiH | BH KONVER",
@@ -675,6 +690,157 @@
     "wizNext": "Sljedeći",
     "wizGenerate": "Generiši PDF",
     "errTitle": "Greška",
-    "errDesc": "Generisanje PDF-a nije uspjelo."
+    "errDesc": "Generisanje PDF-a nije uspjelo.",
+    "openCard": "Otvori: {{doc}}"
+  },
+  "legal": {
+    "entities": {
+      "FBiH": "Federacija Bosne i Hercegovine (FBiH)",
+      "RS": "Republika Srpska (RS)",
+      "BD": "Brčko Distrikt BiH"
+    },
+    "categories": {
+      "standard": {
+        "title": "Standardne izjave",
+        "description": "Ovjerene izjave date pod materijalnom i kaznenom odgovornošću."
+      },
+      "businessEmployment": {
+        "title": "Poslovne i radne izjave",
+        "description": "Izjave vezane uz poslovanje, registraciju djelatnosti i radne odnose."
+      },
+      "personalFinance": {
+        "title": "Lične i finansijske izjave",
+        "description": "Porodične, finansijske i izjave prema državnim organima u BiH."
+      },
+      "commercial": {
+        "title": "Trgovačke izjave",
+        "description": "Izjave vezane uz kupoprodaju i komercijalne transakcije."
+      }
+    },
+    "fields": {
+      "fullName": "Ime i prezime davatelja izjave",
+      "jmbg": "JMBG",
+      "address": "Adresa prebivališta",
+      "entity": "Entitet / Distrikt",
+      "idNumber": "Broj lične karte",
+      "idIssuedBy": "Lična karta izdata od",
+      "residenceSince": "Prebivalište od (datum)",
+      "purpose": "Svrha izdavanja izjave",
+      "dateOfBirth": "Datum rođenja",
+      "placeOfBirth": "Mjesto rođenja",
+      "citizenship": "Državljanstvo",
+      "donorName": "Darodavac - ime i prezime",
+      "donorJmbg": "Darodavac - JMBG",
+      "donorAddress": "Darodavac - adresa",
+      "doneeName": "Obdarenik - ime i prezime",
+      "doneeJmbg": "Obdarenik - JMBG",
+      "doneeAddress": "Obdarenik - adresa",
+      "relationship": "Srodstvo (ako postoji)",
+      "giftDescription": "Opis predmeta poklona",
+      "giftValue": "Procijenjena vrijednost (KM)"
+    },
+    "placeholders": {
+      "fullName": "npr. Amir Hodžić",
+      "jmbg": "13-cifreni JMBG",
+      "address": "Ulica i broj, mjesto",
+      "idIssuedBy": "npr. MUP KS Sarajevo",
+      "purpose": "npr. potrebe banke, suda, škole...",
+      "citizenship": "BiH",
+      "relationship": "npr. otac - sin",
+      "giftDescription": "npr. vozilo marke ..., novčani iznos ..., nekretnina ..."
+    },
+    "docs": {
+      "domicile": {
+        "title": "Ovjerena izjava o prebivalištu",
+        "shortTitle": "Izjava o prebivalištu",
+        "description": "Izjava kojom potvrđujete adresu prebivališta u BiH."
+      },
+      "identity": {
+        "title": "Ovjerena izjava o identitetu",
+        "shortTitle": "Izjava o identitetu",
+        "description": "Potvrda osobnih podataka i identiteta u skladu sa zakonima BiH."
+      },
+      "gift": {
+        "title": "Izjava o poklonu (Ugovor o poklonu)",
+        "shortTitle": "Izjava o poklonu",
+        "description": "Izjava darodavca o prenosu pokretne imovine bez naknade."
+      },
+      "service": {
+        "title": "Ovjerena izjava o uručenju",
+        "shortTitle": "Izjava o uručenju",
+        "description": "Potvrda o uručenju dokumenata ili pošiljke određenom licu."
+      },
+      "title": {
+        "title": "Ovjerena izjava o vlasništvu",
+        "shortTitle": "Izjava o vlasništvu",
+        "description": "Izjava o pravu vlasništva nad pokretnom ili nepokretnom imovinom."
+      },
+      "death": {
+        "title": "Izjava o smrti (svjedočanstvo)",
+        "shortTitle": "Izjava o smrti",
+        "description": "Izjava svjedoka o smrti pravnog ili fizičkog lica."
+      },
+      "business": {
+        "title": "Poslovna izjava (Business)",
+        "shortTitle": "Poslovna izjava",
+        "description": "Izjave za potrebe registracije, partnerstva i poslovne saradnje."
+      },
+      "employment": {
+        "title": "Izjava o radnom odnosu",
+        "shortTitle": "Radna izjava",
+        "description": "Potvrda o zaposlenju, naknadama i obavezama poslodavca/zaposlenika."
+      },
+      "family": {
+        "title": "Porodična izjava",
+        "shortTitle": "Porodična izjava",
+        "description": "Izjave o porodičnim odnosima, izdržavanju i starateljstvu."
+      },
+      "finance": {
+        "title": "Finansijska izjava",
+        "shortTitle": "Finansijska izjava",
+        "description": "Izjave o prihodima, dugovanjima i finansijskoj sposobnosti."
+      },
+      "government": {
+        "title": "Izjava prema državnim organima",
+        "shortTitle": "Izjava - državni organi",
+        "description": "Izjave za potrebe institucija FBiH, RS i Brčko Distrikta."
+      },
+      "purchaseSale": {
+        "title": "Izjava o kupoprodaji",
+        "shortTitle": "Kupoprodaja",
+        "description": "Izjava o kupoprodaji pokretne imovine (vozila, opreme, itd.)."
+      }
+    },
+    "openDoc": "Otvori dokument: {{doc}}"
+  },
+  "docPreview": {
+    "fallbackName": "Dokument",
+    "download": "Preuzmi",
+    "print": "Štampaj",
+    "share": "Podijeli",
+    "email": "Email",
+    "edit": "Uredi",
+    "send": "Pošalji",
+    "emailPlaceholder": "Unesite email adresu",
+    "closeEmail": "Zatvori unos email adrese",
+    "downloadStarted": "Preuzimanje započeto",
+    "downloadStartedDesc": "{{name}} se preuzima...",
+    "linkCopied": "Link kopiran",
+    "linkCopiedDesc": "Link je kopiran u clipboard.",
+    "shareText": "Pogledajte ovaj dokument: {{name}}",
+    "invalidEmail": "Nevažeća email adresa",
+    "invalidEmailDesc": "Molimo unesite validnu email adresu.",
+    "emailSent": "Email poslan",
+    "emailSentDesc": "Dokument je poslan na {{email}}",
+    "errorTitle": "Greška",
+    "emailError": "Nije moguće poslati email. Pokušajte ponovo.",
+    "editTitle": "Uređivanje",
+    "editDesc": "Za uređivanje preuzmite dokument i uredite ga lokalno.",
+    "size": "Veličina",
+    "type": "Tip",
+    "unknown": "Nepoznat",
+    "officeNote": "MS Office dokument - preuzmite za pregled",
+    "noVideo": "Vaš pretraživač ne podržava video.",
+    "noAudio": "Vaš pretraživač ne podržava audio."
   }
 }
