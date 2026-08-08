@@ -206,7 +206,16 @@ const Index = () => {
         title="BH Konver — Konverzija PDF, JPEG, dokumenata i medija"
         description="Brza i sigurna konverzija PDF u JPEG, dokumenata, slika, audia i videa. Lokalna obrada u pretraživaču bez slanja na server."
         path="/"
+        jsonLd={{
+          "@type": "WebPage",
+          name: "BH Konver — Premium sistem za konverziju fajlova",
+          url: "https://bh-konver.lovable.app/",
+          description:
+            "Konverzija PDF, slika, dokumenata, audia i videa uz lokalnu obradu u pretraživaču.",
+          isPartOf: { "@type": "WebSite", name: "BH Konver", url: "https://bh-konver.lovable.app" },
+        }}
       />
+
       <PremiumHeader
         user={user}
         isAdmin={isAdmin}
