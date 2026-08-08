@@ -347,7 +347,8 @@ const Index = () => {
                 </div>
               </div>
             </Link>
-          </div>
+          </section>
+
 
 
           {/* Pricing */}
