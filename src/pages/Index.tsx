@@ -239,7 +239,11 @@ const Index = () => {
               </div>
               <h1 className="text-4xl sm:text-6xl font-bold font-display tracking-tight mb-3 drop-shadow-lg">
                 BH <span className="text-accent">KONVER</span>
+                <span className="block text-xl sm:text-3xl font-semibold mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                  Sistem za konverziju fajlova i dokumenata
+                </span>
               </h1>
+
               <p className="text-xl sm:text-2xl font-semibold text-white max-w-2xl mx-auto mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {t('hero.subtitle')}
               </p>
