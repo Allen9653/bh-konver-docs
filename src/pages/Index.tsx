@@ -231,40 +231,52 @@ const Index = () => {
           <HeroCarousel />
           {/* Dark overlay for legibility */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 z-[1]" />
-          <div className="relative z-[2] py-20 px-4 min-h-[inherit] flex items-center" style={{ minHeight: "min(80vh, 640px)" }}>
-            <div className="container mx-auto max-w-3xl text-center">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-base mb-6">
-                <Sparkles className="w-4 h-4 text-accent" />
-                <span>{t('hero.version')}</span>
-              </div>
-              <h1 className="text-4xl sm:text-6xl font-bold font-display tracking-tight mb-3 drop-shadow-lg">
-                BH <span className="text-accent">KONVER</span>
-                <span className="block text-xl sm:text-3xl font-semibold mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-                  Sistem za konverziju fajlova i dokumenata
-                </span>
-              </h1>
+          <div className="relative z-[2] py-16 sm:py-20 px-4 min-h-[inherit] flex items-center" style={{ minHeight: "min(80vh, 640px)" }}>
+            <div className="container mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div className="text-center lg:text-left animate-fade-up">
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm sm:text-base mb-6">
+                  <Sparkles className="w-4 h-4 text-accent" />
+                  <span>{t('hero.version')}</span>
+                </div>
+                <h1 className="text-4xl sm:text-6xl font-bold font-display tracking-tight mb-3 drop-shadow-lg">
+                  BH <span className="text-accent">KONVER</span>
+                  <span className="block text-xl sm:text-3xl font-semibold mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                    Sistem za konverziju fajlova i dokumenata
+                  </span>
+                </h1>
 
-              <p className="text-xl sm:text-2xl font-semibold text-white max-w-2xl mx-auto mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-                {t('hero.subtitle')}
-              </p>
-              <div className="flex flex-wrap justify-center gap-2 mb-6">
-                <span className="inline-flex items-center gap-1.5 bg-accent text-accent-foreground rounded-full px-4 py-2 text-sm font-semibold">
-                  <Sparkles className="w-4 h-4" /> 100% Besplatno
-                </span>
-                <span className="inline-flex items-center gap-1 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-sm">
-                  <LockOpen className="w-4 h-4" /> Bez registracije
-                </span>
+                <p className="text-xl sm:text-2xl font-semibold text-white max-w-2xl mx-auto lg:mx-0 mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                  {t('hero.subtitle')}
+                </p>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6">
+                  <span className="inline-flex items-center gap-1.5 bg-accent text-accent-foreground rounded-full px-4 py-2 text-sm font-semibold">
+                    <Sparkles className="w-4 h-4" /> 100% Besplatno
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-sm">
+                    <LockOpen className="w-4 h-4" /> Bez registracije
+                  </span>
+                </div>
+                <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 hover:scale-[1.03] transition-transform font-semibold text-base px-8 py-3 h-auto mb-6">
+                  <Link to="/alati">Otvori besplatne alate <ArrowRight className="w-5 h-5 ml-2" /></Link>
+                </Button>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-base text-white/90">
+                  <div className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-accent" /> {t('transparency.nosharing.title')}</div>
+                  <div className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-accent" /> {t('pricing.day.feature3')}</div>
+                </div>
               </div>
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 py-3 h-auto mb-6">
-                <Link to="/alati">Otvori besplatne alate <ArrowRight className="w-5 h-5 ml-2" /></Link>
-              </Button>
-              <div className="flex flex-wrap justify-center gap-6 text-base text-white/90">
-                <div className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-accent" /> {t('transparency.nosharing.title')}</div>
-                <div className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-accent" /> {t('pricing.day.feature3')}</div>
+
+              {/* PDF ↔ JPEG conversion illustration */}
+              <div className="animate-fade-up-delay-1 mx-auto w-full max-w-md rounded-3xl border border-white/15 bg-white/10 p-4 sm:p-6 backdrop-blur-md shadow-xl">
+                <ConversionIllustration className="w-full h-auto" />
               </div>
             </div>
           </div>
         </section>
+
+        {/* Before / after preview cards */}
+        <div className="container mx-auto px-4 max-w-5xl pt-12">
+          <ConversionShowcase />
+        </div>
 
         <div className="container mx-auto px-4 max-w-3xl py-10">
           {/* Module Tabs */}
