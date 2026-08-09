@@ -842,5 +842,22 @@
     "officeNote": "MS Office belgesi - görüntülemek için indirin",
     "noVideo": "Tarayıcınız video etiketini desteklemiyor.",
     "noAudio": "Tarayıcınız ses etiketini desteklemiyor."
+  },
+  "visual": {
+    "heroIllustrationAlt": "PDF belgesinin JPEG görüntüsüne dönüştürülmesi illüstrasyonu",
+    "showcaseTitle": "Dönüştürme öncesi ve sonrası",
+    "showcaseSubtitle": "Belgenizin dönüştürmeden önce ve sonra nasıl göründüğünü görün — işlem tarayıcınızda yerel olarak yapılır.",
+    "before": "Önce",
+    "after": "Sonra",
+    "source": "Kaynak belge",
+    "result": "Dönüştürme sonucu",
+    "upload": "Yükle",
+    "download": "İndir",
+    "previewLabel": "Önizleme",
+    "converting": "Dönüştürülüyor…",
+    "done": "Tamamlandı",
+    "pages": "3 sayfa",
+    "quality": "Yüksek kalite",
+    "localProcessing": "Yerel işleme"
   }
 }

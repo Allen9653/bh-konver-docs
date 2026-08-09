@@ -842,5 +842,22 @@
     "officeNote": "MS-Office-Dokument - zum Ansehen herunterladen",
     "noVideo": "Ihr Browser unterstützt das Video-Tag nicht.",
     "noAudio": "Ihr Browser unterstützt das Audio-Tag nicht."
+  },
+  "visual": {
+    "heroIllustrationAlt": "Illustration der Konvertierung eines PDF-Dokuments in ein JPEG-Bild",
+    "showcaseTitle": "Vor und nach der Konvertierung",
+    "showcaseSubtitle": "Sehen Sie, wie Ihr Dokument vor und nach der Konvertierung aussieht — die Verarbeitung erfolgt lokal im Browser.",
+    "before": "Vorher",
+    "after": "Nachher",
+    "source": "Quelldokument",
+    "result": "Konvertierungsergebnis",
+    "upload": "Hochladen",
+    "download": "Herunterladen",
+    "previewLabel": "Vorschau",
+    "converting": "Konvertierung…",
+    "done": "Fertig",
+    "pages": "3 Seiten",
+    "quality": "Hohe Qualität",
+    "localProcessing": "Lokale Verarbeitung"
   }
 }

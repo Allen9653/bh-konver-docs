@@ -842,5 +842,22 @@
     "officeNote": "MS Office document - download to view",
     "noVideo": "Your browser does not support the video tag.",
     "noAudio": "Your browser does not support the audio tag."
+  },
+  "visual": {
+    "heroIllustrationAlt": "Illustration of converting a PDF document to a JPEG image",
+    "showcaseTitle": "Before and after conversion",
+    "showcaseSubtitle": "See how your document looks before and after conversion — processing happens locally in your browser.",
+    "before": "Before",
+    "after": "After",
+    "source": "Source document",
+    "result": "Conversion result",
+    "upload": "Upload",
+    "download": "Download",
+    "previewLabel": "Preview",
+    "converting": "Converting…",
+    "done": "Done",
+    "pages": "3 pages",
+    "quality": "High quality",
+    "localProcessing": "Local processing"
   }
 }

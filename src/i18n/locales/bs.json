@@ -842,5 +842,22 @@
     "officeNote": "MS Office dokument - preuzmite za pregled",
     "noVideo": "Vaš pretraživač ne podržava video.",
     "noAudio": "Vaš pretraživač ne podržava audio."
+  },
+  "visual": {
+    "heroIllustrationAlt": "Ilustracija konverzije PDF dokumenta u JPEG sliku",
+    "showcaseTitle": "Prije i poslije konverzije",
+    "showcaseSubtitle": "Pogledajte kako vaš dokument izgleda prije i nakon konverzije — obrada je lokalna, u vašem pretraživaču.",
+    "before": "Prije",
+    "after": "Poslije",
+    "source": "Izvorni dokument",
+    "result": "Rezultat konverzije",
+    "upload": "Otpremi",
+    "download": "Preuzmi",
+    "previewLabel": "Pregled",
+    "converting": "Konvertujem…",
+    "done": "Završeno",
+    "pages": "3 stranice",
+    "quality": "Visok kvalitet",
+    "localProcessing": "Lokalna obrada"
   }
 }
