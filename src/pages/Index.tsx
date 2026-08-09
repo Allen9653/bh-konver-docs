@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { HeroCarousel } from "@/components/HeroCarousel";
+import { ConversionIllustration } from "@/components/ConversionIllustration";
+import { ConversionShowcase } from "@/components/ConversionShowcase";
 import { SEO } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { PremiumFooter } from "@/components/PremiumFooter";
