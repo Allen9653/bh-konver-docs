@@ -29,7 +29,7 @@ function toWinAnsi(text: string): string {
     "Č": "C", "Ć": "C", "Đ": "D", "Š": "S", "Ž": "Z",
     "–": "-", "—": "-", "…": "...", "\u00a0": " ", "•": "\u2022", "„": '"', "“": '"', "”": '"', "‘": "'", "’": "'",
   };
-  return text.replace(/[^\x20-\x7E\u2022]/g, (ch) => map[ch] ?? (/[\u0400-\u04FF]/.test(ch) ? "?" : ""));
+  return text.replace(/[^\x20-\x7E\u2022]/g, (ch) => map[ch] ?? (/[\u0400-\u04FF]/.test(ch) ? "?" : " "));
 }
 
 function wrapLine(text: string, font: PDFFont, size: number, maxWidth: number): string[] {
