@@ -126,6 +126,8 @@ curl -X POST "https://<project-ref>.supabase.co/functions/v1/split-pdf" \
 
 Renders HTML to a paginated A4 PDF (text/heading/list layout — the server has no browser
 engine, so CSS layout and images are not reproduced; use the in-browser tool for pixel-perfect output).
+Bosnian diacritics are transliterated (`č → c`, `ž → z`, …) because the PDF base fonts are WinAnsi;
+`html-to-docx` preserves them fully.
 
 **Request** — one of:
 
