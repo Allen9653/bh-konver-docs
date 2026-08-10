@@ -16,7 +16,7 @@ export async function readHtmlInput(req: Request): Promise<HtmlInput> {
       if (!html.trim()) {
         return { error: { message: "Polje 'html' je obavezno.", code: "MISSING_HTML", status: 400 } };
       }
-      return { html, filename: typeof body?.filename === "string" ? body.filename : "dokument" };
+      return { html, filename: typeof body?.filename === "string" ? body.filename : "" };
     }
 
     if (contentType.includes("multipart/form-data")) {
@@ -30,13 +30,13 @@ export async function readHtmlInput(req: Request): Promise<HtmlInput> {
         if (file.size > MAX_HTML_BYTES) {
           return { error: { message: "HTML sadržaj je prevelik. Maksimum je 5MB.", code: "HTML_TOO_LARGE", status: 413 } };
         }
-        return { html: await file.text(), filename: file.name || "dokument" };
+        return { html: await file.text(), filename: file.name || "" };
       }
 
       const inline = formData.get("html");
       if (typeof inline === "string" && inline.trim()) {
         const name = formData.get("filename");
-        return { html: inline, filename: typeof name === "string" && name ? name : "dokument" };
+        return { html: inline, filename: typeof name === "string" && name ? name : "" };
       }
 
       return { error: { message: "Priložite HTML fajl (polje 'file') ili 'html' tekst.", code: "MISSING_HTML", status: 400 } };
@@ -47,7 +47,7 @@ export async function readHtmlInput(req: Request): Promise<HtmlInput> {
       if (!html.trim()) {
         return { error: { message: "Tijelo zahtjeva je prazno.", code: "MISSING_HTML", status: 400 } };
       }
-      return { html, filename: "dokument" };
+      return { html, filename: "" };
     }
 
     return {
