@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Download, Loader2, Upload, X, FileText, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { downloadBlob, type ToolProgress } from "@/utils/freeTools";
+import { PreviewPanel } from "@/components/PreviewPanel";
+import { StepProgress } from "@/components/StepProgress";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
@@ -24,6 +26,7 @@ type RunnerProps = {
   onBeforeRun?: () => boolean;
   /** Called after a successful conversion (used to consume a free quota token). */
   onAfterSuccess?: () => void;
+  initialFiles?: File[];
 };
 
 export const ToolRunner = ({
@@ -38,9 +41,10 @@ export const ToolRunner = ({
   minFiles = 1,
   onBeforeRun,
   onAfterSuccess,
+  initialFiles = [],
 }: RunnerProps) => {
   const { t } = useTranslation();
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<File[]>(initialFiles);
   const [busy, setBusy] = useState(false);
   const [stage, setStage] = useState("");
   const [percent, setPercent] = useState(0);
@@ -108,7 +112,7 @@ export const ToolRunner = ({
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
         <div className="flex items-center justify-between mb-2">
           <Button variant="ghost" size="sm" onClick={onBack}>
@@ -123,6 +127,7 @@ export const ToolRunner = ({
       </CardHeader>
 
       <CardContent className="space-y-4">
+        <StepProgress currentStep={busy ? "processing" : result ? "download" : "upload"} />
         {note && (
           <div className="rounded-md border border-accent/30 bg-accent/5 px-3 py-2 text-xs text-muted-foreground">
             ℹ️ {note}
@@ -163,17 +168,23 @@ export const ToolRunner = ({
                       </span>
                     </div>
                     {!busy && (
-                      <button
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         onClick={() => setFiles((prev) => prev.filter((_, idx) => idx !== i))}
-                        className="text-muted-foreground hover:text-destructive"
+                        className="h-7 w-7 text-muted-foreground hover:text-destructive"
                         aria-label={t("toolRunner.removeFile")}
                       >
                         <X className="w-4 h-4" />
-                      </button>
+                      </Button>
                     )}
                   </div>
                 ))}
               </div>
+            )}
+
+            {files.length > 0 && (
+              <PreviewPanel inputFile={files[0]} />
             )}
 
             {busy && (
@@ -202,6 +213,7 @@ export const ToolRunner = ({
 
         {result && (
           <div className="space-y-3 text-center py-4">
+            {files[0] && <PreviewPanel inputFile={files[0]} outputBlob={result} outputName={resultName} />}
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 text-accent">
               <Download className="w-8 h-8" />
             </div>
