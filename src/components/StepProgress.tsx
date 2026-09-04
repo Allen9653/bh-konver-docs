@@ -1,4 +1,5 @@
 import { Check, Upload, Loader2, Download } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export type ConversionStep = "upload" | "processing" | "download";
 
@@ -7,14 +8,15 @@ interface StepProgressProps {
 }
 
 const steps = [
-  { id: "upload" as const, label: "Upload", icon: Upload },
-  { id: "processing" as const, label: "Processing", icon: Loader2 },
-  { id: "download" as const, label: "Download", icon: Download },
+  { id: "upload" as const, labelKey: "modulePage.steps.upload", icon: Upload },
+  { id: "processing" as const, labelKey: "modulePage.steps.format", icon: Loader2 },
+  { id: "download" as const, labelKey: "modulePage.steps.download", icon: Download },
 ];
 
 const stepOrder: Record<ConversionStep, number> = { upload: 0, processing: 1, download: 2 };
 
 export const StepProgress = ({ currentStep }: StepProgressProps) => {
+  const { t } = useTranslation();
   const currentIdx = stepOrder[currentStep];
 
   return (
@@ -39,7 +41,7 @@ export const StepProgress = ({ currentStep }: StepProgressProps) => {
                 <Icon className={`w-4 h-4 ${isActive && step.id === "processing" ? "animate-spin" : ""}`} />
               </div>
               <span className={`text-[11px] font-medium ${isActive || isCompleted ? "text-foreground" : "text-muted-foreground"}`}>
-                {step.label}
+                {t(step.labelKey)}
               </span>
             </div>
             {idx < steps.length - 1 && (
