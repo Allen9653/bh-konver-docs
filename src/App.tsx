@@ -26,6 +26,7 @@ const SlikaPdf = lazy(() => import("./pages/SlikaPdf"));
 const SlikaPdfHistory = lazy(() => import("./pages/SlikaPdfHistory"));
 const Connect = lazy(() => import("./pages/Connect"));
 const OAuthConsent = lazy(() => import("./pages/OAuthConsent"));
+const ModulePage = lazy(() => import("./pages/ModulePage"));
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,8 @@ const App = () => (
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/support" element={<Support />} />
               <Route path="/alati" element={<Alati />} />
+              <Route path="/alati/:toolSlug" element={<Alati />} />
+              <Route path="/modul/:moduleSlug" element={<ModulePage />} />
               <Route path="/pravni-dokumenti" element={<PravniDokumenti />} />
               <Route path="/slika-pdf" element={<SlikaPdf />} />
               <Route path="/slika-pdf/istorija" element={<SlikaPdfHistory />} />

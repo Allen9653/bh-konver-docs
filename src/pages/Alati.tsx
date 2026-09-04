@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { PremiumFooter } from "@/components/PremiumFooter";
@@ -37,6 +38,19 @@ type ToolId =
   // Group B — HTML as target
   | "docx-to-html" | "pdf-to-html" | "text-to-html";
 
+const SLUG_TO_TOOL: Record<string, ToolId> = {
+  "slike-u-pdf": "img-to-pdf",
+  "word-u-pdf": "word-to-pdf",
+  "pdf-u-word": "pdf-to-word",
+  "excel-u-pdf": "excel-to-pdf",
+  "pptx-u-pdf": "pptx-to-pdf",
+  "pismo": "script",
+  "spoji-pdf": "merge-pdf",
+  "podijeli-pdf": "split-pdf",
+  "html-u-word": "html-to-docx",
+  "html-u-pdf": "html-to-pdf",
+};
+
 // Document conversion tools that count against the free quota
 const DOC_TOOLS: ToolId[] = [
   "img-to-pdf", "word-to-pdf", "pdf-to-word",
@@ -53,6 +67,11 @@ const PRO_HTML_TOOLS: ToolId[] = [
 const Alati = () => {
   // `t` is bound to the active language and re-renders on language change
   const { t } = useTranslation();
+  const { toolSlug } = useParams<{ toolSlug: string }>();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const routedTool = toolSlug ? SLUG_TO_TOOL[toolSlug] : undefined;
+  const initialFile = (location.state as { initialFile?: File } | null)?.initialFile;
   const [active, setActive] = useState<ToolId | null>(null);
   const [paywallOpen, setPaywallOpen] = useState(false);
   const { user, isAdmin, signOut, loading: authLoading } = useAdminAuth();
@@ -60,7 +79,20 @@ const Alati = () => {
   const isPremium = isAdmin || hasActiveSubscription;
   const { used, remaining, exhausted, limit, consume } = useFreeQuota();
 
-  const back = () => setActive(null);
+  const back = () => toolSlug ? navigate("/") : setActive(null);
+
+  useEffect(() => {
+    if (!routedTool) return;
+    if (PRO_HTML_TOOLS.includes(routedTool) && !isPremium) {
+      setPaywallOpen(true);
+      return;
+    }
+    if (DOC_TOOLS.includes(routedTool) && !isPremium && exhausted) {
+      setPaywallOpen(true);
+      return;
+    }
+    setActive(routedTool);
+  }, [routedTool, isPremium, exhausted]);
 
   // Try to open a doc tool — gate by quota for non-premium users
   const openDocTool = useCallback((id: ToolId) => {
@@ -335,6 +367,7 @@ const Alati = () => {
               onBack={back}
               onBeforeRun={onBeforeRun}
               onAfterSuccess={onAfterSuccess}
+              initialFiles={initialFile ? [initialFile] : []}
             />
           )}
           {active === "word-to-pdf" && (
@@ -347,6 +380,7 @@ const Alati = () => {
               onBack={back}
               onBeforeRun={onBeforeRun}
               onAfterSuccess={onAfterSuccess}
+              initialFiles={initialFile ? [initialFile] : []}
             />
           )}
           {active === "pdf-to-word" && (
@@ -359,6 +393,7 @@ const Alati = () => {
               onBack={back}
               onBeforeRun={onBeforeRun}
               onAfterSuccess={onAfterSuccess}
+              initialFiles={initialFile ? [initialFile] : []}
             />
           )}
           {active === "excel-to-pdf" && (
@@ -371,6 +406,7 @@ const Alati = () => {
               onBack={back}
               onBeforeRun={onBeforeRun}
               onAfterSuccess={onAfterSuccess}
+              initialFiles={initialFile ? [initialFile] : []}
             />
           )}
           {active === "pptx-to-pdf" && (
@@ -389,6 +425,7 @@ const Alati = () => {
               onBack={back}
               onBeforeRun={onBeforeRun}
               onAfterSuccess={onAfterSuccess}
+              initialFiles={initialFile ? [initialFile] : []}
             />
           )}
           {active === "split-pdf" && (
@@ -401,6 +438,7 @@ const Alati = () => {
               onBack={back}
               onBeforeRun={onBeforeRun}
               onAfterSuccess={onAfterSuccess}
+              initialFiles={initialFile ? [initialFile] : []}
             />
           )}
           {active === "html-to-docx" && (
@@ -413,6 +451,7 @@ const Alati = () => {
               onBack={back}
               onBeforeRun={onBeforeRun}
               onAfterSuccess={onAfterSuccess}
+              initialFiles={initialFile ? [initialFile] : []}
             />
           )}
           {active === "html-to-pdf" && (
@@ -425,6 +464,7 @@ const Alati = () => {
               onBack={back}
               onBeforeRun={onBeforeRunPro}
               onAfterSuccess={onAfterSuccess}
+              initialFiles={initialFile ? [initialFile] : []}
             />
           )}
           {active === "html-to-jpg" && (
@@ -437,6 +477,7 @@ const Alati = () => {
               onBack={back}
               onBeforeRun={onBeforeRunPro}
               onAfterSuccess={onAfterSuccess}
+              initialFiles={initialFile ? [initialFile] : []}
             />
           )}
           {active === "html-to-png" && (
