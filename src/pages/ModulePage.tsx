@@ -78,7 +78,7 @@ const ModulePage = () => {
           )}
         </div>
       </main>
-      <FreemiumPaywallModal open={paywallOpen} onOpenChange={setPaywallOpen} user={user} />
+      <FreemiumPaywallModal open={paywallOpen} onOpenChange={setPaywallOpen} />
       <PremiumFooter />
     </div>
   );
