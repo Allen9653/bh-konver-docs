@@ -899,6 +899,10 @@
       "legal": {
         "title": "Rechtsdokumente",
         "description": "Erklärungen und Formulare nach BiH-Vorschriften, bereit zur Beglaubigung."
+      },
+      "units": {
+        "title": "Einheiten & Währungen",
+        "description": "Länge, Gewicht, Temperatur und Währungen umrechnen — ohne Anmeldung."
       }
     }
   },

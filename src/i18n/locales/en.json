@@ -899,6 +899,10 @@
       "legal": {
         "title": "Legal documents",
         "description": "Statements and forms aligned with BiH regulations, ready for certification."
+      },
+      "units": {
+        "title": "Units & currency",
+        "description": "Convert length, weight, temperature and currencies — no sign-up."
       }
     }
   },

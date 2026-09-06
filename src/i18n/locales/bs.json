@@ -899,6 +899,10 @@
       "legal": {
         "title": "Pravni dokumenti",
         "description": "Izjave i obrasci prilagođeni propisima u BiH, spremni za ovjeru."
+      },
+      "units": {
+        "title": "Mjerne jedinice i valute",
+        "description": "Pretvorite dužinu, masu, temperaturu i valute — bez registracije."
       }
     }
   },

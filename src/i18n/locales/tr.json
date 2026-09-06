@@ -899,6 +899,10 @@
       "legal": {
         "title": "Hukuki belgeler",
         "description": "BiH mevzuatına uygun beyan ve formlar, onaya hazır."
+      },
+      "units": {
+        "title": "Birimler ve döviz",
+        "description": "Uzunluk, ağırlık, sıcaklık ve para birimlerini dönüştürün — kayıt gerekmez."
       }
     }
   },
