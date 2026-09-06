@@ -117,7 +117,7 @@ const Index = () => {
         </section>
       </main>
 
-      <FreemiumPaywallModal open={paywallOpen} onOpenChange={setPaywallOpen} user={user} />
+      <FreemiumPaywallModal open={paywallOpen} onOpenChange={setPaywallOpen} />
       {paymentModalOpen && <Suspense fallback={null}><PayPalPaymentModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} initialPlanId={selectedPlanId} /></Suspense>}
       <PremiumFooter />
     </div>
