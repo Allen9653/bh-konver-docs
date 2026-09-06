@@ -10,6 +10,7 @@ import {
   Image,
   Minimize2,
   Presentation,
+  Ruler,
   Scissors,
   ScrollText,
   Stamp,
@@ -46,6 +47,7 @@ export const TOOL_CATALOG: ToolCatalogItem[] = [
   { slug: "html-u-word", titleKey: "alati.html.htmlToDocx.title", descriptionKey: "alati.html.htmlToDocx.description", href: "/alati/html-u-word", access: "quota", category: "special", icon: Code2, tone: "primary" },
   { slug: "html-u-pdf", titleKey: "alati.html.htmlToPdf.title", descriptionKey: "alati.html.htmlToPdf.description", href: "/alati/html-u-pdf", access: "pro", category: "special", icon: FileImage, tone: "gold" },
   { slug: "pismo", titleKey: "alati.tools.script.title", descriptionKey: "alati.tools.script.description", href: "/alati/pismo", access: "free", category: "special", icon: Type, tone: "accent" },
+  { slug: "jedinice", titleKey: "homeTools.items.units.title", descriptionKey: "homeTools.items.units.description", href: "/modul/jedinice", access: "free", category: "special", icon: Ruler, tone: "accent" },
   { slug: "pravni-dokumenti", titleKey: "homeTools.items.legal.title", descriptionKey: "homeTools.items.legal.description", href: "/pravni-dokumenti", access: "mixed", category: "special", icon: ScrollText, tone: "primary" },
 ];
 
