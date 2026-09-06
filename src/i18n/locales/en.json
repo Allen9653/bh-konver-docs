@@ -350,7 +350,14 @@
     "noFormats": "No conversion targets available",
     "completed": "Batch completed",
     "completedDesc": "All conversions finished. Download your files below.",
-    "itemsList": "Files in batch"
+    "itemsList": "Files in batch",
+    "cancel": "Cancel",
+    "cancelled": "Conversion cancelled",
+    "cancelledDesc": "Remaining files were not processed.",
+    "cancelConfirmTitle": "Cancel conversion?",
+    "cancelConfirmDesc": "Files in progress will be stopped.",
+    "cancelConfirmKeep": "Continue",
+    "cancelConfirmStop": "Cancel conversion"
   },
   "preview": {
     "title": "Visual preview",
@@ -859,5 +866,51 @@
     "pages": "3 pages",
     "quality": "High quality",
     "localProcessing": "Local processing"
+  },
+  "homeHero": {
+    "uploadTitle": "Upload your file",
+    "uploadSubtitle": "Drag a document here or click to browse. Processing happens in your browser.",
+    "uploadButton": "Choose file",
+    "unsupported": "This file format is not supported."
+  },
+  "homeTools": {
+    "eyebrow": "Tools",
+    "open": "Open tool",
+    "unlock": "Unlock PRO",
+    "badges": {
+      "free": "FREE",
+      "quota": "2 FREE",
+      "mixed": "FREE / PRO",
+      "pro": "PRO"
+    },
+    "items": {
+      "imagePdf": {
+        "title": "Images & PDF",
+        "description": "Convert JPG and PNG to PDF and back, with batch processing."
+      },
+      "compressPdf": {
+        "title": "Compress PDF",
+        "description": "Reduce PDF file size while keeping it readable."
+      },
+      "watermark": {
+        "title": "Watermark",
+        "description": "Add a text watermark to every page of a PDF."
+      },
+      "legal": {
+        "title": "Legal documents",
+        "description": "Statements and forms aligned with BiH regulations, ready for certification."
+      }
+    }
+  },
+  "modulePage": {
+    "notFound": "Tool not found",
+    "proLockedTitle": "This tool is part of the PRO plan",
+    "proLockedText": "Activate the 24-hour, 7-day or monthly plan to use advanced conversions.",
+    "steps": {
+      "title": "How it works",
+      "upload": "Upload a document",
+      "format": "Choose the output format",
+      "download": "Download the result"
+    }
   }
 }

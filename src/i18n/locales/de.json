@@ -350,7 +350,14 @@
     "noFormats": "Keine Zielformate verfügbar",
     "completed": "Batch abgeschlossen",
     "completedDesc": "Alle Konvertierungen sind fertig.",
-    "itemsList": "Dateien im Batch"
+    "itemsList": "Dateien im Batch",
+    "cancel": "Abbrechen",
+    "cancelled": "Konvertierung abgebrochen",
+    "cancelledDesc": "Verbleibende Dateien wurden nicht verarbeitet.",
+    "cancelConfirmTitle": "Konvertierung abbrechen?",
+    "cancelConfirmDesc": "Laufende Dateien werden gestoppt.",
+    "cancelConfirmKeep": "Fortfahren",
+    "cancelConfirmStop": "Konvertierung abbrechen"
   },
   "preview": {
     "title": "Visuelle Vorschau",
@@ -859,5 +866,51 @@
     "pages": "3 Seiten",
     "quality": "Hohe Qualität",
     "localProcessing": "Lokale Verarbeitung"
+  },
+  "homeHero": {
+    "uploadTitle": "Datei hochladen",
+    "uploadSubtitle": "Dokument hierher ziehen oder klicken. Die Verarbeitung erfolgt im Browser.",
+    "uploadButton": "Datei wählen",
+    "unsupported": "Dieses Dateiformat wird nicht unterstützt."
+  },
+  "homeTools": {
+    "eyebrow": "Werkzeuge",
+    "open": "Werkzeug öffnen",
+    "unlock": "PRO freischalten",
+    "badges": {
+      "free": "KOSTENLOS",
+      "quota": "2 GRATIS",
+      "mixed": "KOSTENLOS / PRO",
+      "pro": "PRO"
+    },
+    "items": {
+      "imagePdf": {
+        "title": "Bilder & PDF",
+        "description": "JPG und PNG in PDF umwandeln und zurück, auch als Stapel."
+      },
+      "compressPdf": {
+        "title": "PDF komprimieren",
+        "description": "Dateigröße reduzieren, ohne die Lesbarkeit zu verlieren."
+      },
+      "watermark": {
+        "title": "Wasserzeichen",
+        "description": "Text-Wasserzeichen auf jede PDF-Seite hinzufügen."
+      },
+      "legal": {
+        "title": "Rechtsdokumente",
+        "description": "Erklärungen und Formulare nach BiH-Vorschriften, bereit zur Beglaubigung."
+      }
+    }
+  },
+  "modulePage": {
+    "notFound": "Werkzeug nicht gefunden",
+    "proLockedTitle": "Dieses Werkzeug gehört zum PRO-Paket",
+    "proLockedText": "Aktivieren Sie das 24-Stunden-, 7-Tage- oder Monatspaket für erweiterte Konvertierungen.",
+    "steps": {
+      "title": "So funktioniert es",
+      "upload": "Dokument hochladen",
+      "format": "Ausgabeformat wählen",
+      "download": "Ergebnis herunterladen"
+    }
   }
 }

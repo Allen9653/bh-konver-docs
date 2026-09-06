@@ -350,7 +350,14 @@
     "noFormats": "Nema dostupnih ciljnih formata",
     "completed": "Batch završen",
     "completedDesc": "Sve konverzije su gotove. Preuzmite fajlove ispod.",
-    "itemsList": "Fajlovi u batch-u"
+    "itemsList": "Fajlovi u batch-u",
+    "cancel": "Otkaži",
+    "cancelled": "Konverzija otkazana",
+    "cancelledDesc": "Preostali fajlovi nisu obrađeni.",
+    "cancelConfirmTitle": "Otkazati konverziju?",
+    "cancelConfirmDesc": "Fajlovi koji su u toku biće zaustavljeni.",
+    "cancelConfirmKeep": "Nastavi",
+    "cancelConfirmStop": "Otkaži konverziju"
   },
   "preview": {
     "title": "Vizualni pregled",
@@ -859,5 +866,51 @@
     "pages": "3 stranice",
     "quality": "Visok kvalitet",
     "localProcessing": "Lokalna obrada"
+  },
+  "homeHero": {
+    "uploadTitle": "Dodajte svoj fajl",
+    "uploadSubtitle": "Prevucite dokument ovdje ili kliknite za odabir. Obrada se odvija u vašem pretraživaču.",
+    "uploadButton": "Odaberi fajl",
+    "unsupported": "Format fajla nije podržan."
+  },
+  "homeTools": {
+    "eyebrow": "Alati",
+    "open": "Otvori alat",
+    "unlock": "Otključaj PRO",
+    "badges": {
+      "free": "BESPLATNO",
+      "quota": "2 BESPLATNE",
+      "mixed": "BESPLATNO / PRO",
+      "pro": "PRO"
+    },
+    "items": {
+      "imagePdf": {
+        "title": "Slike i PDF",
+        "description": "Konvertujte JPG i PNG u PDF i obrnuto, uz grupnu obradu."
+      },
+      "compressPdf": {
+        "title": "Kompresija PDF-a",
+        "description": "Smanjite veličinu PDF dokumenta bez gubitka čitljivosti."
+      },
+      "watermark": {
+        "title": "Vodeni žig",
+        "description": "Dodajte tekstualni vodeni žig na svaku stranicu PDF-a."
+      },
+      "legal": {
+        "title": "Pravni dokumenti",
+        "description": "Izjave i obrasci prilagođeni propisima u BiH, spremni za ovjeru."
+      }
+    }
+  },
+  "modulePage": {
+    "notFound": "Alat nije pronađen",
+    "proLockedTitle": "Ovaj alat je dio PRO paketa",
+    "proLockedText": "Aktivirajte 24-satni, 7-dnevni ili mjesečni paket kako biste koristili napredne konverzije.",
+    "steps": {
+      "title": "Kako funkcioniše",
+      "upload": "Dodajte dokument",
+      "format": "Odaberite izlazni format",
+      "download": "Preuzmite rezultat"
+    }
   }
 }
