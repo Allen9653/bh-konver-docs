@@ -21,6 +21,13 @@ const SponsorBanners = lazy(() => import("@/components/SponsorBanners").then((mo
 const CurrencyConverter = lazy(() => import("@/components/CurrencyConverter").then((module) => ({ default: module.CurrencyConverter })));
 const PayPalPaymentModal = lazy(() => import("@/components/PayPalPaymentModal").then((module) => ({ default: module.PayPalPaymentModal })));
 
+const HERO_BENEFITS = [
+  "UREDITE SVOJE .PDF",
+  "PRETVORITE DOKUMENT U SLIKU",
+  "PRETVORITE TEKST U HTML",
+  "PRETVORITE AUDIO U VIDEO",
+];
+
 const routeForFile = (file: File) => {
   const extension = file.name.split(".").pop()?.toLowerCase();
   if (["jpg", "jpeg", "png"].includes(extension || "")) return "/slika-pdf";
@@ -77,9 +84,9 @@ const Index = () => {
                 <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">KONVERZIJA DOKUMENATA</h1>
                 <p className="mt-5 max-w-2xl text-lg font-medium leading-relaxed text-primary-foreground/90 lg:mx-0">BRZO - SIGURNO - JEFTINO - ANONIMNO</p>
                 <ul className="mx-auto mt-7 grid max-w-xl gap-3 text-left text-sm sm:grid-cols-2 lg:mx-0">
-                  {["speed", "simple", "private", "local"].map((benefit) => (
+                  {HERO_BENEFITS.map((benefit) => (
                     <li key={benefit} className="flex items-center gap-2 text-primary-foreground/95">
-                      <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" /> {benefit === "speed" ? "UREDITE SVOJE .PDF\u00a0" : benefit === "simple" ? "PRETVORITE DOKUMENT U SLIKU" : benefit === "private" ? "PRETVORITE TEKST U HTML" : "PRETVORITE AUDIO U VIDEO"}
+                      <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" /> {benefit}
                     </li>
                   ))}
                 </ul>
