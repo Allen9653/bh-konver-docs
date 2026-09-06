@@ -74,19 +74,19 @@ const Index = () => {
             <div className="container mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="animate-fade-up text-center lg:text-left">
                 <p className="mb-4 text-sm font-semibold uppercase text-accent">BH KONVER · BiH</p>
-                <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">{t("homeHero.title")}</h1>
-                <p className="mt-5 max-w-2xl text-lg font-medium leading-relaxed text-primary-foreground/90 lg:mx-0">{t("homeHero.subtitle")}</p>
+                <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">KONVERZIJA DOKUMENATA</h1>
+                <p className="mt-5 max-w-2xl text-lg font-medium leading-relaxed text-primary-foreground/90 lg:mx-0">BRZO - SIGURNO - JEFTINO - ANONIMNO</p>
                 <ul className="mx-auto mt-7 grid max-w-xl gap-3 text-left text-sm sm:grid-cols-2 lg:mx-0">
                   {["speed", "simple", "private", "local"].map((benefit) => (
                     <li key={benefit} className="flex items-center gap-2 text-primary-foreground/95">
-                      <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" /> {t(`homeHero.benefits.${benefit}`)}
+                      <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" /> {benefit === "speed" ? "UREDITE SVOJE .PDF\u00a0" : benefit === "simple" ? "PRETVORITE DOKUMENT U SLIKU" : benefit === "private" ? "PRETVORITE TEKST U HTML" : "PRETVORITE AUDIO U VIDEO"}
                     </li>
                   ))}
                 </ul>
                 <div className="mt-7 flex flex-wrap justify-center gap-5 text-xs text-primary-foreground/75 lg:justify-start">
-                  <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-accent" /> {t("homeHero.trust.private")}</span>
-                  <span className="flex items-center gap-1.5"><Zap className="h-4 w-4 text-accent" /> {t("homeHero.trust.fast")}</span>
-                  <span className="flex items-center gap-1.5"><LockKeyhole className="h-4 w-4 text-accent" /> {t("homeHero.trust.secure")}</span>
+                  <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-accent" /> ANONIMNO</span>
+                  <span className="flex items-center gap-1.5"><Zap className="h-4 w-4 text-accent" /> BRZO</span>
+                  <span className="flex items-center gap-1.5"><LockKeyhole className="h-4 w-4 text-accent" /> SIGURNO</span>
                 </div>
               </div>
               <div className="animate-fade-up-delay-1"><HeroQuickUpload onFileSelected={openUploadedFile} /></div>

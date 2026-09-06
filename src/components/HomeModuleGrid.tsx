@@ -34,8 +34,8 @@ export const HomeModuleGrid = ({ isPremium, quotaExhausted, onOpen }: Props) => 
           <Badge variant="outline" className="mb-3 border-primary/25 bg-primary/5 text-primary">
             <Sparkles className="mr-1.5 h-3.5 w-3.5" /> {t("homeTools.eyebrow")}
           </Badge>
-          <h2 id="tools-heading" className="font-display text-3xl font-bold text-foreground sm:text-4xl">{t("homeTools.title")}</h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">{t("homeTools.subtitle")}</p>
+          <h2 id="tools-heading" className="font-display text-3xl font-bold text-foreground sm:text-4xl">ŠTA VAM BH KONVER NUDI</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">BH KONVER JE PRVI BH DIGITALNI ALAT ZA KONVERZIJU AUDIO/VIDEO/MS OFFICE DOKUMENATA KOJI VAM UZ SAMU KONVERZIJU NUDI I DODATNE MOGUĆNOSTI</p>
         </div>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
