@@ -350,7 +350,14 @@
     "noFormats": "Hedef format bulunamadı",
     "completed": "Toplu işlem tamamlandı",
     "completedDesc": "Tüm dönüştürmeler tamamlandı.",
-    "itemsList": "Toplu işlemdeki dosyalar"
+    "itemsList": "Toplu işlemdeki dosyalar",
+    "cancel": "İptal",
+    "cancelled": "Dönüştürme iptal edildi",
+    "cancelledDesc": "Kalan dosyalar işlenmedi.",
+    "cancelConfirmTitle": "Dönüştürme iptal edilsin mi?",
+    "cancelConfirmDesc": "Devam eden dosyalar durdurulacak.",
+    "cancelConfirmKeep": "Devam et",
+    "cancelConfirmStop": "Dönüştürmeyi iptal et"
   },
   "preview": {
     "title": "Görsel önizleme",
@@ -859,5 +866,55 @@
     "pages": "3 sayfa",
     "quality": "Yüksek kalite",
     "localProcessing": "Yerel işleme"
+  },
+  "homeHero": {
+    "uploadTitle": "Dosyanızı yükleyin",
+    "uploadSubtitle": "Belgeyi buraya sürükleyin veya seçmek için tıklayın. İşlem tarayıcınızda yapılır.",
+    "uploadButton": "Dosya seç",
+    "unsupported": "Bu dosya biçimi desteklenmiyor."
+  },
+  "homeTools": {
+    "eyebrow": "Araçlar",
+    "open": "Aracı aç",
+    "unlock": "PRO kilidini aç",
+    "badges": {
+      "free": "ÜCRETSİZ",
+      "quota": "2 ÜCRETSİZ",
+      "mixed": "ÜCRETSİZ / PRO",
+      "pro": "PRO"
+    },
+    "items": {
+      "imagePdf": {
+        "title": "Görseller ve PDF",
+        "description": "JPG ve PNG dosyalarını PDF'e ve tersine dönüştürün, toplu işlem dahil."
+      },
+      "compressPdf": {
+        "title": "PDF sıkıştırma",
+        "description": "Okunabilirliği koruyarak PDF boyutunu küçültün."
+      },
+      "watermark": {
+        "title": "Filigran",
+        "description": "PDF'in her sayfasına metin filigranı ekleyin."
+      },
+      "legal": {
+        "title": "Hukuki belgeler",
+        "description": "BiH mevzuatına uygun beyan ve formlar, onaya hazır."
+      },
+      "units": {
+        "title": "Birimler ve döviz",
+        "description": "Uzunluk, ağırlık, sıcaklık ve para birimlerini dönüştürün — kayıt gerekmez."
+      }
+    }
+  },
+  "modulePage": {
+    "notFound": "Araç bulunamadı",
+    "proLockedTitle": "Bu araç PRO pakete dahildir",
+    "proLockedText": "Gelişmiş dönüşümler için 24 saatlik, 7 günlük veya aylık paketi etkinleştirin.",
+    "steps": {
+      "title": "Nasıl çalışır",
+      "upload": "Belge yükleyin",
+      "format": "Çıktı biçimini seçin",
+      "download": "Sonucu indirin"
+    }
   }
 }
