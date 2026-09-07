@@ -14,19 +14,32 @@ import zenica from "@/assets/cities/zenica.png.asset.json";
 import banjaLuka from "@/assets/cities/banja-luka.png.asset.json";
 import bihac from "@/assets/cities/bihac.jpg";
 
-const slides = [
-  { src: sarajevo.url, city: "Sarajevo" },
-  { src: banjaLuka.url, city: "Banja Luka" },
-  { src: tuzla.url, city: "Tuzla" },
-  { src: zenica.url, city: "Zenica" },
-  { src: bihac, city: "Bihać" },
-  { src: bijeljina.url, city: "Bijeljina" },
-  { src: brcko.url, city: "Brčko" },
-  { src: trebinje.url, city: "Trebinje" },
-  { src: olovo.url, city: "Olovo" },
-];
+type CityLabelTone = "dark" | "yellow";
 
-export const HeroCarousel = ({ className = "" }: { className?: string }) => {
+type CitySlide = {
+  src: string;
+  city: string;
+  labelTone: CityLabelTone;
+};
+
+const slides = [
+  { src: sarajevo.url, city: "Sarajevo", labelTone: "dark" },
+  { src: banjaLuka.url, city: "Banja Luka", labelTone: "yellow" },
+  { src: tuzla.url, city: "Tuzla", labelTone: "dark" },
+  { src: zenica.url, city: "Zenica", labelTone: "dark" },
+  { src: bihac, city: "Bihać", labelTone: "dark" },
+  { src: bijeljina.url, city: "Bijeljina", labelTone: "dark" },
+  { src: brcko.url, city: "Brčko", labelTone: "dark" },
+  { src: trebinje.url, city: "Trebinje", labelTone: "dark" },
+  { src: olovo.url, city: "Olovo", labelTone: "dark" },
+] satisfies CitySlide[];
+
+type HeroCarouselProps = {
+  className?: string;
+  onToneChange?: (tone: CityLabelTone) => void;
+};
+
+export const HeroCarousel = ({ className = "", onToneChange }: HeroCarouselProps) => {
   return (
     <Swiper
       modules={[Autoplay, EffectFade, Pagination]}
@@ -35,6 +48,8 @@ export const HeroCarousel = ({ className = "" }: { className?: string }) => {
       autoplay={{ delay: 5000, disableOnInteraction: false }}
       loop
       pagination={{ clickable: true }}
+      onSwiper={(swiper) => onToneChange?.(slides[swiper.realIndex]?.labelTone || "dark")}
+      onSlideChange={(swiper) => onToneChange?.(slides[swiper.realIndex]?.labelTone || "dark")}
       className={`absolute inset-0 w-full h-full ${className}`}
     >
       {slides.map((s) => (
@@ -45,7 +60,11 @@ export const HeroCarousel = ({ className = "" }: { className?: string }) => {
             className="w-full h-full object-cover"
             loading="eager"
           />
-          <div className="absolute bottom-4 right-4 z-10 bg-black/60 backdrop-blur-md text-white text-sm font-medium px-4 py-1.5 rounded-full">
+          <div
+            className={`absolute bottom-4 right-4 z-10 rounded-full px-4 py-1.5 text-sm font-bold shadow-md backdrop-blur-md ${
+              s.labelTone === "yellow" ? "bg-foreground/90 text-gold" : "bg-card/90 text-foreground"
+            }`}
+          >
             {s.city}
           </div>
         </SwiperSlide>
