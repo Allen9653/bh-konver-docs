@@ -34,7 +34,12 @@ const slides = [
   { src: olovo.url, city: "Olovo", labelTone: "dark" },
 ] satisfies CitySlide[];
 
-export const HeroCarousel = ({ className = "" }: { className?: string }) => {
+type HeroCarouselProps = {
+  className?: string;
+  onToneChange?: (tone: CityLabelTone) => void;
+};
+
+export const HeroCarousel = ({ className = "", onToneChange }: HeroCarouselProps) => {
   return (
     <Swiper
       modules={[Autoplay, EffectFade, Pagination]}
@@ -43,6 +48,8 @@ export const HeroCarousel = ({ className = "" }: { className?: string }) => {
       autoplay={{ delay: 5000, disableOnInteraction: false }}
       loop
       pagination={{ clickable: true }}
+      onSwiper={(swiper) => onToneChange?.(slides[swiper.realIndex]?.labelTone || "dark")}
+      onSlideChange={(swiper) => onToneChange?.(slides[swiper.realIndex]?.labelTone || "dark")}
       className={`absolute inset-0 w-full h-full ${className}`}
     >
       {slides.map((s) => (
@@ -54,8 +61,8 @@ export const HeroCarousel = ({ className = "" }: { className?: string }) => {
             loading="eager"
           />
           <div
-            className={`absolute bottom-4 right-4 z-10 rounded-full bg-card/90 px-4 py-1.5 text-sm font-bold shadow-md backdrop-blur-md ${
-              s.labelTone === "yellow" ? "text-gold" : "text-foreground"
+            className={`absolute bottom-4 right-4 z-10 rounded-full px-4 py-1.5 text-sm font-bold shadow-md backdrop-blur-md ${
+              s.labelTone === "yellow" ? "bg-foreground/90 text-gold" : "bg-card/90 text-foreground"
             }`}
           >
             {s.city}

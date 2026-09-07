@@ -6,14 +6,17 @@ import { useToast } from "@/hooks/use-toast";
 
 type Props = {
   onFileSelected: (file: File) => void;
+  textTone?: "dark" | "yellow";
 };
 
 const ACCEPTED = ["pdf", "docx", "xlsx", "xls", "pptx", "jpg", "jpeg", "png", "html", "htm"];
 
-export const HeroQuickUpload = ({ onFileSelected }: Props) => {
+export const HeroQuickUpload = ({ onFileSelected, textTone = "dark" }: Props) => {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [dragging, setDragging] = useState(false);
+  const foregroundClass = textTone === "yellow" ? "text-gold" : "text-foreground";
+  const mutedClass = textTone === "yellow" ? "text-gold/85" : "text-foreground/75";
 
   const selectFile = useCallback((files: FileList | null) => {
     const file = files?.[0];
@@ -44,12 +47,12 @@ export const HeroQuickUpload = ({ onFileSelected }: Props) => {
         <span className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg">
           <FileUp className="h-7 w-7" aria-hidden="true" />
         </span>
-        <h2 className="font-display text-xl font-semibold text-primary-foreground sm:text-2xl">{t("homeHero.uploadTitle")}</h2>
-        <p className="mt-2 max-w-sm text-sm text-primary-foreground/80">{t("homeHero.uploadSubtitle")}</p>
+        <h2 className={`font-display text-xl font-semibold sm:text-2xl ${foregroundClass}`}>{t("homeHero.uploadTitle")}</h2>
+        <p className={`mt-2 max-w-sm text-sm ${mutedClass}`}>{t("homeHero.uploadSubtitle")}</p>
         <Button className="pointer-events-none mt-5 bg-gold text-gold-foreground hover:bg-gold/90">
           <Upload className="mr-2 h-4 w-4" /> {t("homeHero.uploadButton")}
         </Button>
-        <p className="mt-4 text-[11px] text-primary-foreground/65">PDF · DOCX · XLSX · PPTX · JPG · PNG · HTML</p>
+        <p className={`mt-4 text-[11px] ${mutedClass}`}>PDF · DOCX · XLSX · PPTX · JPG · PNG · HTML</p>
       </div>
     </div>
   );
