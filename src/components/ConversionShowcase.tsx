@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Loader2, CheckCircle2 } from "lucide-react";
+import { Loader2, CheckCircle2, FileText, Image as ImageIcon } from "lucide-react";
 import { UploadDocIcon, DownloadDocIcon, PreviewDocIcon, ConvertArrowsIcon } from "@/components/icons/ConversionIcons";
 
 /**
@@ -33,8 +33,12 @@ export const ConversionShowcase = () => {
             <span className="rounded-md bg-primary px-2 py-0.5 text-[11px] font-bold text-primary-foreground">PDF</span>
           </header>
 
-          <div className="relative overflow-hidden rounded-xl border border-border bg-muted/40 p-4 h-44">
-            <div className="space-y-2.5">
+          <div className="relative flex h-44 items-center gap-4 overflow-hidden rounded-xl border border-border bg-muted/40 p-4">
+            <div className="flex h-20 w-16 shrink-0 flex-col items-center justify-center rounded-md border border-primary/25 bg-card text-primary shadow-sm">
+              <FileText className="h-8 w-8" aria-hidden="true" />
+              <span className="mt-1 text-[10px] font-bold">PDF</span>
+            </div>
+            <div className="min-w-0 flex-1 space-y-2.5" aria-hidden="true">
               <div className="h-3 w-3/4 rounded bg-muted-foreground/30" />
               <div className="h-3 w-2/3 rounded bg-muted-foreground/25" />
               <div className="h-3 w-5/6 rounded bg-muted-foreground/20" />
@@ -77,9 +81,13 @@ export const ConversionShowcase = () => {
             <span className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-bold text-accent-foreground">JPEG</span>
           </header>
 
-          <div className="relative overflow-hidden rounded-xl border border-border h-44 bg-gradient-to-br from-primary/80 to-accent/80">
+          <div className="relative h-44 overflow-hidden rounded-xl border border-border bg-gradient-to-br from-primary/80 to-accent/80">
             <div className="absolute left-4 top-4 h-7 w-7 rounded-full bg-card/85" />
             <div className="absolute bottom-0 left-0 right-0 h-24 bg-card/25 [clip-path:polygon(0%_60%,25%_20%,45%_50%,60%_35%,100%_75%,100%_100%,0%_100%)]" />
+            <div className="absolute bottom-3 left-3 flex h-14 w-14 flex-col items-center justify-center rounded-md bg-card/90 text-accent shadow-sm">
+              <ImageIcon className="h-6 w-6" aria-hidden="true" />
+              <span className="mt-0.5 text-[9px] font-bold">JPEG</span>
+            </div>
             <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-card/90 px-2 py-1 text-[10px] font-semibold text-foreground">
               <PreviewDocIcon size={12} /> {t("visual.previewLabel")}
             </span>
