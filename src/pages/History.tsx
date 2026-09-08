@@ -295,6 +295,16 @@ const History = () => {
                           >
                             <Eye className="w-4 h-4" />
                           </Button>
+                          {doc.storage_path && (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              aria-label={t("history.downloadConversion", { name: doc.filename })}
+                              onClick={() => handleDownload(doc.storage_path!, doc.filename)}
+                            >
+                              <Download className="w-4 h-4" />
+                            </Button>
+                          )}
                           <Button
                             variant="ghost"
                             size="icon"
@@ -353,11 +363,9 @@ const History = () => {
                               variant="ghost"
                               size="icon"
                               aria-label={t("history.downloadConversion", { name: conv.original_filename })}
-                              asChild
+                              onClick={() => handleDownload(conv.converted_url!, `${conv.original_filename.replace(/\.[^.]+$/, "")}.${conv.target_format}`)}
                             >
-                              <a href={conv.converted_url} download>
-                                <Download className="w-4 h-4" />
-                              </a>
+                              <Download className="w-4 h-4" />
                             </Button>
                           )}
                         </div>
