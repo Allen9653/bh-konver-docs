@@ -148,15 +148,15 @@ const Alati = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEO
-        title={t("alati.seoTitle")}
-        description={t("alati.seoDescription")}
-        path="/alati"
+        title={toolSlug ? t(`toolSeo.${toolSlug}.title`, { defaultValue: t("alati.seoTitle") }) : t("alati.seoTitle")}
+        description={toolSlug ? t(`toolSeo.${toolSlug}.description`, { defaultValue: t("alati.seoDescription") }) : t("alati.seoDescription")}
+        path={toolSlug ? `/alati/${toolSlug}` : "/alati"}
         jsonLd={{
           "@type": "SoftwareApplication",
           name: "BH Konver Alati",
           applicationCategory: "UtilitiesApplication",
           operatingSystem: "Any",
-          url: "https://bh-konver.lovable.app/alati",
+          url: `https://bh-konver.lovable.app${toolSlug ? `/alati/${toolSlug}` : "/alati"}`,
           description: t("alati.seoDescription"),
           offers: { "@type": "Offer", price: "0", priceCurrency: "BAM" },
         }}

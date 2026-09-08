@@ -123,6 +123,53 @@ const History = () => {
     }
   };
 
+  /**
+   * Signed storage links expire, so we always mint a fresh one from the stored
+   * object path before downloading. Works for raw paths and for previously
+   * stored signed/public URLs.
+   */
+  const resolveDownloadUrl = async (rawUrl: string): Promise<string | null> => {
+    let bucket = "user-documents";
+    let objectPath = rawUrl;
+
+    if (/^https?:\/\//i.test(rawUrl)) {
+      try {
+        const parsed = new URL(rawUrl);
+        const match = parsed.pathname.match(/\/object\/(?:sign|public|authenticated)\/([^/]+)\/(.+)$/);
+        if (!match) return rawUrl;
+        bucket = match[1];
+        objectPath = decodeURIComponent(match[2]);
+      } catch {
+        return rawUrl;
+      }
+    }
+
+    const { data, error } = await supabase.storage.from(bucket).createSignedUrl(objectPath, 900);
+    if (error || !data?.signedUrl) return /^https?:\/\//i.test(rawUrl) ? rawUrl : null;
+    return data.signedUrl;
+  };
+
+  const handleDownload = async (rawUrl: string, filename: string) => {
+    const url = await resolveDownloadUrl(rawUrl);
+    if (!url) {
+      toast({
+        title: t("history.loadErrorTitle"),
+        description: t("history.downloadExpired", {
+          defaultValue: "Fajl više nije dostupan (automatski je obrisan).",
+        }),
+        variant: "destructive",
+      });
+      return;
+    }
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.rel = "noopener";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
+
   const formatFileSize = (bytes: number | null) => {
     if (!bytes) return "N/A";
     if (bytes < 1024) return `${bytes} B`;
@@ -248,6 +295,16 @@ const History = () => {
                           >
                             <Eye className="w-4 h-4" />
                           </Button>
+                          {doc.storage_path && (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              aria-label={t("history.downloadConversion", { name: doc.filename })}
+                              onClick={() => handleDownload(doc.storage_path!, doc.filename)}
+                            >
+                              <Download className="w-4 h-4" />
+                            </Button>
+                          )}
                           <Button
                             variant="ghost"
                             size="icon"
@@ -306,11 +363,9 @@ const History = () => {
                               variant="ghost"
                               size="icon"
                               aria-label={t("history.downloadConversion", { name: conv.original_filename })}
-                              asChild
+                              onClick={() => handleDownload(conv.converted_url!, `${conv.original_filename.replace(/\.[^.]+$/, "")}.${conv.target_format}`)}
                             >
-                              <a href={conv.converted_url} download>
-                                <Download className="w-4 h-4" />
-                              </a>
+                              <Download className="w-4 h-4" />
                             </Button>
                           )}
                         </div>

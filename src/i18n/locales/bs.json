@@ -916,5 +916,35 @@
       "format": "Odaberite izlazni format",
       "download": "Preuzmite rezultat"
     }
+  },
+  "toolSeo": {
+    "podijeli-pdf": {
+      "title": "Razdvoji PDF online — besplatno i sigurno | BH Konver",
+      "description": "Razdvojite PDF na pojedinačne stranice direktno u pretraživaču. Bez slanja fajlova na server, bez registracije. BH Konver alat za PDF."
+    },
+    "spoji-pdf": {
+      "title": "Spoji PDF dokumente online | BH Konver",
+      "description": "Spojite više PDF dokumenata u jedan fajl brzo i anonimno. Obrada u vašem pretraživaču, bez čuvanja podataka."
+    },
+    "kompresuj-pdf": {
+      "title": "Kompresija PDF-a — smanji veličinu fajla | BH Konver",
+      "description": "Smanjite veličinu PDF dokumenta uz očuvanje kvalitete. Brza i privatna kompresija za slanje e-mailom i upload."
+    },
+    "vodeni-zig": {
+      "title": "Vodeni žig na PDF dokumentu | BH Konver",
+      "description": "Dodajte vodeni žig na PDF dokument i zaštitite svoje datoteke. Jednostavno, brzo i sigurno."
+    },
+    "pravni-dokumenti": {
+      "title": "Pravni dokumenti i izjave BiH — obrasci | BH Konver",
+      "description": "Generišite ovjerene izjave i pravne obrasce za FBiH, Republiku Srpsku i Brčko Distrikt. Spremno za štampu i ovjeru."
+    },
+    "html-u-word": {
+      "title": "HTML u Word (DOCX) konverzija | BH Konver",
+      "description": "Pretvorite HTML stranicu ili kod u uredan Word dokument. Besplatno, brzo i bez registracije."
+    },
+    "html-u-pdf": {
+      "title": "HTML u PDF konverzija online | BH Konver",
+      "description": "Pretvorite HTML sadržaj u PDF dokument spreman za štampu. Sigurna obrada i brz rezultat."
+    }
   }
 }

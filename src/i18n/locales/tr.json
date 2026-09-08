@@ -916,5 +916,35 @@
       "format": "Çıktı biçimini seçin",
       "download": "Sonucu indirin"
     }
+  },
+  "toolSeo": {
+    "podijeli-pdf": {
+      "title": "PDF böl — ücretsiz ve güvenli | BH Konver",
+      "description": "PDF dosyalarını tarayıcınızda sayfalara ayırın. Sunucuya yükleme ve kayıt gerekmez."
+    },
+    "spoji-pdf": {
+      "title": "PDF dosyalarını birleştir | BH Konver",
+      "description": "Birden fazla PDF belgesini hızlı ve gizli şekilde tek dosyada birleştirin."
+    },
+    "kompresuj-pdf": {
+      "title": "PDF sıkıştır — dosya boyutunu küçült | BH Konver",
+      "description": "Kaliteyi koruyarak PDF boyutunu küçültün. E-posta ve yüklemeler için hızlı sıkıştırma."
+    },
+    "vodeni-zig": {
+      "title": "PDF'e filigran ekle | BH Konver",
+      "description": "PDF belgelerinize filigran ekleyin ve dosyalarınızı koruyun. Basit, hızlı ve güvenli."
+    },
+    "pravni-dokumenti": {
+      "title": "BiH için hukuki belgeler ve beyanlar | BH Konver",
+      "description": "FBiH, Republika Srpska ve Brčko Distrikt için onaylı beyan ve form oluşturun."
+    },
+    "html-u-word": {
+      "title": "HTML'den Word (DOCX) dönüştürücü | BH Konver",
+      "description": "HTML sayfalarını veya kodu düzenli bir Word belgesine dönüştürün. Ücretsiz ve hızlı."
+    },
+    "html-u-pdf": {
+      "title": "HTML'den PDF dönüştürücü | BH Konver",
+      "description": "HTML içeriğini baskıya hazır PDF belgesine dönüştürün. Güvenli ve hızlı."
+    }
   }
 }

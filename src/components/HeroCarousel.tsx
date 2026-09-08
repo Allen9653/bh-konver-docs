@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 
 import bijeljina from "@/assets/cities/bijeljina.png.asset.json";
 import brcko from "@/assets/cities/brcko.png.asset.json";
-import olovo from "@/assets/cities/olovo.png.asset.json";
+import smetovi from "@/assets/cities/smetovi.png.asset.json";
 import sarajevo from "@/assets/cities/sarajevo.png.asset.json";
 import trebinje from "@/assets/cities/trebinje.png.asset.json";
 import tuzla from "@/assets/cities/tuzla.png.asset.json";
@@ -31,7 +31,7 @@ const slides = [
   { src: bijeljina.url, city: "Bijeljina", labelTone: "dark" },
   { src: brcko.url, city: "Brčko", labelTone: "dark" },
   { src: trebinje.url, city: "Trebinje", labelTone: "dark" },
-  { src: olovo.url, city: "Olovo", labelTone: "dark" },
+  { src: smetovi.url, city: "Smetovi", labelTone: "dark" },
 ] satisfies CitySlide[];
 
 type HeroCarouselProps = {

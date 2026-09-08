@@ -916,5 +916,35 @@
       "format": "Choose the output format",
       "download": "Download the result"
     }
+  },
+  "toolSeo": {
+    "podijeli-pdf": {
+      "title": "Split PDF online — free and secure | BH Konver",
+      "description": "Split a PDF into single pages right in your browser. No uploads to a server, no sign-up required."
+    },
+    "spoji-pdf": {
+      "title": "Merge PDF files online | BH Konver",
+      "description": "Combine multiple PDF documents into one file quickly and privately, straight in your browser."
+    },
+    "kompresuj-pdf": {
+      "title": "Compress PDF — reduce file size | BH Konver",
+      "description": "Reduce PDF file size while keeping quality. Fast, private compression for email and uploads."
+    },
+    "vodeni-zig": {
+      "title": "Add watermark to PDF | BH Konver",
+      "description": "Add a watermark to your PDF documents and protect your files. Simple, fast and secure."
+    },
+    "pravni-dokumenti": {
+      "title": "Legal documents and statements for BiH | BH Konver",
+      "description": "Generate certified statements and legal forms for FBiH, Republika Srpska and Brčko District. Print and notary ready."
+    },
+    "html-u-word": {
+      "title": "HTML to Word (DOCX) converter | BH Konver",
+      "description": "Turn HTML pages or code into a clean Word document. Free, fast, no registration."
+    },
+    "html-u-pdf": {
+      "title": "HTML to PDF converter online | BH Konver",
+      "description": "Convert HTML content into a print-ready PDF document. Secure processing, fast results."
+    }
   }
 }

@@ -47,8 +47,8 @@ const PravniDokumenti = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title={t("pravni.seoTitle")}
-        description={t("pravni.seoDescription")}
+        title={t("toolSeo.pravni-dokumenti.title", { defaultValue: t("pravni.seoTitle") })}
+        description={t("toolSeo.pravni-dokumenti.description", { defaultValue: t("pravni.seoDescription") })}
         path="/pravni-dokumenti"
       />
       <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} loading={authLoading} />
