@@ -85,18 +85,18 @@ const Index = () => {
               <div className="animate-fade-up text-center lg:text-left">
                 <p className={`mb-4 text-sm font-semibold uppercase ${heroTextClass}`}>BH KONVER · BiH</p>
                 <h1 className={`font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl ${heroTextClass}`}>KONVERZIJA DOKUMENATA</h1>
-                <p className={`mt-5 max-w-2xl text-lg font-medium leading-relaxed lg:mx-0 ${heroMutedTextClass}`}>BRZO - SIGURNO - JEFTINO - ANONIMNO</p>
-                <ul className="mx-auto mt-7 grid max-w-xl gap-3 text-left text-sm sm:grid-cols-2 lg:mx-0">
+                <p className={`mt-5 max-w-2xl text-xl font-bold uppercase leading-relaxed sm:text-2xl lg:mx-0 ${heroMutedTextClass}`}>BRZO - SIGURNO - JEFTINO - ANONIMNO</p>
+                <ul className="mx-auto mt-7 grid max-w-xl gap-3 text-left text-base font-bold sm:grid-cols-2 sm:text-lg lg:mx-0">
                   {HERO_BENEFITS.map((benefit) => (
                     <li key={benefit} className={`flex items-center gap-2 ${heroTextClass}`}>
-                      <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" /> {benefit}
+                      <CheckCircle2 className="h-6 w-6 shrink-0 text-accent" /> {benefit}
                     </li>
                   ))}
                 </ul>
-                <div className={`mt-7 flex flex-wrap justify-center gap-5 text-xs lg:justify-start ${heroMutedTextClass}`}>
-                  <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-accent" /> ANONIMNO</span>
-                  <span className="flex items-center gap-1.5"><Zap className="h-4 w-4 text-accent" /> BRZO</span>
-                  <span className="flex items-center gap-1.5"><LockKeyhole className="h-4 w-4 text-accent" /> SIGURNO</span>
+                <div className={`mt-7 flex flex-wrap justify-center gap-5 text-sm font-bold sm:text-base lg:justify-start ${heroMutedTextClass}`}>
+                  <span className="flex items-center gap-1.5"><ShieldCheck className="h-5 w-5 text-accent" /> ANONIMNO</span>
+                  <span className="flex items-center gap-1.5"><Zap className="h-5 w-5 text-accent" /> BRZO</span>
+                  <span className="flex items-center gap-1.5"><LockKeyhole className="h-5 w-5 text-accent" /> SIGURNO</span>
                 </div>
               </div>
               <div className="animate-fade-up-delay-1"><HeroQuickUpload onFileSelected={openUploadedFile} textTone={heroTextTone} /></div>
