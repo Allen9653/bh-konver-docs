@@ -916,5 +916,35 @@
       "format": "Ausgabeformat wählen",
       "download": "Ergebnis herunterladen"
     }
+  },
+  "toolSeo": {
+    "podijeli-pdf": {
+      "title": "PDF online teilen — kostenlos und sicher | BH Konver",
+      "description": "Teilen Sie PDF-Dateien direkt im Browser in einzelne Seiten. Kein Upload, keine Registrierung."
+    },
+    "spoji-pdf": {
+      "title": "PDF-Dateien online zusammenfügen | BH Konver",
+      "description": "Fügen Sie mehrere PDF-Dokumente schnell und privat zu einer Datei zusammen."
+    },
+    "kompresuj-pdf": {
+      "title": "PDF komprimieren — Dateigröße reduzieren | BH Konver",
+      "description": "Reduzieren Sie die PDF-Größe bei guter Qualität. Schnell und datenschutzfreundlich."
+    },
+    "vodeni-zig": {
+      "title": "Wasserzeichen im PDF hinzufügen | BH Konver",
+      "description": "Fügen Sie Ihren PDF-Dokumenten ein Wasserzeichen hinzu. Einfach, schnell und sicher."
+    },
+    "pravni-dokumenti": {
+      "title": "Rechtsdokumente und Erklärungen für BiH | BH Konver",
+      "description": "Erstellen Sie beglaubigte Erklärungen und Formulare für FBiH, Republika Srpska und Brčko Distrikt."
+    },
+    "html-u-word": {
+      "title": "HTML in Word (DOCX) umwandeln | BH Konver",
+      "description": "Verwandeln Sie HTML-Seiten oder Code in ein sauberes Word-Dokument. Kostenlos und schnell."
+    },
+    "html-u-pdf": {
+      "title": "HTML in PDF umwandeln | BH Konver",
+      "description": "Konvertieren Sie HTML-Inhalte in ein druckfertiges PDF-Dokument. Sicher und schnell."
+    }
   }
 }
