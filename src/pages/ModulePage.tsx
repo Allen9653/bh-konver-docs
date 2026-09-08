@@ -64,7 +64,11 @@ const ModulePage = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <SEO title={`${title} | BH Konver`} description={t(config.descriptionKey)} path={`/modul/${moduleSlug}`} />
+      <SEO
+        title={t(`toolSeo.${moduleSlug}.title`, { defaultValue: `${title} | BH Konver` })}
+        description={t(`toolSeo.${moduleSlug}.description`, { defaultValue: t(config.descriptionKey) })}
+        path={`/modul/${moduleSlug}`}
+      />
       <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} loading={loading} />
       <main className="flex-1">
         <section className="border-b border-border bg-primary py-10 text-primary-foreground">
