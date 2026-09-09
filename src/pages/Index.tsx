@@ -8,6 +8,7 @@ import { HeroCarousel } from "@/components/HeroCarousel";
 import { HeroQuickUpload } from "@/components/HeroQuickUpload";
 import { HomeModuleGrid } from "@/components/HomeModuleGrid";
 import { ConversionShowcase } from "@/components/ConversionShowcase";
+import { HomeLocalUseCases } from "@/components/HomeLocalUseCases";
 import { SEO } from "@/components/SEO";
 import { LazyRenderOnView } from "@/components/LazyRenderOnView";
 import { FreemiumPaywallModal } from "@/components/free-tools/FreemiumPaywallModal";
