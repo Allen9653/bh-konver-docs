@@ -111,6 +111,8 @@ const Index = () => {
           <div className="container mx-auto max-w-5xl px-4"><ConversionShowcase /></div>
         </section>
 
+        <HomeLocalUseCases />
+
         <section id="pricing" className="container mx-auto max-w-5xl px-4 py-14">
           <LazyRenderOnView fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
             <Suspense fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
