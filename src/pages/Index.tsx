@@ -8,6 +8,7 @@ import { HeroCarousel } from "@/components/HeroCarousel";
 import { HeroQuickUpload } from "@/components/HeroQuickUpload";
 import { HomeModuleGrid } from "@/components/HomeModuleGrid";
 import { ConversionShowcase } from "@/components/ConversionShowcase";
+import { HomeLocalUseCases } from "@/components/HomeLocalUseCases";
 import { SEO } from "@/components/SEO";
 import { LazyRenderOnView } from "@/components/LazyRenderOnView";
 import { FreemiumPaywallModal } from "@/components/free-tools/FreemiumPaywallModal";
@@ -109,6 +110,8 @@ const Index = () => {
         <section className="border-y border-border bg-muted/35 py-14">
           <div className="container mx-auto max-w-5xl px-4"><ConversionShowcase /></div>
         </section>
+
+        <HomeLocalUseCases />
 
         <section id="pricing" className="container mx-auto max-w-5xl px-4 py-14">
           <LazyRenderOnView fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
