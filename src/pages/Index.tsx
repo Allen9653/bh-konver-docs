@@ -118,7 +118,7 @@ const Index = () => {
         <section id="pricing" className="container mx-auto max-w-5xl px-4 py-14">
           <LazyRenderOnView fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
             <Suspense fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
-              <PricingSection onSelectPlan={(tier) => { setSelectedPlanId(tier.id); setPaymentModalOpen(true); }} />
+              <PricingSection onSelectPlan={(tier) => { trackSubscriptionSelect({ planId: tier.id, price: parseFloat(tier.price) }); setSelectedPlanId(tier.id); setPaymentModalOpen(true); }} />
             </Suspense>
           </LazyRenderOnView>
         </section>
