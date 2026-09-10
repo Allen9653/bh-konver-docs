@@ -369,7 +369,7 @@ const History = () => {
                               variant="ghost"
                               size="icon"
                               aria-label={t("history.downloadConversion", { name: conv.original_filename })}
-                              onClick={() => handleDownload(conv.converted_url!, `${conv.original_filename.replace(/\.[^.]+$/, "")}.${conv.target_format}`)}
+                              onClick={() => handleDownload(conv.converted_url!, `${conv.original_filename.replace(/\.[^.]+$/, "")}.${conv.target_format}`, "conversion")}
                             >
                               <Download className="w-4 h-4" />
                             </Button>
