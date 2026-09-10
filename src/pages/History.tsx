@@ -19,6 +19,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { Footer } from "@/components/Footer";
 import { DocumentPreviewEnhanced } from "@/components/DocumentPreviewEnhanced";
+import { trackHistoryDownload } from "@/lib/analytics";
 
 interface Document {
   id: string;
@@ -149,7 +150,11 @@ const History = () => {
     return data.signedUrl;
   };
 
-  const handleDownload = async (rawUrl: string, filename: string) => {
+  const handleDownload = async (
+    rawUrl: string,
+    filename: string,
+    source: "document" | "conversion" = "document",
+  ) => {
     const url = await resolveDownloadUrl(rawUrl);
     if (!url) {
       toast({
@@ -161,6 +166,7 @@ const History = () => {
       });
       return;
     }
+    trackHistoryDownload({ source, format: filename.split(".").pop()?.toLowerCase() });
     const link = document.createElement("a");
     link.href = url;
     link.download = filename;
@@ -363,7 +369,7 @@ const History = () => {
                               variant="ghost"
                               size="icon"
                               aria-label={t("history.downloadConversion", { name: conv.original_filename })}
-                              onClick={() => handleDownload(conv.converted_url!, `${conv.original_filename.replace(/\.[^.]+$/, "")}.${conv.target_format}`)}
+                              onClick={() => handleDownload(conv.converted_url!, `${conv.original_filename.replace(/\.[^.]+$/, "")}.${conv.target_format}`, "conversion")}
                             >
                               <Download className="w-4 h-4" />
                             </Button>
