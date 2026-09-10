@@ -16,6 +16,7 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { useFreeQuota } from "@/hooks/useFreeQuota";
 import type { ToolCatalogItem } from "@/lib/toolCatalog";
+import { trackSubscriptionSelect, trackToolCardClick } from "@/lib/analytics";
 
 const PricingSection = lazy(() => import("@/components/PricingSection").then((module) => ({ default: module.PricingSection })));
 const SponsorBanners = lazy(() => import("@/components/SponsorBanners").then((module) => ({ default: module.SponsorBanners })));
@@ -56,6 +57,7 @@ const Index = () => {
 
   const openTool = useCallback((tool: ToolCatalogItem) => {
     const locked = !isPremium && (tool.access === "pro" || (tool.access === "quota" && exhausted));
+    trackToolCardClick({ slug: tool.slug, access: tool.access, locked });
     if (locked) {
       setPaywallOpen(true);
       return;

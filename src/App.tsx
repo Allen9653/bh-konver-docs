@@ -37,6 +37,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <AnalyticsRouteTracker />
         <AppInitializer>
           <Suspense fallback={<div className="min-h-screen bg-background" />}>
             <Routes>
