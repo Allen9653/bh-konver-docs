@@ -1,0 +1,19 @@
+# BH KONVER — robots.txt
+# VAŽNO: jedna zajednička grupa. Ako se doda posebna grupa za Googlebot/Bingbot,
+# ta grupa IGNORIŠE pravila iz "*" grupe, pa se Disallow pravila moraju ponoviti.
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /history
+Disallow: /success
+Disallow: /payment-success
+Disallow: /payment-canceled
+Disallow: /reset-password
+Disallow: /slika-pdf/istorija
+Disallow: /.lovable/
+
+# Google AdSense crawler mora imati pristup svim stranicama koje prikazuju oglase
+User-agent: Mediapartners-Google
+Allow: /
+
+Sitemap: https://www.bh-konver.ba/sitemap.xml

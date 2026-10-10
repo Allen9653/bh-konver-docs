@@ -1,0 +1,26 @@
+# BH KONVER
+
+> Besplatni online konverteri (jedinice, valute, tekst, datumi, ćirilica/latinica) i Premium alati (generatori, kalkulatori, testovi, napredni PDF alati) za korisnike u Bosni i Hercegovini. Većina osnovnih konverzija obrađuje se lokalno u pregledniku.
+
+BH KONVER razvija B&H Assistant d.o.o. (https://www.bh-assistant.ba). Zvanična adresa: https://www.bh-konver.ba
+
+## Besplatni konvertori
+- [Konvertori (hub)](https://www.bh-konver.ba/category/konvertori): jedinice, valute, ćirilica/latinica, Text Case, hidžretski datum, dužina, rimski brojevi, temperatura.
+- [Slika u PDF](https://www.bh-konver.ba/slika-pdf): JPEG/PNG u PDF i PDF u JPEG.
+
+## Dokument i PDF alati (ograničen broj besplatnih probnih konverzija, dalje Premium)
+- [Alati](https://www.bh-konver.ba/alati)
+- [PDF u Word](https://www.bh-konver.ba/alati/pdf-u-word), [Word u PDF](https://www.bh-konver.ba/alati/word-u-pdf), [Excel u PDF](https://www.bh-konver.ba/alati/excel-u-pdf), [PPTX u PDF](https://www.bh-konver.ba/alati/pptx-u-pdf)
+- [Spoji PDF](https://www.bh-konver.ba/alati/spoji-pdf), [Podijeli PDF](https://www.bh-konver.ba/alati/podijeli-pdf)
+- [HTML u Word](https://www.bh-konver.ba/alati/html-u-word), [HTML u PDF](https://www.bh-konver.ba/alati/html-u-pdf)
+
+## Premium
+- [Generatori](https://www.bh-konver.ba/category/generatori): UUID v4, QR kod, SEO slug, CODE128/EAN barkod.
+- [Kalkulatori](https://www.bh-konver.ba/category/kalkulatori): gorivo, PDV 17%, radni staž, potrošnja struje.
+- [Testovi](https://www.bh-konver.ba/category/testovi): opšte znanje o BiH, IQ/logika, saobraćajni test, test ličnosti.
+- [Kompresija PDF](https://www.bh-konver.ba/modul/kompresuj-pdf), [Vodeni žig](https://www.bh-konver.ba/modul/vodeni-zig), [Audio](https://www.bh-konver.ba/modul/audio), [Video](https://www.bh-konver.ba/modul/video)
+
+## Informacije
+- [Podrška](https://www.bh-konver.ba/support)
+- [Politika privatnosti](https://www.bh-konver.ba/privacy)
+- [Uslovi korištenja](https://www.bh-konver.ba/terms)

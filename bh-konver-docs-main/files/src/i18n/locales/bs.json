@@ -1,0 +1,806 @@
+{
+  "hero": {
+    "title": "BH Konver",
+    "mainTitle": "BH KONVER je Vaš digitalni alat za konverziju",
+    "subtitle": "Sveobuhvatni sistem za konverziju fajlova",
+    "version": "Video • Audio • Slike • Dokumenti • GIF • Jedinice",
+    "featuresTitle": "Sve konverzije koje BH Konver nudi:"
+  },
+  "modules": {
+    "video": {
+      "name": "Video Converter",
+      "description": "MP4→MP3, MOV→MP4, Video→GIF"
+    },
+    "audio": {
+      "name": "Audio Converter",
+      "description": "MP3→OGG, MP4→MP3, Audio formati"
+    },
+    "image": {
+      "name": "Image Converter",
+      "description": "WEBP→PNG, HEIC→JPG, PNG→SVG"
+    },
+    "document": {
+      "name": "PDF & Dokumenti",
+      "description": "PDF→Word, PDF→JPG, DOCX→PDF"
+    },
+    "gif": {
+      "name": "GIF Converter",
+      "description": "Video→GIF, GIF→MP4, GIF→APNG"
+    },
+    "pdf-tools": {
+      "name": "PDF Alati",
+      "description": "Vodeni žig, Rotiraj, Kompresuj, Podijeli, Spoji"
+    },
+    "unit": {
+      "name": "Unit Converter",
+      "description": "cm↔inch, kg↔lbs, °C↔°F"
+    }
+  },
+  "unitConverter": {
+    "title": "Konverter jedinica",
+    "selectConversion": "Izaberite vrstu konverzije",
+    "inputValue": "Unesite vrijednost",
+    "result": "Rezultat",
+    "conversions": {
+      "cm_to_inch": "Centimetri → Inči",
+      "inch_to_cm": "Inči → Centimetri",
+      "kg_to_lbs": "Kilogrami → Funte",
+      "lbs_to_kg": "Funte → Kilogrami",
+      "celsius_to_fahrenheit": "Celzijus → Farenhajt",
+      "fahrenheit_to_celsius": "Farenhajt → Celzijus",
+      "c_to_f": "Celzijus → Farenhajt",
+      "f_to_c": "Farenhajt → Celzijus"
+    }
+  },
+  "fileUpload": {
+    "dragDrop": "Povucite i ispustite fajlove ovdje ili",
+    "browse": "Pretražite",
+    "supportedFormats": "Podržani formati"
+  },
+  "conversion": {
+    "yourFiles": "Vaši fajlovi",
+    "selectFormat": "Izaberite format",
+    "convert": "Konvertuj",
+    "download": "Preuzmi",
+    "remove": "Ukloni",
+    "converting": "Konvertujem...",
+    "success": "Uspješno konvertovano!",
+    "error": "Greška pri konverziji"
+  },
+  "pricing": {
+    "title": "Tarife",
+    "subtitle": "Izaberite plan koji odgovara vašim potrebama",
+    "popular": "Najpopularnije",
+    "selectButton": "Odaberi plan",
+    "day": {
+      "title": "24 sata",
+      "description": "Idealno za brze projekte",
+      "duration": "24h pristup",
+      "feature1": "Neograničene konverzije 24h",
+      "feature2": "Svi formati dostupni",
+      "feature3": "Brzo procesiranje"
+    },
+    "twoDay": {
+      "title": "48 sati",
+      "description": "Najpopularniji izbor",
+      "duration": "48h pristup",
+      "feature1": "Neograničene konverzije 48h",
+      "feature2": "Svi formati dostupni",
+      "feature3": "Bez ograničenja veličine",
+      "feature4": "Prioritetna podrška"
+    },
+    "monthly": {
+      "title": "Mjesečna pretplata",
+      "description": "Najbolja vrijednost za redovne korisnike",
+      "duration": "1 mjesec",
+      "feature1": "Neograničene konverzije 30 dana",
+      "feature2": "Svi formati i PDF alati",
+      "feature3": "Bez ograničenja veličine",
+      "feature4": "VIP podrška 24/7",
+      "feature5": "API pristup"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 BH Konver",
+    "developed": "Razvijeno u Bosni i Hercegovini, Zenica 72 000",
+    "ownership": "Vlasništvo B&H Assistant",
+    "motto": "Spajamo Kulture Stvaramo Šanse",
+    "privacy": "Privatnost",
+    "terms": "Uslovi korištenja",
+    "support": "Podrška"
+  },
+  "common": {
+    "back": "Nazad"
+  },
+  "privacy": {
+    "title": "Privatnost",
+    "description": "BH Konver poštuje vašu privatnost. Aplikacija ne prikuplja niti pohranjuje lične podatke osim onih koje korisnik dobrovoljno unese radi korištenja funkcionalnosti. Svi podaci se koriste isključivo za prikaz javno dostupnih obrazaca i formulara sa zvaničnih web stranica institucija u BiH. Korištenjem aplikacije prihvatate da se vaši podaci neće biti prodavani, dijeljeni ili zloupotrebljeni.",
+    "businessPolicy": {
+      "title": "Politika privatnosti",
+      "description": "BH Konver poštuje vašu privatnost. Aplikacija ne prikuplja niti pohranjuje lične podatke osim onih koje korisnik dobrovoljno unese radi korištenja funkcionalnosti. Svi podaci se koriste isključivo za prikaz javno dostupnih obrazaca i formulara sa zvaničnih web stranica institucija u BiH. Korištenjem aplikacije prihvatate da se vaši podaci neće biti prodavani, dijeljeni ili zloupotrebljeni."
+    },
+    "technology": "Tehničke mjere sigurnosti",
+    "ssl": {
+      "title": "SSL Enkripcija",
+      "description": "Sva komunikacija između korisnika i servera je zaštićena SSL/TLS enkripcijom."
+    },
+    "dataCenters": {
+      "title": "Sigurni data centri",
+      "description": "Koristimo sigurne data centre sa fizičkom zaštitom i redundantnim sistemima."
+    },
+    "monitoring": {
+      "title": "24/7 Nadzor",
+      "description": "Naši sistemi su pod stalnim nadzorom radi brze detekcije i reakcije na sigurnosne prijetnje."
+    },
+    "api": {
+      "title": "Sigurni API",
+      "description": "Svi API pozivi su autentificirani i enkriptirani."
+    },
+    "idps": {
+      "title": "Zaštita od upada",
+      "description": "Koristimo napredne sisteme za detekciju i prevenciju upada."
+    },
+    "backup": {
+      "title": "Sigurnosne kopije",
+      "description": "Redovno pravimo sigurnosne kopije podataka."
+    },
+    "vpn": {
+      "title": "VPN pristup",
+      "description": "Administratorski pristup je zaštićen VPN-om."
+    },
+    "uptime": {
+      "title": "Visoka dostupnost",
+      "description": "Garantujemo visoku dostupnost naših servisa."
+    },
+    "isolation": {
+      "title": "Izolacija podataka",
+      "description": "Podaci korisnika su izolirani i zaštićeni."
+    },
+    "practices": "Sigurnosne prakse",
+    "compliance": {
+      "title": "Usklađenost",
+      "description": "Pridržavamo se svih relevantnih propisa o zaštiti podataka."
+    },
+    "accessControl": {
+      "title": "Kontrola pristupa",
+      "description": "Stroga kontrola pristupa osjetljivim podacima."
+    },
+    "privacyPolicy": {
+      "title": "Politika privatnosti",
+      "description": "Jasna i transparentna politika privatnosti."
+    },
+    "training": {
+      "title": "Obuka osoblja",
+      "description": "Redovna obuka osoblja o sigurnosnim praksama."
+    },
+    "sdlc": {
+      "title": "Sigurni razvoj",
+      "description": "Sigurnosne prakse integrirane u razvoj softvera."
+    },
+    "incident": {
+      "title": "Upravljanje incidentima",
+      "description": "Definisani procesi za upravljanje sigurnosnim incidentima."
+    }
+  },
+  "terms": {
+    "title": "Uslovi korištenja",
+    "intro": "BH Konver je besplatan digitalni alat. Korisnik se obavezuje da aplikaciju koristi isključivo u svrhu pronalaženja javnih obrazaca i formulara. B&H Assistant d.o.o. ne garantuje stalnu dostupnost eksternih URL-ova niti odgovara za sadržaj vanjskih stranica. Zabranjeno je neovlašteno kopiranje, distribucija ili komercijalna zloupotreba aplikacije bez pismenog odobrenja vlasnika.",
+    "eligibility": {
+      "title": "Ko može koristiti uslugu",
+      "description": "Usluga je dostupna svim korisnicima koji prihvataju ove uslove korištenja."
+    },
+    "ownership": {
+      "title": "Vlasništvo i autorska prava",
+      "description": "Sva prava na BH Konver aplikaciju pripadaju B&H Assistant d.o.o. Neovlašteno kopiranje, distribucija ili komercijalna zloupotreba je strogo zabranjena."
+    },
+    "commercial": {
+      "title": "Komercijalna upotreba",
+      "description1": "Za komercijalnu upotrebu potrebno je pismeno odobrenje vlasnika.",
+      "description2": "Kontaktirajte nas za više informacija o komercijalnim licencama."
+    },
+    "dataSecurity": {
+      "title": "Sigurnost podataka",
+      "description": "Poduzimamo sve razumne mjere za zaštitu vaših podataka, ali ne možemo garantovati apsolutnu sigurnost."
+    },
+    "restrictions": {
+      "title": "Ograničenja korištenja",
+      "intro": "Korisnici ne smiju:",
+      "item1": "Koristiti aplikaciju za ilegalne aktivnosti",
+      "item2": "Pokušavati pristupiti zaštićenim dijelovima sistema",
+      "item3": "Preopterećivati servere automatiziranim zahtjevima"
+    },
+    "payments": {
+      "title": "Plaćanja i pretplate",
+      "description": "Sva plaćanja se procesiraju putem sigurnih payment gateway-a. Povrat novca je moguć u skladu sa našom politikom povrata."
+    },
+    "liability": {
+      "title": "Ograničenje odgovornosti",
+      "description": "B&H Assistant d.o.o. ne odgovara za štetu nastalu korištenjem aplikacije ili nemogućnošću pristupa servisu."
+    },
+    "changes": {
+      "title": "Izmjene uslova",
+      "description": "Zadržavamo pravo izmjene ovih uslova. Korisnici će biti obaviješteni o značajnim promjenama."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "description": "Za sva pitanja kontaktirajte nas na:"
+    }
+  },
+  "support": {
+    "title": "Podrška",
+    "description": "Opcija Podrška omogućava korisniku da direktno prijavi kvar ili problem putem e-mail adrese. Svi prijavljeni problemi se evidentiraju i rješavaju u najkraćem mogućem roku.",
+    "contact": {
+      "title": "Kontaktirajte nas",
+      "description": "Za prijavu problema ili pitanja pošaljite email na:"
+    },
+    "report": {
+      "title": "Prijavite problem",
+      "description": "Opišite problem što detaljnije kako bismo vam mogli pomoći. Uključite informacije o korištenom pregledniku, uređaju i koraku koji je doveo do problema."
+    },
+    "response": {
+      "title": "Vrijeme odgovora",
+      "description": "Trudimo se odgovoriti na sve upite u roku od 24-48 sati. Hitni problemi se rješavaju prioritetno."
+    }
+  },
+  "languages": {
+    "bs": "Bosanski",
+    "en": "English",
+    "de": "Deutsch",
+    "tr": "Türkçe"
+  },
+  "scripts": {
+    "latin": "Latinica",
+    "cyrillic": "Ćirilica"
+  },
+  "scriptSelector": {
+    "latin": "Latinica",
+    "cyrillic": "Ćirilica"
+  },
+  "adSpace": {
+    "title": "Vaša reklama ovdje",
+    "description": "Promovišite vaš biznis na BH KONVER",
+    "contact": "Kontakt za zakup:",
+    "benefit1": "Dosegnite hiljade korisnika",
+    "benefit2": "Ciljajte biznis audijenciju",
+    "benefit3": "Fleksibilni paketi oglašavanja",
+    "cta": "Reklamirajte se"
+  },
+  "currencyConverter": {
+    "title": "Konverter valuta (BAM)",
+    "description": "Brza i besplatna konverzija valuta za posjetioce",
+    "amount": "Iznos",
+    "from": "Od valute",
+    "to": "U valutu",
+    "result": "Rezultat",
+    "lastUpdate": "Zadnje ažuriranje",
+    "refreshed": "Tečajna lista ažurirana",
+    "error": "Greška pri učitavanju tečajne liste",
+    "usingCached": "Koriste se keširani podaci",
+    "privacyNotice": "Widget može učitavati resurse od trećih strana. Provjerite našu Privacy/Cookie politiku."
+  },
+  "transparency": {
+    "title": "Transparentnost i Sigurnost",
+    "subtitle": "Vaša privatnost je naš prioritet",
+    "autodelete": {
+      "title": "Automatsko brisanje",
+      "description": "Svi dokumenti se automatski brišu svakog dana u 10:00h"
+    },
+    "noretention": {
+      "title": "Nema zadržavanja",
+      "description": "Ne pohranjujemo vaše dokumente nakon brisanja"
+    },
+    "nosharing": {
+      "title": "Bez dijeljenja",
+      "description": "Nikada ne dijelimo vaše podatke sa trećim stranama"
+    }
+  },
+  "quickActions": {
+    "guestTitle": "Započnite sada",
+    "guestDescription": "Registrujte se za pristup svim konverzijama ili se prijavite ako već imate račun",
+    "register": "Registracija",
+    "login": "Prijava",
+    "upload": "Upload",
+    "history": "Moji dokumenti",
+    "pricing": "Cijene",
+    "support": "Podrška"
+  },
+  "history": {
+    "title": "Moji dokumenti",
+    "documents": "Uploadovani dokumenti",
+    "conversions": "Historija konverzija",
+    "noDocuments": "Nemate uploadovanih dokumenata",
+    "noConversions": "Nemate konverzija",
+    "refresh": "Osvježi",
+    "delete": "Obriši",
+    "completed": "Završeno",
+    "transparencyNotice": "Svi dokumenti se automatski brišu svaki dan u 10:00h radi vaše sigurnosti i privatnosti.",
+    "timeUntilDeletion": "Vrijeme do sljedećeg brisanja",
+    "back": "Nazad na početnu stranicu",
+    "transparencyTitle": "Transparentnost podataka",
+    "transparencyExtra": "BH Konver NE zadržava vaše dokumente. Nikada ne dijelimo vaše podatke sa trećim stranama.",
+    "loadErrorTitle": "Greška",
+    "loadErrorDesc": "Nije moguće učitati podatke.",
+    "deletedTitle": "Uspješno",
+    "deletedDesc": "Dokument je obrisan.",
+    "deleteErrorDesc": "Nije moguće obrisati dokument.",
+    "previewDoc": "Pregledaj dokument {{name}}",
+    "deleteDoc": "Obriši dokument {{name}}",
+    "downloadConversion": "Preuzmi konverziju {{name}}"
+  },
+  "dashboard": {
+    "welcome": "Dobrodošli, {{name}}!",
+    "welcomeDescription": "Spremni ste za konverziju fajlova. Odaberite modul i počnite."
+  },
+  "batch": {
+    "title": "Batch konverzija",
+    "summary": "{{done}} od {{total}} završeno",
+    "queued": "U redu",
+    "processing": "U obradi",
+    "done": "Završeno",
+    "failed": "Greška",
+    "starting": "Pokretanje...",
+    "runAll": "Konvertuj sve",
+    "running": "Konvertujem...",
+    "downloadAll": "Preuzmi sve",
+    "downloadOne": "Preuzmi ovaj fajl",
+    "startOver": "Počni iznova",
+    "removeFile": "Ukloni fajl",
+    "showPreview": "Prikaži pregled",
+    "hidePreview": "Sakrij pregled",
+    "noFormats": "Nema dostupnih ciljnih formata",
+    "completed": "Batch završen",
+    "completedDesc": "Sve konverzije su gotove. Preuzmite fajlove ispod.",
+    "itemsList": "Fajlovi u batch-u",
+    "cancel": "Otkaži",
+    "cancelled": "Konverzija otkazana",
+    "cancelledDesc": "Preostali fajlovi nisu obrađeni.",
+    "cancelConfirmTitle": "Otkazati konverziju?",
+    "cancelConfirmDesc": "Fajlovi koji su u toku biće zaustavljeni.",
+    "cancelConfirmKeep": "Nastavi",
+    "cancelConfirmStop": "Otkaži konverziju"
+  },
+  "preview": {
+    "title": "Vizualni pregled",
+    "before": "Prije",
+    "after": "Poslije",
+    "loading": "Učitavanje pregleda...",
+    "unavailable": "Pregled nije dostupan",
+    "noPreview": "Nema vizualnog pregleda za ovaj format",
+    "pendingConversion": "Konvertujte da vidite rezultat"
+  },
+  "formatDetection": {
+    "detecting": "Detekcija formata...",
+    "detected": "Detektovano",
+    "mismatchWarning": "Ekstenzija fajla ne odgovara stvarnom sadržaju. Konverzija će koristiti detektovani format."
+  },
+  "freeTools": {
+    "unsupportedFormat": "Nepodržan format. Dozvoljeno samo: {{formats}}",
+    "fileTooLarge": "Datoteka je prevelika ({{size}} MB). Maksimalno dozvoljeno: {{limit}} MB. Pokušajte kompresovati datoteku ili nadogradite na Premium.",
+    "serverBusy": "Server je trenutno zauzet, pokušajte ponovo za trenutak.",
+    "uploadBlocked": "Upload blokiran"
+  },
+  "auth": {
+    "signOut": "Odjava",
+    "signedOut": "Uspješno ste se odjavili"
+  },
+  "alati": {
+    "seoTitle": "Besplatni Alati — PDF, Word, Excel, Ćirilica | BH Konver",
+    "seoDescription": "Besplatni online alati: jedinice i valute bez limita, do 2 besplatne high-quality konverzije dokumenata, premium pristup za neograničeno.",
+    "badgeFreemium": "Freemium",
+    "badgeNoRegistration": "Bez registracije",
+    "badgePrivate": "Privatno",
+    "heroTitlePrefix": "Besplatni",
+    "heroTitleAccent": "Alati",
+    "heroSubtitle": "Jedinice i valute — uvijek besplatno i bez limita. Konverzija dokumenata u vrhunskom kvalitetu — 2 besplatne, zatim Premium.",
+    "alwaysFree": "Uvijek besplatno",
+    "dailyToolsTitle": "🌍 Svakodnevni alati",
+    "dailyToolsSubtitle": "Neograničeno korištenje — bez registracije, bez limita.",
+    "freeBadge": "∞ Besplatno",
+    "premiumQuality": "Premium kvalitet",
+    "remainingFree": "Preostalo besplatno: {{remaining}}/{{limit}}",
+    "unlimited": "Neograničeno",
+    "viewPackages": "Pogledaj pakete",
+    "docSectionTitle": "📄 Konverzija dokumenata",
+    "docSectionSubtitle": "Vrhunsko očuvanje formata. Besplatno do {{limit}} konverzije, zatim odaberite paket.",
+    "quotaPremium": "Premium · ∞",
+    "quotaFree": "Besplatno {{remaining}}/{{limit}}",
+    "quotaLocked": "Premium",
+    "tools": {
+      "units": {
+        "title": "Konverter jedinica",
+        "description": "Dužina, težina, zapremina, temperatura — trenutna konverzija."
+      },
+      "currency": {
+        "title": "Konverter valuta",
+        "description": "Real-time devizni kursevi za sve glavne svjetske valute."
+      },
+      "script": {
+        "title": "Latinica ↔ Ćirilica",
+        "description": "Trenutna konverzija teksta. Podržava bosanski, srpski i hrvatski."
+      },
+      "pdfToWord": {
+        "title": "PDF → Word",
+        "description": "Tekstualna konverzija — kompleksno formatiranje i tabele mogu biti pojednostavljeni.",
+        "runnerDescription": "Tekstualna konverzija — kompleksno formatiranje i tabele mogu biti pojednostavljeni."
+      },
+      "wordToPdf": {
+        "title": "Word → PDF",
+        "description": "Pretvorite Word (.docx) u PDF uz čuvanje formatiranja.",
+        "runnerDescription": "Pretvorite .docx dokument u PDF (čuva tekst, naslove, italik, bold, liste)."
+      },
+      "imgToPdf": {
+        "title": "Slike → PDF",
+        "description": "Spojite JPG, JPEG i PNG slike u jedan PDF.",
+        "runnerDescription": "Odaberite jednu ili više slika (.jpg, .jpeg, .png) — svaka postaje stranica."
+      },
+      "excelToPdf": {
+        "title": "Excel → PDF",
+        "description": "Pretvorite Excel (.xlsx, .xls) u PDF tabelu.",
+        "runnerDescription": "Pretvorite .xlsx ili .xls u PDF — svaki sheet postaje stranica."
+      },
+      "pptxToPdf": {
+        "title": "PPTX → PDF",
+        "description": "Beta — server-side konverzija PowerPoint prezentacija. Do 3 besplatne dnevno."
+      },
+      "mergePdf": {
+        "title": "Spoji PDF (Merge)",
+        "description": "Spojite više PDF dokumenata u jedan fajl.",
+        "runnerDescription": "Odaberite 2 ili više PDF datoteka — bit će spojeni u jedan PDF."
+      },
+      "splitPdf": {
+        "title": "Razdvoji PDF (Split)",
+        "description": "Razdvojite PDF na pojedinačne stranice (ZIP).",
+        "runnerDescription": "PDF će biti razdvojen u pojedinačne stranice i pakovan u ZIP arhivu."
+      }
+    },
+    "trust": {
+      "privateTitle": "Privatno",
+      "privateText": "Obrada u pretraživaču — fajl ne ide na server kad god je moguće.",
+      "fastTitle": "Brzo",
+      "fastText": "Bez čekanja, bez upload-a za većinu konverzija.",
+      "noRegTitle": "Bez registracije",
+      "noRegText": "Probajte odmah — račun je potreban samo za Premium."
+    },
+    "upsell": {
+      "title": "Premium = neograničena obrada",
+      "text": "24h od 2 BAM · 7 dana · mjesečna pretplata. Batch konverzije + prioritetna obrada."
+    },
+    "html": {
+      "sectionTitle": "HTML konverzije",
+      "sectionSubtitle": "Pretvorite web stranice u dokumente i slike, ili dokumente u čist HTML. Sve se obrađuje lokalno u vašem pregledniku.",
+      "groupATitle": "Grupa A — iz HTML-a",
+      "groupBTitle": "Grupa B — u HTML",
+      "proBadge": "PRO",
+      "htmlToDocx": {
+        "title": "HTML → Word",
+        "description": "Pretvorite HTML stranicu u uređivi Word dokument.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite .docx dokument. Tekstualna konverzija — složeni raspored može biti pojednostavljen."
+      },
+      "htmlToPdf": {
+        "title": "HTML → PDF",
+        "description": "Vjeran PDF ispis HTML stranice sa stilovima.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite PDF sa zadržanim vizuelnim izgledom."
+      },
+      "htmlToJpg": {
+        "title": "HTML → JPG",
+        "description": "Snimak HTML stranice kao JPG slika.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite JPG snimak cijele stranice."
+      },
+      "htmlToPng": {
+        "title": "HTML → PNG",
+        "description": "Snimak HTML stranice kao PNG slika.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite PNG snimak cijele stranice."
+      },
+      "htmlToTxt": {
+        "title": "HTML → TXT",
+        "description": "Izdvojite čist tekst iz HTML stranice.",
+        "runnerDescription": "Učitajte .html fajl i preuzmite čist tekstualni sadržaj."
+      },
+      "docxToHtml": {
+        "title": "Word → HTML",
+        "description": "Pretvorite .docx u čist, semantički HTML.",
+        "runnerDescription": "Učitajte .docx fajl i preuzmite spremnu HTML stranicu."
+      },
+      "pdfToHtml": {
+        "title": "PDF → HTML",
+        "description": "Izdvojite tekst PDF-a u HTML stranicu po stranicama.",
+        "runnerDescription": "Učitajte PDF i preuzmite HTML. Tekstualna konverzija — slike i složeni raspored nisu uključeni."
+      },
+      "textToHtml": {
+        "title": "TXT / Markdown → HTML",
+        "description": "Pretvorite tekst ili Markdown u formatiran HTML.",
+        "runnerDescription": "Učitajte .txt, .md ili .markdown fajl i preuzmite HTML stranicu."
+      }
+    }
+  },
+  "toolRunner": {
+    "back": "Nazad",
+    "freeBadge": "Besplatno",
+    "dropHint": "Prevucite fajl ovdje ili kliknite",
+    "allowed": "Dozvoljeno: {{formats}}",
+    "removeFile": "Ukloni",
+    "processing": "Obrada...",
+    "run": "Pokreni konverziju",
+    "ready": "Vaš fajl je spreman za preuzimanje",
+    "download": "Preuzmi",
+    "newFile": "Novi fajl",
+    "minFiles": "Potrebno najmanje {{n}} fajl(ova)"
+  },
+  "scriptConverter": {
+    "badge": "Besplatno · Real-time",
+    "title": "Latinica ↔ Ćirilica",
+    "description": "Trenutna konverzija pisma za bosanski, srpski i hrvatski jezik. Podržava digrafe: lj → љ, nj → њ, dž → џ.",
+    "latin": "Latinica",
+    "cyrillic": "Ćirilica",
+    "swap": "Zamijeni smjer",
+    "inputLabel": "{{script}} (unos)",
+    "outputLabel": "{{script}} (rezultat)",
+    "placeholderLatin": "Unesite tekst na latinici...",
+    "placeholderCyrillic": "Unesite tekst na ćirilici...",
+    "resultPlaceholder": "Rezultat se prikazuje ovdje...",
+    "copy": "Kopiraj",
+    "copied": "Kopirano!",
+    "download": "Preuzmi .txt"
+  },
+  "pptxTool": {
+    "note": "Beta · Besplatno do 3 konverzije dnevno. Datoteke se ne čuvaju.",
+    "converting": "Konverzija u toku...",
+    "run": "Pokreni konverziju",
+    "downloadPdf": "Preuzmi PDF",
+    "newFile": "Konvertuj novu datoteku"
+  },
+  "paywall": {
+    "title": "Iskoristili ste sve besplatne konverzije",
+    "description": "({{used}}/{{limit}}) — odaberite paket ispod i nastavite s neograničenom konverzijom dokumenata visokog kvaliteta.",
+    "securePayment": "Sigurno plaćanje (PayPal)",
+    "instantActivation": "Trenutna aktivacija",
+    "topFormatting": "Vrhunsko formatiranje",
+    "for": "za {{duration}}",
+    "redirecting": "Preusmjeravanje…",
+    "footnote": "Plaćanje se obrađuje sigurno putem PayPal-a. Aktivacija je trenutna nakon potvrde.",
+    "loginNotice": "Prijavite se kako bismo aktivirali Premium pristup nakon plaćanja.",
+    "checkoutError": "Greška pri pokretanju plaćanja. Pokušajte ponovo.",
+    "popular": "Najpopularnije",
+    "bestValue": "Najbolja vrijednost",
+    "tier24h": {
+      "name": "24-satni pristup",
+      "duration": "24 sata",
+      "cta": "Otključaj na 24h",
+      "f1": "Neograničene konverzije",
+      "f2": "Vrhunsko očuvanje formata",
+      "f3": "Bez reklama"
+    },
+    "tier7d": {
+      "name": "7-dnevni pristup",
+      "duration": "7 dana",
+      "cta": "Otključaj na 7 dana",
+      "f1": "Sve iz 24h paketa",
+      "f2": "Batch obrada (više fajlova)",
+      "f3": "Idealno za studente i projekte"
+    },
+    "tierMonthly": {
+      "name": "Mjesečna pretplata",
+      "duration": "30 dana",
+      "cta": "Pretplati se mjesečno",
+      "f1": "Sve iz nedjeljnog paketa",
+      "f2": "Prioritetna obrada i podrška",
+      "f3": "Audio / video alati"
+    }
+  },
+  "premiumUpsell": {
+    "title": "Dostigli ste besplatni limit",
+    "message": "Iskoristili ste sve besplatne PPTX konverzije za ovaj sat. Nadogradite na Premium za neograničenu obradu, batch konverziju i napredne formate.",
+    "b1": "Neograničene konverzije",
+    "b1text": "— bez limita po satu ili danu.",
+    "b2": "Batch obrada",
+    "b2text": "— više fajlova istovremeno.",
+    "b3": "Prioritetna podrška",
+    "b3text": "i napredni audio/video alati.",
+    "retry": "Ili sačekajte oko {{time}} pa probajte ponovo besplatno.",
+    "viewPackages": "Pogledaj Premium pakete",
+    "later": "Možda kasnije"
+  },
+  "header": {
+    "adminAria": "Otvori admin panel",
+    "historyAria": "Otvori historiju dokumenata"
+  },
+  "slikaPdf": {
+    "seoTitle": "Slika ↔ PDF konverter – BH KONVER",
+    "seoDescription": "Lokalna JPEG/PNG u PDF i PDF u JPEG konverzija u pregledniku. Bez slanja fajlova na server.",
+    "title": "Slika ↔ PDF konverter",
+    "subtitle": "Prevucite fajlove — format se prepoznaje automatski. Sva obrada je lokalna u vašem pregledniku.",
+    "historyLink": "Historija konverzija",
+    "dirImgToPdf": "Slika → PDF",
+    "dirPdfToImg": "PDF → {{format}}",
+    "mixed": "Mješoviti fajlovi",
+    "filesQueued": "{{n}} fajl(ova) u redu",
+    "combine": "Spoji u jedan PDF",
+    "reset": "Poništi",
+    "run": "Pokreni konverziju",
+    "running": "Konvertujem…",
+    "before": "Prije",
+    "after": "Poslije",
+    "pending": "Na čekanju",
+    "remove": "Ukloni",
+    "included": "Uključeno u spojeni PDF",
+    "noResults": "Nema rezultata još",
+    "results": "Rezultati",
+    "resultsCount": "Ukupno {{n}} fajl(ova) spremno za preuzimanje.",
+    "downloadCombined": "Preuzmi spojeni PDF",
+    "downloadZip": "Preuzmi sve (ZIP)",
+    "toastDoneTitle": "Konverzija završena",
+    "toastDoneDesc": "Rezultati su spremni za preuzimanje.",
+    "errUnsupported": "Format nije podržan u ovom alatu.",
+    "errGeneric": "Greška pri konverziji"
+  },
+  "slikaPdfHistory": {
+    "seoTitle": "Historija konverzija – BH KONVER",
+    "seoDescription": "Pregledajte i ponovo preuzmite nedavne Slika ↔ PDF konverzije. Sve je pohranjeno lokalno u vašem pregledniku.",
+    "title": "Historija konverzija",
+    "subtitle": "Do 30 posljednjih Slika ↔ PDF konverzija — sve pohranjeno lokalno u pregledniku.",
+    "back": "Nazad na konverter",
+    "clearAll": "Obriši sve",
+    "emptyPrefix": "Još nema zapisa. Pokrenite konverziju na",
+    "emptyLink": "Slika ↔ PDF",
+    "emptySuffix": "— svaka konverzija se automatski spašava ovdje.",
+    "open": "Otvori",
+    "close": "Zatvori",
+    "before": "Prije",
+    "after": "Poslije",
+    "cleared": "Historija obrisana",
+    "notFound": "Zapis nije pronađen",
+    "resultsCount": "{{n}} rezultat(a)",
+    "dirImg": "Slika → PDF",
+    "dirPdf": "PDF → Slika",
+    "openDetails": "Otvori detalje za {{name}}",
+    "loading": "Učitavanje...",
+    "deleteEntry": "Obriši zapis {{name}}",
+    "downloadFile": "Preuzmi fajl {{name}}"
+  },
+  "docPreview": {
+    "fallbackName": "Dokument",
+    "download": "Preuzmi",
+    "print": "Štampaj",
+    "share": "Podijeli",
+    "email": "Email",
+    "edit": "Uredi",
+    "send": "Pošalji",
+    "emailPlaceholder": "Unesite email adresu",
+    "closeEmail": "Zatvori unos email adrese",
+    "downloadStarted": "Preuzimanje započeto",
+    "downloadStartedDesc": "{{name}} se preuzima...",
+    "linkCopied": "Link kopiran",
+    "linkCopiedDesc": "Link je kopiran u clipboard.",
+    "shareText": "Pogledajte ovaj dokument: {{name}}",
+    "invalidEmail": "Nevažeća email adresa",
+    "invalidEmailDesc": "Molimo unesite validnu email adresu.",
+    "emailSent": "Email poslan",
+    "emailSentDesc": "Dokument je poslan na {{email}}",
+    "errorTitle": "Greška",
+    "emailError": "Nije moguće poslati email. Pokušajte ponovo.",
+    "editTitle": "Uređivanje",
+    "editDesc": "Za uređivanje preuzmite dokument i uredite ga lokalno.",
+    "size": "Veličina",
+    "type": "Tip",
+    "unknown": "Nepoznat",
+    "officeNote": "MS Office dokument - preuzmite za pregled",
+    "noVideo": "Vaš pretraživač ne podržava video.",
+    "noAudio": "Vaš pretraživač ne podržava audio."
+  },
+  "visual": {
+    "heroIllustrationAlt": "Ilustracija konverzije PDF dokumenta u JPEG sliku",
+    "showcaseTitle": "Prije i poslije konverzije",
+    "showcaseSubtitle": "Pogledajte kako vaš dokument izgleda prije i nakon konverzije — obrada je lokalna, u vašem pretraživaču.",
+    "before": "Prije",
+    "after": "Poslije",
+    "source": "Izvorni dokument",
+    "result": "Rezultat konverzije",
+    "upload": "Otpremi",
+    "download": "Preuzmi",
+    "previewLabel": "Pregled",
+    "converting": "Konvertujem…",
+    "done": "Završeno",
+    "pages": "3 stranice",
+    "quality": "Visok kvalitet",
+    "localProcessing": "Lokalna obrada"
+  },
+  "homeHero": {
+    "uploadTitle": "Dodajte svoj fajl",
+    "uploadSubtitle": "Prevucite dokument ovdje ili kliknite za odabir. Obrada se odvija u vašem pretraživaču.",
+    "uploadButton": "Odaberi fajl",
+    "unsupported": "Format fajla nije podržan."
+  },
+  "homeTools": {
+    "eyebrow": "Alati",
+    "open": "Otvori alat",
+    "unlock": "Otključaj PRO",
+    "badges": {
+      "free": "BESPLATNO",
+      "quota": "2 BESPLATNE",
+      "mixed": "BESPLATNO / PRO",
+      "pro": "PRO"
+    },
+    "items": {
+      "imagePdf": {
+        "title": "Slike i PDF",
+        "description": "Konvertujte JPG i PNG u PDF i obrnuto, uz grupnu obradu."
+      },
+      "compressPdf": {
+        "title": "Kompresija PDF-a",
+        "description": "Smanjite veličinu PDF dokumenta bez gubitka čitljivosti."
+      },
+      "watermark": {
+        "title": "Vodeni žig",
+        "description": "Dodajte tekstualni vodeni žig na svaku stranicu PDF-a."
+      },
+      "units": {
+        "title": "Mjerne jedinice i valute",
+        "description": "Pretvorite dužinu, masu, temperaturu i valute — bez registracije."
+      }
+    }
+  },
+  "modulePage": {
+    "notFound": "Alat nije pronađen",
+    "proLockedTitle": "Ovaj alat je dio PRO paketa",
+    "proLockedText": "Aktivirajte 24-satni, 7-dnevni ili mjesečni paket kako biste koristili napredne konverzije.",
+    "steps": {
+      "title": "Kako funkcioniše",
+      "upload": "Dodajte dokument",
+      "format": "Odaberite izlazni format",
+      "download": "Preuzmite rezultat"
+    }
+  },
+  "toolGuide": {
+    "title": "O alatu: {{name}}",
+    "what": "Šta je ovaj alat?",
+    "how": "Kako se koristi?",
+    "benefits": "Prednosti i preporuke BH KONVER-a",
+    "faq": "Česta pitanja"
+  },
+  "toolSeo": {
+    "pdf-u-word": {
+      "title": "PDF u Word (DOCX) konverzija online | BH Konver",
+      "description": "Pretvorite PDF u Word (DOCX) dokument online. Dostupne su besplatne probne konverzije, jednostavno i brzo."
+    },
+    "word-u-pdf": {
+      "title": "Word u PDF konverzija online | BH Konver",
+      "description": "Pretvorite Word dokument (DOCX) u PDF brzo i jednostavno. Dostupne su besplatne probne konverzije."
+    },
+    "excel-u-pdf": {
+      "title": "Excel u PDF konverzija online | BH Konver",
+      "description": "Pretvorite Excel tabelu (XLSX) u PDF spreman za štampu ili slanje. Dostupne su besplatne probne konverzije."
+    },
+    "pptx-u-pdf": {
+      "title": "PowerPoint (PPTX) u PDF konverzija — beta | BH Konver",
+      "description": "Pretvorite PowerPoint prezentaciju u PDF. Alat je u beta fazi, pa rezultat provjerite prije slanja."
+    },
+    "pismo": {
+      "title": "Konverter ćirilice i latinice — besplatno | BH Konver",
+      "description": "Preslovite bosanski, hrvatski ili srpski tekst između ćirilice i latinice uz ispravno rukovanje slovima lj, nj i dž. Besplatno i bez prijave."
+    },
+    "podijeli-pdf": {
+      "title": "Razdvoji PDF online — besplatno i sigurno | BH Konver",
+      "description": "Razdvojite PDF na pojedinačne stranice direktno u pretraživaču. Bez slanja fajlova na server, bez registracije. BH Konver alat za PDF."
+    },
+    "spoji-pdf": {
+      "title": "Spoji PDF dokumente online | BH Konver",
+      "description": "Spojite više PDF dokumenata u jedan fajl brzo i anonimno. Obrada u vašem pretraživaču, bez čuvanja podataka."
+    },
+    "kompresuj-pdf": {
+      "title": "Kompresija PDF-a — smanji veličinu fajla | BH Konver",
+      "description": "Smanjite veličinu PDF dokumenta uz očuvanje kvalitete. Brza i privatna kompresija za slanje e-mailom i upload."
+    },
+    "vodeni-zig": {
+      "title": "Vodeni žig na PDF dokumentu | BH Konver",
+      "description": "Dodajte vodeni žig na PDF dokument i zaštitite svoje datoteke. Jednostavno, brzo i sigurno."
+    },
+    "html-u-word": {
+      "title": "HTML u Word (DOCX) konverzija | BH Konver",
+      "description": "Pretvorite HTML stranicu ili kod u uredan Word dokument. Besplatno, brzo i bez registracije."
+    },
+    "html-u-pdf": {
+      "title": "HTML u PDF konverzija online | BH Konver",
+      "description": "Pretvorite HTML sadržaj u PDF dokument spreman za štampu. Sigurna obrada i brz rezultat."
+    }
+  }
+}

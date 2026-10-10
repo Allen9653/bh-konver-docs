@@ -1,0 +1,2751 @@
+diff --git a/index.html b/index.html
+index fae52b8..8d32b4e 100644
+--- a/index.html
++++ b/index.html
+@@ -5,7 +5,8 @@
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+     <meta name="google-site-verification" content="0A6sgKOhf-VkHAnkrPmtAiMe3maqUPHjJn45_xKd82s" />
+     <title>BH KONVER | Besplatni online konverteri i Premium alati</title>
+-    <meta name="description" content="Besplatni konverteri jedinica, valuta, teksta i datuma dostupni bez prijave. BH KONVER nudi i Premium generatore, kalkulatore i kvizove." />
++    <meta name="description" data-rh="true" content="Besplatni online konverteri jedinica, valuta, teksta i datuma bez prijave. Premium: generatori, kalkulatori, testovi i napredni PDF alati za BiH." />
++    <meta name="robots" data-rh="true" content="index, follow, max-image-preview:large, max-snippet:-1" />
+     <meta name="author" content="B&H Assistant d.o.o." />
+     <meta name="theme-color" content="#1E3A8A" />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+@@ -27,19 +28,23 @@
+     <meta name="apple-mobile-web-app-title" content="BH Konver" />
+     <meta name="mobile-web-app-capable" content="yes" />
+     
+-    <!-- Open Graph -->
+-    <meta property="og:title" content="BH KONVER | Besplatni online konverteri i Premium alati" />
+-    <meta property="og:description" content="Besplatni konverteri bez prijave te Premium generatori, kalkulatori i testovi za korisnike u BiH." />
+-    <meta property="og:type" content="website" />
+-    <meta property="og:image" content="https://www.bh-konver.ba/icon-512.png" />
+-    <meta property="og:url" content="https://www.bh-konver.ba/" />
+-    <meta property="og:site_name" content="BH Konver" />
++    <!-- Open Graph (data-rh="true" => react-helmet-async preuzima ove tagove po ruti, bez duplikata) -->
++    <meta property="og:title" data-rh="true" content="BH KONVER | Besplatni online konverteri i Premium alati" />
++    <meta property="og:description" data-rh="true" content="Besplatni konverteri jedinica, valuta, teksta i datuma bez prijave te Premium generatori, kalkulatori, testovi i PDF alati za korisnike u BiH." />
++    <meta property="og:type" data-rh="true" content="website" />
++    <meta property="og:url" data-rh="true" content="https://www.bh-konver.ba/" />
++    <meta property="og:image" data-rh="true" content="https://www.bh-konver.ba/icon-512.png" />
++    <meta property="og:image:width" content="512" />
++    <meta property="og:image:height" content="512" />
++    <meta property="og:image:alt" content="BH KONVER logo" />
++    <meta property="og:site_name" content="BH KONVER" />
++    <meta property="og:locale" content="bs_BA" />
+ 
+-    <!-- Twitter -->
+-    <meta name="twitter:card" content="summary_large_image" />
+-    <meta name="twitter:title" content="BH KONVER | Besplatni online konverteri i Premium alati" />
+-    <meta name="twitter:description" content="Besplatni konverteri bez prijave te Premium generatori, kalkulatori i testovi za korisnike u BiH." />
+-    <meta name="twitter:image" content="https://www.bh-konver.ba/icon-512.png" />
++    <!-- Twitter (kvadratna ikona 512x512 => "summary"; za summary_large_image treba 1200x630 slika) -->
++    <meta name="twitter:card" data-rh="true" content="summary" />
++    <meta name="twitter:title" data-rh="true" content="BH KONVER | Besplatni online konverteri i Premium alati" />
++    <meta name="twitter:description" data-rh="true" content="Besplatni konverteri jedinica, valuta, teksta i datuma bez prijave te Premium generatori, kalkulatori, testovi i PDF alati za korisnike u BiH." />
++    <meta name="twitter:image" data-rh="true" content="https://www.bh-konver.ba/icon-512.png" />
+ 
+     <script type="application/ld+json">
+       {
+@@ -47,25 +52,48 @@
+         "@graph": [
+           {
+             "@type": "Organization",
+-            "name": "BH Konver",
++            "@id": "https://www.bh-konver.ba/#organization",
++            "name": "BH KONVER",
+             "url": "https://www.bh-konver.ba/",
+             "logo": "https://www.bh-konver.ba/icon-512.png",
+             "email": "info@bh-assistant.ba",
+-            "parentOrganization": { "@type": "Organization", "name": "B&H Assistant d.o.o." }
++            "areaServed": "BA",
++            "contactPoint": {
++              "@type": "ContactPoint",
++              "contactType": "customer support",
++              "email": "podrska@bh-assistant.ba",
++              "availableLanguage": ["bs", "en", "de", "tr"]
++            },
++            "parentOrganization": {
++              "@type": "Organization",
++              "name": "B&H Assistant d.o.o.",
++              "url": "https://www.bh-assistant.ba/"
++            }
+           },
+           {
+             "@type": "WebSite",
+-            "name": "BH Konver",
++            "@id": "https://www.bh-konver.ba/#website",
++            "name": "BH KONVER",
+             "url": "https://www.bh-konver.ba/",
+-            "inLanguage": ["bs", "en", "de", "tr"]
++            "inLanguage": ["bs", "en", "de", "tr"],
++            "publisher": { "@id": "https://www.bh-konver.ba/#organization" }
+           },
+           {
+             "@type": "SoftwareApplication",
+-            "name": "BH Konver",
++            "@id": "https://www.bh-konver.ba/#app",
++            "name": "BH KONVER",
+             "applicationCategory": "UtilitiesApplication",
+             "operatingSystem": "Any",
+-            "description": "Besplatni konverteri jedinica, valuta, teksta i datuma uz Premium generatore, kalkulatore i kvizove. Većina osnovnih konverzija obrađuje se u pregledniku.",
+-            "url": "https://www.bh-konver.ba/"
++            "url": "https://www.bh-konver.ba/",
++            "description": "Besplatni konverteri jedinica, valuta, teksta i datuma bez prijave. Premium pretplata otključava generatore, kalkulatore, testove i napredne PDF alate. Većina osnovnih konverzija obrađuje se u pregledniku.",
++            "inLanguage": ["bs", "en", "de", "tr"],
++            "publisher": { "@id": "https://www.bh-konver.ba/#organization" },
++            "offers": {
++              "@type": "Offer",
++              "price": "0",
++              "priceCurrency": "BAM",
++              "description": "Besplatni konverteri; Premium pretplata za dodatne alate"
++            }
+           }
+         ]
+       }
+diff --git a/public/llms.txt b/public/llms.txt
+index e3bdb97..ad09011 100644
+--- a/public/llms.txt
++++ b/public/llms.txt
+@@ -1,17 +1,26 @@
+-# BH Konver
++# BH KONVER
+ 
+-> Brza i sigurna konverzija PDF, slika, dokumenata, audio i video fajlova. Lokalna obrada u pretraživaču bez slanja na server.
++> Besplatni online konverteri (jedinice, valute, tekst, datumi, ćirilica/latinica) i Premium alati (generatori, kalkulatori, testovi, napredni PDF alati) za korisnike u Bosni i Hercegovini. Većina osnovnih konverzija obrađuje se lokalno u pregledniku.
+ 
+-BH Konver je all-in-one alat za konverziju fajlova razvijen u Bosni i Hercegovini. Podržava PDF ↔ JPEG, dokumente, slike, audio, video, GIF i konverziju valuta i jedinica.
++BH KONVER razvija B&H Assistant d.o.o. (https://www.bh-assistant.ba). Zvanična adresa: https://www.bh-konver.ba
+ 
+-## Pages
++## Besplatni konvertori
++- [Konvertori (hub)](https://www.bh-konver.ba/category/konvertori): jedinice, valute, ćirilica/latinica, Text Case, hidžretski datum, dužina, rimski brojevi, temperatura.
++- [Slika u PDF](https://www.bh-konver.ba/slika-pdf): JPEG/PNG u PDF i PDF u JPEG.
+ 
+-- [Home](/): Glavna stranica sa svim modulima za konverziju.
+-- [Privacy Policy](/privacy): Pravila privatnosti i politika čuvanja podataka.
+-- [Terms](/terms): Uslovi korištenja servisa.
+-- [Support](/support): Korisnička podrška i kontakt.
+-- [Sign in](/auth): Prijava i registracija korisnika.
++## Dokument i PDF alati (ograničen broj besplatnih probnih konverzija, dalje Premium)
++- [Alati](https://www.bh-konver.ba/alati)
++- [PDF u Word](https://www.bh-konver.ba/alati/pdf-u-word), [Word u PDF](https://www.bh-konver.ba/alati/word-u-pdf), [Excel u PDF](https://www.bh-konver.ba/alati/excel-u-pdf), [PPTX u PDF](https://www.bh-konver.ba/alati/pptx-u-pdf)
++- [Spoji PDF](https://www.bh-konver.ba/alati/spoji-pdf), [Podijeli PDF](https://www.bh-konver.ba/alati/podijeli-pdf)
++- [HTML u Word](https://www.bh-konver.ba/alati/html-u-word), [HTML u PDF](https://www.bh-konver.ba/alati/html-u-pdf)
+ 
+-## Optional
++## Premium
++- [Generatori](https://www.bh-konver.ba/category/generatori): UUID v4, QR kod, SEO slug, CODE128/EAN barkod.
++- [Kalkulatori](https://www.bh-konver.ba/category/kalkulatori): gorivo, PDV 17%, radni staž, potrošnja struje.
++- [Testovi](https://www.bh-konver.ba/category/testovi): opšte znanje o BiH, IQ/logika, saobraćajni test, test ličnosti.
++- [Kompresija PDF](https://www.bh-konver.ba/modul/kompresuj-pdf), [Vodeni žig](https://www.bh-konver.ba/modul/vodeni-zig), [Audio](https://www.bh-konver.ba/modul/audio), [Video](https://www.bh-konver.ba/modul/video)
+ 
+-- [Reset password](/reset-password): Obnova zaboravljene lozinke.
++## Informacije
++- [Podrška](https://www.bh-konver.ba/support)
++- [Politika privatnosti](https://www.bh-konver.ba/privacy)
++- [Uslovi korištenja](https://www.bh-konver.ba/terms)
+diff --git a/public/robots.txt b/public/robots.txt
+index 19871e6..43d24bc 100644
+--- a/public/robots.txt
++++ b/public/robots.txt
+@@ -1,16 +1,19 @@
+-User-agent: Googlebot
+-Allow: /
+-
+-User-agent: Bingbot
+-Allow: /
+-
+-User-agent: Twitterbot
+-Allow: /
+-
+-User-agent: facebookexternalhit
++# BH KONVER — robots.txt
++# VAŽNO: jedna zajednička grupa. Ako se doda posebna grupa za Googlebot/Bingbot,
++# ta grupa IGNORIŠE pravila iz "*" grupe, pa se Disallow pravila moraju ponoviti.
++User-agent: *
+ Allow: /
++Disallow: /admin
++Disallow: /history
++Disallow: /success
++Disallow: /payment-success
++Disallow: /payment-canceled
++Disallow: /reset-password
++Disallow: /slika-pdf/istorija
++Disallow: /.lovable/
+ 
+-User-agent: *
++# Google AdSense crawler mora imati pristup svim stranicama koje prikazuju oglase
++User-agent: Mediapartners-Google
+ Allow: /
+ 
+ Sitemap: https://www.bh-konver.ba/sitemap.xml
+diff --git a/public/sitemap.xml b/public/sitemap.xml
+index 5e71037..add2b40 100644
+--- a/public/sitemap.xml
++++ b/public/sitemap.xml
+@@ -2,112 +2,260 @@
+ <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+     <loc>https://www.bh-konver.ba/</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>1.0</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/category/konvertori</loc>
+-    <changefreq>monthly</changefreq>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>weekly</changefreq>
+     <priority>0.9</priority>
+   </url>
+   <url>
+-    <loc>https://www.bh-konver.ba/alati</loc>
++    <loc>https://www.bh-konver.ba/category/konvertori?tab=currency</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+-    <priority>0.9</priority>
++    <priority>0.8</priority>
+   </url>
+   <url>
+-    <loc>https://www.bh-konver.ba/alati/podijeli-pdf</loc>
+-    <changefreq>weekly</changefreq>
++    <loc>https://www.bh-konver.ba/category/konvertori?tab=script</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
+     <priority>0.8</priority>
+   </url>
+   <url>
+-    <loc>https://www.bh-konver.ba/alati/spoji-pdf</loc>
++    <loc>https://www.bh-konver.ba/category/konvertori?tab=case</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/category/konvertori?tab=hijri</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/category/konvertori?tab=length</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/category/konvertori?tab=roman</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.6</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/category/konvertori?tab=temperature</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/alati</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+-    <priority>0.8</priority>
++    <priority>0.9</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/alati/pdf-u-word</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>0.8</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/alati/word-u-pdf</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>0.8</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/alati/excel-u-pdf</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>0.8</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/alati/pptx-u-pdf</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>0.7</priority>
+   </url>
++  <url>
++    <loc>https://www.bh-konver.ba/alati/spoji-pdf</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>weekly</changefreq>
++    <priority>0.8</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/alati/podijeli-pdf</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>weekly</changefreq>
++    <priority>0.8</priority>
++  </url>
+   <url>
+     <loc>https://www.bh-konver.ba/alati/html-u-word</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>0.8</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/alati/html-u-pdf</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>0.8</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/alati/pismo</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>monthly</changefreq>
+     <priority>0.7</priority>
+   </url>
++  <url>
++    <loc>https://www.bh-konver.ba/slika-pdf</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>weekly</changefreq>
++    <priority>0.9</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/modul/jedinice</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.6</priority>
++  </url>
+   <url>
+     <loc>https://www.bh-konver.ba/modul/kompresuj-pdf</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>0.8</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/modul/vodeni-zig</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>0.8</priority>
+   </url>
+   <url>
+-    <loc>https://www.bh-konver.ba/modul/jedinice</loc>
++    <loc>https://www.bh-konver.ba/modul/audio</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>monthly</changefreq>
+     <priority>0.6</priority>
+   </url>
+   <url>
+-    <loc>https://www.bh-konver.ba/modul/audio</loc>
++    <loc>https://www.bh-konver.ba/modul/video</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>monthly</changefreq>
+     <priority>0.6</priority>
+   </url>
+   <url>
+-    <loc>https://www.bh-konver.ba/modul/video</loc>
++    <loc>https://www.bh-konver.ba/category/generatori</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>monthly</changefreq>
+-    <priority>0.6</priority>
++    <priority>0.8</priority>
+   </url>
+   <url>
+-    <loc>https://www.bh-konver.ba/slika-pdf</loc>
+-    <changefreq>weekly</changefreq>
+-    <priority>0.9</priority>
++    <loc>https://www.bh-konver.ba/category/generatori?tab=qr</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/category/generatori?tab=slug</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/category/generatori?tab=barcode</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/category/kalkulatori</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.8</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/kalkulatori/gorivo</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
+   </url>
+   <url>
+-    <loc>https://www.bh-konver.ba/auth</loc>
++    <loc>https://www.bh-konver.ba/kalkulatori/pdv</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>monthly</changefreq>
+-    <priority>0.5</priority>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/kalkulatori/staz</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/kalkulatori/struja</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/category/testovi</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.8</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/testovi/opste-znanje</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/testovi/logika</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/testovi/saobracajni</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/testovi/licnost</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.7</priority>
++  </url>
++  <url>
++    <loc>https://www.bh-konver.ba/support</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>monthly</changefreq>
++    <priority>0.4</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/privacy</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>yearly</changefreq>
+     <priority>0.3</priority>
+   </url>
+   <url>
+     <loc>https://www.bh-konver.ba/terms</loc>
++    <lastmod>2026-10-10</lastmod>
+     <changefreq>yearly</changefreq>
+     <priority>0.3</priority>
+   </url>
+   <url>
+-    <loc>https://www.bh-konver.ba/support</loc>
+-    <changefreq>monthly</changefreq>
+-    <priority>0.4</priority>
++    <loc>https://www.bh-konver.ba/connect</loc>
++    <lastmod>2026-10-10</lastmod>
++    <changefreq>yearly</changefreq>
++    <priority>0.2</priority>
+   </url>
+ </urlset>
+diff --git a/src/App.tsx b/src/App.tsx
+index e210e50..d3bda52 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -12,7 +12,10 @@ import { Footer } from "@/components/layout/Footer";
+ import { FreemiumPaywallModal } from "@/components/free-tools/FreemiumPaywallModal";
+ import { useAdminAuth } from "@/hooks/useAdminAuth";
+ import { useSubscription } from "@/hooks/useSubscription";
+-import { Crown, LockKeyhole } from "lucide-react";
++import { Crown, LockKeyhole, LogIn } from "lucide-react";
++import { ToolInfoGuide } from "@/components/ToolInfoGuide";
++import { RouteFallback } from "@/components/RouteFallback";
++import { getToolGuide, guideIdForPath } from "@/lib/toolGuides";
+ import { SEO } from "@/components/SEO";
+ import Index from "./pages/Index";
+ 
+@@ -84,6 +87,7 @@ const PREMIUM_PAGE_SEO: Record<string, { title: string; description: string }> =
+   "/category/generatori?tab=barcode": { title: "CODE128 i EAN barcode generator | BH KONVER Premium", description: "Napravite CODE128, EAN-13 i EAN-8 barkodove i izvezite ih kao SVG." },
+   "/category/kalkulatori": { title: "Premium kalkulatori: gorivo, PDV, staž i struja | BH KONVER", description: "Kalkulator goriva, PDV-a, radnog staža i potrošnje električne energije za aktivne Premium korisnike." },
+   "/category/testovi": { title: "Premium testovi i kvizovi | BH KONVER", description: "Interaktivni kviz opšteg znanja, IQ i logički zadaci, saobraćajni test i samoprocjena ličnosti." },
++  "/testovi": { title: "Premium testovi i kvizovi | BH KONVER", description: "Interaktivni kviz opšteg znanja, IQ i logički zadaci, saobraćajni test i samoprocjena ličnosti." },
+   "/kalkulatori/gorivo": { title: "Kalkulator goriva i putnih troškova | BH KONVER", description: "Izračunajte kilometražu, potrošnju goriva i procijenjeni trošak putovanja u KM." },
+   "/kalkulatori/pdv": { title: "PDV kalkulator BiH 17% | BH KONVER", description: "Dodajte PDV na osnovicu ili izdvojite PDV iz ukupnog iznosa uz standardnu stopu od 17%." },
+   "/kalkulatori/staz": { title: "Kalkulator radnog staža | BH KONVER", description: "Izračunajte kalendarsko trajanje radnog staža u godinama, mjesecima i danima." },
+@@ -109,39 +113,64 @@ const PremiumAccessGate = ({
+   const loading = authLoading || subscriptionLoading;
+   const hasPaidAccess = Boolean(user && hasActiveSubscription);
+ 
+-  useEffect(() => {
+-    if (!loading && !hasPaidAccess) setPaywallOpen(true);
+-  }, [loading, hasPaidAccess]);
+-
+   if (loading) {
+-    return <div className="min-h-screen animate-pulse bg-background" aria-label="Provjera Premium pristupa" />;
++    return <RouteFallback label="Provjera Premium pristupa" />;
+   }
+ 
+   if (hasPaidAccess) return children;
+ 
+   const label = category.replace(/^./, (letter) => letter.toLocaleUpperCase());
+-  const canonicalPath = redirectPath.split("?")[0];
++  // Tabovi generatora imaju vlastiti canonical; podrazumijevani tab (uuid) i ostalo ide na osnovnu rutu
++  const canonicalPath = redirectPath === "/category/generatori?tab=uuid"
++    ? "/category/generatori"
++    : PREMIUM_PAGE_SEO[redirectPath] ? redirectPath : redirectPath.split("?")[0];
+   const metadata = PREMIUM_PAGE_SEO[redirectPath] ?? PREMIUM_PAGE_SEO[canonicalPath] ?? {
+     title: `${label} uz Premium | BH KONVER`,
+     description: `Pregledajte ${label.toLocaleLowerCase("bs")} alate BH KONVER-a. Za korištenje je potrebna aktivna plaćena Premium pretplata.`,
+   };
+ 
++  const guideId = guideIdForPath(redirectPath);
++  const guide = getToolGuide(guideId);
++
+   return (
+     <div className="flex min-h-screen flex-col bg-background">
+       <SEO title={metadata.title} description={metadata.description} path={canonicalPath} />
+       <Navbar activeCategory={category} />
+-      <main className="mx-auto flex w-full max-w-4xl flex-1 items-center justify-center px-4 py-12 sm:px-6">
+-        <section className="w-full max-w-xl border-y border-border py-10 text-center sm:py-14">
++      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6 sm:py-14">
++        <section className="mx-auto w-full max-w-2xl rounded-lg border border-border bg-card p-5 text-center shadow-sm sm:p-10">
+           <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg bg-primary/10 text-primary"><LockKeyhole className="h-6 w-6" aria-hidden="true" /></span>
+-          <p className="mt-5 text-xs font-semibold uppercase text-primary">BH KONVER · {label}</p>
+-          <h1 className="mt-2 font-display text-2xl font-bold text-foreground sm:text-3xl">Dostupno uz Premium</h1>
+-          <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-muted-foreground">
++          <p className="mt-5 text-xs font-semibold uppercase text-primary">BH KONVER · {label} · Premium</p>
++          <h1 className="mt-2 font-display text-2xl font-bold text-foreground sm:text-3xl">{guide?.name ?? "Dostupno uz Premium"}</h1>
++          <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-foreground">{metadata.description}</p>
++          {guide?.preview && (
++            <div className="mx-auto mt-6 max-w-lg rounded-md border border-dashed border-border bg-muted/40 p-4 text-left">
++              <p className="text-xs font-semibold uppercase text-muted-foreground">{guide.preview.title}</p>
++              <dl className="mt-3 divide-y divide-border text-sm">
++                {guide.preview.rows.map((row) => (
++                  <div key={row.label} className="flex flex-col gap-1 py-2 sm:flex-row sm:justify-between sm:gap-4">
++                    <dt className="text-muted-foreground">{row.label}</dt>
++                    <dd className="break-words font-semibold text-foreground sm:text-right">{row.value}</dd>
++                  </div>
++                ))}
++              </dl>
++              <p className="mt-3 text-xs leading-5 text-muted-foreground">Ovo je statični primjer. Uz Premium računate vlastite vrijednosti.</p>
++            </div>
++          )}
++          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
++            <button type="button" onClick={() => setPaywallOpen(true)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
++              <Crown className="h-4 w-4" aria-hidden="true" />Pogledaj Premium ponudu
++            </button>
++            {!user && (
++              <Link to="/auth" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-border px-5 text-sm font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
++                <LogIn className="h-4 w-4" aria-hidden="true" />Prijavi se
++              </Link>
++            )}
++          </div>
++          <p className="mx-auto mt-4 max-w-md text-xs leading-5 text-muted-foreground">
+             Generatori, kalkulatori i testovi dostupni su korisnicima s aktivnom plaćenom Premium pretplatom.
+           </p>
+-          <button type="button" onClick={() => setPaywallOpen(true)} className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+-            <Crown className="h-4 w-4" aria-hidden="true" />Pogledaj Premium ponudu
+-          </button>
+         </section>
++        <ToolInfoGuide toolId={guideId} />
+       </main>
+       <Footer activeCategory={category} />
+       <FreemiumPaywallModal
+@@ -233,7 +262,10 @@ const CalculatorPage = () => {
+       />
+       <Navbar activeCategory="KALKULATORI" />
+       <main className="mx-auto flex w-full max-w-7xl flex-1 items-start justify-center px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+-        <Calculator />
++        <div className="w-full">
++          <Calculator />
++          <ToolInfoGuide toolId={`calculator-${calculatorId}`} />
++        </div>
+       </main>
+       <Footer activeCategory="KALKULATORI" />
+     </div>
+@@ -267,6 +299,7 @@ const CategoryLanding = ({
+             </Link>
+           ))}
+         </section>
++        <ToolInfoGuide toolId={`category-${activeCategory.toLocaleLowerCase("bs")}`} />
+       </main>
+       <Footer activeCategory={activeCategory} onNavigate={onNavigate} />
+     </div>
+@@ -296,10 +329,10 @@ const AppRoutes = () => {
+     <>
+       <AnalyticsRouteTracker />
+       <AppInitializer>
+-        <Suspense fallback={<div className="min-h-screen bg-background" />}>
++        <Suspense fallback={<RouteFallback />}>
+           <Routes>
+             <Route path="/" element={<Index />} />
+-            <Route path="/category/generatori" element={<PremiumAccessGate category="GENERATORI" redirectPath="/category/generatori"><GeneratorsHub /></PremiumAccessGate>} />
++            <Route path="/category/generatori" element={<PremiumAccessGate category="GENERATORI" redirectPath={`${location.pathname}${location.search}`}><GeneratorsHub /></PremiumAccessGate>} />
+             <Route path="/category/konvertori" element={<ConvertersHub />} />
+             <Route path="/category/:category" element={<CategoryLanding activeCategory={activeCategory} onNavigate={navigateToCategory} />} />
+             <Route path="/kalkulatori/:calculatorId" element={<PremiumAccessGate category="KALKULATORI" redirectPath={`${location.pathname}${location.search}`}><CalculatorPage /></PremiumAccessGate>} />
+diff --git a/src/components/CurrencyConverter.tsx b/src/components/CurrencyConverter.tsx
+index 89dc55c..d01fc1c 100644
+--- a/src/components/CurrencyConverter.tsx
++++ b/src/components/CurrencyConverter.tsx
+@@ -4,7 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
+ import { Input } from '@/components/ui/input';
+ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+ import { Button } from '@/components/ui/button';
+-import { ArrowLeftRight, RefreshCw } from 'lucide-react';
++import { ArrowLeftRight, Check, Copy, RefreshCw } from 'lucide-react';
++import { Skeleton } from '@/components/ui/skeleton';
++import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+ import { toast } from 'sonner';
+ 
+ interface ExchangeRates {
+@@ -14,10 +16,32 @@ interface ExchangeRates {
+ const CACHE_KEY = 'bh_konver_currency_rates';
+ const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+ 
++const readCache = (): { rates: ExchangeRates; timestamp: number } | null => {
++  try {
++    const raw = localStorage.getItem(CACHE_KEY);
++    if (!raw) return null;
++    const parsed = JSON.parse(raw);
++    const rates = parsed?.data?.rates;
++    const timestamp = Number(parsed?.timestamp);
++    return rates && typeof rates === 'object' && Number.isFinite(timestamp) ? { rates, timestamp } : null;
++  } catch {
++    return null; // oštećen keš ili localStorage nedostupan (npr. privatni mod)
++  }
++};
++
++const writeCache = (rates: ExchangeRates) => {
++  try {
++    localStorage.setItem(CACHE_KEY, JSON.stringify({ data: { rates }, timestamp: Date.now() }));
++  } catch {
++    // keš nije kritičan
++  }
++};
++
+ const popularCurrencies = ['BAM', 'EUR', 'USD', 'GBP', 'CHF', 'RSD', 'HRK', 'TRY'];
+ 
+ export function CurrencyConverter() {
+   const { t } = useTranslation();
++  const { copied, copy } = useCopyToClipboard();
+   const [amount, setAmount] = useState<string>('100');
+   const [fromCurrency, setFromCurrency] = useState<string>('BAM');
+   const [toCurrency, setToCurrency] = useState<string>('EUR');
+@@ -25,60 +49,46 @@ export function CurrencyConverter() {
+   const [allCurrencies, setAllCurrencies] = useState<string[]>(popularCurrencies);
+   const [loading, setLoading] = useState<boolean>(false);
+   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
++  const [failed, setFailed] = useState<boolean>(false);
++
++  const applyRates = (nextRates: ExchangeRates, timestamp: number) => {
++    setRates(nextRates);
++    setAllCurrencies(Object.keys(nextRates).sort());
++    setLastUpdate(new Date(timestamp));
++  };
+ 
+   const fetchRates = async (forceRefresh = false) => {
+     setLoading(true);
++    setFailed(false);
+     try {
+-      // Check cache first
++      // Prvo pokušaj keš (ako nije osvježavanje na zahtjev)
+       if (!forceRefresh) {
+-        const cached = localStorage.getItem(CACHE_KEY);
+-        if (cached) {
+-          const { data, timestamp } = JSON.parse(cached);
+-          const age = Date.now() - timestamp;
+-          if (age < CACHE_DURATION) {
+-            setRates(data.rates);
+-            setAllCurrencies(Object.keys(data.rates).sort());
+-            setLastUpdate(new Date(timestamp));
+-            setLoading(false);
+-            return;
+-          }
++        const cached = readCache();
++        if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
++          applyRates(cached.rates, cached.timestamp);
++          return;
+         }
+       }
+ 
+-      // Fetch from free API (using exchangerate-api.com free tier)
+       const response = await fetch(`https://api.exchangerate-api.com/v4/latest/BAM`);
+-      
+-      if (!response.ok) {
+-        throw new Error('Failed to fetch rates');
+-      }
+-
++      if (!response.ok) throw new Error('Failed to fetch rates');
+       const data = await response.json();
+-      
+-      // Cache the results
+-      localStorage.setItem(CACHE_KEY, JSON.stringify({
+-        data,
+-        timestamp: Date.now()
+-      }));
+-
+-      setRates(data.rates);
+-      setAllCurrencies(Object.keys(data.rates).sort());
+-      setLastUpdate(new Date());
+-      
+-      if (forceRefresh) {
+-        toast.success(t('currencyConverter.refreshed'));
+-      }
++      if (!data?.rates || typeof data.rates !== 'object') throw new Error('Unexpected rates response');
++
++      writeCache(data.rates);
++      applyRates(data.rates, Date.now());
++      if (forceRefresh) toast.success(t('currencyConverter.refreshed'));
+     } catch (error) {
+-      console.error('Error fetching rates:', error);
++      console.warn('Error fetching rates:', error);
+       toast.error(t('currencyConverter.error'));
+-      
+-      // Try to use cached data as fallback
+-      const cached = localStorage.getItem(CACHE_KEY);
++
++      // Rezervno: posljednji sačuvani kursevi (ako postoje)
++      const cached = readCache();
+       if (cached) {
+-        const { data, timestamp } = JSON.parse(cached);
+-        setRates(data.rates);
+-        setAllCurrencies(Object.keys(data.rates).sort());
+-        setLastUpdate(new Date(timestamp));
++        applyRates(cached.rates, cached.timestamp);
+         toast.info(t('currencyConverter.usingCached'));
++      } else {
++        setFailed(true);
+       }
+     } finally {
+       setLoading(false);
+@@ -99,9 +109,11 @@ export function CurrencyConverter() {
+     const inBAM = numAmount / rates[fromCurrency];
+     const result = inBAM * rates[toCurrency];
+     
+-    return result.toFixed(2);
++    return new Intl.NumberFormat('bs-BA', { minimumFractionDigits: 2, maximumFractionDigits: result !== 0 && Math.abs(result) < 1 ? 4 : 2 }).format(result);
+   };
+ 
++  const ratesReady = Object.keys(rates).length > 0;
++
+   const swapCurrencies = () => {
+     setFromCurrency(toCurrency);
+     setToCurrency(fromCurrency);
+@@ -179,11 +191,20 @@ export function CurrencyConverter() {
+         </div>
+ 
+         {/* Result */}
+-        <div className="p-4 bg-muted rounded-lg">
++        <div className="p-4 bg-muted rounded-lg" aria-live="polite">
+           <div className="text-sm text-muted-foreground mb-1">{t('currencyConverter.result')}</div>
+-          <div className="text-3xl font-bold">
+-            {convertAmount()} {toCurrency}
+-          </div>
++          {!ratesReady && loading ? (
++            <Skeleton className="h-9 w-40" aria-label="Učitavanje kurseva" />
++          ) : !ratesReady && failed ? (
++            <p role="alert" className="text-sm text-destructive">Kursevi trenutno nisu dostupni. Provjerite vezu i pokušajte ponovo.</p>
++          ) : (
++            <div className="flex items-center justify-between gap-3">
++              <div className="min-w-0 break-words text-3xl font-bold">{convertAmount()} {toCurrency}</div>
++              <Button variant="ghost" size="icon" className="h-11 w-11 shrink-0" onClick={() => copy(`${convertAmount()} ${toCurrency}`)} aria-label="Kopiraj rezultat">
++                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
++              </Button>
++            </div>
++          )}
+         </div>
+ 
+         {/* Last Update and Refresh */}
+@@ -194,8 +215,10 @@ export function CurrencyConverter() {
+           <Button
+             variant="ghost"
+             size="sm"
++            className="h-10 min-w-10"
+             onClick={() => fetchRates(true)}
+             disabled={loading}
++            aria-label="Osvježi kurseve"
+           >
+             <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+           </Button>
+diff --git a/src/components/HomeModuleGrid.tsx b/src/components/HomeModuleGrid.tsx
+index 2a909b5..c07c5b4 100644
+--- a/src/components/HomeModuleGrid.tsx
++++ b/src/components/HomeModuleGrid.tsx
+@@ -1,7 +1,7 @@
+ import { useState } from "react";
+ import { useTranslation } from "react-i18next";
+ import { useNavigate } from "react-router-dom";
+-import { ArrowRight, Calculator, CalendarDays, CaseSensitive, ClipboardCheck, Coins, Crown, Languages, Lock, MoveHorizontal, Ruler, Sparkles, Thermometer, WholeWord } from "lucide-react";
++import { ArrowRight, Calculator, CalendarDays, CaseSensitive, ClipboardCheck, Coins, Crown, Languages, Lock, MoveHorizontal, Ruler, Search, Sparkles, Thermometer, WholeWord } from "lucide-react";
+ import { Badge } from "@/components/ui/badge";
+ import { Button } from "@/components/ui/button";
+ import { TOOL_CATALOG, type ToolCatalogItem } from "@/lib/toolCatalog";
+diff --git a/src/components/PremiumFooter.tsx b/src/components/PremiumFooter.tsx
+index ea01ed6..e7cfcce 100644
+--- a/src/components/PremiumFooter.tsx
++++ b/src/components/PremiumFooter.tsx
+@@ -12,7 +12,15 @@ export const PremiumFooter = () => {
+           {t('footer.copyright')} · Secure & Private File Conversion
+         </p>
+         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+-          <Link to="/category/generatori" className="hover:text-primary transition-colors">Kategorije alata</Link>
++          <Link to="/category/generatori" className="inline-flex min-h-8 items-center hover:text-primary transition-colors">Generatori</Link>
++          <span className="text-border">·</span>
++          <Link to="/category/konvertori" className="inline-flex min-h-8 items-center hover:text-primary transition-colors">Konvertori</Link>
++          <span className="text-border">·</span>
++          <Link to="/category/kalkulatori" className="inline-flex min-h-8 items-center hover:text-primary transition-colors">Kalkulatori</Link>
++          <span className="text-border">·</span>
++          <Link to="/category/testovi" className="inline-flex min-h-8 items-center hover:text-primary transition-colors">Testovi</Link>
++          <span className="text-border">·</span>
++          <Link to="/alati" className="inline-flex min-h-8 items-center hover:text-primary transition-colors">PDF alati</Link>
+           <span className="text-border">·</span>
+           <Link to="/terms#legal-notice" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Pravne napomene</Link>
+           <span className="text-border">·</span>
+diff --git a/src/components/PremiumHeader.tsx b/src/components/PremiumHeader.tsx
+index 5655439..b11c4f7 100644
+--- a/src/components/PremiumHeader.tsx
++++ b/src/components/PremiumHeader.tsx
+@@ -41,9 +41,9 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut,
+         <div className="flex shrink-0 items-center gap-3">
+           <img src={logo} alt="BH Konver" width={32} height={32} className="h-8 w-8 object-contain" />
+           <div className="hidden sm:block">
+-            <h1 className="text-sm font-bold font-display tracking-tight text-foreground leading-none">
++            <p className="text-sm font-bold font-display tracking-tight text-foreground leading-none">
+               BH <span className="text-primary">KONVER</span>
+-            </h1>
++            </p>
+             <p className="text-[11px] text-muted-foreground tracking-wide">Premium File Suite</p>
+           </div>
+         </div>
+@@ -55,7 +55,7 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut,
+             { label: "KALKULATORI", to: "/category/kalkulatori" },
+             { label: "TESTOVI", to: "/category/testovi" },
+           ].map((item) => (
+-            <Link key={item.to} to={item.to} className="rounded-md px-2 py-2 text-[10px] font-bold text-foreground/70 transition-colors hover:bg-muted hover:text-primary sm:px-2.5 sm:text-xs">
++            <Link key={item.to} to={item.to} className="inline-flex min-h-10 items-center rounded-md px-2 py-2 text-[10px] font-bold text-foreground/70 transition-colors hover:bg-muted hover:text-primary sm:px-2.5 sm:text-xs">
+               {item.label}
+             </Link>
+           ))}
+@@ -72,7 +72,7 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut,
+             <>
+               <span className="text-xs text-muted-foreground hidden md:inline">{user.email}</span>
+               {isAdmin && (
+-                <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="h-8 px-2" aria-label="Otvori admin panel">
++                <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="h-10 w-10 px-2 sm:h-8 sm:w-auto" aria-label="Otvori admin panel">
+                   <Shield className="h-3.5 w-3.5" />
+                 </Button>
+               )}
+@@ -81,14 +81,14 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut,
+                   <Crown className="w-3 h-3" /> PRO
+                 </span>
+               )}
+-              <Button variant="ghost" size="sm" onClick={() => navigate("/history")} className="h-8 px-2" aria-label="Otvori historiju dokumenata">
++              <Button variant="ghost" size="sm" onClick={() => navigate("/history")} className="h-10 w-10 px-2 sm:h-8 sm:w-auto" aria-label="Otvori historiju dokumenata">
+                 <History className="h-3.5 w-3.5" />
+               </Button>
+               <Button
+                 variant="outline"
+                 size="sm"
+                 onClick={handleSignOut}
+-                className="h-8 px-2 sm:px-3 text-xs"
++                className="h-10 px-3 text-xs sm:h-8"
+                 aria-label={t("auth.signOut")}
+               >
+                 <LogOut className="h-3.5 w-3.5 sm:mr-1.5" />
+@@ -97,7 +97,7 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut,
+ 
+             </>
+           ) : (
+-            <Button size="sm" onClick={() => navigate("/auth")} className="h-8 text-xs bg-primary hover:bg-primary/90 text-primary-foreground">
++            <Button size="sm" onClick={() => navigate("/auth")} className="h-10 text-xs bg-primary hover:bg-primary/90 text-primary-foreground sm:h-8">
+               <LogIn className="mr-1 h-3.5 w-3.5" />
+               {t('quickActions.login')}
+             </Button>
+diff --git a/src/components/RouteFallback.tsx b/src/components/RouteFallback.tsx
+new file mode 100644
+index 0000000..2a83ba6
+--- /dev/null
++++ b/src/components/RouteFallback.tsx
+@@ -0,0 +1,23 @@
++import { Skeleton } from "@/components/ui/skeleton";
++
++/** Skeleton prikaz dok se učitava ruta ili provjerava Premium pristup. */
++export const RouteFallback = ({ label = "Učitavanje stranice" }: { label?: string }) => (
++  <div className="flex min-h-screen flex-col bg-background" role="status" aria-live="polite" aria-label={label}>
++    <div className="h-[4.5rem] border-b border-border/70">
++      <div className="mx-auto flex h-full max-w-[90rem] items-center justify-between px-4 sm:px-6 lg:px-8">
++        <Skeleton className="h-9 w-36" />
++        <Skeleton className="hidden h-9 w-72 xl:block" />
++        <Skeleton className="h-10 w-10 xl:hidden" />
++      </div>
++    </div>
++    <div className="mx-auto w-full max-w-4xl flex-1 space-y-4 px-4 py-10 sm:px-6">
++      <Skeleton className="h-8 w-2/3" />
++      <Skeleton className="h-4 w-full" />
++      <Skeleton className="h-4 w-5/6" />
++      <Skeleton className="mt-6 h-64 w-full" />
++    </div>
++    <span className="sr-only">{label}</span>
++  </div>
++);
++
++export default RouteFallback;
+diff --git a/src/components/SEO.tsx b/src/components/SEO.tsx
+index c9d1e23..d42063e 100644
+--- a/src/components/SEO.tsx
++++ b/src/components/SEO.tsx
+@@ -10,15 +10,18 @@ interface SEOProps {
+   image?: string;
+   /** Optional route-level JSON-LD structured data */
+   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
++  /** Stranica ostaje dostupna crawleru, ali se ne indeksira (npr. /auth) */
++  noindex?: boolean;
+ }
+ 
+-export const SEO = ({ title, description, path, image = DEFAULT_OG_IMAGE, jsonLd }: SEOProps) => {
++export const SEO = ({ title, description, path, image = DEFAULT_OG_IMAGE, jsonLd, noindex = false }: SEOProps) => {
+   const url = `${SITE_URL}${path}`;
+   const ogImage = image.startsWith("http") ? image : `${SITE_URL}${image}`;
+   return (
+     <Helmet>
+       <title>{title}</title>
+       <meta name="description" content={description} />
++      {noindex && <meta name="robots" content="noindex, follow" />}
+       <link rel="canonical" href={url} />
+       <meta property="og:title" content={title} />
+       <meta property="og:description" content={description} />
+diff --git a/src/components/ToolInfoGuide.tsx b/src/components/ToolInfoGuide.tsx
+index 9379c91..6add147 100644
+--- a/src/components/ToolInfoGuide.tsx
++++ b/src/components/ToolInfoGuide.tsx
+@@ -1,125 +1,139 @@
+-import React, { useState } from 'react';
+-import { ChevronDown, Info, CheckCircle2, HelpCircle, ShieldCheck } from 'lucide-react';
++import { useId, useMemo } from "react";
++import { Helmet } from "react-helmet-async";
++import { useTranslation } from "react-i18next";
++import { Check, HelpCircle, Info, ListOrdered, ShieldCheck } from "lucide-react";
++import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
++import { getToolGuide, type ToolGuide } from "@/lib/toolGuides";
+ 
+-interface FaqItem {
+-  question: string;
+-  answer: string;
+-}
++type ToolInfoGuideProps = {
++  /** ID iz TOOL_GUIDES, npr. "converter-unit" ili "calculator-pdv" */
++  toolId?: string;
++  className?: string;
++  /**
++   * Kompatibilnost sa ranijom verzijom komponente (commit 5a19a9f): ručno proslijeđeni sadržaj.
++   * Ako je zadat uz `toolId`, ručno proslijeđena polja imaju prednost.
++   */
++  title?: string;
++  description?: string;
++  steps?: string[];
++  benefits?: string[];
++  faqs?: { question: string; answer: string }[];
++};
+ 
+-interface ToolInfoGuideProps {
+-  title: string;
+-  description: string;
+-  steps: string[];
+-  benefits: string[];
+-  faqs: FaqItem[];
+-}
++/**
++ * Edukativni vodič na dnu stranice alata: šta je alat, kako se koristi,
++ * prednosti i česta pitanja. Sadržaj je na bosanskom (src/lib/toolGuides.ts), a svaki ID
++ * se može prevesti u i18n fajlovima pod ključem `toolGuides.<id>`.
++ */
++export const ToolInfoGuide = ({ toolId, className = "", title, description, steps, benefits, faqs }: ToolInfoGuideProps) => {
++  const { t, i18n } = useTranslation();
++  const headingId = useId();
++  const base = getToolGuide(toolId);
++  const lang = i18n.resolvedLanguage || i18n.language;
+ 
+-export const ToolInfoGuide: React.FC<ToolInfoGuideProps> = ({
+-  title,
+-  description,
+-  steps,
+-  benefits,
+-  faqs,
+-}) => {
+-  const [openFaq, setOpenFaq] = useState<number | null>(null);
++  const guide = useMemo<ToolGuide | undefined>(() => {
++    let merged: ToolGuide | undefined = base;
++    if (base && toolId) {
++      const override = i18n.getResource(lang, "translation", `toolGuides.${toolId}`) as Partial<ToolGuide> | undefined;
++      if (override && typeof override === "object") merged = { ...base, ...override };
++    }
++    const hasManual = Boolean(title || description || steps?.length || benefits?.length || faqs?.length);
++    if (!merged && !hasManual) return undefined;
++    return {
++      name: title ?? merged?.name ?? "",
++      what: description ? [description] : merged?.what ?? [],
++      steps: steps ?? merged?.steps ?? [],
++      benefits: benefits ?? merged?.benefits ?? [],
++      faq: faqs ? faqs.map(({ question, answer }) => ({ q: question, a: answer })) : merged?.faq ?? [],
++      preview: merged?.preview,
++    };
++  }, [base, toolId, title, description, steps, benefits, faqs, i18n, lang]);
+ 
+-  const toggleFaq = (index: number) => {
+-    setOpenFaq(openFaq === index ? null : index);
+-  };
++  if (!guide) return null;
++
++  const faqJsonLd = guide.faq.length
++    ? JSON.stringify({
++        "@context": "https://schema.org",
++        "@type": "FAQPage",
++        mainEntity: guide.faq.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
++      })
++    : null;
++
++  const cardClass = "rounded-lg border border-border bg-card p-5 shadow-sm sm:p-6";
++  const cardTitleClass = "flex items-center gap-2.5 font-display text-lg font-bold text-foreground";
++  const iconWrapClass = "flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary";
+ 
+   return (
+-    <div className="mt-12 space-y-8 border-t border-slate-200 pt-8 dark:border-slate-800">
+-      {/* Sekcija 1: O alatu */}
+-      <div className="rounded-xl bg-slate-50 p-6 dark:bg-slate-900/50">
+-        <div className="flex items-center gap-3 mb-3">
+-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-white">
+-            <Info className="h-5 w-5" />
+-          </div>
+-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+-            Šta je {title}?
+-          </h2>
+-        </div>
+-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+-          {description}
+-        </p>
+-      </div>
++    <section aria-labelledby={headingId} className={`mx-auto mt-12 w-full max-w-5xl space-y-5 ${className}`}>
++      {faqJsonLd && (
++        <Helmet>
++          <script type="application/ld+json">{faqJsonLd}</script>
++        </Helmet>
++      )}
++      <h2 id={headingId} className="font-display text-2xl font-bold text-foreground sm:text-3xl">
++        {t("toolGuide.title", { name: guide.name, defaultValue: "O alatu: {{name}}" })}
++      </h2>
+ 
+-      {/* Sekcija 2: Korak po korak uputstvo */}
+-      <div className="rounded-xl bg-slate-50 p-6 dark:bg-slate-900/50">
+-        <div className="flex items-center gap-3 mb-4">
+-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-600 text-white">
+-            <CheckCircle2 className="h-5 w-5" />
++      <div className="grid gap-5 lg:grid-cols-2">
++        <article className={cardClass}>
++          <h3 className={cardTitleClass}>
++            <span className={iconWrapClass}><Info className="h-4 w-4" aria-hidden="true" /></span>
++            {t("toolGuide.what", { defaultValue: "Šta je ovaj alat?" })}
++          </h3>
++          <div className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
++            {guide.what.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+           </div>
+-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+-            Kako se koristi alat?
+-          </h2>
+-        </div>
+-        <ol className="grid gap-3 sm:grid-cols-2">
+-          {steps.map((step, idx) => (
+-            <li key={idx} className="flex items-start gap-3 rounded-lg bg-white p-4 shadow-sm dark:bg-slate-800">
+-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
+-                {idx + 1}
+-              </span>
+-              <span className="text-sm text-slate-700 dark:text-slate-300">{step}</span>
+-            </li>
+-          ))}
+-        </ol>
++        </article>
++
++        <article className={cardClass}>
++          <h3 className={cardTitleClass}>
++            <span className={iconWrapClass}><ShieldCheck className="h-4 w-4" aria-hidden="true" /></span>
++            {t("toolGuide.benefits", { defaultValue: "Prednosti i preporuke BH KONVER-a" })}
++          </h3>
++          <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
++            {guide.benefits.map((benefit) => (
++              <li key={benefit} className="flex items-start gap-2.5">
++                <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
++                <span>{benefit}</span>
++              </li>
++            ))}
++          </ul>
++        </article>
+       </div>
+ 
+-      {/* Sekcija 3: Prednosti i preporuke */}
+-      <div className="rounded-xl bg-slate-50 p-6 dark:bg-slate-900/50">
+-        <div className="flex items-center gap-3 mb-4">
+-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600 text-white">
+-            <ShieldCheck className="h-5 w-5" />
+-          </div>
+-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+-            Zašto odabrati BH KONVER?
+-          </h2>
+-        </div>
+-        <ul className="grid gap-2 sm:grid-cols-2">
+-          {benefits.map((benefit, idx) => (
+-            <li key={idx} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+-              <span className="h-2 w-2 rounded-full bg-indigo-500" />
+-              {benefit}
++      <article className={cardClass}>
++        <h3 className={cardTitleClass}>
++          <span className={iconWrapClass}><ListOrdered className="h-4 w-4" aria-hidden="true" /></span>
++          {t("toolGuide.how", { defaultValue: "Kako se koristi?" })}
++        </h3>
++        <ol className="mt-4 grid gap-3 sm:grid-cols-2">
++          {guide.steps.map((step, index) => (
++            <li key={step} className="flex items-start gap-3 rounded-md bg-muted/50 p-3 text-sm leading-6 text-foreground">
++              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground" aria-hidden="true">{index + 1}</span>
++              <span>{step}</span>
+             </li>
+           ))}
+-        </ul>
+-      </div>
++        </ol>
++      </article>
+ 
+-      {/* Sekcija 4: Česta pitanja (FAQ) */}
+-      {faqs && faqs.length > 0 && (
+-        <div className="rounded-xl bg-slate-50 p-6 dark:bg-slate-900/50">
+-          <div className="flex items-center gap-3 mb-4">
+-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600 text-white">
+-              <HelpCircle className="h-5 w-5" />
+-            </div>
+-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+-              Česta pitanja (FAQ)
+-            </h2>
+-          </div>
+-          <div className="space-y-3">
+-            {faqs.map((faq, idx) => (
+-              <div 
+-                key={idx} 
+-                className="overflow-hidden rounded-lg bg-white shadow-sm dark:bg-slate-800"
+-              >
+-                <button
+-                  onClick={() => toggleFaq(idx)}
+-                  className="flex w-full items-center justify-between p-4 text-left font-medium text-slate-900 dark:text-white"
+-                >
+-                  <span>{faq.question}</span>
+-                  <ChevronDown className={`h-5 w-5 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`} />
+-                </button>
+-                {openFaq === idx && (
+-                  <div className="border-t border-slate-100 p-4 text-sm text-slate-600 dark:border-slate-700 dark:text-slate-300">
+-                    {faq.answer}
+-                  </div>
+-                )}
+-              </div>
++      {guide.faq.length > 0 && (
++        <article className={cardClass}>
++          <h3 className={cardTitleClass}>
++            <span className={iconWrapClass}><HelpCircle className="h-4 w-4" aria-hidden="true" /></span>
++            {t("toolGuide.faq", { defaultValue: "Česta pitanja" })}
++          </h3>
++          <Accordion type="single" collapsible className="mt-2">
++            {guide.faq.map(({ q, a }, index) => (
++              <AccordionItem key={q} value={`faq-${index}`}>
++                <AccordionTrigger className="min-h-12 text-left text-sm font-semibold">{q}</AccordionTrigger>
++                <AccordionContent className="text-sm leading-7 text-muted-foreground">{a}</AccordionContent>
++              </AccordionItem>
+             ))}
+-          </div>
+-        </div>
++          </Accordion>
++        </article>
+       )}
+-    </div>
++    </section>
+   );
+-};
+\ No newline at end of file
++};
++
++export default ToolInfoGuide;
+diff --git a/src/components/converters/ConvertersHub.jsx b/src/components/converters/ConvertersHub.jsx
+index 1bf9d68..b2ca3de 100644
+--- a/src/components/converters/ConvertersHub.jsx
++++ b/src/components/converters/ConvertersHub.jsx
+@@ -3,6 +3,7 @@ import { ArrowLeftRight, CalendarDays, CaseSensitive, Coins, Languages, MoveHori
+ import { Navbar } from "@/components/layout/Navbar";
+ import { Footer } from "@/components/layout/Footer";
+ import { SEO } from "@/components/SEO";
++import { ToolInfoGuide } from "@/components/ToolInfoGuide";
+ import UnitConverter from "@/components/converters/UnitConverter";
+ import CurrencyConverter from "@/components/converters/CurrencyConverter";
+ import CyrillicLatinConverter from "@/components/converters/CyrillicLatinConverter";
+@@ -45,7 +46,7 @@ export default function ConvertersHub() {
+ 
+   return (
+     <div className="flex min-h-screen flex-col bg-background">
+-      <SEO title={metadata.title} description={metadata.description} path="/category/konvertori" jsonLd={{ "@type": "SoftwareApplication", name: metadata.title, applicationCategory: "UtilitiesApplication", operatingSystem: "Any" }} />
++      <SEO title={metadata.title} description={metadata.description} path={active.id === "unit" ? "/category/konvertori" : `/category/konvertori?tab=${active.id}`} jsonLd={{ "@type": "SoftwareApplication", name: metadata.title, applicationCategory: "UtilitiesApplication", operatingSystem: "Any" }} />
+       <Navbar activeCategory="KONVERTORI" />
+       <main className="mx-auto w-full max-w-[90rem] flex-1 px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+         <header className="mb-7 border-b border-border pb-6">
+@@ -57,6 +58,7 @@ export default function ConvertersHub() {
+           {converters.map(({ id, label, icon: Icon }) => <button key={id} type="button" role="tab" id={`converter-tab-${id}`} aria-selected={active.id === id} aria-controls="converter-panel" onClick={() => selectTab(id)} className={`flex min-h-12 items-center justify-center gap-2 rounded-md px-2 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-sm ${active.id === id ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}><Icon className="h-4 w-4 shrink-0" aria-hidden="true" /><span>{label}</span></button>)}
+         </div>
+         <div id="converter-panel" role="tabpanel" aria-labelledby={`converter-tab-${active.id}`}><ActiveConverter /></div>
++        <ToolInfoGuide toolId={`converter-${active.id}`} />
+       </main>
+       <Footer activeCategory="KONVERTORI" />
+     </div>
+diff --git a/src/components/converters/CyrillicLatinConverter.jsx b/src/components/converters/CyrillicLatinConverter.jsx
+index be9dd12..4445b29 100644
+--- a/src/components/converters/CyrillicLatinConverter.jsx
++++ b/src/components/converters/CyrillicLatinConverter.jsx
+@@ -1,38 +1,31 @@
+ import { useState } from "react";
++import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+ import { ArrowLeftRight, Check, Copy, Languages } from "lucide-react";
+ import { cyrillicToLatin, latinToCyrillic } from "@/utils/scriptText";
+ 
+ export default function CyrillicLatinConverter() {
+   const [direction, setDirection] = useState("latin-to-cyrillic");
+   const [input, setInput] = useState("");
+-  const [copied, setCopied] = useState(false);
++  const { copied, copy, reset } = useCopyToClipboard();
+   const output = direction === "latin-to-cyrillic" ? latinToCyrillic(input) : cyrillicToLatin(input);
+   const sourceLabel = direction === "latin-to-cyrillic" ? "Latinica" : "Ćirilica";
+   const targetLabel = direction === "latin-to-cyrillic" ? "Ćirilica" : "Latinica";
+ 
+-  const copyOutput = async () => {
+-    try {
+-      await navigator.clipboard.writeText(output);
+-      setCopied(true);
+-      window.setTimeout(() => setCopied(false), 1800);
+-    } catch {
+-      setCopied(false);
+-    }
+-  };
++  const copyOutput = () => copy(output);
+ 
+   return (
+     <section className="mx-auto w-full max-w-4xl rounded-lg border border-border bg-card p-5 shadow-sm sm:p-8">
+       <header className="mb-6 flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-md bg-sky-500/10 text-sky-700"><Languages className="h-5 w-5" aria-hidden="true" /></span><div><h2 className="font-display text-2xl font-bold text-foreground">Ćirilica / latinica</h2><p className="mt-1 text-sm text-muted-foreground">Preslovite tekst uz podršku za BH i srpska slova.</p></div></header>
+       <div className="mb-5 flex flex-wrap items-center justify-center gap-3 rounded-md bg-muted/60 p-3">
+         <span className="text-sm font-semibold text-foreground">{sourceLabel}</span>
+-        <button type="button" onClick={() => { setDirection((current) => current === "latin-to-cyrillic" ? "cyrillic-to-latin" : "latin-to-cyrillic"); setCopied(false); }} aria-label="Zamijeni smjer konverzije" className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-primary hover:bg-muted"><ArrowLeftRight className="h-4 w-4" /></button>
++        <button type="button" onClick={() => { setDirection((current) => current === "latin-to-cyrillic" ? "cyrillic-to-latin" : "latin-to-cyrillic"); reset(); }} aria-label="Zamijeni smjer konverzije" className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-primary hover:bg-muted"><ArrowLeftRight className="h-4 w-4" /></button>
+         <span className="text-sm font-semibold text-foreground">{targetLabel}</span>
+       </div>
+       <div className="grid gap-4 md:grid-cols-2">
+-        <label className="text-sm font-medium text-foreground">Unos ({sourceLabel})<textarea value={input} onChange={(event) => { setInput(event.target.value); setCopied(false); }} rows={8} placeholder={direction === "latin-to-cyrillic" ? "Unesite tekst na latinici..." : "Unesite tekst na ćirilici..."} className="mt-2 min-h-48 w-full resize-y rounded-md border border-input bg-background px-3 py-2.5 font-mono text-sm outline-none focus:ring-2 focus:ring-ring" /></label>
++        <label className="text-sm font-medium text-foreground">Unos ({sourceLabel})<textarea value={input} onChange={(event) => { setInput(event.target.value); reset(); }} rows={8} placeholder={direction === "latin-to-cyrillic" ? "Unesite tekst na latinici..." : "Unesite tekst na ćirilici..."} className="mt-2 min-h-48 w-full resize-y rounded-md border border-input bg-background px-3 py-2.5 font-mono text-sm outline-none focus:ring-2 focus:ring-ring" /></label>
+         <label className="text-sm font-medium text-foreground">Rezultat ({targetLabel})<textarea readOnly value={output} rows={8} placeholder="Rezultat konverzije..." className="mt-2 min-h-48 w-full resize-y rounded-md border border-border bg-muted/40 px-3 py-2.5 font-mono text-sm outline-none" /></label>
+       </div>
+-      <div className="mt-4 flex justify-end"><button type="button" disabled={!output} onClick={copyOutput} className="inline-flex min-h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-50">{copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}{copied ? "Kopirano" : "Kopiraj rezultat"}</button></div>
++      <div className="mt-4 flex justify-end"><button type="button" disabled={!output} onClick={copyOutput} className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-50">{copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}{copied ? "Kopirano" : "Kopiraj rezultat"}</button></div>
+       <p className="mt-3 text-xs leading-5 text-muted-foreground">Podržani su digrafi lj/lj, nj/nj i dž/dž te slova č, ć, đ, š i ž.</p>
+     </section>
+   );
+diff --git a/src/components/converters/HijriDateConverter.jsx b/src/components/converters/HijriDateConverter.jsx
+index 24df43c..3c29da6 100644
+--- a/src/components/converters/HijriDateConverter.jsx
++++ b/src/components/converters/HijriDateConverter.jsx
+@@ -1,4 +1,4 @@
+-import { useState } from "react";
++import { useMemo, useState } from "react";
+ import { CalendarDays, ArrowLeftRight } from "lucide-react";
+ 
+ const hijriFormatter = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura-nu-latn", {
+@@ -17,6 +17,16 @@ const getHijriParts = (date) => {
+   return { year: Number(parts.year), month: Number(parts.month), day: Number(parts.day) };
+ };
+ 
++const safeHijriParts = (date) => {
++  try {
++    if (Number.isNaN(date.getTime())) return null;
++    const parts = getHijriParts(date);
++    return Number.isFinite(parts.year) && Number.isFinite(parts.month) && Number.isFinite(parts.day) ? parts : null;
++  } catch {
++    return null;
++  }
++};
++
+ const findGregorianDate = (year, month, day) => {
+   if (!Number.isInteger(year) || year < 1 || !Number.isInteger(month) || month < 1 || month > 12 || !Number.isInteger(day) || day < 1 || day > 30) return null;
+   const approximateGregorianYear = Math.floor(year * 0.970224 + 621.5774);
+@@ -37,8 +47,8 @@ export default function HijriDateConverter() {
+   const [hijriMonth, setHijriMonth] = useState(() => String(getHijriParts(new Date()).month));
+   const [hijriDay, setHijriDay] = useState(() => String(getHijriParts(new Date()).day));
+ 
+-  const hijriResult = gregorianDate ? getHijriParts(new Date(`${gregorianDate}T00:00:00Z`)) : null;
+-  const gregorianResult = mode === "to-gregorian" ? findGregorianDate(Number(hijriYear), Number(hijriMonth), Number(hijriDay)) : null;
++  const hijriResult = useMemo(() => (gregorianDate ? safeHijriParts(new Date(`${gregorianDate}T00:00:00Z`)) : null), [gregorianDate]);
++  const gregorianResult = useMemo(() => (mode === "to-gregorian" ? findGregorianDate(Number(hijriYear), Number(hijriMonth), Number(hijriDay)) : null), [mode, hijriYear, hijriMonth, hijriDay]);
+ 
+   return (
+     <section className="mx-auto w-full max-w-3xl rounded-lg border border-border bg-card p-5 shadow-sm sm:p-8">
+@@ -52,7 +62,7 @@ export default function HijriDateConverter() {
+         <label className="text-sm font-medium text-foreground">Mjesec<input type="number" min="1" max="12" value={hijriMonth} onChange={(event) => setHijriMonth(event.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring" /></label>
+         <label className="text-sm font-medium text-foreground">Godina<input type="number" min="1" value={hijriYear} onChange={(event) => setHijriYear(event.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring" /></label>
+       </div>}
+-      <div aria-live="polite" className="mt-5 flex items-start gap-3 rounded-md bg-muted/60 p-4"><ArrowLeftRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><div><p className="text-xs font-semibold uppercase text-muted-foreground">Rezultat</p><p className="mt-1 text-lg font-bold text-primary">{mode === "to-hijri" ? hijriResult ? `${hijriResult.day}.${hijriResult.month}.${hijriResult.year}.` : "Unesite datum" : gregorianResult ?? "Uneseni datum nije validan u Umm al-Qura kalendaru."}</p>{mode === "to-gregorian" && gregorianResult && <p className="mt-1 text-sm text-muted-foreground">{new Intl.DateTimeFormat("bs-BA", { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${gregorianResult}T00:00:00Z`))}</p>}</div></div>
++      <div aria-live="polite" className="mt-5 flex items-start gap-3 rounded-md bg-muted/60 p-4"><ArrowLeftRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><div><p className="text-xs font-semibold uppercase text-muted-foreground">Rezultat</p><p className="mt-1 text-lg font-bold text-primary">{mode === "to-hijri" ? hijriResult ? `${hijriResult.day}.${hijriResult.month}.${hijriResult.year}.` : "Unesite ispravan datum" : gregorianResult ?? "Uneseni datum nije validan u Umm al-Qura kalendaru."}</p>{mode === "to-gregorian" && gregorianResult && <p className="mt-1 text-sm text-muted-foreground">{new Intl.DateTimeFormat("bs-BA", { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${gregorianResult}T00:00:00Z`))}</p>}</div></div>
+       <p className="mt-4 text-xs leading-5 text-muted-foreground">Datumi hidžretskog kalendara mogu se razlikovati za jedan dan zavisno od lokalnog viđenja mlađaka i korištene metode.</p>
+     </section>
+   );
+diff --git a/src/components/converters/RomanNumeralDateConverter.jsx b/src/components/converters/RomanNumeralDateConverter.jsx
+index 5c70a0a..47d5808 100644
+--- a/src/components/converters/RomanNumeralDateConverter.jsx
++++ b/src/components/converters/RomanNumeralDateConverter.jsx
+@@ -33,7 +33,8 @@ const fromRoman = (value) => {
+ const getRomanDate = (date) => {
+   if (!date) return "";
+   const [year, month, day] = date.split("-").map(Number);
+-  return `${toRoman(day)} / ${toRoman(month)} / ${toRoman(year)}`;
++  const parts = [toRoman(day), toRoman(month), toRoman(year)];
++  return parts.every(Boolean) ? parts.join(" / ") : null;
+ };
+ 
+ const parseRomanDate = (value) => {
+@@ -61,7 +62,11 @@ export default function RomanNumeralDateConverter() {
+   let result = "";
+   let invalid = false;
+ 
+-  if (mode === "date-to-roman") result = getRomanDate(date);
++  if (mode === "date-to-roman") {
++    const romanDate = getRomanDate(date);
++    result = romanDate ?? "";
++    invalid = romanDate === null;
++  }
+   if (mode === "roman-to-date" && romanInput.trim()) {
+     result = parseRomanDate(romanInput) ?? "";
+     invalid = !result;
+@@ -83,7 +88,7 @@ export default function RomanNumeralDateConverter() {
+         {modes.map((item) => <button key={item.id} type="button" aria-pressed={mode === item.id} onClick={() => setMode(item.id)} className={`min-h-10 rounded-md border px-2 text-xs font-semibold transition-colors sm:text-sm ${mode === item.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-muted-foreground hover:bg-muted"}`}>{item.label}</button>)}
+       </div>
+       {mode === "date-to-roman" ? <label className="block text-sm font-medium text-foreground">Gregorijanski datum<input type="date" value={date} onChange={(event) => setDate(event.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring" /></label> : mode === "number-to-roman" ? <label className="block text-sm font-medium text-foreground">Broj <span className="text-muted-foreground">(1–3999)</span><input type="number" min="1" max="3999" step="1" value={number} onChange={(event) => setNumber(event.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring" /></label> : <label className="block text-sm font-medium text-foreground">{mode === "roman-to-date" ? "Rimski datum (dan / mjesec / godina)" : "Rimski broj"}<input value={romanInput} onChange={(event) => setRomanInput(event.target.value)} placeholder={mode === "roman-to-date" ? "XIV / III / MMXXVI" : "npr. MMXXVI"} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm uppercase outline-none focus:ring-2 focus:ring-ring" /></label>}
+-      <div aria-live="polite" className="mt-5 flex items-start gap-3 rounded-md bg-muted/60 p-4"><ArrowLeftRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><div className="min-w-0"><p className="text-xs font-semibold uppercase text-muted-foreground">Rezultat</p><output className="mt-1 block break-all font-mono text-lg font-bold text-primary">{result || (invalid ? "Neispravan broj ili datum" : "Rezultat će se prikazati ovdje")}</output></div></div>
++      <div aria-live="polite" className="mt-5 flex items-start gap-3 rounded-md bg-muted/60 p-4"><ArrowLeftRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><div className="min-w-0"><p className="text-xs font-semibold uppercase text-muted-foreground">Rezultat</p><output className="mt-1 block break-all font-mono text-lg font-bold text-primary">{result || (invalid ? "Neispravan unos. Godina i brojevi moraju biti između 1 i 3999." : "Rezultat će se prikazati ovdje")}</output></div></div>
+       <p className="mt-4 text-xs leading-5 text-muted-foreground">Standardni rimski zapis podržava vrijednosti od I do MMMCMXCIX (1–3999).</p>
+     </section>
+   );
+diff --git a/src/components/converters/TextCaseConverter.jsx b/src/components/converters/TextCaseConverter.jsx
+index cb60bf0..f35733d 100644
+--- a/src/components/converters/TextCaseConverter.jsx
++++ b/src/components/converters/TextCaseConverter.jsx
+@@ -1,4 +1,5 @@
+ import { useState } from "react";
++import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+ import { Check, Copy, Type } from "lucide-react";
+ 
+ const capitalizeSentences = (value) => value.toLocaleLowerCase("bs").replace(/(^|[.!?]\s+)([\p{L}])/gu, (match, prefix, letter) => `${prefix}${letter.toLocaleUpperCase("bs")}`);
+@@ -14,30 +15,22 @@ const transforms = [
+ export default function TextCaseConverter() {
+   const [input, setInput] = useState("");
+   const [caseId, setCaseId] = useState("upper");
+-  const [copied, setCopied] = useState(false);
++  const { copied, copy, reset } = useCopyToClipboard();
+   const output = transforms.find((transform) => transform.id === caseId).apply(input);
+ 
+-  const copyOutput = async () => {
+-    try {
+-      await navigator.clipboard.writeText(output);
+-      setCopied(true);
+-      window.setTimeout(() => setCopied(false), 1800);
+-    } catch {
+-      setCopied(false);
+-    }
+-  };
++  const copyOutput = () => copy(output);
+ 
+   return (
+     <section className="mx-auto w-full max-w-4xl rounded-lg border border-border bg-card p-5 shadow-sm sm:p-8">
+       <header className="mb-6 flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-md bg-amber-500/10 text-amber-700"><Type className="h-5 w-5" aria-hidden="true" /></span><div><h2 className="font-display text-2xl font-bold text-foreground">Promjena velikih i malih slova</h2><p className="mt-1 text-sm text-muted-foreground">Primijenite oblikovanje teksta uz očuvanje dijakritičkih znakova.</p></div></header>
+       <div className="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-4" role="group" aria-label="Stil slova">
+-        {transforms.map((transform) => <button key={transform.id} type="button" aria-pressed={caseId === transform.id} onClick={() => { setCaseId(transform.id); setCopied(false); }} className={`min-h-10 rounded-md border px-3 text-sm font-semibold transition-colors ${caseId === transform.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-muted-foreground hover:bg-muted"}`}>{transform.label}</button>)}
++        {transforms.map((transform) => <button key={transform.id} type="button" aria-pressed={caseId === transform.id} onClick={() => { setCaseId(transform.id); reset(); }} className={`min-h-10 rounded-md border px-3 text-sm font-semibold transition-colors ${caseId === transform.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-muted-foreground hover:bg-muted"}`}>{transform.label}</button>)}
+       </div>
+       <div className="grid gap-4 md:grid-cols-2">
+-        <label className="text-sm font-medium text-foreground">Ulazni tekst<textarea value={input} onChange={(event) => { setInput(event.target.value); setCopied(false); }} rows={7} placeholder="Unesite tekst za oblikovanje..." className="mt-2 min-h-44 w-full resize-y rounded-md border border-input bg-background px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring" /></label>
++        <label className="text-sm font-medium text-foreground">Ulazni tekst<textarea value={input} onChange={(event) => { setInput(event.target.value); reset(); }} rows={7} placeholder="Unesite tekst za oblikovanje..." className="mt-2 min-h-44 w-full resize-y rounded-md border border-input bg-background px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring" /></label>
+         <label className="text-sm font-medium text-foreground">Rezultat<textarea readOnly value={output} rows={7} placeholder="Oblikovani tekst..." className="mt-2 min-h-44 w-full resize-y rounded-md border border-border bg-muted/40 px-3 py-2.5 text-sm outline-none" /></label>
+       </div>
+-      <div className="mt-4 flex justify-end"><button type="button" disabled={!output} onClick={copyOutput} className="inline-flex min-h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-50">{copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}{copied ? "Kopirano" : "Kopiraj rezultat"}</button></div>
++      <div className="mt-4 flex justify-end"><button type="button" disabled={!output} onClick={copyOutput} className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-50">{copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}{copied ? "Kopirano" : "Kopiraj rezultat"}</button></div>
+     </section>
+   );
+ }
+diff --git a/src/components/converters/UnitConverter.jsx b/src/components/converters/UnitConverter.jsx
+index 31ec385..9b9551d 100644
+--- a/src/components/converters/UnitConverter.jsx
++++ b/src/components/converters/UnitConverter.jsx
+@@ -51,6 +51,7 @@ const categories = {
+   },
+ };
+ 
++const unitSymbol = (unit) => unit.label.match(/\(([^)]+)\)/)?.[1] ?? unit.id;
+ const formatResult = (value) => new Intl.NumberFormat("bs-BA", { maximumSignificantDigits: 10 }).format(value);
+ 
+ export default function UnitConverter() {
+@@ -84,7 +85,7 @@ export default function UnitConverter() {
+       <div className="grid gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-end">
+         <label className="text-sm font-medium text-foreground">Vrijednost i jedinica<input type="number" value={value} onChange={(event) => setValue(event.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring" /><select aria-label="Početna jedinica" value={from} onChange={(event) => setFrom(event.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring">{currentUnits.map((unit) => <option key={unit.id} value={unit.id}>{unit.label}</option>)}</select></label>
+         <button type="button" onClick={swap} className="inline-flex h-11 w-11 items-center justify-center justify-self-center rounded-md border border-border text-muted-foreground hover:bg-muted" aria-label="Zamijeni jedinice"><ArrowLeftRight className="h-4 w-4" /></button>
+-        <label className="text-sm font-medium text-foreground">Rezultat<select aria-label="Ciljna jedinica" value={to} onChange={(event) => setTo(event.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring">{currentUnits.map((unit) => <option key={unit.id} value={unit.id}>{unit.label}</option>)}</select><output aria-live="polite" className="mt-2 flex h-11 items-center rounded-md bg-muted/60 px-3 text-base font-bold text-primary">{result === null ? "Unesite vrijednost" : `${formatResult(result)} ${target.id}`}</output></label>
++        <label className="text-sm font-medium text-foreground">Rezultat<select aria-label="Ciljna jedinica" value={to} onChange={(event) => setTo(event.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring">{currentUnits.map((unit) => <option key={unit.id} value={unit.id}>{unit.label}</option>)}</select><output aria-live="polite" className="mt-2 flex h-11 items-center rounded-md bg-muted/60 px-3 text-base font-bold text-primary">{result === null ? "Unesite vrijednost" : `${formatResult(result)} ${unitSymbol(target)}`}</output></label>
+       </div>
+     </section>
+   );
+diff --git a/src/components/free-tools/ScriptConverter.tsx b/src/components/free-tools/ScriptConverter.tsx
+index f4a1ac0..729ee9d 100644
+--- a/src/components/free-tools/ScriptConverter.tsx
++++ b/src/components/free-tools/ScriptConverter.tsx
+@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
+ import { ArrowLeft, ArrowRightLeft, Copy, Sparkles, Download } from "lucide-react";
+ import { toast } from "sonner";
+ import { latinToCyrillic, cyrillicToLatin, downloadBlob } from "@/utils/freeTools";
++import { copyTextToClipboard } from "@/hooks/useCopyToClipboard";
+ 
+ export const ScriptConverter = ({ onBack }: { onBack: () => void }) => {
+   const { t } = useTranslation();
+@@ -19,8 +20,9 @@ export const ScriptConverter = ({ onBack }: { onBack: () => void }) => {
+ 
+   const copyOut = async () => {
+     if (!output) return;
+-    await navigator.clipboard.writeText(output);
+-    toast.success(t("scriptConverter.copied"));
++    const ok = await copyTextToClipboard(output);
++    if (ok) toast.success(t("scriptConverter.copied"));
++    else toast.error("Kopiranje nije uspjelo. Označite tekst i kopirajte ga ručno.");
+   };
+ 
+   const downloadTxt = () => {
+diff --git a/src/components/generators/BarcodeGenerator.jsx b/src/components/generators/BarcodeGenerator.jsx
+index cc18e4d..f210f6d 100644
+--- a/src/components/generators/BarcodeGenerator.jsx
++++ b/src/components/generators/BarcodeGenerator.jsx
+@@ -1,6 +1,8 @@
+ import { useEffect, useRef, useState } from "react";
+ import { Barcode, Copy, Download } from "lucide-react";
+ import JsBarcode from "jsbarcode";
++import { toast } from "sonner";
++import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+ 
+ export default function BarcodeGenerator() {
+   const [value, setValue] = useState("");
+@@ -8,6 +10,7 @@ export default function BarcodeGenerator() {
+   const [error, setError] = useState("");
+   const [notice, setNotice] = useState("");
+   const svgRef = useRef(null);
++  const { copy } = useCopyToClipboard();
+ 
+   useEffect(() => {
+     if (!value.trim() || !svgRef.current) {
+@@ -33,12 +36,8 @@ export default function BarcodeGenerator() {
+   }, [value, format]);
+ 
+   const copyValue = async () => {
+-    try {
+-      await navigator.clipboard.writeText(value.trim());
+-      setNotice("Vrijednost barkoda je kopirana.");
+-    } catch {
+-      setNotice("Clipboard nije dostupan u ovom pregledniku.");
+-    }
++    const ok = await copy(value.trim(), { success: "Vrijednost barkoda je kopirana" });
++    setNotice(ok ? "Vrijednost barkoda je kopirana." : "Clipboard nije dostupan u ovom pregledniku.");
+   };
+ 
+   const downloadSvg = () => {
+@@ -51,11 +50,12 @@ export default function BarcodeGenerator() {
+     anchor.download = `bh-konver-barcode-${format.toLowerCase()}.svg`;
+     anchor.click();
+     URL.revokeObjectURL(url);
++    toast.success("Barkod je preuzet kao SVG");
+   };
+ 
+   return (
+     <section className="mx-auto w-full max-w-3xl rounded-lg border border-border bg-card p-5 shadow-sm sm:p-8">
+-      <header className="mb-7 flex items-center gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-rose-500/10 text-rose-700"><Barcode className="h-5 w-5" aria-hidden="true" /></span><div><h1 className="font-display text-2xl font-bold text-foreground">Barcode generator</h1><p className="mt-1 text-sm text-muted-foreground">Generišite i preuzmite linijski barkod.</p></div></header>
++      <header className="mb-7 flex items-center gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-rose-500/10 text-rose-700"><Barcode className="h-5 w-5" aria-hidden="true" /></span><div><h2 className="font-display text-2xl font-bold text-foreground">Barcode generator</h2><p className="mt-1 text-sm text-muted-foreground">Generišite i preuzmite linijski barkod.</p></div></header>
+       <div className="grid gap-4 sm:grid-cols-[1fr_0.65fr]">
+         <label className="text-sm font-medium text-foreground">Tekst ili broj<input value={value} onChange={(event) => { setValue(event.target.value); setNotice(""); }} placeholder="Unesite vrijednost..." className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring" /></label>
+         <label className="text-sm font-medium text-foreground">Format<select value={format} onChange={(event) => setFormat(event.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring"><option value="CODE128">CODE128</option><option value="EAN13">EAN-13</option><option value="EAN8">EAN-8</option></select></label>
+diff --git a/src/components/generators/GeneratorsHub.jsx b/src/components/generators/GeneratorsHub.jsx
+index a9524f1..1ea1968 100644
+--- a/src/components/generators/GeneratorsHub.jsx
++++ b/src/components/generators/GeneratorsHub.jsx
+@@ -3,6 +3,7 @@ import { Barcode, Dices, Link2, QrCode } from "lucide-react";
+ import { Navbar } from "@/components/layout/Navbar";
+ import { Footer } from "@/components/layout/Footer";
+ import { SEO } from "@/components/SEO";
++import { ToolInfoGuide } from "@/components/ToolInfoGuide";
+ import UuidGenerator from "@/components/generators/UuidGenerator";
+ import QrGenerator from "@/components/generators/QrGenerator";
+ import SlugGenerator from "@/components/generators/SlugGenerator";
+@@ -27,7 +28,7 @@ export default function GeneratorsHub() {
+ 
+   return (
+     <div className="flex min-h-screen flex-col bg-background">
+-      <SEO title={active.title} description={active.description} path="/category/generatori" jsonLd={{ "@type": "SoftwareApplication", name: active.title, applicationCategory: "UtilitiesApplication", operatingSystem: "Any" }} />
++      <SEO title={active.title} description={active.description} path={active.id === "uuid" ? "/category/generatori" : `/category/generatori?tab=${active.id}`} jsonLd={{ "@type": "SoftwareApplication", name: active.title, applicationCategory: "UtilitiesApplication", operatingSystem: "Any" }} />
+       <Navbar activeCategory="GENERATORI" />
+       <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+         <header className="mb-7 border-b border-border pb-6">
+@@ -41,6 +42,7 @@ export default function GeneratorsHub() {
+         <div id="generator-panel" role="tabpanel" aria-labelledby={`generator-tab-${active.id}`}>
+           <ActiveGenerator />
+         </div>
++        <ToolInfoGuide toolId={`generator-${active.id}`} />
+       </main>
+       <Footer activeCategory="GENERATORI" />
+     </div>
+diff --git a/src/components/generators/QrGenerator.jsx b/src/components/generators/QrGenerator.jsx
+index afd36d1..a7b5556 100644
+--- a/src/components/generators/QrGenerator.jsx
++++ b/src/components/generators/QrGenerator.jsx
+@@ -1,6 +1,8 @@
+ import { useEffect, useState } from "react";
+ import { Download, Mail, QrCode, Wifi } from "lucide-react";
+ import QRCode from "qrcode";
++import { toast } from "sonner";
++import { Skeleton } from "@/components/ui/skeleton";
+ 
+ const escapeWifiValue = (value) => value.replace(/[\\;,:\"]/g, "\\$&");
+ 
+@@ -15,6 +17,7 @@ export default function QrGenerator() {
+   const [encryption, setEncryption] = useState("WPA");
+   const [dataUrl, setDataUrl] = useState("");
+   const [error, setError] = useState("");
++  const [generating, setGenerating] = useState(false);
+ 
+   const payload = (() => {
+     if (kind === "email") {
+@@ -38,8 +41,10 @@ export default function QrGenerator() {
+     if (!payload) {
+       setDataUrl("");
+       setError("");
++      setGenerating(false);
+       return () => { current = false; };
+     }
++    setGenerating(true);
+     QRCode.toDataURL(payload, {
+       width: 320,
+       margin: 2,
+@@ -51,7 +56,9 @@ export default function QrGenerator() {
+         setError("");
+       }
+     }).catch(() => {
+-      if (current) setError("QR kod nije moguće generisati za ovaj sadržaj.");
++      if (current) setError("QR kod nije moguće generisati za ovaj sadržaj. Pokušajte kraći tekst.");
++    }).finally(() => {
++      if (current) setGenerating(false);
+     });
+     return () => { current = false; };
+   }, [payload]);
+@@ -65,7 +72,7 @@ export default function QrGenerator() {
+ 
+   return (
+     <section className="mx-auto w-full max-w-4xl rounded-lg border border-border bg-card p-5 shadow-sm sm:p-8">
+-      <header className="mb-7 flex items-center gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-700"><QrCode className="h-5 w-5" aria-hidden="true" /></span><div><h1 className="font-display text-2xl font-bold text-foreground">QR Code generator</h1><p className="mt-1 text-sm text-muted-foreground">Napravite QR kod i preuzmite ga kao PNG sliku.</p></div></header>
++      <header className="mb-7 flex items-center gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-700"><QrCode className="h-5 w-5" aria-hidden="true" /></span><div><h2 className="font-display text-2xl font-bold text-foreground">QR Code generator</h2><p className="mt-1 text-sm text-muted-foreground">Napravite QR kod i preuzmite ga kao PNG sliku.</p></div></header>
+       <div className="mb-5 grid grid-cols-2 gap-2 rounded-md bg-muted p-1 sm:grid-cols-4" role="tablist" aria-label="Vrsta QR koda">
+         {modes.map(({ id, label, icon: Icon }) => <button key={id} type="button" role="tab" aria-selected={kind === id} onClick={() => setKind(id)} className={`inline-flex min-h-10 items-center justify-center gap-2 rounded px-2 text-sm font-semibold transition-colors ${kind === id ? "bg-background text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"}`}><Icon className="h-4 w-4" aria-hidden="true" />{label}</button>)}
+       </div>
+@@ -86,7 +93,7 @@ export default function QrGenerator() {
+           <p className="text-xs leading-5 text-muted-foreground">Sadržaj QR koda kreira se u vašem pregledniku. Nemojte unositi osjetljive podatke.</p>
+         </div>
+         <div className="flex min-h-64 flex-col items-center justify-center rounded-md border border-dashed border-border bg-muted/30 p-4 text-center">
+-          {dataUrl ? <><img src={dataUrl} alt="Generisani QR kod" className="h-56 w-56 max-w-full rounded bg-white p-2" /><a href={dataUrl} download="bh-konver-qr.png" className="mt-4 inline-flex min-h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"><Download className="h-4 w-4" aria-hidden="true" />Preuzmi PNG</a></> : <div className="max-w-48 text-sm text-muted-foreground"><QrCode className="mx-auto mb-3 h-9 w-9 opacity-50" aria-hidden="true" />Unesite sadržaj da biste napravili QR kod.</div>}
++          {generating && !dataUrl ? <Skeleton className="h-56 w-56 max-w-full" aria-label="Generisanje QR koda" /> : dataUrl ? <><img src={dataUrl} alt="Generisani QR kod" className="h-56 w-56 max-w-full rounded bg-white p-2" /><a href={dataUrl} download="bh-konver-qr.png" onClick={() => toast.success("QR kod je preuzet kao PNG")} className="mt-4 inline-flex min-h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"><Download className="h-4 w-4" aria-hidden="true" />Preuzmi PNG</a></> : <div className="max-w-48 text-sm text-muted-foreground"><QrCode className="mx-auto mb-3 h-9 w-9 opacity-50" aria-hidden="true" />Unesite sadržaj da biste napravili QR kod.</div>}
+         </div>
+       </div>
+     </section>
+diff --git a/src/components/generators/SlugGenerator.jsx b/src/components/generators/SlugGenerator.jsx
+index e41f747..2c3230e 100644
+--- a/src/components/generators/SlugGenerator.jsx
++++ b/src/components/generators/SlugGenerator.jsx
+@@ -1,4 +1,5 @@
+ import { useState } from "react";
++import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+ import { Check, Copy, Link2, WandSparkles } from "lucide-react";
+ 
+ const createSlug = (value) => value
+@@ -14,23 +15,14 @@ const createSlug = (value) => value
+ 
+ export default function SlugGenerator() {
+   const [value, setValue] = useState("");
+-  const [copied, setCopied] = useState(false);
++  const { copied, copy } = useCopyToClipboard();
+   const slug = createSlug(value);
+ 
+-  const copySlug = async () => {
+-    if (!slug) return;
+-    try {
+-      await navigator.clipboard.writeText(slug);
+-      setCopied(true);
+-      window.setTimeout(() => setCopied(false), 1800);
+-    } catch {
+-      setCopied(false);
+-    }
+-  };
++  const copySlug = () => copy(slug, { success: "Slug kopiran" });
+ 
+   return (
+     <section className="mx-auto w-full max-w-3xl rounded-lg border border-border bg-card p-5 shadow-sm sm:p-8">
+-      <header className="mb-7 flex items-center gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-orange-500/10 text-orange-700"><Link2 className="h-5 w-5" aria-hidden="true" /></span><div><h1 className="font-display text-2xl font-bold text-foreground">Slug generator</h1><p className="mt-1 text-sm text-muted-foreground">Pretvorite naslov u čist, čitljiv URL slug.</p></div></header>
++      <header className="mb-7 flex items-center gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-orange-500/10 text-orange-700"><Link2 className="h-5 w-5" aria-hidden="true" /></span><div><h2 className="font-display text-2xl font-bold text-foreground">Slug generator</h2><p className="mt-1 text-sm text-muted-foreground">Pretvorite naslov u čist, čitljiv URL slug.</p></div></header>
+       <label className="block text-sm font-medium text-foreground">Naslov ili tekst<textarea value={value} onChange={(event) => setValue(event.target.value)} rows={4} placeholder="npr. Čaršija, ćevapi i šetnja kroz Žepče" className="mt-2 w-full resize-y rounded-md border border-input bg-background px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring" /></label>
+       <div className="mt-5 rounded-md border border-border bg-muted/40 p-4">
+         <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase text-muted-foreground"><WandSparkles className="h-3.5 w-3.5" aria-hidden="true" />Generisani slug</p>
+diff --git a/src/components/generators/UuidGenerator.jsx b/src/components/generators/UuidGenerator.jsx
+index aef3d4c..8545836 100644
+--- a/src/components/generators/UuidGenerator.jsx
++++ b/src/components/generators/UuidGenerator.jsx
+@@ -1,4 +1,5 @@
+ import { useState } from "react";
++import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+ import { Check, Copy, Dices, RefreshCw } from "lucide-react";
+ 
+ const createUuid = () => {
+@@ -17,6 +18,7 @@ export default function UuidGenerator() {
+   const [uppercase, setUppercase] = useState(false);
+   const [uuids, setUuids] = useState([]);
+   const [notice, setNotice] = useState("");
++  const { copy } = useCopyToClipboard();
+ 
+   const generate = () => {
+     try {
+@@ -30,19 +32,16 @@ export default function UuidGenerator() {
+ 
+   const copyUuids = async () => {
+     if (!uuids.length) return;
+-    try {
+-      await navigator.clipboard.writeText(uuids.join("\n"));
+-      setNotice(`${uuids.length} UUID ${uuids.length === 1 ? "kopiran" : "kopirano"}.`);
+-    } catch {
+-      setNotice("Clipboard nije dostupan. Označite i kopirajte vrijednosti ručno.");
+-    }
++    const message = `${uuids.length} UUID ${uuids.length === 1 ? "kopiran" : "kopirano"}.`;
++    const ok = await copy(uuids.join("\n"), { success: message });
++    setNotice(ok ? message : "Clipboard nije dostupan. Označite i kopirajte vrijednosti ručno.");
+   };
+ 
+   return (
+     <section className="mx-auto w-full max-w-3xl rounded-lg border border-border bg-card p-5 shadow-sm sm:p-8">
+       <header className="mb-7 flex items-start gap-3">
+         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary"><Dices className="h-5 w-5" aria-hidden="true" /></span>
+-        <div><h1 className="font-display text-2xl font-bold text-foreground">UUID v4 generator</h1><p className="mt-1 text-sm leading-6 text-muted-foreground">Generišite nasumične UUID v4 identifikatore lokalno u pregledniku.</p></div>
++        <div><h2 className="font-display text-2xl font-bold text-foreground">UUID v4 generator</h2><p className="mt-1 text-sm leading-6 text-muted-foreground">Generišite nasumične UUID v4 identifikatore lokalno u pregledniku.</p></div>
+       </header>
+       <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+         <label className="text-sm font-medium text-foreground">Broj UUID vrijednosti <span className="text-muted-foreground">(1–50)</span>
+diff --git a/src/components/layout/Footer.jsx b/src/components/layout/Footer.jsx
+index 495e463..1b371c3 100644
+--- a/src/components/layout/Footer.jsx
++++ b/src/components/layout/Footer.jsx
+@@ -13,39 +13,40 @@ const footerColumns = [
+   {
+     title: "Navigacija",
+     links: [
+-      { label: "Home", to: "/", category: "Home" },
+-      { label: "Generators", to: "/category/generatori", category: "GENERATORI" },
+-      { label: "Converters", to: "/category/konvertori", category: "KONVERTORI" },
++      { label: "Početna", to: "/", category: "Home" },
++      { label: "Generatori", to: "/category/generatori", category: "GENERATORI" },
++      { label: "Konvertori", to: "/category/konvertori", category: "KONVERTORI" },
+     ],
+   },
+   {
+     title: "Alati",
+     links: [
+-      { label: "Calculators", to: "/category/kalkulatori", category: "KALKULATORI" },
+-      { label: "Testers", to: "/category/testovi", category: "TESTOVI" },
+-      { label: "Checkers", to: "/category/testovi", category: "TESTOVI" },
++      { label: "Kalkulatori", to: "/category/kalkulatori", category: "KALKULATORI" },
++      { label: "Testovi i kvizovi", to: "/category/testovi", category: "TESTOVI" },
++      { label: "PDF i dokument alati", to: "/alati", category: "KONVERTORI" },
++      { label: "Slika u PDF", to: "/slika-pdf", category: "KONVERTORI" },
+     ],
+   },
+   {
+     title: "Pravno i bezbjednost",
+     links: [
+-      { label: "Legal", to: "/terms#legal-notice", category: "Legal", newTab: true },
+-      { label: "Security", to: "/privacy#security", category: "Security", newTab: true },
+-      { label: "Privacy Policy", to: "/privacy", category: "Privacy Policy", newTab: true },
++      { label: "Pravne napomene", to: "/terms#legal-notice", category: "Legal", newTab: true },
++      { label: "Sigurnost", to: "/privacy#security", category: "Security", newTab: true },
++      { label: "Politika privatnosti", to: "/privacy", category: "Privacy Policy", newTab: true },
+     ],
+   },
+   {
+     title: "Uslovi i kontakt",
+     links: [
+-      { label: "Terms and conditions", to: "/terms", category: "Terms", newTab: true },
+-      { label: "Cookies", to: "/privacy#cookies", category: "Cookies", newTab: true },
+-      { label: "Contact Us", to: "/support", category: "Contact", newTab: true },
++      { label: "Uslovi korištenja", to: "/terms", category: "Terms", newTab: true },
++      { label: "Kolačići", to: "/privacy#cookies", category: "Cookies", newTab: true },
++      { label: "Kontakt i podrška", to: "/support", category: "Contact", newTab: true },
+     ],
+   },
+ ];
+ 
+ const footerLinkClass =
+-  "w-fit text-sm text-primary-foreground/70 transition-colors hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
++  "inline-flex min-h-8 w-fit items-center text-sm text-primary-foreground/70 transition-colors hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+ 
+ export const SocialLinks = ({ className = "mt-5 flex items-center gap-2" }) => (
+   <nav className={className} aria-label="BH KONVER na društvenim mrežama">
+diff --git a/src/components/layout/Navbar.jsx b/src/components/layout/Navbar.jsx
+index 63f600f..97fb67b 100644
+--- a/src/components/layout/Navbar.jsx
++++ b/src/components/layout/Navbar.jsx
+@@ -1,5 +1,7 @@
+ import { useState } from "react";
+ import { Link, useNavigate } from "react-router-dom";
++import { toast } from "sonner";
++import { useAdminAuth } from "@/hooks/useAdminAuth";
+ import {
+   ArrowRight,
+   Barcode,
+@@ -9,7 +11,9 @@ import {
+   Copy,
+   FileImage,
+   FileText,
++  History,
+   Link2,
++  LogOut,
+   Menu,
+   QrCode,
+   Repeat2,
+@@ -117,6 +121,18 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
+   const [openMenu, setOpenMenu] = useState(null);
+   const [mobileOpen, setMobileOpen] = useState(false);
+   const navigate = useNavigate();
++  const { user, loading: authLoading, signOut } = useAdminAuth();
++
++  const handleSignOut = async () => {
++    try {
++      await signOut();
++    } catch (error) {
++      console.warn("Odjava nije uspjela:", error);
++    }
++    toast.success("Odjavljeni ste.");
++    setMobileOpen(false);
++    navigate("/", { replace: true });
++  };
+ 
+   const closeMenus = () => {
+     setOpenMenu(null);
+@@ -197,17 +213,32 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
+         </nav>
+ 
+         <div className="hidden shrink-0 items-center gap-2 xl:flex">
+-          <Link to="/auth" className="rounded-md px-3 py-2 text-sm font-semibold text-foreground/75 transition-colors hover:bg-muted hover:text-foreground">
+-            Login
+-          </Link>
+-          <Link to="/auth" className="rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+-            Sign Up
+-          </Link>
++          {authLoading ? (
++            <div className="h-9 w-40 animate-pulse rounded-md bg-muted" aria-hidden="true" />
++          ) : user ? (
++            <>
++              <Link to="/history" className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-foreground/75 transition-colors hover:bg-muted hover:text-foreground">
++                <History className="h-4 w-4" aria-hidden="true" />Historija
++              </Link>
++              <button type="button" onClick={handleSignOut} className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
++                <LogOut className="h-4 w-4" aria-hidden="true" />Odjava
++              </button>
++            </>
++          ) : (
++            <>
++              <Link to="/auth" className="rounded-md px-3 py-2 text-sm font-semibold text-foreground/75 transition-colors hover:bg-muted hover:text-foreground">
++                Prijava
++              </Link>
++              <Link to="/auth" className="rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
++                Registracija
++              </Link>
++            </>
++          )}
+         </div>
+ 
+         <button
+           type="button"
+-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring xl:hidden"
++          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring xl:hidden"
+           aria-label={mobileOpen ? "Zatvori navigaciju" : "Otvori navigaciju"}
+           aria-expanded={mobileOpen}
+           aria-controls="mobile-navigation"
+@@ -255,8 +286,19 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
+               );
+             })}
+             <div className="mt-4 grid grid-cols-2 gap-2">
+-              <Link to="/auth" className="rounded-md border border-border px-4 py-3 text-center text-sm font-semibold text-foreground transition-colors hover:bg-muted" onClick={closeMenus}>Login</Link>
+-              <Link to="/auth" className="rounded-md bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90" onClick={closeMenus}>Sign Up</Link>
++              {authLoading ? (
++                <div className="col-span-2 h-12 animate-pulse rounded-md bg-muted" aria-hidden="true" />
++              ) : user ? (
++                <>
++                  <Link to="/history" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-border px-4 text-center text-sm font-semibold text-foreground transition-colors hover:bg-muted" onClick={closeMenus}><History className="h-4 w-4" aria-hidden="true" />Historija</Link>
++                  <button type="button" onClick={handleSignOut} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"><LogOut className="h-4 w-4" aria-hidden="true" />Odjava</button>
++                </>
++              ) : (
++                <>
++                  <Link to="/auth" className="inline-flex min-h-12 items-center justify-center rounded-md border border-border px-4 text-center text-sm font-semibold text-foreground transition-colors hover:bg-muted" onClick={closeMenus}>Prijava</Link>
++                  <Link to="/auth" className="inline-flex min-h-12 items-center justify-center rounded-md bg-primary px-4 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90" onClick={closeMenus}>Registracija</Link>
++                </>
++              )}
+             </div>
+           </div>
+         </nav>
+diff --git a/src/components/testers/QuizRunner.jsx b/src/components/testers/QuizRunner.jsx
+index faf7649..978de97 100644
+--- a/src/components/testers/QuizRunner.jsx
++++ b/src/components/testers/QuizRunner.jsx
+@@ -4,6 +4,7 @@ import { ArrowLeft, Check, RotateCcw, X } from "lucide-react";
+ import { Navbar } from "@/components/layout/Navbar";
+ import { Footer } from "@/components/layout/Footer";
+ import { SEO } from "@/components/SEO";
++import { ToolInfoGuide } from "@/components/ToolInfoGuide";
+ 
+ export default function QuizRunner({ title, description, questions, path }) {
+   const [answers, setAnswers] = useState(() => Array(questions.length).fill(null));
+@@ -61,6 +62,7 @@ export default function QuizRunner({ title, description, questions, path }) {
+             {submitted ? <button type="button" onClick={resetQuiz} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-border px-4 text-sm font-semibold text-foreground hover:bg-muted"><RotateCcw className="h-4 w-4" aria-hidden="true" />Pokušaj ponovo</button> : <button type="submit" disabled={!complete} className="min-h-11 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50">Prikaži rezultat</button>}
+           </div>
+         </form>
++        <ToolInfoGuide toolId={`test-${path.split("/").pop()}`} />
+       </main>
+       <Footer activeCategory="TESTOVI" />
+     </div>
+diff --git a/src/components/testers/TestLicnosti.jsx b/src/components/testers/TestLicnosti.jsx
+index 065de8f..6319429 100644
+--- a/src/components/testers/TestLicnosti.jsx
++++ b/src/components/testers/TestLicnosti.jsx
+@@ -4,6 +4,7 @@ import { ArrowLeft, RotateCcw, Sparkles } from "lucide-react";
+ import { Navbar } from "@/components/layout/Navbar";
+ import { Footer } from "@/components/layout/Footer";
+ import { SEO } from "@/components/SEO";
++import { ToolInfoGuide } from "@/components/ToolInfoGuide";
+ 
+ const questions = [
+   { prompt: "Kada započinjete novi projekat, prvo želite…", options: [{ text: "Napraviti jasan plan i raspored", type: "planner" }, { text: "Istražiti mogućnosti i krenuti eksperimentisati", type: "explorer" }, { text: "Razgovarati s ljudima koji će učestvovati", type: "collaborator" }] },
+@@ -45,6 +46,7 @@ export default function TestLicnosti() {
+             {submitted ? <button type="button" onClick={reset} className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-md border border-border px-4 text-sm font-semibold text-foreground hover:bg-muted"><RotateCcw className="h-4 w-4" />Pokušaj ponovo</button> : <button type="submit" disabled={!complete} className="min-h-11 shrink-0 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50">Prikaži rezultat</button>}
+           </div>
+         </form>
++        <ToolInfoGuide toolId="test-licnost" />
+       </main>
+       <Footer activeCategory="TESTOVI" />
+     </div>
+diff --git a/src/components/testers/TestoviHub.jsx b/src/components/testers/TestoviHub.jsx
+index eebaf45..d3e29a0 100644
+--- a/src/components/testers/TestoviHub.jsx
++++ b/src/components/testers/TestoviHub.jsx
+@@ -3,6 +3,7 @@ import { ArrowRight, Brain, CarFront, Landmark, Sparkles } from "lucide-react";
+ import { Navbar } from "@/components/layout/Navbar";
+ import { Footer } from "@/components/layout/Footer";
+ import { SEO } from "@/components/SEO";
++import { ToolInfoGuide } from "@/components/ToolInfoGuide";
+ 
+ const tests = [
+   { title: "Opšte znanje o BiH", description: "Kratki kviz o geografiji, historiji i kulturi Bosne i Hercegovine.", icon: Landmark, to: "/testovi/opste-znanje", available: true },
+@@ -38,6 +39,7 @@ export default function TestoviHub() {
+             return available ? <Link key={title} to={to} className={className}>{content}</Link> : <article key={title} aria-disabled="true" className={className}>{content}</article>;
+           })}
+         </section>
++        <ToolInfoGuide toolId="category-testovi" />
+       </main>
+       <Footer activeCategory="TESTOVI" />
+     </div>
+diff --git a/src/hooks/useCopyToClipboard.ts b/src/hooks/useCopyToClipboard.ts
+new file mode 100644
+index 0000000..d694fb3
+--- /dev/null
++++ b/src/hooks/useCopyToClipboard.ts
+@@ -0,0 +1,59 @@
++import { useCallback, useEffect, useRef, useState } from "react";
++import { toast } from "sonner";
++
++/** Kopira tekst u clipboard (uz rezervni način za starije preglednike i nesigurne kontekste). */
++export const copyTextToClipboard = async (text: string): Promise<boolean> => {
++  try {
++    if (navigator.clipboard?.writeText && window.isSecureContext) {
++      await navigator.clipboard.writeText(text);
++      return true;
++    }
++  } catch {
++    // pada na rezervni način ispod
++  }
++  try {
++    const area = document.createElement("textarea");
++    area.value = text;
++    area.setAttribute("readonly", "");
++    area.style.position = "fixed";
++    area.style.opacity = "0";
++    document.body.appendChild(area);
++    area.select();
++    const ok = document.execCommand("copy");
++    document.body.removeChild(area);
++    return ok;
++  } catch {
++    return false;
++  }
++};
++
++type Messages = { success?: string; error?: string };
++
++/**
++ * Hook za dugmad "Kopiraj": vraća `copied` (privremeno true nakon uspjeha) i `copy(text)`,
++ * te prikazuje toast sa potvrdom ili jasnom porukom o grešci.
++ */
++export const useCopyToClipboard = (messages: Messages = {}) => {
++  const [copied, setCopied] = useState(false);
++  const timer = useRef<number>();
++
++  useEffect(() => () => window.clearTimeout(timer.current), []);
++
++  const copy = useCallback(async (text: string, override: Messages = {}) => {
++    if (!text) return false;
++    const ok = await copyTextToClipboard(text);
++    window.clearTimeout(timer.current);
++    if (ok) {
++      setCopied(true);
++      toast.success(override.success ?? messages.success ?? "Kopirano u clipboard");
++      timer.current = window.setTimeout(() => setCopied(false), 1800);
++    } else {
++      setCopied(false);
++      toast.error(override.error ?? messages.error ?? "Kopiranje nije uspjelo. Označite tekst i kopirajte ga ručno.");
++    }
++    return ok;
++  }, [messages.success, messages.error]);
++
++  const reset = useCallback(() => setCopied(false), []);
++  return { copied, copy, reset };
++};
+diff --git a/src/i18n/locales/bs-Cyrl.json b/src/i18n/locales/bs-Cyrl.json
+index b343987..7efe6ba 100644
+--- a/src/i18n/locales/bs-Cyrl.json
++++ b/src/i18n/locales/bs-Cyrl.json
+@@ -750,7 +750,34 @@
+     "detected": "Детектовано",
+     "mismatchWarning": "Екстензија фајла не одговара стварном садржају. Конверзија ће користити детектовани формат."
+   },
++  "toolGuide": {
++    "title": "О алату: {{name}}",
++    "what": "Шта је овај алат?",
++    "how": "Како се користи?",
++    "benefits": "Предности и препоруке BH KONVER-а",
++    "faq": "Честа питања"
++  },
+   "toolSeo": {
++    "pdf-u-word": {
++      "title": "ПДФ у Word (DOCX) конверзија онлине | BH Konver",
++      "description": "Претворите ПДФ у Word (DOCX) документ онлине. Доступне су бесплатне пробне конверзије, једноставно и брзо."
++    },
++    "word-u-pdf": {
++      "title": "Word у ПДФ конверзија онлине | BH Konver",
++      "description": "Претворите Word документ (DOCX) у ПДФ брзо и једноставно. Доступне су бесплатне пробне конверзије."
++    },
++    "excel-u-pdf": {
++      "title": "Excel у ПДФ конверзија онлине | BH Konver",
++      "description": "Претворите Excel табелу (XLSX) у ПДФ спреман за штампу или слање. Доступне су бесплатне пробне конверзије."
++    },
++    "pptx-u-pdf": {
++      "title": "PowerPoint (PPTX) у ПДФ конверзија — бета | BH Konver",
++      "description": "Претворите PowerPoint презентацију у ПДФ. Алат је у бета фази, па резултат провјерите прије слања."
++    },
++    "pismo": {
++      "title": "Конвертор ћирилице и латинице — бесплатно | BH Konver",
++      "description": "Претворите босански, хрватски или српски текст између ћирилице и латинице уз исправно руковање словима љ, њ и џ. Бесплатно и без пријаве."
++    },
+     "podijeli-pdf": {
+       "title": "Раздвоји ПДФ онлине — бесплатно и сигурно | BH Konver",
+       "description": "Раздвојите ПДФ на појединачне странице директно у претраживачу. Без слања фајлова на сервер, без регистрације. BH Konver алат за ПДФ."
+diff --git a/src/i18n/locales/bs.json b/src/i18n/locales/bs.json
+index 33da4a4..b0cc7e4 100644
+--- a/src/i18n/locales/bs.json
++++ b/src/i18n/locales/bs.json
+@@ -750,7 +750,34 @@
+       "download": "Preuzmite rezultat"
+     }
+   },
++  "toolGuide": {
++    "title": "O alatu: {{name}}",
++    "what": "Šta je ovaj alat?",
++    "how": "Kako se koristi?",
++    "benefits": "Prednosti i preporuke BH KONVER-a",
++    "faq": "Česta pitanja"
++  },
+   "toolSeo": {
++    "pdf-u-word": {
++      "title": "PDF u Word (DOCX) konverzija online | BH Konver",
++      "description": "Pretvorite PDF u Word (DOCX) dokument online. Dostupne su besplatne probne konverzije, jednostavno i brzo."
++    },
++    "word-u-pdf": {
++      "title": "Word u PDF konverzija online | BH Konver",
++      "description": "Pretvorite Word dokument (DOCX) u PDF brzo i jednostavno. Dostupne su besplatne probne konverzije."
++    },
++    "excel-u-pdf": {
++      "title": "Excel u PDF konverzija online | BH Konver",
++      "description": "Pretvorite Excel tabelu (XLSX) u PDF spreman za štampu ili slanje. Dostupne su besplatne probne konverzije."
++    },
++    "pptx-u-pdf": {
++      "title": "PowerPoint (PPTX) u PDF konverzija — beta | BH Konver",
++      "description": "Pretvorite PowerPoint prezentaciju u PDF. Alat je u beta fazi, pa rezultat provjerite prije slanja."
++    },
++    "pismo": {
++      "title": "Konverter ćirilice i latinice — besplatno | BH Konver",
++      "description": "Preslovite bosanski, hrvatski ili srpski tekst između ćirilice i latinice uz ispravno rukovanje slovima lj, nj i dž. Besplatno i bez prijave."
++    },
+     "podijeli-pdf": {
+       "title": "Razdvoji PDF online — besplatno i sigurno | BH Konver",
+       "description": "Razdvojite PDF na pojedinačne stranice direktno u pretraživaču. Bez slanja fajlova na server, bez registracije. BH Konver alat za PDF."
+diff --git a/src/i18n/locales/de.json b/src/i18n/locales/de.json
+index 25b1ef6..bc0df2e 100644
+--- a/src/i18n/locales/de.json
++++ b/src/i18n/locales/de.json
+@@ -750,7 +750,34 @@
+       "download": "Ergebnis herunterladen"
+     }
+   },
++  "toolGuide": {
++    "title": "Über dieses Tool: {{name}}",
++    "what": "Was ist dieses Tool?",
++    "how": "So wird es verwendet",
++    "benefits": "Vorteile und Empfehlungen von BH KONVER",
++    "faq": "Häufige Fragen"
++  },
+   "toolSeo": {
++    "pdf-u-word": {
++      "title": "PDF in Word (DOCX) umwandeln online | BH Konver",
++      "description": "Wandeln Sie PDF online in ein Word-Dokument (DOCX) um. Kostenlose Probekonvertierungen verfügbar, einfach und schnell."
++    },
++    "word-u-pdf": {
++      "title": "Word in PDF umwandeln online | BH Konver",
++      "description": "Wandeln Sie ein Word-Dokument (DOCX) schnell und einfach in PDF um. Kostenlose Probekonvertierungen verfügbar."
++    },
++    "excel-u-pdf": {
++      "title": "Excel in PDF umwandeln online | BH Konver",
++      "description": "Wandeln Sie eine Excel-Tabelle (XLSX) in ein druckfertiges PDF um. Kostenlose Probekonvertierungen verfügbar."
++    },
++    "pptx-u-pdf": {
++      "title": "PowerPoint (PPTX) in PDF umwandeln — Beta | BH Konver",
++      "description": "Wandeln Sie eine PowerPoint-Präsentation in PDF um. Das Tool ist in der Beta-Phase, prüfen Sie das Ergebnis vor dem Versand."
++    },
++    "pismo": {
++      "title": "Kyrillisch-Lateinisch Konverter — kostenlos | BH Konver",
++      "description": "Wandeln Sie bosnischen, kroatischen oder serbischen Text zwischen kyrillischer und lateinischer Schrift um, inklusive lj, nj und dž. Kostenlos, ohne Anmeldung."
++    },
+     "podijeli-pdf": {
+       "title": "PDF online teilen — kostenlos und sicher | BH Konver",
+       "description": "Teilen Sie PDF-Dateien direkt im Browser in einzelne Seiten. Kein Upload, keine Registrierung."
+diff --git a/src/i18n/locales/en.json b/src/i18n/locales/en.json
+index 1a8b1eb..e8b94de 100644
+--- a/src/i18n/locales/en.json
++++ b/src/i18n/locales/en.json
+@@ -750,7 +750,34 @@
+       "download": "Download the result"
+     }
+   },
++  "toolGuide": {
++    "title": "About this tool: {{name}}",
++    "what": "What is this tool?",
++    "how": "How to use it",
++    "benefits": "Benefits and BH KONVER recommendations",
++    "faq": "Frequently asked questions"
++  },
+   "toolSeo": {
++    "pdf-u-word": {
++      "title": "PDF to Word (DOCX) converter online | BH Konver",
++      "description": "Convert a PDF to a Word (DOCX) document online. Free trial conversions available, simple and fast."
++    },
++    "word-u-pdf": {
++      "title": "Word to PDF converter online | BH Konver",
++      "description": "Convert a Word document (DOCX) to PDF quickly and easily. Free trial conversions available."
++    },
++    "excel-u-pdf": {
++      "title": "Excel to PDF converter online | BH Konver",
++      "description": "Convert an Excel spreadsheet (XLSX) to a PDF ready to print or send. Free trial conversions available."
++    },
++    "pptx-u-pdf": {
++      "title": "PowerPoint (PPTX) to PDF converter — beta | BH Konver",
++      "description": "Convert a PowerPoint presentation to PDF. The tool is in beta, so check the result before sending it."
++    },
++    "pismo": {
++      "title": "Cyrillic to Latin converter — free | BH Konver",
++      "description": "Convert Bosnian, Croatian or Serbian text between Cyrillic and Latin script with correct handling of lj, nj and dž. Free, no sign-up."
++    },
+     "podijeli-pdf": {
+       "title": "Split PDF online — free and secure | BH Konver",
+       "description": "Split a PDF into single pages right in your browser. No uploads to a server, no sign-up required."
+diff --git a/src/i18n/locales/tr.json b/src/i18n/locales/tr.json
+index 90f7068..11b4737 100644
+--- a/src/i18n/locales/tr.json
++++ b/src/i18n/locales/tr.json
+@@ -750,7 +750,34 @@
+       "download": "Sonucu indirin"
+     }
+   },
++  "toolGuide": {
++    "title": "Bu araç hakkında: {{name}}",
++    "what": "Bu araç nedir?",
++    "how": "Nasıl kullanılır?",
++    "benefits": "BH KONVER avantajları ve önerileri",
++    "faq": "Sık sorulan sorular"
++  },
+   "toolSeo": {
++    "pdf-u-word": {
++      "title": "PDF'yi Word'e (DOCX) çevir | BH Konver",
++      "description": "PDF dosyasını çevrimiçi Word (DOCX) belgesine dönüştürün. Ücretsiz deneme dönüşümleri mevcut, basit ve hızlı."
++    },
++    "word-u-pdf": {
++      "title": "Word'ü PDF'ye çevir | BH Konver",
++      "description": "Word belgesini (DOCX) hızlı ve kolay şekilde PDF'ye dönüştürün. Ücretsiz deneme dönüşümleri mevcut."
++    },
++    "excel-u-pdf": {
++      "title": "Excel'i PDF'ye çevir | BH Konver",
++      "description": "Excel tablosunu (XLSX) yazdırmaya veya göndermeye hazır PDF'ye dönüştürün. Ücretsiz deneme dönüşümleri mevcut."
++    },
++    "pptx-u-pdf": {
++      "title": "PowerPoint (PPTX) PDF'ye çevir — beta | BH Konver",
++      "description": "PowerPoint sunumunu PDF'ye dönüştürün. Araç beta aşamasındadır; göndermeden önce sonucu kontrol edin."
++    },
++    "pismo": {
++      "title": "Kiril-Latin alfabesi çevirici — ücretsiz | BH Konver",
++      "description": "Boşnakça, Hırvatça veya Sırpça metni Kiril ve Latin alfabesi arasında lj, nj ve dž harflerini doğru işleyerek çevirin. Ücretsiz, kayıt gerekmez."
++    },
+     "podijeli-pdf": {
+       "title": "PDF böl — ücretsiz ve güvenli | BH Konver",
+       "description": "PDF dosyalarını tarayıcınızda sayfalara ayırın. Sunucuya yükleme ve kayıt gerekmez."
+diff --git a/src/lib/toolGuides.ts b/src/lib/toolGuides.ts
+new file mode 100644
+index 0000000..c5e4b5f
+--- /dev/null
++++ b/src/lib/toolGuides.ts
+@@ -0,0 +1,485 @@
++/**
++ * Edukativni sadržaj za stranice alata (ToolInfoGuide).
++ *
++ * Osnovni jezik je bosanski (bs). Prevodi se mogu dodati u i18n fajlove pod ključem
++ * `toolGuides.<id>` (npr. "toolGuides.converter-unit") sa istom strukturom kao ToolGuide
++ * (polja koja nisu prevedena preuzimaju se iz ovog fajla).
++ */
++
++export type ToolGuideFaq = { q: string; a: string };
++
++export type ToolGuidePreview = {
++  /** Kratki naslov primjera, npr. "Primjer: 100 KM bez PDV-a" */
++  title: string;
++  /** Redovi "ulaz → izlaz" prikazani na paywall stranici bez prijave */
++  rows: { label: string; value: string }[];
++};
++
++export type ToolGuide = {
++  /** Naziv alata koji se koristi u naslovima sekcija */
++  name: string;
++  /** "Šta je ovaj alat?" — 1–2 kratka paragrafa */
++  what: string[];
++  /** "Kako se koristi?" — 3–4 koraka */
++  steps: string[];
++  /** "Prednosti i preporuke BH KONVER-a" */
++  benefits: string[];
++  /** "Česta pitanja" — 2–4 pitanja */
++  faq: ToolGuideFaq[];
++  /** Primjer rezultata za zaključane (Premium) alate */
++  preview?: ToolGuidePreview;
++};
++
++const LOCAL = "Obrada se izvršava lokalno u vašem pregledniku. Unos se ne šalje na server i ne čuva se.";
++
++export const TOOL_GUIDES: Record<string, ToolGuide> = {
++  /* ------------------------------ Besplatni konvertori ------------------------------ */
++  "converter-unit": {
++    name: "Konverter jedinica",
++    what: [
++      "Konverter jedinica pretvara vrijednosti između najčešćih mjernih jedinica: dužine (mm, cm, m, km, inč, stopa, jard, milja), mase (mg, g, kg, tona, unca, funta), zapremine (ml, litar, m³, kašičica, šolja, galon) i površine (mm², cm², m², hektar, km², ft², aker).",
++      "Koristan je za školu, kuhinju, građevinu, kupovinu u inostranstvu i svaki posao u kojem se miješaju metrički i anglosaksonski sistemi.",
++    ],
++    steps: [
++      "Odaberite kategoriju: dužina, masa, zapremina ili površina.",
++      "Upišite vrijednost koju želite pretvoriti.",
++      "Izaberite početnu i ciljnu jedinicu. Dugme sa strelicama zamjenjuje jedinice.",
++      "Rezultat se prikazuje odmah, bez dodatnog klika.",
++    ],
++    benefits: [LOCAL, "Besplatno je i radi bez prijave i registracije.", "Rezultat se ažurira dok kucate, a veliki i mali brojevi se prikazuju čitljivo."],
++    faq: [
++      { q: "Koliko inča ima u jednom metru?", a: "Jedan metar je približno 39,37 inča, jer je jedan inč tačno 0,0254 metra." },
++      { q: "Zašto su kašičica, šolja i galon označeni sa US?", a: "Konverter koristi američke mjere (US tsp ≈ 4,93 ml, US cup ≈ 236,6 ml, US gal ≈ 3,785 l). Britanske mjere se razlikuju, pa za njih rezultat može odstupati." },
++      { q: "Mogu li pretvarati jedinice iz različitih kategorija?", a: "Ne. Pretvaranje je moguće samo unutar iste kategorije, na primjer iz kilometara u milje, a ne iz kilograma u litre." },
++    ],
++  },
++  "converter-currency": {
++    name: "Konverter valuta",
++    what: [
++      "Konverter valuta preračunava iznose između konvertibilne marke (KM/BAM), eura, američkog dolara, švicarskog franka, britanske funte i drugih valuta, na osnovu javno dostupnih kurseva.",
++      "Namijenjen je za brzu orijentaciju pri putovanju, online kupovini i poređenju cijena. Nije zamjena za kurs vaše banke.",
++    ],
++    steps: [
++      "Upišite iznos koji želite preračunati.",
++      "Izaberite polaznu i ciljnu valutu. Dugme sa strelicama ih zamjenjuje.",
++      "Pročitajte rezultat i vrijeme posljednjeg osvježavanja kurseva.",
++      "Po potrebi pritisnite dugme za osvježavanje da preuzmete najnovije kurseve.",
++    ],
++    benefits: ["Kursevi se privremeno pamte u pregledniku (do 30 minuta), pa je konverter brz.", "Ako preuzimanje kurseva ne uspije, koristi se posljednje sačuvano stanje uz jasnu poruku.", "Besplatno je i bez prijave."],
++    faq: [
++      { q: "Koliko je jedan euro u KM?", a: "Konvertibilna marka je vezana za euro po fiksnom kursu: 1 EUR = 1,95583 KM." },
++      { q: "Da li su prikazani kursevi službeni?", a: "Ne. Kursevi su informativni i dolaze iz javnog kursnog API-ja. Za plaćanja i mjenjačnice važi kurs vaše banke ili mjenjačnice." },
++      { q: "Zašto se rezultat ne prikazuje odmah?", a: "Pri prvom otvaranju kursevi se preuzimaju sa interneta. Ako je veza spora ili nedostupna, prikazuje se poruka, a dugme za osvježavanje omogućava novi pokušaj." },
++    ],
++  },
++  "converter-script": {
++    name: "Konverter ćirilice i latinice",
++    what: [
++      "Alat preslovljava tekst sa latinice na ćirilicu i obrnuto, uz podršku za bosanska, hrvatska i srpska slova: č, ć, đ, š, ž te digrafe lj, nj i dž.",
++      "Praktičan je za dokumente, obrasce, natpise i društvene mreže kada je potrebno brzo promijeniti pismo.",
++    ],
++    steps: [
++      "Odaberite smjer: latinica → ćirilica ili ćirilica → latinica.",
++      "Upišite ili zalijepite tekst u lijevo polje.",
++      "Rezultat se prikazuje odmah u desnom polju.",
++      "Pritisnite dugme za kopiranje i zalijepite rezultat gdje vam treba.",
++    ],
++    benefits: [LOCAL, "Podržani su digrafi i velika/mala slova (npr. Lj, Nj, Dž).", "Besplatno je, bez ograničenja dužine koje bi bile vidljive u običnoj upotrebi."],
++    faq: [
++      { q: "Da li alat prepoznaje strane riječi i imena?", a: "Preslovljavanje je mehaničko, slovo po slovo. Za strane riječi i imena (npr. Wikipedia) rezultat treba provjeriti ručno." },
++      { q: "Šta kad se n i j čitaju odvojeno, kao u riječi „injekcija“?", a: "Alat takve slučajeve ne prepoznaje automatski i može napisati jedno slovo (њ) umjesto dva. Pregledajte rezultat za takve riječi." },
++      { q: "Da li se tekst negdje čuva?", a: "Ne. Tekst ostaje u vašem pregledniku i briše se zatvaranjem stranice." },
++    ],
++  },
++  "converter-case": {
++    name: "Promjena velikih i malih slova",
++    what: [
++      "Text Case konverter mijenja oblik teksta: VELIKA SLOVA, mala slova, Capitalize (prvo slovo rečenice) i Title Case (prvo slovo svake riječi), uz ispravno rukovanje slovima č, ć, đ, š i ž.",
++      "Koristi se za uređivanje naslova, pripremu dokumenata i ispravljanje teksta koji je greškom ukucan sa uključenim Caps Lock-om.",
++    ],
++    steps: ["Zalijepite ili upišite tekst u polje za unos.", "Izaberite stil: velika slova, mala slova, Capitalize ili Title Case.", "Provjerite rezultat u desnom polju.", "Kopirajte rezultat jednim klikom."],
++    benefits: [LOCAL, "Dijakritički znakovi ostaju očuvani.", "Besplatno je i bez prijave."],
++    faq: [
++      { q: "Koja je razlika između Capitalize i Title Case?", a: "Capitalize pretvara samo prvo slovo svake rečenice u veliko, a Title Case prvo slovo svake riječi." },
++      { q: "Mijenjaju li se brojevi i interpunkcija?", a: "Ne. Mijenjaju se samo slova, dok brojevi i znakovi interpunkcije ostaju isti." },
++    ],
++  },
++  "converter-hijri": {
++    name: "Konverter hidžretskog datuma",
++    what: [
++      "Konverter pretvara datume između gregorijanskog i hidžretskog (Umm al-Qura) kalendara, u oba smjera.",
++      "Koristan je za planiranje vjerskih i kulturnih događaja, genealogiju i čitanje starih dokumenata.",
++    ],
++    steps: ["Odaberite smjer: gregorijanski → hidžretski ili obrnuto.", "Za prvi smjer izaberite datum u kalendaru, a za drugi upišite dan, mjesec i godinu.", "Rezultat se prikazuje ispod, a za gregorijanski datum i u dugom zapisu.", "Ako rezultat prikazuje poruku o grešci, provjerite da dan, mjesec i godina postoje u kalendaru."],
++    benefits: [LOCAL, "Koristi Umm al-Qura kalendar koji je dostupan u modernim preglednicima.", "Besplatno je i bez prijave."],
++    faq: [
++      { q: "Zašto se datum može razlikovati od onog u mom kalendaru?", a: "Umm al-Qura je računski kalendar. Početak mjeseca u praksi zavisi od viđenja mlađaka i odluka vjerskih tijela, pa razlika od jednog dana nije neuobičajena. Za vjerske obaveze koristite službeni kalendar Islamske zajednice." },
++      { q: "Zašto je dan ograničen na 30?", a: "Hidžretski mjeseci imaju 29 ili 30 dana." },
++    ],
++  },
++  "converter-length": {
++    name: "Konverter dužine",
++    what: ["Konverter dužine pretvara metre, stope, inče, kilometre i milje. Namijenjen je brzim provjerama kada se susrećete sa anglosaksonskim mjerama, na primjer pri kupovini, putovanju ili čitanju tehničkih opisa."],
++    steps: ["Upišite vrijednost.", "Izaberite početnu jedinicu.", "Izaberite ciljnu jedinicu.", "Pročitajte rezultat ili zamijenite jedinice jednim klikom."],
++    benefits: [LOCAL, "Tačni faktori konverzije (1 inč = 0,0254 m, 1 milja = 1609,344 m).", "Besplatno je i bez prijave."],
++    faq: [
++      { q: "Koliko je kilometara jedna milja?", a: "Jedna milja je 1,609344 kilometra." },
++      { q: "Koliko stopa ima u metru?", a: "Jedan metar je približno 3,28 stope." },
++    ],
++  },
++  "converter-roman": {
++    name: "Konverter rimskih brojeva i datuma",
++    what: ["Alat pretvara arapske brojeve i datume u rimske brojeve i obrnuto. Podržava standardni zapis od I do MMMCMXCIX (1–3999) i datume u obliku dan / mjesec / godina."],
++    steps: ["Odaberite način: datum → rimski, rimski → datum, broj → rimski ili rimski → broj.", "Unesite datum, broj ili rimski zapis.", "Rezultat se prikazuje odmah.", "Ako je unos neispravan, prikazuje se jasna poruka umjesto rezultata."],
++    benefits: [LOCAL, "Provjerava ispravnost standardnog zapisa (npr. odbacuje IIII).", "Besplatno je i bez prijave."],
++    faq: [
++      { q: "Kako se piše 2026. u rimskim brojevima?", a: "MMXXVI." },
++      { q: "Zašto je najveći podržani broj 3999?", a: "Standardni rimski zapis bez dodatnih oznaka ne ide dalje od MMMCMXCIX." },
++      { q: "Zašto datum iz daleke budućnosti ili prošlosti nije preveden?", a: "Godina mora biti između 1 i 3999 da bi imala standardni rimski zapis." },
++    ],
++  },
++  "converter-temperature": {
++    name: "Konverter temperature",
++    what: ["Konverter temperature pretvara stepene Celzijusa, Fahrenheita i Kelvina. Alat provjerava i apsolutnu nulu (−273,15 °C), pa ne prihvata fizički nemoguće vrijednosti."],
++    steps: ["Upišite temperaturu.", "Izaberite početnu skalu.", "Izaberite ciljnu skalu.", "Pročitajte rezultat, prikazan sa do četiri decimale."],
++    benefits: [LOCAL, "Zaštita od vrijednosti ispod apsolutne nule.", "Besplatno je i bez prijave."],
++    faq: [
++      { q: "Kako se Celzijus pretvara u Fahrenheit?", a: "Pomnožite Celzijuse sa 9/5 i dodajte 32. Na primjer, 20 °C je 68 °F." },
++      { q: "Koliko je apsolutna nula?", a: "Apsolutna nula je 0 K, odnosno −273,15 °C ili −459,67 °F." },
++    ],
++  },
++
++  /* ------------------------------ Premium generatori ------------------------------ */
++  "generator-uuid": {
++    name: "UUID v4 generator",
++    what: ["UUID v4 generator pravi nasumične jedinstvene identifikatore koji se koriste u bazama podataka, API-jima, testiranju i razvoju softvera. Možete generisati od 1 do 50 vrijednosti odjednom, sa malim ili velikim slovima."],
++    steps: ["Unesite broj UUID vrijednosti (1–50).", "Po želji uključite velika slova.", "Pritisnite „Generiši UUID“.", "Kopirajte sve vrijednosti jednim klikom."],
++    benefits: ["Koristi sigurni generator slučajnih brojeva vašeg preglednika.", "Generisanje se odvija lokalno. Vrijednosti se ne šalju na server.", "Rezultat je spreman za kopiranje, jedan UUID po redu."],
++    faq: [
++      { q: "Šta je UUID v4?", a: "To je 128-bitni identifikator zasnovan na slučajnim vrijednostima. Vjerovatnoća da se dva puta generiše ista vrijednost je zanemarivo mala." },
++      { q: "Mogu li UUID koristiti kao lozinku ili token za pristup?", a: "Ne preporučuje se. UUID služi za identifikaciju, a ne za zaštitu pristupa." },
++    ],
++    preview: { title: "Primjer rezultata", rows: [{ label: "Broj vrijednosti", value: "2" }, { label: "UUID #1", value: "f47ac10b-58cc-4372-a567-0e02b2c3d479" }, { label: "UUID #2", value: "9b2c3d4e-1a5f-4c6b-8d7e-0f1a2b3c4d5e" }] },
++  },
++  "generator-qr": {
++    name: "QR Code generator",
++    what: ["QR generator pravi QR kod za običan tekst, web adresu, e-mail poruku ili povezivanje na WiFi mrežu. Gotov kod preuzimate kao PNG sliku za štampu, vizit-karte, jelovnike ili objave."],
++    steps: ["Izaberite vrstu: tekst, URL, e-mail ili WiFi.", "Unesite sadržaj (za WiFi naziv mreže, zaštitu i lozinku).", "Pregledajte QR kod koji se pojavljuje odmah.", "Preuzmite PNG i provjerite kod skeniranjem prije štampe."],
++    benefits: ["QR kod se kreira u pregledniku, bez slanja sadržaja na server.", "Podržani su WiFi i e-mail formati koje telefoni prepoznaju.", "Slika je 320 × 320 px, dovoljna za većinu štampanih materijala."],
++    faq: [
++      { q: "Smijem li u QR kod staviti lozinku od WiFi mreže?", a: "Možete, ali svako ko skenira kod vidi lozinku. Štampajte ga samo na mjestima na kojima je to prihvatljivo." },
++      { q: "Zašto se QR kod ne skenira?", a: "Najčešći razlozi su premala štampa, slab kontrast ili predug sadržaj. Pokušajte kraći tekst i veću sliku." },
++    ],
++    preview: { title: "Primjer rezultata", rows: [{ label: "Vrsta", value: "URL" }, { label: "Sadržaj", value: "https://www.bh-konver.ba" }, { label: "Izlaz", value: "PNG, 320 × 320 px" }] },
++  },
++  "generator-slug": {
++    name: "SEO slug generator",
++    what: ["Slug generator pretvara naslov ili rečenicu u čistu, čitljivu URL oznaku. Bosanska slova se pretvaraju u osnovna latinična slova (č, ć → c, š → s, ž → z, đ → dj), a razmaci i znakovi u crtice."],
++    steps: ["Upišite ili zalijepite naslov.", "Pročitajte generisani slug ispod.", "Kopirajte ga jednim klikom.", "Zalijepite ga u adresu stranice ili CMS."],
++    benefits: ["Radi lokalno u pregledniku.", "Pravilno rukuje bosanskim slovima.", "Rezultat je spreman za URL: mala slova, brojevi i crtice."],
++    faq: [
++      { q: "Zašto su slugovi dobri za SEO?", a: "Kratke, čitljive adrese lakše se pamte i dijele, a pretraživačima daju jasnu naznaku o sadržaju stranice." },
++      { q: "Koliko dug treba da bude slug?", a: "Praktično je zadržati ga kratkim, uglavnom do nekoliko riječi, bez suvišnih veznika." },
++    ],
++    preview: { title: "Primjer rezultata", rows: [{ label: "Naslov", value: "Čaršija, ćevapi i šetnja kroz Žepče" }, { label: "Slug", value: "carsija-cevapi-i-setnja-kroz-zepce" }] },
++  },
++  "generator-barcode": {
++    name: "Barcode generator",
++    what: ["Barcode generator pravi linijske barkodove u formatima CODE128, EAN-13 i EAN-8. Rezultat preuzimate kao vektorski SVG koji se može štampati u bilo kojoj veličini bez gubitka kvalitete."],
++    steps: ["Upišite tekst ili broj.", "Izaberite format: CODE128, EAN-13 ili EAN-8.", "Provjerite pregled barkoda. Ako unos nije ispravan, prikazuje se poruka šta format traži.", "Preuzmite SVG ili kopirajte vrijednost."],
++    benefits: ["SVG ostaje oštar pri štampi.", "Provjera unosa za EAN formate (broj cifara).", "Generisanje je lokalno, bez slanja podataka."],
++    faq: [
++      { q: "Koliko cifara traži EAN-13?", a: "EAN-13 traži 12 cifara, a kontrolna cifra se računa automatski, ili 13 cifara sa već upisanom kontrolnom cifrom." },
++      { q: "Mogu li koristiti ove barkodove za prodaju u prodavnicama?", a: "EAN brojeve za prodaju dodjeljuje GS1. Generator pravi grafički prikaz, ali ne dodjeljuje službene brojeve proizvoda." },
++    ],
++    preview: { title: "Primjer rezultata", rows: [{ label: "Format", value: "CODE128" }, { label: "Vrijednost", value: "BHK-2026-001" }, { label: "Izlaz", value: "SVG barkod" }] },
++  },
++
++  /* ------------------------------ Premium kalkulatori ------------------------------ */
++  "calculator-gorivo": {
++    name: "Kalkulator goriva",
++    what: ["Kalkulator goriva procjenjuje koliko goriva i novca vam treba za putovanje, na osnovu udaljenosti, prosječne potrošnje vozila (L/100 km) i cijene litre goriva u KM. Moguće je računati i povratno putovanje."],
++    steps: ["Upišite udaljenost u jednom smjeru u kilometrima.", "Upišite prosječnu potrošnju vozila (L/100 km).", "Upišite cijenu goriva po litru.", "Uključite ili isključite povratno putovanje i pročitajte trošak."],
++    benefits: ["Rezultat se računa odmah i lokalno.", "Dugme za vraćanje početnih vrijednosti.", "Prikaz u KM, uz ukupnu kilometražu i litre."],
++    faq: [
++      { q: "Kako izračunati potrošnju za vlastito vozilo?", a: "Natočite do vrha, pređite poznatu kilometražu i ponovo natočite. Podijelite litre sa pređenim kilometrima i pomnožite sa 100." },
++      { q: "Da li kalkulator uračunava putarine i troškove vožnje?", a: "Ne. Procjena obuhvata samo gorivo, bez putarina, parkinga i promjena cijene." },
++    ],
++    preview: { title: "Primjer: 100 km u jednom smjeru, 6 L/100 km, 2,50 KM po litru, povratno", rows: [{ label: "Ukupna kilometraža", value: "200 km" }, { label: "Potrošeno goriva", value: "12,00 L" }, { label: "Ukupan trošak", value: "30,00 KM" }] },
++  },
++  "calculator-pdv": {
++    name: "PDV kalkulator",
++    what: ["PDV kalkulator dodaje PDV na iznos bez poreza ili izdvaja PDV iz ukupnog iznosa. Koristi standardnu stopu od 17%, koja važi u Bosni i Hercegovini."],
++    steps: ["Odaberite način: dodaj PDV (bez → sa) ili izdvoji PDV (sa → bez).", "Upišite iznos u KM.", "Pročitajte osnovicu, iznos PDV-a i ukupan iznos.", "Za drugi iznos samo promijenite unos."],
++    benefits: ["Radi odmah, bez prijave i bez slanja podataka.", "Jasan prikaz osnovice, PDV-a i ukupnog iznosa.", "Namijenjen je za brzu provjeru faktura i cijena."],
++    faq: [
++      { q: "Koja je stopa PDV-a u BiH?", a: "Standardna stopa je 17%. Kalkulator koristi samo tu stopu." },
++      { q: "Može li kalkulator zamijeniti knjigovodstvo?", a: "Ne. Služi za brzu orijentaciju. Za fakture i prijave koristite službene propise i savjet knjigovođe." },
++    ],
++    preview: { title: "Primjer: 100 KM bez PDV-a", rows: [{ label: "Osnovica", value: "100,00 KM" }, { label: "PDV (17%)", value: "17,00 KM" }, { label: "Ukupno sa PDV-om", value: "117,00 KM" }] },
++  },
++  "calculator-staz": {
++    name: "Kalkulator radnog staža",
++    what: ["Kalkulator izračunava kalendarsko trajanje između dva datuma izraženo u godinama, mjesecima i danima. Koristan je za orijentacionu provjeru radnog staža."],
++    steps: ["Upišite datum početka rada.", "Upišite datum završetka ili ostavite današnji datum.", "Pročitajte trajanje u godinama, mjesecima i danima.", "Ako je završetak prije početka, prikazuje se upozorenje."],
++    benefits: ["Brz i jasan rezultat.", "Proračun je lokalan, datumi se ne šalju na server.", "Napomena o ograničenjima vidljiva je uz rezultat."],
++    faq: [
++      { q: "Da li je rezultat službeni radni staž?", a: "Ne. Rezultat je kalendarski proračun i ne uzima u obzir prekide rada, beneficirani staž ni propise o priznavanju. Službeni staž utvrđuju nadležne institucije." },
++      { q: "Zašto datum završetka ne može biti u budućnosti?", a: "Kalkulator računa ostvareni staž, pa je najkasniji dozvoljeni datum današnji." },
++    ],
++    preview: { title: "Primjer: od 01.09.2015. do 01.09.2025.", rows: [{ label: "Početak", value: "01.09.2015." }, { label: "Završetak", value: "01.09.2025." }, { label: "Ostvareni staž", value: "10 godina, 0 mjeseci, 0 dana" }] },
++  },
++  "calculator-struja": {
++    name: "Kalkulator potrošnje struje",
++    what: ["Kalkulator procjenjuje potrošnju električne energije jednog aparata i mjesečni trošak, na osnovu snage u vatima, dnevnog broja sati rada i cijene jednog kWh."],
++    steps: ["Upišite snagu aparata u W (piše na naljepnici uređaja).", "Upišite prosječan broj sati rada dnevno (0–24).", "Upišite cijenu 1 kWh u KM.", "Pročitajte dnevnu i mjesečnu potrošnju i trošak."],
++    benefits: ["Pomaže da uporedite aparate i uštedite.", "Prikaz u kWh i KM.", "Proračun je lokalan i bez prijave podataka."],
++    faq: [
++      { q: "Kako se računa potrošnja u kWh?", a: "Snaga u vatima se podijeli sa 1000 i pomnoži brojem sati rada. Aparat od 1000 W koji radi 5 sati potroši 5 kWh." },
++      { q: "Zašto je moj račun za struju drugačiji?", a: "Račun uključuje tarife, naknade i poreze, a kalkulator procjenjuje samo potrošnju jednog aparata za 30 dana." },
++    ],
++    preview: { title: "Primjer: 1000 W, 5 sati dnevno, 0,20 KM po kWh", rows: [{ label: "Dnevno", value: "5,00 kWh" }, { label: "Mjesečno (30 dana)", value: "150,00 kWh" }, { label: "Mjesečni trošak", value: "30,00 KM" }] },
++  },
++
++  /* ------------------------------ Premium testovi ------------------------------ */
++  "test-opste-znanje": {
++    name: "Kviz opšteg znanja o BiH",
++    what: ["Kratki kviz od 5 pitanja o geografiji, historiji i kulturi Bosne i Hercegovine. Na kraju dobijate rezultat, a tačni i netačni odgovori se označavaju."],
++    steps: ["Odgovorite na sva pitanja izborom jedne ponuđene opcije.", "Kada ste odgovorili na sva pitanja, pritisnite „Prikaži rezultat“.", "Pregledajte označene tačne i netačne odgovore.", "Pritisnite „Pokušaj ponovo“ da vježbate ponovo."],
++    benefits: ["Brz format, nekoliko minuta.", "Odgovori se ne šalju i ne čuvaju na serveru.", "Pogodno za učenje i zabavu."],
++    faq: [
++      { q: "Da li se rezultat čuva?", a: "Ne. Rezultat se prikazuje samo u vašem pregledniku dok je stranica otvorena." },
++      { q: "Mogu li ponovo riješiti kviz?", a: "Da, neograničeno puta." },
++    ],
++    preview: { title: "Primjer pitanja", rows: [{ label: "Pitanje", value: "Koji je glavni grad Bosne i Hercegovine?" }, { label: "Format", value: "5 pitanja, rezultat na kraju" }] },
++  },
++  "test-logika": {
++    name: "IQ i logički test",
++    what: ["Kratak test sa 5 zadataka logičkog zaključivanja, nizova i prepoznavanja obrazaca. Rezultat je informativan i nije zamjena za stručno testiranje inteligencije."],
++    steps: ["Pažljivo pročitajte zadatak.", "Izaberite jedan od ponuđenih odgovora.", "Nakon svih odgovora pritisnite „Prikaži rezultat“.", "Pregledajte tačne odgovore i pokušajte ponovo."],
++    benefits: ["Vježba logičko razmišljanje.", "Rezultat odmah.", "Odgovori se ne čuvaju."],
++    faq: [
++      { q: "Da li ovaj test mjeri pravi IQ?", a: "Ne. Radi se o kratkom zabavnom i edukativnom testu, a ne o standardizovanom mjerenju inteligencije." },
++    ],
++    preview: { title: "Primjer testa", rows: [{ label: "Vrsta zadataka", value: "Nizovi i logičko zaključivanje" }, { label: "Format", value: "5 zadataka, rezultat na kraju" }] },
++  },
++  "test-saobracajni": {
++    name: "Saobraćajni test",
++    what: ["Kratki test od 5 pitanja o saobraćajnim znakovima, prednosti prolaza i sigurnom ponašanju u saobraćaju. Služi za ponavljanje i nije zamjena za zvanični ispit za vozače."],
++    steps: ["Pročitajte pitanje.", "Izaberite jedan odgovor.", "Pritisnite „Prikaži rezultat“ kada odgovorite na sva pitanja.", "Pogledajte označene tačne odgovore i ponovite test."],
++    benefits: ["Dobro za ponavljanje osnova.", "Rezultat odmah.", "Odgovori se ne čuvaju."],
++    faq: [
++      { q: "Da li test važi za polaganje vozačkog ispita?", a: "Ne. Za polaganje se koristi službeni materijal autoškole i nadležnih institucija." },
++    ],
++    preview: { title: "Primjer testa", rows: [{ label: "Teme", value: "Znakovi, prednost prolaza, ponašanje u saobraćaju" }, { label: "Format", value: "5 pitanja, rezultat na kraju" }] },
++  },
++  "test-licnost": {
++    name: "Test ličnosti",
++    what: ["Kratka samoprocjena ličnih preferencija sa 6 pitanja i informativnim opisom profila. Rezultat nije psihološka dijagnoza ni stručna procjena."],
++    steps: ["Odgovorite na pitanja prema svojim uobičajenim navikama.", "Pritisnite „Prikaži rezultat“.", "Pročitajte informativni opis profila.", "Po želji ponovite test."],
++    benefits: ["Brz i jednostavan.", "Odgovori se ne šalju na server.", "Jasno naznačeno da je rezultat informativan."],
++    faq: [
++      { q: "Da li je rezultat psihološka procjena?", a: "Ne. Test služi samorefleksiji i zabavi. Za stručnu procjenu obratite se psihologu." },
++    ],
++    preview: { title: "Primjer testa", rows: [{ label: "Format", value: "6 pitanja, informativni profil na kraju" }] },
++  },
++
++  /* ------------------------------ Kategorije ------------------------------ */
++  "category-kalkulatori": {
++    name: "Kalkulatori",
++    what: ["Kalkulatori su Premium alati za svakodnevne proračune u KM: trošak goriva, PDV 17%, radni staž i potrošnja električne energije. Svaki kalkulator ima jasan unos, trenutačan rezultat i napomenu o ograničenjima."],
++    steps: ["Izaberite kalkulator.", "Unesite tražene vrijednosti.", "Pročitajte rezultat koji se ažurira odmah.", "Za novi proračun promijenite unos."],
++    benefits: ["Proračun je lokalan, bez slanja unosa na server.", "Prilagođeno BiH: KM, PDV 17%.", "Premium pristup otključava sve kalkulatore."],
++    faq: [
++      { q: "Šta je potrebno za korištenje kalkulatora?", a: "Aktivna Premium pretplata i prijavljen korisnički račun." },
++      { q: "Jesu li rezultati zvanični?", a: "Rezultati su informativni. Za službene obračune koristite propise i nadležne institucije." },
++    ],
++  },
++  "category-testovi": {
++    name: "Testovi i kvizovi",
++    what: ["Testovi su Premium kvizovi i samoprocjene: opšte znanje o BiH, saobraćajni test, IQ i logički zadaci te test ličnosti. Svaki test ima nekoliko pitanja i odmah prikazuje rezultat."],
++    steps: ["Izaberite test.", "Odgovorite na sva pitanja.", "Pritisnite „Prikaži rezultat“.", "Pregledajte odgovore i pokušajte ponovo."],
++    benefits: ["Kratko i pregledno.", "Odgovori se ne čuvaju na serveru.", "Premium pristup otključava sve testove."],
++    faq: [
++      { q: "Šta je potrebno za pristup testovima?", a: "Aktivna Premium pretplata i prijavljen korisnički račun." },
++      { q: "Jesu li testovi stručni instrumenti?", a: "Ne. Testovi su edukativni i zabavni, bez dijagnostičke vrijednosti." },
++    ],
++  },
++
++  /* ------------------------------ Dokument i PDF alati (/alati/*) ------------------------------ */
++  "alati-pdf-u-word": {
++    name: "PDF u Word",
++    what: ["Alat pretvara PDF dokument u Word (DOCX). Dostupna su dva načina: privatna vizuelna kopija koja se pravi u vašem pregledniku i PRO uređivi DOCX koji se obrađuje na serveru za prijavljene korisnike."],
++    steps: ["Izaberite način konverzije.", "Dodajte PDF datoteku.", "Pokrenite konverziju i sačekajte da se završi.", "Preuzmite DOCX i provjerite izgled u Wordu."],
++    benefits: ["Vizuelni način ne šalje datoteku na server.", "PRO način je namijenjen za uređivanje teksta.", "Besplatne probne konverzije bez prijave, uz ograničen broj."],
++    faq: [
++      { q: "Koja je razlika između dva načina?", a: "Vizuelna kopija čuva izgled stranice, ali tekst ne mora biti jednostavan za uređivanje. PRO način pokušava napraviti uredive odlomke." },
++      { q: "Da li su skenirani PDF-ovi podržani?", a: "Skenirani dokumenti su slike, pa uređiv tekst ne mogu dati bez prepoznavanja teksta (OCR)." },
++      { q: "Šta se dešava sa datotekom na serveru?", a: "Privremeni rezultati serverske konverzije se brišu u okviru dnevnog čišćenja." },
++    ],
++  },
++  "alati-word-u-pdf": {
++    name: "Word u PDF",
++    what: ["Alat pretvara Word dokument (DOCX) u PDF. Konverzija se izvršava u vašem pregledniku, pa dokument ne napušta vaš uređaj."],
++    steps: ["Dodajte DOCX datoteku.", "Pokrenite konverziju.", "Sačekajte da se pripremi PDF.", "Preuzmite PDF i provjerite izgled."],
++    benefits: ["Obrada u pregledniku bez slanja datoteke.", "Besplatne probne konverzije, uz ograničen broj.", "Jednostavan tok u tri klika."],
++    faq: [
++      { q: "Zašto se izgled PDF-a razlikuje od Worda?", a: "Konverzija u pregledniku zadržava sadržaj i osnovno oblikovanje, ali složeni elementi (tekstualna polja, posebni fontovi, složeni razmaci) mogu izgledati drugačije." },
++      { q: "Podržava li alat stari .doc format?", a: "Podržan je DOCX. Stari .doc dokument prvo sačuvajte kao DOCX." },
++    ],
++  },
++  "alati-excel-u-pdf": {
++    name: "Excel u PDF",
++    what: ["Alat pretvara Excel tabelu (XLSX ili XLS) u PDF prikladan za štampu ili slanje. Konverzija se izvršava u vašem pregledniku."],
++    steps: ["Dodajte Excel datoteku.", "Pokrenite konverziju.", "Sačekajte da se pripremi PDF.", "Preuzmite PDF i provjerite tabelu."],
++    benefits: ["Obrada u pregledniku bez slanja datoteke.", "Besplatne probne konverzije, uz ograničen broj.", "Pogodno za izvještaje i cjenovnike."],
++    faq: [
++      { q: "Hoće li formule i grafikoni biti sačuvani?", a: "PDF prikazuje vrijednosti tabele. Formule se ne prenose, a grafikoni i složeno oblikovanje mogu izostati." },
++      { q: "Koje su moguće greške?", a: "Veoma velike tabele mogu se sporo obraditi. U tom slučaju podijelite datoteku na manje dijelove." },
++    ],
++  },
++  "alati-pptx-u-pdf": {
++    name: "PowerPoint u PDF (beta)",
++    what: ["Alat pretvara PowerPoint prezentaciju (PPTX) u PDF. Alat je u beta fazi i obrada se izvršava na serveru, pa rezultat provjerite prije slanja ili štampe."],
++    steps: ["Dodajte PPTX datoteku.", "Pokrenite konverziju.", "Sačekajte obradu na serveru.", "Preuzmite PDF i provjerite sve slajdove."],
++    benefits: ["Brz put do PDF-a za dijeljenje.", "Besplatne probne konverzije, uz ograničen broj.", "Beta oznaka jasno upozorava na moguća odstupanja."],
++    faq: [
++      { q: "Šta znači beta?", a: "Alat se još usavršava. Animacije, neki fontovi i složeni efekti možda neće biti tačno preneseni." },
++      { q: "Da li se datoteka šalje na server?", a: "Da, ovaj alat koristi serversku obradu, a privremeni rezultati se brišu u okviru dnevnog čišćenja." },
++    ],
++  },
++  "alati-spoji-pdf": {
++    name: "Spajanje PDF dokumenata",
++    what: ["Alat spaja više PDF datoteka u jednu, redoslijedom kojim ih dodate. Spajanje se izvršava u vašem pregledniku."],
++    steps: ["Dodajte dvije ili više PDF datoteka.", "Provjerite redoslijed.", "Pokrenite spajanje.", "Preuzmite jedan objedinjeni PDF."],
++    benefits: ["Datoteke ne napuštaju vaš uređaj.", "Besplatne probne obrade, uz ograničen broj.", "Brzo i bez instalacije."],
++    faq: [
++      { q: "Mogu li promijeniti redoslijed datoteka?", a: "Redoslijed prati redoslijed dodavanja. Za drugačiji redoslijed dodajte datoteke drugim redom." },
++      { q: "Podržavaju li se PDF-ovi zaštićeni lozinkom?", a: "Zaštićene datoteke prvo otključajte u programu u kojem su napravljene." },
++    ],
++  },
++  "alati-podijeli-pdf": {
++    name: "Dijeljenje PDF dokumenta",
++    what: ["Alat razdvaja PDF na pojedinačne stranice. Obrada se izvršava u vašem pregledniku, a rezultat dobijate kao ZIP arhivu sa po jednim PDF-om za svaku stranicu."],
++    steps: ["Dodajte PDF datoteku.", "Pokrenite razdvajanje.", "Sačekajte obradu.", "Preuzmite rezultat i provjerite stranice."],
++    benefits: ["Datoteka ne napušta vaš uređaj.", "Besplatne probne obrade, uz ograničen broj.", "Korisno za slanje samo potrebnih stranica."],
++    faq: [
++      { q: "Mogu li izdvojiti samo određene stranice?", a: "Alat razdvaja dokument na sve stranice. Iz ZIP arhive uzmite one koje su vam potrebne." },
++      { q: "Što ako je PDF zaštićen lozinkom?", a: "Prvo uklonite zaštitu u programu u kojem je dokument pravljen." },
++    ],
++  },
++  "alati-html-u-word": {
++    name: "HTML u Word",
++    what: ["Alat pretvara HTML datoteku u Word dokument (DOCX). Obrada se izvršava u vašem pregledniku, uz uklanjanje skripti i stilova iz sigurnosnih razloga."],
++    steps: ["Dodajte HTML datoteku.", "Pokrenite konverziju.", "Sačekajte da se DOCX pripremi.", "Preuzmite dokument i provjerite oblikovanje."],
++    benefits: ["Obrada u pregledniku bez slanja datoteke.", "Skripte se uklanjaju prije konverzije.", "Besplatne probne konverzije, uz ograničen broj."],
++    faq: [
++      { q: "Hoće li CSS stilovi biti sačuvani?", a: "Osnovna struktura (naslovi, odlomci, liste, tabele) se prenosi, a složeni stilovi i vanjski resursi mogu izostati." },
++      { q: "Zašto se slike ne prikazuju?", a: "Slike koje se učitavaju sa interneta ne moraju biti dostupne. Koristite ugrađene slike u datoteci." },
++    ],
++  },
++  "alati-html-u-pdf": {
++    name: "HTML u PDF",
++    what: ["Alat pretvara HTML datoteku u PDF dokument spreman za štampu. Alat je dostupan korisnicima sa aktivnom Premium pretplatom."],
++    steps: ["Prijavite se i aktivirajte Premium.", "Dodajte HTML datoteku.", "Pokrenite konverziju.", "Preuzmite PDF i provjerite stranice."],
++    benefits: ["Brz put od HTML-a do PDF-a.", "Stranica se prikazuje i pretvara u pregledniku.", "Namijenjeno računima, ponudama i izvještajima."],
++    faq: [
++      { q: "Šta je potrebno za korištenje?", a: "Aktivna Premium pretplata." },
++      { q: "Zašto se dijelovi stranice ne prikazuju?", a: "Eksterni resursi (slike, fontovi) mogu biti nedostupni. Ugradite ih u HTML da bi se prikazali." },
++    ],
++  },
++  "alati-pismo": {
++    name: "Konverter ćirilice i latinice",
++    what: ["Besplatan alat za preslovljavanje teksta između ćirilice i latinice uz podršku za slova lj, nj, dž, č, ć, đ, š i ž. Dostupan je i u sekciji besplatnih konvertora."],
++    steps: ["Odaberite smjer preslovljavanja.", "Upišite ili zalijepite tekst.", "Rezultat se prikazuje odmah.", "Kopirajte rezultat jednim klikom."],
++    benefits: [LOCAL, "Besplatno je, bez ograničenja i bez prijave.", "Podržana su bosanska slova i digrafi."],
++    faq: [
++      { q: "Radi li alat sa dugim tekstovima?", a: "Da, ali za veoma duge dokumente preslovljeni tekst provjerite ručno, naročito za strane riječi." },
++      { q: "Je li tekst negdje sačuvan?", a: "Ne. Tekst ostaje u pregledniku." },
++    ],
++  },
++
++  /* ------------------------------ Slika u PDF ------------------------------ */
++  "slika-pdf": {
++    name: "Slika u PDF i PDF u sliku",
++    what: ["Alat pretvara JPEG i PNG slike u PDF, a PDF stranice u JPEG ili PNG slike. Konverzija se izvršava lokalno u vašem pregledniku."],
++    steps: ["Odaberite smjer konverzije.", "Dodajte jednu ili više datoteka.", "Pokrenite konverziju.", "Preuzmite rezultat."],
++    benefits: ["Datoteke ne napuštaju vaš uređaj.", "Pogodno za skenirane dokumente i potvrde.", "Pregled historije konverzija za prijavljene korisnike."],
++    faq: [
++      { q: "Mogu li spojiti više slika u jedan PDF?", a: "Da. Dodajte više slika i dobit ćete jedan PDF sa po jednom slikom po stranici." },
++      { q: "Koji su formati slike podržani?", a: "JPEG i PNG za pretvaranje u PDF, a PDF se pretvara u JPEG ili PNG." },
++    ],
++  },
++
++  /* ------------------------------ Moduli (/modul/*) ------------------------------ */
++  "module-jedinice": {
++    name: "Jedinice i valute",
++    what: ["Modul okuplja besplatne konvertore jedinica i valuta na jednom mjestu. Pokriva dužinu, masu, zapreminu i površinu te preračun KM, eura, dolara i drugih valuta."],
++    steps: ["Za jedinice izaberite kategoriju, unesite vrijednost i izaberite jedinice.", "Za valute upišite iznos i izaberite valute.", "Rezultat se prikazuje odmah.", "Za osvježavanje kurseva koristite dugme za osvježavanje."],
++    benefits: ["Besplatno je i bez prijave.", "Jedinice se računaju lokalno u pregledniku.", "Kursevi se privremeno pamte radi brzine."],
++    faq: [
++      { q: "Da li je modul besplatan?", a: "Da, jedinice i valute su besplatne bez ograničenja." },
++      { q: "Gdje su ostali konvertori?", a: "Konvertore pisma, datuma, rimskih brojeva i temperature nalazite u sekciji Konvertori." },
++    ],
++  },
++  "module-kompresuj-pdf": {
++    name: "Kompresija PDF-a",
++    what: ["Premium alat smanjuje veličinu PDF dokumenta, što olakšava slanje e-poštom i otpremanje na portale koji ograničavaju veličinu datoteke. Obrada se izvršava na serveru."],
++    steps: ["Prijavite se sa aktivnom Premium pretplatom.", "Dodajte PDF datoteku.", "Pokrenite kompresiju.", "Preuzmite manji PDF i provjerite čitljivost."],
++    benefits: ["Manje datoteke za e-poštu i portale.", "Serverski rezultati se brišu u okviru dnevnog čišćenja.", "Jednostavan tok u nekoliko koraka."],
++    faq: [
++      { q: "Hoće li kvaliteta biti smanjena?", a: "Kompresija može smanjiti kvalitetu slika u dokumentu. Pregledajte rezultat prije slanja." },
++      { q: "Šta je potrebno za korištenje?", a: "Aktivna Premium pretplata." },
++    ],
++  },
++  "module-vodeni-zig": {
++    name: "Vodeni žig na PDF-u",
++    what: ["Premium alat dodaje vodeni žig (tekst) na stranice PDF dokumenta, na primjer „KOPIJA“ ili „POVJERLJIVO“. Obrada se izvršava na serveru."],
++    steps: ["Prijavite se sa aktivnom Premium pretplatom.", "Dodajte PDF datoteku.", "Podesite tekst vodenog žiga.", "Preuzmite PDF i provjerite izgled."],
++    benefits: ["Označavanje dokumenata prije slanja.", "Serverski rezultati se brišu u okviru dnevnog čišćenja.", "Jednostavno za korištenje."],
++    faq: [
++      { q: "Mogu li vodeni žig kasnije ukloniti?", a: "Sačuvajte originalni dokument. Žig upisan u PDF ne treba računati kao reverzibilnu izmjenu." },
++      { q: "Šta je potrebno za korištenje?", a: "Aktivna Premium pretplata." },
++    ],
++  },
++  "module-audio": {
++    name: "Audio konverter",
++    what: ["Premium modul za konverziju audio datoteka između formata MP3, OGG, WAV, M4A, AAC i FLAC. Gdje je moguće, obrada se izvršava u pregledniku, a u ostalim slučajevima na serveru."],
++    steps: ["Prijavite se sa aktivnom Premium pretplatom.", "Dodajte audio datoteku.", "Izaberite ciljni format.", "Preuzmite konvertovanu datoteku."],
++    benefits: ["Podržani su najčešći audio formati.", "Serverski rezultati se brišu u okviru dnevnog čišćenja.", "Jednostavan tok bez instalacije."],
++    faq: [
++      { q: "Koji su formati podržani?", a: "MP3, OGG, WAV, M4A, AAC i FLAC." },
++      { q: "Šta je potrebno za korištenje?", a: "Aktivna Premium pretplata." },
++    ],
++  },
++  "module-video": {
++    name: "Video konverter",
++    what: ["Premium modul za konverziju video datoteka između formata MP4, MOV, AVI, WEBM, MKV i FLV. Gdje je moguće, obrada se izvršava u pregledniku, a u ostalim slučajevima na serveru."],
++    steps: ["Prijavite se sa aktivnom Premium pretplatom.", "Dodajte video datoteku.", "Izaberite ciljni format.", "Preuzmite konvertovanu datoteku."],
++    benefits: ["Podržani su najčešći video formati.", "Serverski rezultati se brišu u okviru dnevnog čišćenja.", "Jednostavan tok bez instalacije."],
++    faq: [
++      { q: "Koji su formati podržani?", a: "MP4, MOV, AVI, WEBM, MKV i FLV." },
++      { q: "Zašto je konverzija spora?", a: "Veliki video zahtijeva dosta obrade. Za brže rezultate koristite manje datoteke." },
++    ],
++  },
++};
++
++export const getToolGuide = (id?: string): ToolGuide | undefined => (id ? TOOL_GUIDES[id] : undefined);
++
++/** Mapira rutu (sa ili bez ?tab=) na ID uputstva. */
++export const guideIdForPath = (fullPath: string): string | undefined => {
++  const [path, query = ""] = fullPath.split("?");
++  const tab = new URLSearchParams(query).get("tab");
++  let match: RegExpMatchArray | null;
++
++  if (path === "/category/generatori") return `generator-${tab && TOOL_GUIDES[`generator-${tab}`] ? tab : "uuid"}`;
++  if (path === "/category/konvertori") return `converter-${tab && TOOL_GUIDES[`converter-${tab}`] ? tab : "unit"}`;
++  if (path === "/category/kalkulatori") return "category-kalkulatori";
++  if (path === "/category/testovi" || path === "/testovi") return "category-testovi";
++  if ((match = path.match(/^\/kalkulatori\/([^/]+)$/))) return TOOL_GUIDES[`calculator-${match[1]}`] ? `calculator-${match[1]}` : undefined;
++  if ((match = path.match(/^\/testovi\/([^/]+)$/))) return TOOL_GUIDES[`test-${match[1]}`] ? `test-${match[1]}` : undefined;
++  if ((match = path.match(/^\/alati\/([^/]+)$/))) return TOOL_GUIDES[`alati-${match[1]}`] ? `alati-${match[1]}` : undefined;
++  if ((match = path.match(/^\/modul\/([^/]+)$/))) return TOOL_GUIDES[`module-${match[1]}`] ? `module-${match[1]}` : undefined;
++  if (path === "/slika-pdf") return "slika-pdf";
++  return undefined;
++};
+diff --git a/src/pages/Alati.tsx b/src/pages/Alati.tsx
+index 430bc4a..b0288ea 100644
+--- a/src/pages/Alati.tsx
++++ b/src/pages/Alati.tsx
+@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
+ import { PremiumHeader } from "@/components/PremiumHeader";
+ import { PremiumFooter } from "@/components/PremiumFooter";
+ import { SEO, SITE_URL } from "@/components/SEO";
++import { ToolInfoGuide } from "@/components/ToolInfoGuide";
+ import { FreeToolCard } from "@/components/FreeToolCard";
+ import { ToolRunner } from "@/components/free-tools/ToolRunner";
+ import { ScriptConverter } from "@/components/free-tools/ScriptConverter";
+@@ -542,6 +543,11 @@ const Alati = () => {
+             />
+           )}
+         </div>
++        {toolSlug && (
++          <div className="container mx-auto max-w-5xl px-4 pb-12">
++            <ToolInfoGuide toolId={`alati-${toolSlug}`} />
++          </div>
++        )}
+       </main>
+ 
+       <FreemiumPaywallModal
+diff --git a/src/pages/Auth.tsx b/src/pages/Auth.tsx
+index ddbe453..a1fc699 100644
+--- a/src/pages/Auth.tsx
++++ b/src/pages/Auth.tsx
+@@ -254,6 +254,7 @@ const Auth = () => {
+         title="Prijava i registracija — BH Konver"
+         description="Prijavite se ili kreirajte besplatan BH Konver račun za pristup svim alatima za konverziju."
+         path="/auth"
++        noindex
+       />
+       <Card className="w-full max-w-md">
+         <CardHeader className="text-center">
+diff --git a/src/pages/ModulePage.tsx b/src/pages/ModulePage.tsx
+index ca98a51..db09bff 100644
+--- a/src/pages/ModulePage.tsx
++++ b/src/pages/ModulePage.tsx
+@@ -1,5 +1,5 @@
+ import { lazy, Suspense, useMemo, useState } from "react";
+-import { useNavigate, useParams } from "react-router-dom";
++import { Navigate, useNavigate, useParams } from "react-router-dom";
+ import { useTranslation } from "react-i18next";
+ import { ArrowLeft, Crown, Download, FileUp, Lock, Settings2 } from "lucide-react";
+ import { PremiumHeader } from "@/components/PremiumHeader";
+@@ -7,6 +7,7 @@ import { PremiumFooter } from "@/components/PremiumFooter";
+ import { PremiumDropzone } from "@/components/PremiumDropzone";
+ import { PreviewPanel } from "@/components/PreviewPanel";
+ import { SEO } from "@/components/SEO";
++import { ToolInfoGuide } from "@/components/ToolInfoGuide";
+ import { Button } from "@/components/ui/button";
+ import { Card } from "@/components/ui/card";
+ import { FreemiumPaywallModal } from "@/components/free-tools/FreemiumPaywallModal";
+@@ -51,10 +52,8 @@ const ModulePage = () => {
+   const convert = useConversionEngine({ canConvert: !requiresPro, onAccessDenied: () => setPaywallOpen(true) });
+   const title = useMemo(() => (config ? t(config.titleKey) : t("modulePage.notFound")), [config, t]);
+ 
+-  if (!config) {
+-    navigate("/", { replace: true });
+-    return null;
+-  }
++  // Navigate umjesto navigate() u renderu: izbjegava React upozorenje o promjeni stanja tokom renderovanja
++  if (!config) return <Navigate to="/" replace />;
+ 
+   const steps = [
+     { icon: FileUp, label: t("modulePage.steps.upload") },
+@@ -126,6 +125,9 @@ const ModulePage = () => {
+             </div>
+           )}
+         </div>
++        <div className="container mx-auto max-w-5xl px-4 pb-10">
++          <ToolInfoGuide toolId={`module-${moduleSlug}`} />
++        </div>
+       </main>
+       <FreemiumPaywallModal open={paywallOpen} onOpenChange={setPaywallOpen} />
+       <PremiumFooter />
+diff --git a/src/pages/NotFound.tsx b/src/pages/NotFound.tsx
+index f9cf7c5..7ab1053 100644
+--- a/src/pages/NotFound.tsx
++++ b/src/pages/NotFound.tsx
+@@ -1,5 +1,6 @@
+ import { useLocation } from "react-router-dom";
+ import { useEffect } from "react";
++import { Helmet } from "react-helmet-async";
+ 
+ const NotFound = () => {
+   const location = useLocation();
+@@ -10,6 +11,10 @@ const NotFound = () => {
+ 
+   return (
+     <div className="flex min-h-screen items-center justify-center bg-gray-100">
++      <Helmet>
++        <title>404 — Stranica nije pronađena | BH KONVER</title>
++        <meta name="robots" content="noindex, follow" />
++      </Helmet>
+       <div className="text-center">
+         <h1 className="mb-4 text-4xl font-bold">404</h1>
+         <p className="mb-4 text-xl text-gray-600">Oops! Page not found</p>
+diff --git a/src/pages/SlikaPdf.tsx b/src/pages/SlikaPdf.tsx
+index d291f4a..5d95768 100644
+--- a/src/pages/SlikaPdf.tsx
++++ b/src/pages/SlikaPdf.tsx
+@@ -6,6 +6,7 @@ import { FileImage, FileText, Download, RotateCcw, CheckCircle2, XCircle, Loader
+ import { PremiumHeader } from "@/components/PremiumHeader";
+ import { PremiumFooter } from "@/components/PremiumFooter";
+ import { SEO } from "@/components/SEO";
++import { ToolInfoGuide } from "@/components/ToolInfoGuide";
+ import { PremiumDropzone } from "@/components/PremiumDropzone";
+ import { FormatDetectionBadge } from "@/components/FormatDetectionBadge";
+ import { Button } from "@/components/ui/button";
+@@ -513,6 +514,7 @@ const SlikaPdf = () => {
+             )}
+           </div>
+         )}
++        <ToolInfoGuide toolId="slika-pdf" />
+       </main>
+ 
+       <PremiumFooter />
