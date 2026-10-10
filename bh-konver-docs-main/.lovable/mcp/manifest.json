@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.1",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://kvuiqexsovexuyfgztwk.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "bh-konver-mcp",
+      "version": "0.1.0",
+      "title": "BH KONVER MCP"
+    },
+    "tools": [
+      {
+        "name": "list_supported_formats",
+        "title": "List supported conversion formats",
+        "description": "Returns the categories of files BH KONVER can convert (documents, spreadsheets, presentations, images, audio, video) and the file extensions each category supports.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "module": {
+              "type": "string",
+              "enum": [
+                "documents",
+                "spreadsheets",
+                "presentations",
+                "images",
+                "audio",
+                "video"
+              ],
+              "description": "Optional. Restrict result to a single module."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_pricing_plans",
+        "title": "Get BH KONVER pricing plans",
+        "description": "Returns available BH KONVER premium subscription plans with duration and price in BAM (billed in EUR via PayPal).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

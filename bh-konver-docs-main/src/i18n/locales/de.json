@@ -1,0 +1,779 @@
+{
+  "hero": {
+    "title": "BH Konver",
+    "mainTitle": "BH KONVER ist Ihr digitales Konvertierungstool",
+    "subtitle": "Umfassendes Dateikonvertierungssystem",
+    "version": "Video • Audio • Bilder • Dokumente • GIF • Einheiten",
+    "featuresTitle": "Alle Konvertierungen, die BH Konver bietet:"
+  },
+  "modules": {
+    "video": {
+      "name": "Videokonverter",
+      "description": "MP4→MP3, MOV→MP4, Video→GIF"
+    },
+    "audio": {
+      "name": "Audiokonverter",
+      "description": "MP3→OGG, MP4→MP3, Audioformate"
+    },
+    "image": {
+      "name": "Bildkonverter",
+      "description": "WEBP→PNG, HEIC→JPG, PNG→SVG"
+    },
+    "document": {
+      "name": "PDF & Dokumente",
+      "description": "PDF→Word, PDF→JPG, DOCX→PDF"
+    },
+    "gif": {
+      "name": "GIF-Konverter",
+      "description": "Video→GIF, GIF→MP4, GIF→APNG"
+    },
+    "pdf-tools": {
+      "name": "PDF-Tools",
+      "description": "Wasserzeichen, Drehen, Komprimieren, Teilen, Zusammenführen"
+    },
+    "unit": {
+      "name": "Einheitenkonverter",
+      "description": "cm↔Zoll, kg↔Pfund, °C↔°F"
+    }
+  },
+  "unitConverter": {
+    "title": "Einheitenkonverter",
+    "selectConversion": "Konvertierungstyp auswählen",
+    "inputValue": "Wert eingeben",
+    "result": "Ergebnis",
+    "conversions": {
+      "cm_to_inch": "Zentimeter → Zoll",
+      "inch_to_cm": "Zoll → Zentimeter",
+      "kg_to_lbs": "Kilogramm → Pfund",
+      "lbs_to_kg": "Pfund → Kilogramm",
+      "celsius_to_fahrenheit": "Celsius → Fahrenheit",
+      "fahrenheit_to_celsius": "Fahrenheit → Celsius",
+      "c_to_f": "Celsius → Fahrenheit",
+      "f_to_c": "Fahrenheit → Celsius"
+    }
+  },
+  "fileUpload": {
+    "dragDrop": "Dateien hierher ziehen und ablegen oder",
+    "browse": "Durchsuchen",
+    "supportedFormats": "Unterstützte Formate"
+  },
+  "conversion": {
+    "yourFiles": "Ihre Dateien",
+    "selectFormat": "Format auswählen",
+    "convert": "Konvertieren",
+    "download": "Herunterladen",
+    "remove": "Entfernen",
+    "converting": "Konvertierung läuft...",
+    "success": "Erfolgreich konvertiert!",
+    "error": "Konvertierungsfehler"
+  },
+  "pricing": {
+    "title": "Preise",
+    "subtitle": "Wählen Sie einen Plan, der Ihren Bedürfnissen entspricht",
+    "popular": "Beliebteste",
+    "selectButton": "Plan wählen",
+    "day": {
+      "title": "24 Stunden",
+      "description": "Perfekt für schnelle Projekte",
+      "duration": "24h Zugang",
+      "feature1": "Unbegrenzte Konvertierungen 24h",
+      "feature2": "Alle Formate verfügbar",
+      "feature3": "Schnelle Verarbeitung"
+    },
+    "twoDay": {
+      "title": "48 Stunden",
+      "description": "Beliebteste Wahl",
+      "duration": "48h Zugang",
+      "feature1": "Unbegrenzte Konvertierungen 48h",
+      "feature2": "Alle Formate verfügbar",
+      "feature3": "Keine Größenbeschränkungen",
+      "feature4": "Prioritätsunterstützung"
+    },
+    "monthly": {
+      "title": "Monatsabonnement",
+      "description": "Bester Wert für regelmäßige Benutzer",
+      "duration": "1 Monat",
+      "feature1": "Unbegrenzte Konvertierungen 30 Tage",
+      "feature2": "Alle Formate und PDF-Tools",
+      "feature3": "Keine Größenbeschränkungen",
+      "feature4": "VIP-Support 24/7",
+      "feature5": "API-Zugang"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 BH Konver",
+    "developed": "Entwickelt in Bosnien und Herzegowina, Zenica 72 000",
+    "ownership": "Eigentum von B&H Assistant",
+    "motto": "Kulturen verbinden Chancen schaffen",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "support": "Support"
+  },
+  "common": {
+    "back": "Zurück"
+  },
+  "privacy": {
+    "title": "Datenschutz",
+    "description": "BH Konver respektiert Ihre Privatsphäre. Die Anwendung sammelt oder speichert keine persönlichen Daten außer denen, die der Benutzer freiwillig zur Nutzung der Funktionalität eingibt. Alle Daten werden ausschließlich zur Anzeige öffentlich verfügbarer Formulare von offiziellen BiH-Institutionswebsites verwendet. Durch die Nutzung der Anwendung akzeptieren Sie, dass Ihre Daten nicht verkauft, geteilt oder missbraucht werden.",
+    "businessPolicy": {
+      "title": "Datenschutzrichtlinie",
+      "description": "BH Konver respektiert Ihre Privatsphäre. Die Anwendung sammelt oder speichert keine persönlichen Daten außer denen, die der Benutzer freiwillig zur Nutzung der Funktionalität eingibt. Alle Daten werden ausschließlich zur Anzeige öffentlich verfügbarer Formulare von offiziellen BiH-Institutionswebsites verwendet. Durch die Nutzung der Anwendung akzeptieren Sie, dass Ihre Daten nicht verkauft, geteilt oder missbraucht werden."
+    },
+    "technology": "Technische Sicherheitsmaßnahmen",
+    "ssl": {
+      "title": "SSL-Verschlüsselung",
+      "description": "Alle Kommunikation zwischen Benutzer und Server ist durch SSL/TLS-Verschlüsselung geschützt."
+    },
+    "dataCenters": {
+      "title": "Sichere Rechenzentren",
+      "description": "Wir nutzen sichere Rechenzentren mit physischem Schutz und redundanten Systemen."
+    },
+    "monitoring": {
+      "title": "24/7 Überwachung",
+      "description": "Unsere Systeme werden ständig überwacht für schnelle Erkennung und Reaktion auf Sicherheitsbedrohungen."
+    },
+    "api": {
+      "title": "Sichere API",
+      "description": "Alle API-Aufrufe sind authentifiziert und verschlüsselt."
+    },
+    "idps": {
+      "title": "Eindringschutz",
+      "description": "Wir verwenden fortschrittliche Systeme zur Erkennung und Verhinderung von Eindringlingen."
+    },
+    "backup": {
+      "title": "Datensicherungen",
+      "description": "Wir erstellen regelmäßig Datensicherungen."
+    },
+    "vpn": {
+      "title": "VPN-Zugang",
+      "description": "Administratorzugang ist durch VPN geschützt."
+    },
+    "uptime": {
+      "title": "Hohe Verfügbarkeit",
+      "description": "Wir garantieren hohe Verfügbarkeit unserer Dienste."
+    },
+    "isolation": {
+      "title": "Datenisolation",
+      "description": "Benutzerdaten sind isoliert und geschützt."
+    },
+    "practices": "Sicherheitspraktiken",
+    "compliance": {
+      "title": "Compliance",
+      "description": "Wir halten alle relevanten Datenschutzvorschriften ein."
+    },
+    "accessControl": {
+      "title": "Zugriffskontrolle",
+      "description": "Strenge Zugriffskontrolle für sensible Daten."
+    },
+    "privacyPolicy": {
+      "title": "Datenschutzrichtlinie",
+      "description": "Klare und transparente Datenschutzrichtlinie."
+    },
+    "training": {
+      "title": "Mitarbeiterschulung",
+      "description": "Regelmäßige Mitarbeiterschulung zu Sicherheitspraktiken."
+    },
+    "sdlc": {
+      "title": "Sichere Entwicklung",
+      "description": "Sicherheitspraktiken in die Softwareentwicklung integriert."
+    },
+    "incident": {
+      "title": "Vorfallmanagement",
+      "description": "Definierte Prozesse für das Management von Sicherheitsvorfällen."
+    }
+  },
+  "terms": {
+    "title": "Nutzungsbedingungen",
+    "intro": "BH Konver ist ein kostenloses digitales Tool. Der Benutzer verpflichtet sich, die Anwendung ausschließlich zum Auffinden öffentlicher Formulare zu verwenden. B&H Assistant d.o.o. garantiert keine ständige Verfügbarkeit externer URLs und ist nicht für den Inhalt externer Websites verantwortlich. Unbefugtes Kopieren, Verbreiten oder kommerzielle Missbrauch der Anwendung ohne schriftliche Genehmigung des Eigentümers ist verboten.",
+    "eligibility": {
+      "title": "Wer kann den Dienst nutzen",
+      "description": "Der Dienst steht allen Benutzern zur Verfügung, die diese Nutzungsbedingungen akzeptieren."
+    },
+    "ownership": {
+      "title": "Eigentum und Urheberrecht",
+      "description": "Alle Rechte an der BH Konver-Anwendung gehören B&H Assistant d.o.o. Unbefugtes Kopieren, Verbreiten oder kommerzieller Missbrauch ist streng verboten."
+    },
+    "commercial": {
+      "title": "Kommerzielle Nutzung",
+      "description1": "Für die kommerzielle Nutzung ist eine schriftliche Genehmigung des Eigentümers erforderlich.",
+      "description2": "Kontaktieren Sie uns für weitere Informationen zu kommerziellen Lizenzen."
+    },
+    "dataSecurity": {
+      "title": "Datensicherheit",
+      "description": "Wir ergreifen alle angemessenen Maßnahmen zum Schutz Ihrer Daten, können aber keine absolute Sicherheit garantieren."
+    },
+    "restrictions": {
+      "title": "Nutzungseinschränkungen",
+      "intro": "Benutzer dürfen nicht:",
+      "item1": "Die Anwendung für illegale Aktivitäten nutzen",
+      "item2": "Versuchen, auf geschützte Teile des Systems zuzugreifen",
+      "item3": "Server mit automatisierten Anfragen überlasten"
+    },
+    "payments": {
+      "title": "Zahlungen und Abonnements",
+      "description": "Alle Zahlungen werden über sichere Zahlungsgateways abgewickelt. Rückerstattungen sind gemäß unserer Rückerstattungsrichtlinie möglich."
+    },
+    "liability": {
+      "title": "Haftungsbeschränkung",
+      "description": "B&H Assistant d.o.o. haftet nicht für Schäden, die durch die Nutzung der Anwendung oder die Unfähigkeit, auf den Dienst zuzugreifen, entstehen."
+    },
+    "changes": {
+      "title": "Änderungen der Bedingungen",
+      "description": "Wir behalten uns das Recht vor, diese Bedingungen zu ändern. Benutzer werden über wesentliche Änderungen informiert."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "description": "Bei Fragen kontaktieren Sie uns unter:"
+    }
+  },
+  "support": {
+    "title": "Support",
+    "description": "Die Support-Option ermöglicht es Benutzern, Fehler oder Probleme direkt per E-Mail-Adresse zu melden. Alle gemeldeten Probleme werden protokolliert und so schnell wie möglich behoben.",
+    "contact": {
+      "title": "Kontaktieren Sie uns",
+      "description": "Um ein Problem zu melden oder Fragen zu stellen, senden Sie eine E-Mail an:"
+    },
+    "report": {
+      "title": "Problem melden",
+      "description": "Beschreiben Sie das Problem so detailliert wie möglich, damit wir Ihnen helfen können. Geben Sie Informationen über den verwendeten Browser, das Gerät und den Schritt an, der zum Problem geführt hat."
+    },
+    "response": {
+      "title": "Antwortzeit",
+      "description": "Wir bemühen uns, alle Anfragen innerhalb von 24-48 Stunden zu beantworten. Dringende Probleme werden vorrangig gelöst."
+    }
+  },
+  "languages": {
+    "bs": "Bosanski",
+    "en": "English",
+    "de": "Deutsch",
+    "tr": "Türkçe"
+  },
+  "scripts": {
+    "latin": "Lateinisch",
+    "cyrillic": "Kyrillisch"
+  },
+  "scriptSelector": {
+    "latin": "Lateinisch",
+    "cyrillic": "Kyrillisch"
+  },
+  "adSpace": {
+    "title": "Ihre Werbung hier",
+    "description": "Promoten Sie Ihr Geschäft auf BH KONVER",
+    "contact": "Kontakt für Miete:",
+    "benefit1": "Erreichen Sie Tausende von Benutzern",
+    "benefit2": "Zielen Sie auf Geschäftspublikum",
+    "benefit3": "Flexible Werbepakete",
+    "cta": "Hier werben"
+  },
+  "currencyConverter": {
+    "title": "Währungsrechner (BAM)",
+    "description": "Schnelle und kostenlose Währungsumrechnung für Besucher",
+    "amount": "Betrag",
+    "from": "Von Währung",
+    "to": "In Währung",
+    "result": "Ergebnis",
+    "lastUpdate": "Letzte Aktualisierung",
+    "refreshed": "Wechselkurse aktualisiert",
+    "error": "Fehler beim Laden der Wechselkurse",
+    "usingCached": "Zwischengespeicherte Daten werden verwendet",
+    "privacyNotice": "Dieses Widget kann Ressourcen von Dritten laden. Bitte überprüfen Sie unsere Datenschutz-/Cookie-Richtlinie."
+  },
+  "transparency": {
+    "title": "Transparenz & Sicherheit",
+    "subtitle": "Ihre Privatsphäre hat Priorität",
+    "autodelete": {
+      "title": "Automatische Löschung",
+      "description": "Alle Dokumente werden täglich um 10:00 Uhr automatisch gelöscht"
+    },
+    "noretention": {
+      "title": "Keine Aufbewahrung",
+      "description": "Wir speichern Ihre Dokumente nach der Löschung nicht"
+    },
+    "nosharing": {
+      "title": "Keine Weitergabe",
+      "description": "Wir geben Ihre Daten niemals an Dritte weiter"
+    }
+  },
+  "quickActions": {
+    "guestTitle": "Jetzt starten",
+    "guestDescription": "Registrieren Sie sich für den Zugriff auf alle Konvertierungen oder melden Sie sich an",
+    "register": "Registrieren",
+    "login": "Anmelden",
+    "upload": "Hochladen",
+    "history": "Meine Dokumente",
+    "pricing": "Preise",
+    "support": "Support"
+  },
+  "history": {
+    "title": "Meine Dokumente",
+    "documents": "Hochgeladene Dokumente",
+    "conversions": "Konvertierungsverlauf",
+    "noDocuments": "Sie haben keine hochgeladenen Dokumente",
+    "noConversions": "Sie haben keine Konvertierungen",
+    "refresh": "Aktualisieren",
+    "delete": "Löschen",
+    "completed": "Abgeschlossen",
+    "transparencyNotice": "Alle Dokumente werden zu Ihrer Sicherheit täglich um 10:00 Uhr automatisch gelöscht.",
+    "timeUntilDeletion": "Zeit bis zur nächsten Löschung",
+    "back": "Zurück zur Startseite",
+    "transparencyTitle": "Datentransparenz",
+    "transparencyExtra": "BH Konver speichert Ihre Dokumente NICHT. Wir geben Ihre Daten niemals an Dritte weiter.",
+    "loadErrorTitle": "Fehler",
+    "loadErrorDesc": "Daten konnten nicht geladen werden.",
+    "deletedTitle": "Erfolgreich",
+    "deletedDesc": "Dokument gelöscht.",
+    "deleteErrorDesc": "Dokument konnte nicht gelöscht werden.",
+    "previewDoc": "Dokument {{name}} ansehen",
+    "deleteDoc": "Dokument {{name}} löschen",
+    "downloadConversion": "Konvertierung {{name}} herunterladen"
+  },
+  "dashboard": {
+    "welcome": "Willkommen, {{name}}!",
+    "welcomeDescription": "Sie sind bereit, Dateien zu konvertieren. Wählen Sie ein Modul und legen Sie los."
+  },
+  "batch": {
+    "title": "Batch-Konvertierung",
+    "summary": "{{done}} von {{total}} fertig",
+    "queued": "In Warteschlange",
+    "processing": "Verarbeitung",
+    "done": "Fertig",
+    "failed": "Fehlgeschlagen",
+    "starting": "Wird gestartet...",
+    "runAll": "Alle konvertieren",
+    "running": "Konvertiere...",
+    "downloadAll": "Alle herunterladen",
+    "downloadOne": "Diese Datei herunterladen",
+    "startOver": "Neu starten",
+    "removeFile": "Datei entfernen",
+    "showPreview": "Vorschau anzeigen",
+    "hidePreview": "Vorschau ausblenden",
+    "noFormats": "Keine Zielformate verfügbar",
+    "completed": "Batch abgeschlossen",
+    "completedDesc": "Alle Konvertierungen sind fertig.",
+    "itemsList": "Dateien im Batch",
+    "cancel": "Abbrechen",
+    "cancelled": "Konvertierung abgebrochen",
+    "cancelledDesc": "Verbleibende Dateien wurden nicht verarbeitet.",
+    "cancelConfirmTitle": "Konvertierung abbrechen?",
+    "cancelConfirmDesc": "Laufende Dateien werden gestoppt.",
+    "cancelConfirmKeep": "Fortfahren",
+    "cancelConfirmStop": "Konvertierung abbrechen"
+  },
+  "preview": {
+    "title": "Visuelle Vorschau",
+    "before": "Vorher",
+    "after": "Nachher",
+    "loading": "Vorschau wird geladen...",
+    "unavailable": "Vorschau nicht verfügbar",
+    "noPreview": "Keine visuelle Vorschau für dieses Format",
+    "pendingConversion": "Konvertieren, um Ergebnis zu sehen"
+  },
+  "formatDetection": {
+    "detecting": "Format wird erkannt...",
+    "detected": "Erkannt",
+    "mismatchWarning": "Dateierweiterung stimmt nicht mit Inhalt überein. Konvertierung verwendet erkanntes Format."
+  },
+  "freeTools": {
+    "unsupportedFormat": "Nicht unterstütztes Format. Nur erlaubt: {{formats}}",
+    "fileTooLarge": "Datei ist zu groß ({{size}} MB). Maximum erlaubt: {{limit}} MB. Versuchen Sie die Datei zu komprimieren oder upgraden Sie auf Premium.",
+    "serverBusy": "Server ist derzeit beschäftigt, bitte versuchen Sie es in Kürze erneut.",
+    "uploadBlocked": "Upload blockiert"
+  },
+  "auth": {
+    "signOut": "Abmelden",
+    "signedOut": "Erfolgreich abgemeldet"
+  },
+  "alati": {
+    "seoTitle": "Kostenlose Tools — PDF, Word, Excel, Kyrillisch | BH Konver",
+    "seoDescription": "Kostenlose Online-Tools: Einheiten und Währungen ohne Limit, bis zu 2 kostenlose hochwertige Dokumentkonvertierungen, Premium für unbegrenzte Nutzung.",
+    "badgeFreemium": "Freemium",
+    "badgeNoRegistration": "Ohne Registrierung",
+    "badgePrivate": "Privat",
+    "heroTitlePrefix": "Kostenlose",
+    "heroTitleAccent": "Tools",
+    "heroSubtitle": "Einheiten und Währungen — immer kostenlos und unbegrenzt. Hochwertige Dokumentkonvertierung — 2 kostenlos, danach Premium.",
+    "alwaysFree": "Immer kostenlos",
+    "dailyToolsTitle": "🌍 Alltags-Tools",
+    "dailyToolsSubtitle": "Unbegrenzte Nutzung — ohne Registrierung, ohne Limits.",
+    "freeBadge": "∞ Kostenlos",
+    "premiumQuality": "Premium-Qualität",
+    "remainingFree": "Kostenlos übrig: {{remaining}}/{{limit}}",
+    "unlimited": "Unbegrenzt",
+    "viewPackages": "Pakete ansehen",
+    "docSectionTitle": "📄 Dokumentkonvertierung",
+    "docSectionSubtitle": "Hervorragende Formaterhaltung. Kostenlos bis zu {{limit}} Konvertierungen, danach Paket wählen.",
+    "quotaPremium": "Premium · ∞",
+    "quotaFree": "Kostenlos {{remaining}}/{{limit}}",
+    "quotaLocked": "Premium",
+    "tools": {
+      "units": {
+        "title": "Einheitenrechner",
+        "description": "Länge, Gewicht, Volumen, Temperatur — sofortige Umrechnung."
+      },
+      "currency": {
+        "title": "Währungsrechner",
+        "description": "Echtzeit-Wechselkurse für alle wichtigen Weltwährungen."
+      },
+      "script": {
+        "title": "Latein ↔ Kyrillisch",
+        "description": "Sofortige Textkonvertierung. Unterstützt Bosnisch, Serbisch und Kroatisch."
+      },
+      "pdfToWord": {
+        "title": "PDF → Word",
+        "description": "Reine Textkonvertierung — komplexe Formatierung und Tabellen können vereinfacht werden.",
+        "runnerDescription": "Reine Textkonvertierung — komplexe Formatierung und Tabellen können vereinfacht werden."
+      },
+      "wordToPdf": {
+        "title": "Word → PDF",
+        "description": "Word (.docx) unter Beibehaltung der Formatierung in PDF umwandeln.",
+        "runnerDescription": "Wandeln Sie ein .docx-Dokument in PDF um (Text, Überschriften, Kursiv, Fett, Listen)."
+      },
+      "imgToPdf": {
+        "title": "Bilder → PDF",
+        "description": "JPG-, JPEG- und PNG-Bilder zu einem PDF zusammenfügen.",
+        "runnerDescription": "Wählen Sie ein oder mehrere Bilder (.jpg, .jpeg, .png) — jedes wird eine Seite."
+      },
+      "excelToPdf": {
+        "title": "Excel → PDF",
+        "description": "Excel (.xlsx, .xls) in eine PDF-Tabelle umwandeln.",
+        "runnerDescription": "Wandeln Sie .xlsx oder .xls in PDF um — jedes Blatt wird eine Seite."
+      },
+      "pptxToPdf": {
+        "title": "PPTX → PDF",
+        "description": "Beta — serverseitige PowerPoint-Konvertierung. Bis zu 3 kostenlos pro Tag."
+      },
+      "mergePdf": {
+        "title": "PDF zusammenführen",
+        "description": "Mehrere PDF-Dokumente zu einer Datei zusammenführen.",
+        "runnerDescription": "Wählen Sie 2 oder mehr PDF-Dateien — sie werden zu einem PDF zusammengeführt."
+      },
+      "splitPdf": {
+        "title": "PDF teilen",
+        "description": "PDF in einzelne Seiten aufteilen (ZIP).",
+        "runnerDescription": "Das PDF wird in einzelne Seiten aufgeteilt und als ZIP-Archiv gepackt."
+      }
+    },
+    "trust": {
+      "privateTitle": "Privat",
+      "privateText": "Verarbeitung im Browser — Dateien bleiben nach Möglichkeit lokal.",
+      "fastTitle": "Schnell",
+      "fastText": "Kein Warten, kein Upload für die meisten Konvertierungen.",
+      "noRegTitle": "Ohne Registrierung",
+      "noRegText": "Sofort ausprobieren — ein Konto wird nur für Premium benötigt."
+    },
+    "upsell": {
+      "title": "Premium = unbegrenzte Verarbeitung",
+      "text": "24 Std. ab 2 BAM · 7 Tage · Monatsabo. Batch-Konvertierungen + priorisierte Verarbeitung."
+    },
+    "html": {
+      "sectionTitle": "HTML-Konvertierungen",
+      "sectionSubtitle": "Verwandeln Sie Webseiten in Dokumente und Bilder oder Dokumente in sauberes HTML. Alles wird lokal in Ihrem Browser verarbeitet.",
+      "groupATitle": "Gruppe A — aus HTML",
+      "groupBTitle": "Gruppe B — zu HTML",
+      "proBadge": "PRO",
+      "htmlToDocx": {
+        "title": "HTML → Word",
+        "description": "HTML-Seite in ein bearbeitbares Word-Dokument umwandeln.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie ein .docx-Dokument. Textkonvertierung — komplexes Layout kann vereinfacht werden."
+      },
+      "htmlToPdf": {
+        "title": "HTML → PDF",
+        "description": "Originalgetreue PDF-Ausgabe einer HTML-Seite mit Stilen.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie ein PDF mit erhaltenem Layout."
+      },
+      "htmlToJpg": {
+        "title": "HTML → JPG",
+        "description": "HTML-Seite als JPG-Bild aufnehmen.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie einen JPG-Screenshot der ganzen Seite."
+      },
+      "htmlToPng": {
+        "title": "HTML → PNG",
+        "description": "HTML-Seite als PNG-Bild aufnehmen.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie einen PNG-Screenshot der ganzen Seite."
+      },
+      "htmlToTxt": {
+        "title": "HTML → TXT",
+        "description": "Reinen Text aus einer HTML-Seite extrahieren.",
+        "runnerDescription": "Laden Sie eine .html-Datei hoch und erhalten Sie den reinen Textinhalt."
+      },
+      "docxToHtml": {
+        "title": "Word → HTML",
+        "description": ".docx in sauberes, semantisches HTML umwandeln.",
+        "runnerDescription": "Laden Sie eine .docx-Datei hoch und erhalten Sie eine fertige HTML-Seite."
+      },
+      "pdfToHtml": {
+        "title": "PDF → HTML",
+        "description": "PDF-Text seitenweise in eine HTML-Seite extrahieren.",
+        "runnerDescription": "Laden Sie ein PDF hoch und erhalten Sie HTML. Textkonvertierung — Bilder und komplexes Layout sind nicht enthalten."
+      },
+      "textToHtml": {
+        "title": "TXT / Markdown → HTML",
+        "description": "Text oder Markdown in formatiertes HTML umwandeln.",
+        "runnerDescription": "Laden Sie eine .txt-, .md- oder .markdown-Datei hoch und erhalten Sie eine HTML-Seite."
+      }
+    }
+  },
+  "toolRunner": {
+    "back": "Zurück",
+    "freeBadge": "Kostenlos",
+    "dropHint": "Datei hierher ziehen oder klicken",
+    "allowed": "Erlaubt: {{formats}}",
+    "removeFile": "Entfernen",
+    "processing": "Verarbeitung...",
+    "run": "Konvertierung starten",
+    "ready": "Ihre Datei steht zum Download bereit",
+    "download": "Herunterladen",
+    "newFile": "Neue Datei",
+    "minFiles": "Mindestens {{n}} Datei(en) erforderlich"
+  },
+  "scriptConverter": {
+    "badge": "Kostenlos · Echtzeit",
+    "title": "Latein ↔ Kyrillisch",
+    "description": "Sofortige Schriftkonvertierung für Bosnisch, Serbisch und Kroatisch. Unterstützt Digraphen: lj → љ, nj → њ, dž → џ.",
+    "latin": "Latein",
+    "cyrillic": "Kyrillisch",
+    "swap": "Richtung tauschen",
+    "inputLabel": "{{script}} (Eingabe)",
+    "outputLabel": "{{script}} (Ergebnis)",
+    "placeholderLatin": "Lateinischen Text eingeben...",
+    "placeholderCyrillic": "Kyrillischen Text eingeben...",
+    "resultPlaceholder": "Das Ergebnis erscheint hier...",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "download": ".txt herunterladen"
+  },
+  "pptxTool": {
+    "note": "Beta · Kostenlos bis zu 3 Konvertierungen pro Tag. Dateien werden nicht gespeichert.",
+    "converting": "Konvertierung läuft...",
+    "run": "Konvertierung starten",
+    "downloadPdf": "PDF herunterladen",
+    "newFile": "Weitere Datei konvertieren"
+  },
+  "paywall": {
+    "title": "Sie haben alle kostenlosen Konvertierungen verbraucht",
+    "description": "({{used}}/{{limit}}) — wählen Sie unten ein Paket und konvertieren Sie unbegrenzt in hoher Qualität.",
+    "securePayment": "Sichere Zahlung (PayPal)",
+    "instantActivation": "Sofortige Aktivierung",
+    "topFormatting": "Erstklassige Formatierung",
+    "for": "für {{duration}}",
+    "redirecting": "Weiterleitung…",
+    "footnote": "Die Zahlung wird sicher über PayPal abgewickelt. Die Aktivierung erfolgt sofort nach Bestätigung.",
+    "loginNotice": "Bitte melden Sie sich an, damit wir Premium nach der Zahlung aktivieren können.",
+    "checkoutError": "Fehler beim Starten der Zahlung. Bitte erneut versuchen.",
+    "popular": "Am beliebtesten",
+    "bestValue": "Bestes Preis-Leistungs-Verhältnis",
+    "tier24h": {
+      "name": "24-Stunden-Zugang",
+      "duration": "24 Stunden",
+      "cta": "Für 24 Std. freischalten",
+      "f1": "Unbegrenzte Konvertierungen",
+      "f2": "Beste Formaterhaltung",
+      "f3": "Keine Werbung"
+    },
+    "tier7d": {
+      "name": "7-Tage-Zugang",
+      "duration": "7 Tage",
+      "cta": "Für 7 Tage freischalten",
+      "f1": "Alles aus dem 24-Std.-Paket",
+      "f2": "Batch-Verarbeitung (mehrere Dateien)",
+      "f3": "Ideal für Studium und Projekte"
+    },
+    "tierMonthly": {
+      "name": "Monatsabo",
+      "duration": "30 Tage",
+      "cta": "Monatlich abonnieren",
+      "f1": "Alles aus dem Wochenpaket",
+      "f2": "Priorisierte Verarbeitung und Support",
+      "f3": "Audio-/Video-Tools"
+    }
+  },
+  "premiumUpsell": {
+    "title": "Sie haben das kostenlose Limit erreicht",
+    "message": "Sie haben alle kostenlosen PPTX-Konvertierungen dieser Stunde verbraucht. Upgraden Sie auf Premium für unbegrenzte Verarbeitung, Batch-Konvertierung und erweiterte Formate.",
+    "b1": "Unbegrenzte Konvertierungen",
+    "b1text": "— keine Stunden- oder Tageslimits.",
+    "b2": "Batch-Verarbeitung",
+    "b2text": "— mehrere Dateien gleichzeitig.",
+    "b3": "Prioritäts-Support",
+    "b3text": "und erweiterte Audio-/Video-Tools.",
+    "retry": "Oder warten Sie etwa {{time}} und versuchen Sie es kostenlos erneut.",
+    "viewPackages": "Premium-Pakete ansehen",
+    "later": "Vielleicht später"
+  },
+  "header": {
+    "adminAria": "Admin-Panel öffnen",
+    "historyAria": "Dokumentverlauf öffnen"
+  },
+  "slikaPdf": {
+    "seoTitle": "Bild ↔ PDF Konverter – BH KONVER",
+    "seoDescription": "Lokale JPEG/PNG-zu-PDF- und PDF-zu-JPEG-Konvertierung im Browser. Keine Dateien auf dem Server.",
+    "title": "Bild ↔ PDF Konverter",
+    "subtitle": "Dateien hierher ziehen — das Format wird automatisch erkannt. Die gesamte Verarbeitung erfolgt lokal in Ihrem Browser.",
+    "historyLink": "Konvertierungsverlauf",
+    "dirImgToPdf": "Bild → PDF",
+    "dirPdfToImg": "PDF → {{format}}",
+    "mixed": "Gemischte Dateien",
+    "filesQueued": "{{n}} Datei(en) in der Warteschlange",
+    "combine": "Zu einer PDF zusammenführen",
+    "reset": "Zurücksetzen",
+    "run": "Konvertierung starten",
+    "running": "Konvertiere…",
+    "before": "Vorher",
+    "after": "Nachher",
+    "pending": "Ausstehend",
+    "remove": "Entfernen",
+    "included": "In der zusammengeführten PDF enthalten",
+    "noResults": "Noch keine Ergebnisse",
+    "results": "Ergebnisse",
+    "resultsCount": "Insgesamt {{n}} Datei(en) zum Download bereit.",
+    "downloadCombined": "Zusammengeführte PDF herunterladen",
+    "downloadZip": "Alle herunterladen (ZIP)",
+    "toastDoneTitle": "Konvertierung abgeschlossen",
+    "toastDoneDesc": "Die Ergebnisse stehen zum Download bereit.",
+    "errUnsupported": "Dieses Format wird von diesem Tool nicht unterstützt.",
+    "errGeneric": "Fehler bei der Konvertierung"
+  },
+  "slikaPdfHistory": {
+    "seoTitle": "Konvertierungsverlauf – BH KONVER",
+    "seoDescription": "Sehen Sie sich Ihre letzten Bild ↔ PDF Konvertierungen an und laden Sie sie erneut herunter.",
+    "title": "Konvertierungsverlauf",
+    "subtitle": "Bis zu 30 der letzten Bild ↔ PDF Konvertierungen — alles lokal im Browser gespeichert.",
+    "back": "Zurück zum Konverter",
+    "clearAll": "Alle löschen",
+    "emptyPrefix": "Noch keine Einträge. Starten Sie eine Konvertierung unter",
+    "emptyLink": "Bild ↔ PDF",
+    "emptySuffix": "— jede Konvertierung wird hier automatisch gespeichert.",
+    "open": "Öffnen",
+    "close": "Schließen",
+    "before": "Vorher",
+    "after": "Nachher",
+    "cleared": "Verlauf gelöscht",
+    "notFound": "Eintrag nicht gefunden",
+    "resultsCount": "{{n}} Ergebnis(se)",
+    "dirImg": "Bild → PDF",
+    "dirPdf": "PDF → Bild",
+    "openDetails": "Details für {{name}} öffnen",
+    "loading": "Wird geladen...",
+    "deleteEntry": "Eintrag {{name}} löschen",
+    "downloadFile": "Datei {{name}} herunterladen"
+  },
+  "docPreview": {
+    "fallbackName": "Dokument",
+    "download": "Herunterladen",
+    "print": "Drucken",
+    "share": "Teilen",
+    "email": "E-Mail",
+    "edit": "Bearbeiten",
+    "send": "Senden",
+    "emailPlaceholder": "E-Mail-Adresse eingeben",
+    "closeEmail": "E-Mail-Eingabe schließen",
+    "downloadStarted": "Download gestartet",
+    "downloadStartedDesc": "{{name}} wird heruntergeladen...",
+    "linkCopied": "Link kopiert",
+    "linkCopiedDesc": "Der Link wurde in die Zwischenablage kopiert.",
+    "shareText": "Sehen Sie sich dieses Dokument an: {{name}}",
+    "invalidEmail": "Ungültige E-Mail-Adresse",
+    "invalidEmailDesc": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "emailSent": "E-Mail gesendet",
+    "emailSentDesc": "Das Dokument wurde an {{email}} gesendet",
+    "errorTitle": "Fehler",
+    "emailError": "E-Mail konnte nicht gesendet werden. Bitte erneut versuchen.",
+    "editTitle": "Bearbeitung",
+    "editDesc": "Zum Bearbeiten laden Sie das Dokument herunter und bearbeiten es lokal.",
+    "size": "Größe",
+    "type": "Typ",
+    "unknown": "Unbekannt",
+    "officeNote": "MS-Office-Dokument - zum Ansehen herunterladen",
+    "noVideo": "Ihr Browser unterstützt das Video-Tag nicht.",
+    "noAudio": "Ihr Browser unterstützt das Audio-Tag nicht."
+  },
+  "visual": {
+    "heroIllustrationAlt": "Illustration der Konvertierung eines PDF-Dokuments in ein JPEG-Bild",
+    "showcaseTitle": "Vor und nach der Konvertierung",
+    "showcaseSubtitle": "Sehen Sie, wie Ihr Dokument vor und nach der Konvertierung aussieht — die Verarbeitung erfolgt lokal im Browser.",
+    "before": "Vorher",
+    "after": "Nachher",
+    "source": "Quelldokument",
+    "result": "Konvertierungsergebnis",
+    "upload": "Hochladen",
+    "download": "Herunterladen",
+    "previewLabel": "Vorschau",
+    "converting": "Konvertierung…",
+    "done": "Fertig",
+    "pages": "3 Seiten",
+    "quality": "Hohe Qualität",
+    "localProcessing": "Lokale Verarbeitung"
+  },
+  "homeHero": {
+    "uploadTitle": "Datei hochladen",
+    "uploadSubtitle": "Dokument hierher ziehen oder klicken. Die Verarbeitung erfolgt im Browser.",
+    "uploadButton": "Datei wählen",
+    "unsupported": "Dieses Dateiformat wird nicht unterstützt."
+  },
+  "homeTools": {
+    "eyebrow": "Werkzeuge",
+    "open": "Werkzeug öffnen",
+    "unlock": "PRO freischalten",
+    "badges": {
+      "free": "KOSTENLOS",
+      "quota": "2 GRATIS",
+      "mixed": "KOSTENLOS / PRO",
+      "pro": "PRO"
+    },
+    "items": {
+      "imagePdf": {
+        "title": "Bilder & PDF",
+        "description": "JPG und PNG in PDF umwandeln und zurück, auch als Stapel."
+      },
+      "compressPdf": {
+        "title": "PDF komprimieren",
+        "description": "Dateigröße reduzieren, ohne die Lesbarkeit zu verlieren."
+      },
+      "watermark": {
+        "title": "Wasserzeichen",
+        "description": "Text-Wasserzeichen auf jede PDF-Seite hinzufügen."
+      },
+      "units": {
+        "title": "Einheiten & Währungen",
+        "description": "Länge, Gewicht, Temperatur und Währungen umrechnen — ohne Anmeldung."
+      }
+    }
+  },
+  "modulePage": {
+    "notFound": "Werkzeug nicht gefunden",
+    "proLockedTitle": "Dieses Werkzeug gehört zum PRO-Paket",
+    "proLockedText": "Aktivieren Sie das 24-Stunden-, 7-Tage- oder Monatspaket für erweiterte Konvertierungen.",
+    "steps": {
+      "title": "So funktioniert es",
+      "upload": "Dokument hochladen",
+      "format": "Ausgabeformat wählen",
+      "download": "Ergebnis herunterladen"
+    }
+  },
+  "toolSeo": {
+    "podijeli-pdf": {
+      "title": "PDF online teilen — kostenlos und sicher | BH Konver",
+      "description": "Teilen Sie PDF-Dateien direkt im Browser in einzelne Seiten. Kein Upload, keine Registrierung."
+    },
+    "spoji-pdf": {
+      "title": "PDF-Dateien online zusammenfügen | BH Konver",
+      "description": "Fügen Sie mehrere PDF-Dokumente schnell und privat zu einer Datei zusammen."
+    },
+    "kompresuj-pdf": {
+      "title": "PDF komprimieren — Dateigröße reduzieren | BH Konver",
+      "description": "Reduzieren Sie die PDF-Größe bei guter Qualität. Schnell und datenschutzfreundlich."
+    },
+    "vodeni-zig": {
+      "title": "Wasserzeichen im PDF hinzufügen | BH Konver",
+      "description": "Fügen Sie Ihren PDF-Dokumenten ein Wasserzeichen hinzu. Einfach, schnell und sicher."
+    },
+    "html-u-word": {
+      "title": "HTML in Word (DOCX) umwandeln | BH Konver",
+      "description": "Verwandeln Sie HTML-Seiten oder Code in ein sauberes Word-Dokument. Kostenlos und schnell."
+    },
+    "html-u-pdf": {
+      "title": "HTML in PDF umwandeln | BH Konver",
+      "description": "Konvertieren Sie HTML-Inhalte in ein druckfertiges PDF-Dokument. Sicher und schnell."
+    }
+  }
+}

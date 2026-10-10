@@ -1,0 +1,779 @@
+{
+  "hero": {
+    "title": "BH Konver",
+    "mainTitle": "BH KONVER Dijital Dönüştürme Aracınızdır",
+    "subtitle": "Kapsamlı dosya dönüştürme sistemi",
+    "version": "Video • Ses • Görüntüler • Belgeler • GIF • Birimler",
+    "featuresTitle": "BH Konver'in sunduğu tüm dönüşümler:"
+  },
+  "modules": {
+    "video": {
+      "name": "Video Dönüştürücü",
+      "description": "MP4→MP3, MOV→MP4, Video→GIF"
+    },
+    "audio": {
+      "name": "Ses Dönüştürücü",
+      "description": "MP3→OGG, MP4→MP3, Ses formatları"
+    },
+    "image": {
+      "name": "Görüntü Dönüştürücü",
+      "description": "WEBP→PNG, HEIC→JPG, PNG→SVG"
+    },
+    "document": {
+      "name": "PDF ve Belgeler",
+      "description": "PDF→Word, PDF→JPG, DOCX→PDF"
+    },
+    "gif": {
+      "name": "GIF Dönüştürücü",
+      "description": "Video→GIF, GIF→MP4, GIF→APNG"
+    },
+    "pdf-tools": {
+      "name": "PDF Araçları",
+      "description": "Filigran, Döndür, Sıkıştır, Böl, Birleştir"
+    },
+    "unit": {
+      "name": "Birim Dönüştürücü",
+      "description": "cm↔inç, kg↔libre, °C↔°F"
+    }
+  },
+  "unitConverter": {
+    "title": "Birim Dönüştürücü",
+    "selectConversion": "Dönüşüm türünü seçin",
+    "inputValue": "Değer girin",
+    "result": "Sonuç",
+    "conversions": {
+      "cm_to_inch": "Santimetre → İnç",
+      "inch_to_cm": "İnç → Santimetre",
+      "kg_to_lbs": "Kilogram → Libre",
+      "lbs_to_kg": "Libre → Kilogram",
+      "celsius_to_fahrenheit": "Santigrat → Fahrenheit",
+      "fahrenheit_to_celsius": "Fahrenheit → Santigrat",
+      "c_to_f": "Santigrat → Fahrenheit",
+      "f_to_c": "Fahrenheit → Santigrat"
+    }
+  },
+  "fileUpload": {
+    "dragDrop": "Dosyaları buraya sürükleyip bırakın veya",
+    "browse": "Göz At",
+    "supportedFormats": "Desteklenen formatlar"
+  },
+  "conversion": {
+    "yourFiles": "Dosyalarınız",
+    "selectFormat": "Format seçin",
+    "convert": "Dönüştür",
+    "download": "İndir",
+    "remove": "Kaldır",
+    "converting": "Dönüştürülüyor...",
+    "success": "Başarıyla dönüştürüldü!",
+    "error": "Dönüştürme hatası"
+  },
+  "pricing": {
+    "title": "Fiyatlandırma",
+    "subtitle": "İhtiyaçlarınıza uygun bir plan seçin",
+    "popular": "En Popüler",
+    "selectButton": "Plan Seç",
+    "day": {
+      "title": "24 Saat",
+      "description": "Hızlı projeler için mükemmel",
+      "duration": "24 saat erişim",
+      "feature1": "24 saat sınırsız dönüşüm",
+      "feature2": "Tüm formatlar mevcut",
+      "feature3": "Hızlı işleme"
+    },
+    "twoDay": {
+      "title": "48 Saat",
+      "description": "En popüler seçim",
+      "duration": "48 saat erişim",
+      "feature1": "48 saat sınırsız dönüşüm",
+      "feature2": "Tüm formatlar mevcut",
+      "feature3": "Boyut sınırı yok",
+      "feature4": "Öncelikli destek"
+    },
+    "monthly": {
+      "title": "Aylık Abonelik",
+      "description": "Düzenli kullanıcılar için en iyi değer",
+      "duration": "1 ay",
+      "feature1": "30 gün sınırsız dönüşüm",
+      "feature2": "Tüm formatlar ve PDF araçları",
+      "feature3": "Boyut sınırı yok",
+      "feature4": "VIP destek 24/7",
+      "feature5": "API erişimi"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 BH Konver",
+    "developed": "Bosna-Hersek'te geliştirilmiştir, Zenica 72 000",
+    "ownership": "B&H Assistant'ın mülkiyetindedir",
+    "motto": "Kültürleri Birleştiriyoruz Fırsatlar Yaratıyoruz",
+    "privacy": "Gizlilik",
+    "terms": "Kullanım Koşulları",
+    "support": "Destek"
+  },
+  "common": {
+    "back": "Geri"
+  },
+  "privacy": {
+    "title": "Gizlilik",
+    "description": "BH Konver gizliliğinize saygı duyar. Uygulama, kullanıcının işlevselliği kullanmak için gönüllü olarak girdiği veriler dışında kişisel verileri toplamaz veya saklamaz. Tüm veriler yalnızca resmi BiH kurum web sitelerinden halka açık formları görüntülemek için kullanılır. Uygulamayı kullanarak verilerinizin satılmayacağını, paylaşılmayacağını veya kötüye kullanılmayacağını kabul etmiş olursunuz.",
+    "businessPolicy": {
+      "title": "Gizlilik Politikası",
+      "description": "BH Konver gizliliğinize saygı duyar. Uygulama, kullanıcının işlevselliği kullanmak için gönüllü olarak girdiği veriler dışında kişisel verileri toplamaz veya saklamaz. Tüm veriler yalnızca resmi BiH kurum web sitelerinden halka açık formları görüntülemek için kullanılır. Uygulamayı kullanarak verilerinizin satılmayacağını, paylaşılmayacağını veya kötüye kullanılmayacağını kabul etmiş olursunuz."
+    },
+    "technology": "Teknik Güvenlik Önlemleri",
+    "ssl": {
+      "title": "SSL Şifreleme",
+      "description": "Kullanıcı ve sunucu arasındaki tüm iletişim SSL/TLS şifrelemesi ile korunmaktadır."
+    },
+    "dataCenters": {
+      "title": "Güvenli Veri Merkezleri",
+      "description": "Fiziksel koruma ve yedekli sistemlerle güvenli veri merkezleri kullanıyoruz."
+    },
+    "monitoring": {
+      "title": "7/24 İzleme",
+      "description": "Sistemlerimiz güvenlik tehditlerine hızlı tespit ve müdahale için sürekli izlenmektedir."
+    },
+    "api": {
+      "title": "Güvenli API",
+      "description": "Tüm API çağrıları kimlik doğrulaması yapılmış ve şifrelenmiştir."
+    },
+    "idps": {
+      "title": "Sızma Koruması",
+      "description": "Gelişmiş sızma tespit ve önleme sistemleri kullanıyoruz."
+    },
+    "backup": {
+      "title": "Veri Yedeklemeleri",
+      "description": "Düzenli olarak veri yedeklemeleri oluşturuyoruz."
+    },
+    "vpn": {
+      "title": "VPN Erişimi",
+      "description": "Yönetici erişimi VPN ile korunmaktadır."
+    },
+    "uptime": {
+      "title": "Yüksek Kullanılabilirlik",
+      "description": "Hizmetlerimizin yüksek kullanılabilirliğini garanti ediyoruz."
+    },
+    "isolation": {
+      "title": "Veri İzolasyonu",
+      "description": "Kullanıcı verileri izole edilmiş ve korunmaktadır."
+    },
+    "practices": "Güvenlik Uygulamaları",
+    "compliance": {
+      "title": "Uyumluluk",
+      "description": "Tüm ilgili veri koruma düzenlemelerine uyuyoruz."
+    },
+    "accessControl": {
+      "title": "Erişim Kontrolü",
+      "description": "Hassas veriler için sıkı erişim kontrolü."
+    },
+    "privacyPolicy": {
+      "title": "Gizlilik Politikası",
+      "description": "Açık ve şeffaf gizlilik politikası."
+    },
+    "training": {
+      "title": "Personel Eğitimi",
+      "description": "Güvenlik uygulamaları konusunda düzenli personel eğitimi."
+    },
+    "sdlc": {
+      "title": "Güvenli Geliştirme",
+      "description": "Yazılım geliştirmeye entegre edilmiş güvenlik uygulamaları."
+    },
+    "incident": {
+      "title": "Olay Yönetimi",
+      "description": "Güvenlik olaylarını yönetmek için tanımlanmış süreçler."
+    }
+  },
+  "terms": {
+    "title": "Kullanım Koşulları",
+    "intro": "BH Konver ücretsiz bir dijital araçtır. Kullanıcı, uygulamayı yalnızca halka açık formları bulmak için kullanmayı kabul eder. B&H Assistant d.o.o. harici URL'lerin sürekli kullanılabilirliğini garanti etmez ve harici web sitesi içeriğinden sorumlu değildir. Mal sahibinin yazılı izni olmadan uygulamanın yetkisiz kopyalanması, dağıtılması veya ticari kötüye kullanılması yasaktır.",
+    "eligibility": {
+      "title": "Hizmeti Kimler Kullanabilir",
+      "description": "Hizmet, bu kullanım koşullarını kabul eden tüm kullanıcılara açıktır."
+    },
+    "ownership": {
+      "title": "Mülkiyet ve Telif Hakkı",
+      "description": "BH Konver uygulamasına ilişkin tüm haklar B&H Assistant d.o.o.'ya aittir. Yetkisiz kopyalama, dağıtım veya ticari kötüye kullanım kesinlikle yasaktır."
+    },
+    "commercial": {
+      "title": "Ticari Kullanım",
+      "description1": "Ticari kullanım için mal sahibinin yazılı izni gereklidir.",
+      "description2": "Ticari lisanslar hakkında daha fazla bilgi için bizimle iletişime geçin."
+    },
+    "dataSecurity": {
+      "title": "Veri Güvenliği",
+      "description": "Verilerinizi korumak için tüm makul önlemleri alıyoruz, ancak mutlak güvenliği garanti edemeyiz."
+    },
+    "restrictions": {
+      "title": "Kullanım Kısıtlamaları",
+      "intro": "Kullanıcılar şunları yapmamalıdır:",
+      "item1": "Uygulamayı yasadışı faaliyetler için kullanmak",
+      "item2": "Sistemin korunan bölümlerine erişmeye çalışmak",
+      "item3": "Sunucuları otomatik isteklerle aşırı yüklemek"
+    },
+    "payments": {
+      "title": "Ödemeler ve Abonelikler",
+      "description": "Tüm ödemeler güvenli ödeme ağ geçitleri üzerinden işlenir. İade politikamıza göre geri ödeme yapılabilir."
+    },
+    "liability": {
+      "title": "Sorumluluk Sınırlaması",
+      "description": "B&H Assistant d.o.o. uygulamanın kullanımından veya hizmete erişilememesinden kaynaklanan hasarlardan sorumlu değildir."
+    },
+    "changes": {
+      "title": "Koşullarda Değişiklikler",
+      "description": "Bu koşulları değiştirme hakkını saklı tutuyoruz. Kullanıcılar önemli değişikliklerden haberdar edilecektir."
+    },
+    "contact": {
+      "title": "İletişim",
+      "description": "Herhangi bir sorunuz için bizimle iletişime geçin:"
+    }
+  },
+  "support": {
+    "title": "Destek",
+    "description": "Destek seçeneği, kullanıcıların hataları veya sorunları doğrudan e-posta adresi üzerinden bildirmesine olanak tanır. Bildirilen tüm sorunlar kaydedilir ve en kısa sürede çözülür.",
+    "contact": {
+      "title": "Bize Ulaşın",
+      "description": "Bir sorunu bildirmek veya soru sormak için e-posta gönderin:"
+    },
+    "report": {
+      "title": "Sorun Bildir",
+      "description": "Size yardımcı olabilmemiz için sorunu mümkün olduğunca ayrıntılı açıklayın. Kullanılan tarayıcı, cihaz ve soruna yol açan adım hakkında bilgi ekleyin."
+    },
+    "response": {
+      "title": "Yanıt Süresi",
+      "description": "Tüm sorulara 24-48 saat içinde yanıt vermeye çalışıyoruz. Acil sorunlar öncelikli olarak çözülür."
+    }
+  },
+  "languages": {
+    "bs": "Bosanski",
+    "en": "English",
+    "de": "Deutsch",
+    "tr": "Türkçe"
+  },
+  "scripts": {
+    "latin": "Latin",
+    "cyrillic": "Kiril"
+  },
+  "scriptSelector": {
+    "latin": "Latin",
+    "cyrillic": "Kiril"
+  },
+  "adSpace": {
+    "title": "Reklamınız Burada",
+    "description": "BH KONVER'da işinizi tanıtın",
+    "contact": "Kiralama için iletişim:",
+    "benefit1": "Binlerce kullanıcıya ulaşın",
+    "benefit2": "İş kitlesinizi hedefleyin",
+    "benefit3": "Esnek reklam paketleri",
+    "cta": "Reklam Verin"
+  },
+  "currencyConverter": {
+    "title": "Döviz Çevirici (BAM)",
+    "description": "Ziyaretçiler için hızlı ve ücretsiz döviz çevirisi",
+    "amount": "Miktar",
+    "from": "Para biriminden",
+    "to": "Para birimine",
+    "result": "Sonuç",
+    "lastUpdate": "Son güncelleme",
+    "refreshed": "Döviz kurları güncellendi",
+    "error": "Döviz kurları yüklenirken hata",
+    "usingCached": "Önbelleğe alınmış veriler kullanılıyor",
+    "privacyNotice": "Bu widget üçüncü taraflardan kaynaklar yükleyebilir. Lütfen Gizlilik/Çerez politikamızı kontrol edin."
+  },
+  "transparency": {
+    "title": "Şeffaflık ve Güvenlik",
+    "subtitle": "Gizliliğiniz önceliğimizdir",
+    "autodelete": {
+      "title": "Otomatik silme",
+      "description": "Tüm belgeler her gün saat 10:00'da otomatik olarak silinir"
+    },
+    "noretention": {
+      "title": "Saklama yok",
+      "description": "Silme işleminden sonra belgelerinizi saklamıyoruz"
+    },
+    "nosharing": {
+      "title": "Paylaşım yok",
+      "description": "Verilerinizi asla üçüncü taraflarla paylaşmıyoruz"
+    }
+  },
+  "quickActions": {
+    "guestTitle": "Şimdi Başlayın",
+    "guestDescription": "Tüm dönüşümlere erişmek için kayıt olun veya zaten hesabınız varsa giriş yapın",
+    "register": "Kayıt Ol",
+    "login": "Giriş Yap",
+    "upload": "Yükle",
+    "history": "Belgelerim",
+    "pricing": "Fiyatlar",
+    "support": "Destek"
+  },
+  "history": {
+    "title": "Belgelerim",
+    "documents": "Yüklenen belgeler",
+    "conversions": "Dönüştürme geçmişi",
+    "noDocuments": "Yüklenmiş belgeniz yok",
+    "noConversions": "Dönüştürmeniz yok",
+    "refresh": "Yenile",
+    "delete": "Sil",
+    "completed": "Tamamlandı",
+    "transparencyNotice": "Tüm belgeler güvenliğiniz ve gizliliğiniz için her gün saat 10:00'da otomatik olarak silinir.",
+    "timeUntilDeletion": "Sonraki silmeye kalan süre",
+    "back": "Ana sayfaya dön",
+    "transparencyTitle": "Veri şeffaflığı",
+    "transparencyExtra": "BH Konver belgelerinizi SAKLAMAZ. Verilerinizi asla üçüncü taraflarla paylaşmayız.",
+    "loadErrorTitle": "Hata",
+    "loadErrorDesc": "Veriler yüklenemedi.",
+    "deletedTitle": "Başarılı",
+    "deletedDesc": "Belge silindi.",
+    "deleteErrorDesc": "Belge silinemedi.",
+    "previewDoc": "{{name}} belgesini önizle",
+    "deleteDoc": "{{name}} belgesini sil",
+    "downloadConversion": "{{name}} dönüşümünü indir"
+  },
+  "dashboard": {
+    "welcome": "Hoş geldiniz, {{name}}!",
+    "welcomeDescription": "Dosya dönüştürmeye hazırsınız. Bir modül seçin ve başlayın."
+  },
+  "batch": {
+    "title": "Toplu dönüştürme",
+    "summary": "{{total}} dosyadan {{done}} tamamlandı",
+    "queued": "Sırada",
+    "processing": "İşleniyor",
+    "done": "Tamamlandı",
+    "failed": "Başarısız",
+    "starting": "Başlatılıyor...",
+    "runAll": "Tümünü dönüştür",
+    "running": "Dönüştürülüyor...",
+    "downloadAll": "Tümünü indir",
+    "downloadOne": "Bu dosyayı indir",
+    "startOver": "Yeniden başla",
+    "removeFile": "Dosyayı kaldır",
+    "showPreview": "Önizlemeyi göster",
+    "hidePreview": "Önizlemeyi gizle",
+    "noFormats": "Hedef format bulunamadı",
+    "completed": "Toplu işlem tamamlandı",
+    "completedDesc": "Tüm dönüştürmeler tamamlandı.",
+    "itemsList": "Toplu işlemdeki dosyalar",
+    "cancel": "İptal",
+    "cancelled": "Dönüştürme iptal edildi",
+    "cancelledDesc": "Kalan dosyalar işlenmedi.",
+    "cancelConfirmTitle": "Dönüştürme iptal edilsin mi?",
+    "cancelConfirmDesc": "Devam eden dosyalar durdurulacak.",
+    "cancelConfirmKeep": "Devam et",
+    "cancelConfirmStop": "Dönüştürmeyi iptal et"
+  },
+  "preview": {
+    "title": "Görsel önizleme",
+    "before": "Önce",
+    "after": "Sonra",
+    "loading": "Önizleme yükleniyor...",
+    "unavailable": "Önizleme mevcut değil",
+    "noPreview": "Bu format için görsel önizleme yok",
+    "pendingConversion": "Sonucu görmek için dönüştürün"
+  },
+  "formatDetection": {
+    "detecting": "Format algılanıyor...",
+    "detected": "Algılanan",
+    "mismatchWarning": "Dosya uzantısı içeriğiyle eşleşmiyor. Dönüştürme algılanan formatı kullanacak."
+  },
+  "freeTools": {
+    "unsupportedFormat": "Desteklenmeyen format. Sadece izin verilen: {{formats}}",
+    "fileTooLarge": "Dosya çok büyük ({{size}} MB). Maksimum izin verilen: {{limit}} MB. Dosyayı sıkıştırmayı deneyin veya Premium'a yükseltin.",
+    "serverBusy": "Sunucu şu an meşgul, lütfen kısa bir süre sonra tekrar deneyin.",
+    "uploadBlocked": "Yükleme engellendi"
+  },
+  "auth": {
+    "signOut": "Çıkış yap",
+    "signedOut": "Başarıyla çıkış yapıldı"
+  },
+  "alati": {
+    "seoTitle": "Ücretsiz Araçlar — PDF, Word, Excel, Kiril | BH Konver",
+    "seoDescription": "Ücretsiz çevrimiçi araçlar: sınırsız birim ve döviz çevirici, 2 ücretsiz yüksek kaliteli belge dönüşümü, sınırsız kullanım için premium.",
+    "badgeFreemium": "Freemium",
+    "badgeNoRegistration": "Kayıt gerekmez",
+    "badgePrivate": "Gizli",
+    "heroTitlePrefix": "Ücretsiz",
+    "heroTitleAccent": "Araçlar",
+    "heroSubtitle": "Birimler ve dövizler — her zaman ücretsiz ve sınırsız. Yüksek kaliteli belge dönüşümü — 2 ücretsiz, sonra Premium.",
+    "alwaysFree": "Her zaman ücretsiz",
+    "dailyToolsTitle": "🌍 Günlük araçlar",
+    "dailyToolsSubtitle": "Sınırsız kullanım — kayıt yok, limit yok.",
+    "freeBadge": "∞ Ücretsiz",
+    "premiumQuality": "Premium kalite",
+    "remainingFree": "Kalan ücretsiz: {{remaining}}/{{limit}}",
+    "unlimited": "Sınırsız",
+    "viewPackages": "Paketleri gör",
+    "docSectionTitle": "📄 Belge dönüşümü",
+    "docSectionSubtitle": "Mükemmel biçim korunması. {{limit}} dönüşüme kadar ücretsiz, sonra bir paket seçin.",
+    "quotaPremium": "Premium · ∞",
+    "quotaFree": "Ücretsiz {{remaining}}/{{limit}}",
+    "quotaLocked": "Premium",
+    "tools": {
+      "units": {
+        "title": "Birim çevirici",
+        "description": "Uzunluk, ağırlık, hacim, sıcaklık — anında dönüşüm."
+      },
+      "currency": {
+        "title": "Döviz çevirici",
+        "description": "Tüm büyük dünya para birimleri için gerçek zamanlı kurlar."
+      },
+      "script": {
+        "title": "Latin ↔ Kiril",
+        "description": "Anında metin dönüşümü. Boşnakça, Sırpça ve Hırvatça destekler."
+      },
+      "pdfToWord": {
+        "title": "PDF → Word",
+        "description": "Yalnızca metin dönüşümü — karmaşık biçimlendirme ve tablolar basitleştirilebilir.",
+        "runnerDescription": "Yalnızca metin dönüşümü — karmaşık biçimlendirme ve tablolar basitleştirilebilir."
+      },
+      "wordToPdf": {
+        "title": "Word → PDF",
+        "description": "Word (.docx) dosyasını biçimlendirmeyi koruyarak PDF'e dönüştürün.",
+        "runnerDescription": ".docx belgesini PDF'e dönüştürün (metin, başlıklar, italik, kalın, listeler korunur)."
+      },
+      "imgToPdf": {
+        "title": "Görseller → PDF",
+        "description": "JPG, JPEG ve PNG görsellerini tek bir PDF'te birleştirin.",
+        "runnerDescription": "Bir veya daha fazla görsel seçin (.jpg, .jpeg, .png) — her biri bir sayfa olur."
+      },
+      "excelToPdf": {
+        "title": "Excel → PDF",
+        "description": "Excel (.xlsx, .xls) dosyasını PDF tabloya dönüştürün.",
+        "runnerDescription": ".xlsx veya .xls dosyasını PDF'e dönüştürün — her sayfa bir sayfa olur."
+      },
+      "pptxToPdf": {
+        "title": "PPTX → PDF",
+        "description": "Beta — sunucu tarafı PowerPoint dönüşümü. Günde 3 ücretsiz."
+      },
+      "mergePdf": {
+        "title": "PDF birleştir",
+        "description": "Birden fazla PDF belgesini tek dosyada birleştirin.",
+        "runnerDescription": "2 veya daha fazla PDF dosyası seçin — tek bir PDF'te birleştirilir."
+      },
+      "splitPdf": {
+        "title": "PDF böl",
+        "description": "PDF'i tek tek sayfalara bölün (ZIP).",
+        "runnerDescription": "PDF tek tek sayfalara bölünüp ZIP arşivine paketlenecek."
+      }
+    },
+    "trust": {
+      "privateTitle": "Gizli",
+      "privateText": "Tarayıcıda işlenir — mümkün olduğunda dosyalar sunucuya gitmez.",
+      "fastTitle": "Hızlı",
+      "fastText": "Çoğu dönüşüm için bekleme ve yükleme yok.",
+      "noRegTitle": "Kayıt gerekmez",
+      "noRegText": "Hemen deneyin — hesap yalnızca Premium için gerekir."
+    },
+    "upsell": {
+      "title": "Premium = sınırsız işleme",
+      "text": "24 saat 2 BAM'dan · 7 gün · aylık abonelik. Toplu dönüşüm + öncelikli işleme."
+    },
+    "html": {
+      "sectionTitle": "HTML dönüştürmeleri",
+      "sectionSubtitle": "Web sayfalarını belgelere ve görsellere, belgeleri temiz HTML'e dönüştürün. Her şey tarayıcınızda yerel olarak işlenir.",
+      "groupATitle": "Grup A — HTML'den",
+      "groupBTitle": "Grup B — HTML'e",
+      "proBadge": "PRO",
+      "htmlToDocx": {
+        "title": "HTML → Word",
+        "description": "HTML sayfasını düzenlenebilir Word belgesine dönüştürün.",
+        "runnerDescription": ".html dosyası yükleyin ve .docx belgesini indirin. Metin dönüşümü — karmaşık düzen basitleştirilebilir."
+      },
+      "htmlToPdf": {
+        "title": "HTML → PDF",
+        "description": "HTML sayfasının stilleriyle birlikte sadık PDF çıktısı.",
+        "runnerDescription": ".html dosyası yükleyin ve görsel düzeni koruyan bir PDF indirin."
+      },
+      "htmlToJpg": {
+        "title": "HTML → JPG",
+        "description": "HTML sayfasını JPG görseli olarak yakalayın.",
+        "runnerDescription": ".html dosyası yükleyin ve tam sayfa JPG ekran görüntüsü indirin."
+      },
+      "htmlToPng": {
+        "title": "HTML → PNG",
+        "description": "HTML sayfasını PNG görseli olarak yakalayın.",
+        "runnerDescription": ".html dosyası yükleyin ve tam sayfa PNG ekran görüntüsü indirin."
+      },
+      "htmlToTxt": {
+        "title": "HTML → TXT",
+        "description": "HTML sayfasından temiz düz metin çıkarın.",
+        "runnerDescription": ".html dosyası yükleyin ve düz metin içeriğini indirin."
+      },
+      "docxToHtml": {
+        "title": "Word → HTML",
+        "description": ".docx dosyasını temiz, anlamsal HTML'e dönüştürün.",
+        "runnerDescription": ".docx dosyası yükleyin ve kullanıma hazır HTML sayfası indirin."
+      },
+      "pdfToHtml": {
+        "title": "PDF → HTML",
+        "description": "PDF metnini sayfa sayfa HTML sayfasına çıkarın.",
+        "runnerDescription": "PDF yükleyin ve HTML indirin. Metin dönüşümü — görseller ve karmaşık düzen dahil değildir."
+      },
+      "textToHtml": {
+        "title": "TXT / Markdown → HTML",
+        "description": "Metni veya Markdown'ı biçimlendirilmiş HTML'e dönüştürün.",
+        "runnerDescription": ".txt, .md veya .markdown dosyası yükleyin ve HTML sayfası indirin."
+      }
+    }
+  },
+  "toolRunner": {
+    "back": "Geri",
+    "freeBadge": "Ücretsiz",
+    "dropHint": "Dosyayı buraya sürükleyin veya tıklayın",
+    "allowed": "İzin verilen: {{formats}}",
+    "removeFile": "Kaldır",
+    "processing": "İşleniyor...",
+    "run": "Dönüşümü başlat",
+    "ready": "Dosyanız indirmeye hazır",
+    "download": "İndir",
+    "newFile": "Yeni dosya",
+    "minFiles": "En az {{n}} dosya gerekli"
+  },
+  "scriptConverter": {
+    "badge": "Ücretsiz · Gerçek zamanlı",
+    "title": "Latin ↔ Kiril",
+    "description": "Boşnakça, Sırpça ve Hırvatça için anında alfabe dönüşümü. Digrafları destekler: lj → љ, nj → њ, dž → џ.",
+    "latin": "Latin",
+    "cyrillic": "Kiril",
+    "swap": "Yönü değiştir",
+    "inputLabel": "{{script}} (giriş)",
+    "outputLabel": "{{script}} (sonuç)",
+    "placeholderLatin": "Latin harfleriyle metin girin...",
+    "placeholderCyrillic": "Kiril harfleriyle metin girin...",
+    "resultPlaceholder": "Sonuç burada görünecek...",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı!",
+    "download": ".txt indir"
+  },
+  "pptxTool": {
+    "note": "Beta · Günde 3 dönüşüme kadar ücretsiz. Dosyalar saklanmaz.",
+    "converting": "Dönüşüm sürüyor...",
+    "run": "Dönüşümü başlat",
+    "downloadPdf": "PDF indir",
+    "newFile": "Başka dosya dönüştür"
+  },
+  "paywall": {
+    "title": "Tüm ücretsiz dönüşümleri kullandınız",
+    "description": "({{used}}/{{limit}}) — aşağıdan bir paket seçin ve sınırsız yüksek kaliteli belge dönüşümüne devam edin.",
+    "securePayment": "Güvenli ödeme (PayPal)",
+    "instantActivation": "Anında etkinleştirme",
+    "topFormatting": "Üstün biçimlendirme",
+    "for": "{{duration}} için",
+    "redirecting": "Yönlendiriliyor…",
+    "footnote": "Ödeme PayPal üzerinden güvenle işlenir. Onaydan sonra etkinleştirme anındadır.",
+    "loginNotice": "Ödeme sonrası Premium erişimi etkinleştirebilmemiz için lütfen giriş yapın.",
+    "checkoutError": "Ödeme başlatılırken hata oluştu. Lütfen tekrar deneyin.",
+    "popular": "En popüler",
+    "bestValue": "En iyi değer",
+    "tier24h": {
+      "name": "24 saatlik erişim",
+      "duration": "24 saat",
+      "cta": "24 saat için aç",
+      "f1": "Sınırsız dönüşüm",
+      "f2": "Üstün biçim korunması",
+      "f3": "Reklamsız"
+    },
+    "tier7d": {
+      "name": "7 günlük erişim",
+      "duration": "7 gün",
+      "cta": "7 gün için aç",
+      "f1": "24 saatlik paketteki her şey",
+      "f2": "Toplu işleme (çoklu dosya)",
+      "f3": "Öğrenciler ve projeler için ideal"
+    },
+    "tierMonthly": {
+      "name": "Aylık abonelik",
+      "duration": "30 gün",
+      "cta": "Aylık abone ol",
+      "f1": "Haftalık paketteki her şey",
+      "f2": "Öncelikli işleme ve destek",
+      "f3": "Ses / video araçları"
+    }
+  },
+  "premiumUpsell": {
+    "title": "Ücretsiz limite ulaştınız",
+    "message": "Bu saat için tüm ücretsiz PPTX dönüşümlerini kullandınız. Sınırsız işleme, toplu dönüşüm ve gelişmiş formatlar için Premium'a geçin.",
+    "b1": "Sınırsız dönüşüm",
+    "b1text": "— saatlik veya günlük limit yok.",
+    "b2": "Toplu işleme",
+    "b2text": "— aynı anda birden fazla dosya.",
+    "b3": "Öncelikli destek",
+    "b3text": "ve gelişmiş ses/video araçları.",
+    "retry": "Ya da yaklaşık {{time}} bekleyip ücretsiz tekrar deneyin.",
+    "viewPackages": "Premium paketleri gör",
+    "later": "Belki sonra"
+  },
+  "header": {
+    "adminAria": "Yönetim panelini aç",
+    "historyAria": "Belge geçmişini aç"
+  },
+  "slikaPdf": {
+    "seoTitle": "Görsel ↔ PDF dönüştürücü – BH KONVER",
+    "seoDescription": "Tarayıcınızda yerel JPEG/PNG'den PDF'e ve PDF'ten JPEG'e dönüştürme. Sunucuya dosya gönderilmez.",
+    "title": "Görsel ↔ PDF dönüştürücü",
+    "subtitle": "Dosyaları sürükleyin — biçim otomatik algılanır. Tüm işlem tarayıcınızda yerel olarak yapılır.",
+    "historyLink": "Dönüştürme geçmişi",
+    "dirImgToPdf": "Görsel → PDF",
+    "dirPdfToImg": "PDF → {{format}}",
+    "mixed": "Karışık dosyalar",
+    "filesQueued": "Sırada {{n}} dosya",
+    "combine": "Tek PDF olarak birleştir",
+    "reset": "Sıfırla",
+    "run": "Dönüştürmeyi başlat",
+    "running": "Dönüştürülüyor…",
+    "before": "Önce",
+    "after": "Sonra",
+    "pending": "Beklemede",
+    "remove": "Kaldır",
+    "included": "Birleştirilmiş PDF'e dahil",
+    "noResults": "Henüz sonuç yok",
+    "results": "Sonuçlar",
+    "resultsCount": "Toplam {{n}} dosya indirmeye hazır.",
+    "downloadCombined": "Birleştirilmiş PDF'i indir",
+    "downloadZip": "Tümünü indir (ZIP)",
+    "toastDoneTitle": "Dönüştürme tamamlandı",
+    "toastDoneDesc": "Sonuçlar indirmeye hazır.",
+    "errUnsupported": "Bu biçim bu araçta desteklenmiyor.",
+    "errGeneric": "Dönüştürme hatası"
+  },
+  "slikaPdfHistory": {
+    "seoTitle": "Dönüştürme geçmişi – BH KONVER",
+    "seoDescription": "Son Görsel ↔ PDF dönüştürmelerinizi görüntüleyin ve yeniden indirin.",
+    "title": "Dönüştürme geçmişi",
+    "subtitle": "Son 30 Görsel ↔ PDF dönüştürmesi — tümü tarayıcınızda yerel olarak saklanır.",
+    "back": "Dönüştürücüye dön",
+    "clearAll": "Tümünü sil",
+    "emptyPrefix": "Henüz kayıt yok. Şurada bir dönüştürme başlatın:",
+    "emptyLink": "Görsel ↔ PDF",
+    "emptySuffix": "— her dönüştürme buraya otomatik kaydedilir.",
+    "open": "Aç",
+    "close": "Kapat",
+    "before": "Önce",
+    "after": "Sonra",
+    "cleared": "Geçmiş silindi",
+    "notFound": "Kayıt bulunamadı",
+    "resultsCount": "{{n}} sonuç",
+    "dirImg": "Görsel → PDF",
+    "dirPdf": "PDF → Görsel",
+    "openDetails": "{{name}} ayrıntılarını aç",
+    "loading": "Yükleniyor...",
+    "deleteEntry": "{{name}} kaydını sil",
+    "downloadFile": "{{name}} dosyasını indir"
+  },
+  "docPreview": {
+    "fallbackName": "Belge",
+    "download": "İndir",
+    "print": "Yazdır",
+    "share": "Paylaş",
+    "email": "E-posta",
+    "edit": "Düzenle",
+    "send": "Gönder",
+    "emailPlaceholder": "E-posta adresini girin",
+    "closeEmail": "E-posta girişini kapat",
+    "downloadStarted": "İndirme başladı",
+    "downloadStartedDesc": "{{name}} indiriliyor...",
+    "linkCopied": "Bağlantı kopyalandı",
+    "linkCopiedDesc": "Bağlantı panoya kopyalandı.",
+    "shareText": "Bu belgeye bakın: {{name}}",
+    "invalidEmail": "Geçersiz e-posta adresi",
+    "invalidEmailDesc": "Lütfen geçerli bir e-posta adresi girin.",
+    "emailSent": "E-posta gönderildi",
+    "emailSentDesc": "Belge {{email}} adresine gönderildi",
+    "errorTitle": "Hata",
+    "emailError": "E-posta gönderilemedi. Lütfen tekrar deneyin.",
+    "editTitle": "Düzenleme",
+    "editDesc": "Düzenlemek için belgeyi indirin ve yerel olarak düzenleyin.",
+    "size": "Boyut",
+    "type": "Tür",
+    "unknown": "Bilinmiyor",
+    "officeNote": "MS Office belgesi - görüntülemek için indirin",
+    "noVideo": "Tarayıcınız video etiketini desteklemiyor.",
+    "noAudio": "Tarayıcınız ses etiketini desteklemiyor."
+  },
+  "visual": {
+    "heroIllustrationAlt": "PDF belgesinin JPEG görüntüsüne dönüştürülmesi illüstrasyonu",
+    "showcaseTitle": "Dönüştürme öncesi ve sonrası",
+    "showcaseSubtitle": "Belgenizin dönüştürmeden önce ve sonra nasıl göründüğünü görün — işlem tarayıcınızda yerel olarak yapılır.",
+    "before": "Önce",
+    "after": "Sonra",
+    "source": "Kaynak belge",
+    "result": "Dönüştürme sonucu",
+    "upload": "Yükle",
+    "download": "İndir",
+    "previewLabel": "Önizleme",
+    "converting": "Dönüştürülüyor…",
+    "done": "Tamamlandı",
+    "pages": "3 sayfa",
+    "quality": "Yüksek kalite",
+    "localProcessing": "Yerel işleme"
+  },
+  "homeHero": {
+    "uploadTitle": "Dosyanızı yükleyin",
+    "uploadSubtitle": "Belgeyi buraya sürükleyin veya seçmek için tıklayın. İşlem tarayıcınızda yapılır.",
+    "uploadButton": "Dosya seç",
+    "unsupported": "Bu dosya biçimi desteklenmiyor."
+  },
+  "homeTools": {
+    "eyebrow": "Araçlar",
+    "open": "Aracı aç",
+    "unlock": "PRO kilidini aç",
+    "badges": {
+      "free": "ÜCRETSİZ",
+      "quota": "2 ÜCRETSİZ",
+      "mixed": "ÜCRETSİZ / PRO",
+      "pro": "PRO"
+    },
+    "items": {
+      "imagePdf": {
+        "title": "Görseller ve PDF",
+        "description": "JPG ve PNG dosyalarını PDF'e ve tersine dönüştürün, toplu işlem dahil."
+      },
+      "compressPdf": {
+        "title": "PDF sıkıştırma",
+        "description": "Okunabilirliği koruyarak PDF boyutunu küçültün."
+      },
+      "watermark": {
+        "title": "Filigran",
+        "description": "PDF'in her sayfasına metin filigranı ekleyin."
+      },
+      "units": {
+        "title": "Birimler ve döviz",
+        "description": "Uzunluk, ağırlık, sıcaklık ve para birimlerini dönüştürün — kayıt gerekmez."
+      }
+    }
+  },
+  "modulePage": {
+    "notFound": "Araç bulunamadı",
+    "proLockedTitle": "Bu araç PRO pakete dahildir",
+    "proLockedText": "Gelişmiş dönüşümler için 24 saatlik, 7 günlük veya aylık paketi etkinleştirin.",
+    "steps": {
+      "title": "Nasıl çalışır",
+      "upload": "Belge yükleyin",
+      "format": "Çıktı biçimini seçin",
+      "download": "Sonucu indirin"
+    }
+  },
+  "toolSeo": {
+    "podijeli-pdf": {
+      "title": "PDF böl — ücretsiz ve güvenli | BH Konver",
+      "description": "PDF dosyalarını tarayıcınızda sayfalara ayırın. Sunucuya yükleme ve kayıt gerekmez."
+    },
+    "spoji-pdf": {
+      "title": "PDF dosyalarını birleştir | BH Konver",
+      "description": "Birden fazla PDF belgesini hızlı ve gizli şekilde tek dosyada birleştirin."
+    },
+    "kompresuj-pdf": {
+      "title": "PDF sıkıştır — dosya boyutunu küçült | BH Konver",
+      "description": "Kaliteyi koruyarak PDF boyutunu küçültün. E-posta ve yüklemeler için hızlı sıkıştırma."
+    },
+    "vodeni-zig": {
+      "title": "PDF'e filigran ekle | BH Konver",
+      "description": "PDF belgelerinize filigran ekleyin ve dosyalarınızı koruyun. Basit, hızlı ve güvenli."
+    },
+    "html-u-word": {
+      "title": "HTML'den Word (DOCX) dönüştürücü | BH Konver",
+      "description": "HTML sayfalarını veya kodu düzenli bir Word belgesine dönüştürün. Ücretsiz ve hızlı."
+    },
+    "html-u-pdf": {
+      "title": "HTML'den PDF dönüştürücü | BH Konver",
+      "description": "HTML içeriğini baskıya hazır PDF belgesine dönüştürün. Güvenli ve hızlı."
+    }
+  }
+}
